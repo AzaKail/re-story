@@ -21,6 +21,7 @@ LANGUAGES = ("en", "ru", "kk")
 
 # File slug -> document title shown in the admin (the language is shown next to it).
 TITLES = {
+    "equipment-catalog": "NASA Equipment Catalog (generated from data/artifacts.json)",
     "apollo-11": "Apollo 11 Lunar Module / EASEP",
     "apollo-12": "Apollo 12 Lunar Module / ALSEP",
     "apollo-15": "Apollo 15 Lunar Module / ALSEP",

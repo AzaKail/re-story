@@ -16,11 +16,13 @@
 | Data sources | NASA SVS, NASA Solar System Treks, NASA GIBS, NASA Images (images.nasa.gov), NASA 3D Resources | textures, images, models |
 
 ### Front-end modules (`static/js/`)
-- `main.js`: page state and wiring (body switch, panel, focus bar, 3D/museum transition).
-- `scene.js`: `MuseumScene` (renderer, lights, bodies, textures, markers, camera limits, adaptive quality).
+- `main.js`: page state and wiring (body switch, panel, focus bar, dive into the museum, language).
+- `scene.js`: `MuseumScene` (renderer, lights, bodies, textures, artifact markers, camera limits, adaptive quality).
 - `flight.js`: `CameraFlight` (animated camera moves: arc around a body or line between bodies).
 - `bodies.js`: configuration of bodies, Sun and backdrop planets.
-- `artifacts.js`: artifact list (placeholder until the catalog API exists).
+- `artifacts.js`: catalog API client (`loadArtifacts`, cached `loadArtifactDetail`, `localizeArtifact`).
+- `museum.js`: `MuseumView`, the artifact page shown after "Learn more".
+- `planet_data.js`: overview texts and figures for each body (en, ru, kk).
 - `panel.js`, `focusbar.js`: left objects panel and the bottom focus bar.
 - `geo.js`: latitude/longitude to 3D point.
 - `i18n.js`: interface strings and language switching.
@@ -188,3 +190,93 @@ The chat answers only from the knowledge base. It was empty, so every question g
 3. If the first run reports a timeout (the embedding model was still loading), run the command again.
 
 Result on the reference machine: 33 documents, 735 chunks, all with embeddings.
+### 2026-11-14: NASA Discarded Equipment Catalog and Museum Card Architecture (Stage 1)
+
+#### Summary of Changes
+- Implemented the Flagship Representative Pattern across the equipment catalog in `catalog/models.py`.
+- Created relational models: `Body`, `Artifact`, and `Source` with Django Admin registration and inlines.
+- Added `fleet_members` JSONField to `Artifact` to represent sibling spacecraft, landing sites, and operational timelines.
+- Compiled verified NASA dataset covering 5 celestial bodies, 15 artifacts, and 16 official NASA master sources into `data/artifacts.json`.
+- Implemented `seed_catalog` management command (`python manage.py seed_catalog`) with idempotent data ingestion.
+- Built JSON API endpoints in `catalog/views.py`:
+  - `GET /api/bodies/`: Celestial bodies with scene radii and surface texture assets.
+  - `GET /api/artifacts/?body=<body_code>`: Filterable equipment list with coordinates and metadata.
+  - `GET /api/artifacts/<code-or-slug>/`: Comprehensive artifact card payload including first-person story, key facts, fleet members, and NASA sources.
+- Built the interactive slide-out museum card component in `static/js/card.js` with `renderFleetMembers` table generation.
+- Integrated the card drawer into `templates/index.html` and styled via native CSS custom properties in `static/css/main.css`.
+- Synchronized trilingual i18n keys across `en`, `ru`, and `kk` in `static/js/i18n.js` with complete key parity.
+- Maintained Air-Gapped readiness with bundled offline fallback catalog in `static/js/artifacts.js`.
+
+#### Flagship Representative Architecture
+Equipment with identical hardware fleets uses a single primary Flagship card pinned to the most historic coordinates on the 3D globe:
+1. Apollo Lunar Module: Flagship is Apollo 11 LM Eagle (Tranquility Base). Sister fleet table includes Apollo 12 (Intrepid), Apollo 14 (Antares), Apollo 15 (Falcon), Apollo 16 (Orion), and Apollo 17 (Challenger).
+2. Lunar Roving Vehicle: Flagship is LRV-1 (Apollo 15, Hadley Rille). Sister fleet table includes Apollo 16 (LRV-2) and Apollo 17 (LRV-3).
+3. ALSEP Packages: Flagship is Apollo 12 ALSEP (Ocean of Storms). Sister fleet table includes Apollo 11 EASEP, Apollo 14 ALSEP, Apollo 15 ALSEP, Apollo 16 ALSEP, and Apollo 17 ALSEP.
+4. Surveyor Landers: Flagship is Surveyor 3 (Apollo 12 retrieval site). Sister fleet table includes Surveyor 1, Surveyor 5, Surveyor 6, and Surveyor 7.
+5. Independent exploration craft (Spirit, Opportunity, Viking 1, Viking 2, Phoenix, InSight, Ingenuity, Dawn, NEAR Shoemaker, Pioneer 10 and 11, Kepler) maintain dedicated records.
+
+#### Verification and Integrity
+- Ran test suite: `python manage.py test catalog` (7 tests passing, 0 errors).
+- Verified Django system check: `python manage.py check` (0 issues).
+- All official NASA URLs cataloged in `docs/SOURCES.md`.
+
+### 2026-11-14: Chatbot Equipment Knowledge Base Text Export
+
+#### Summary of Changes
+- Generated comprehensive UTF-8 knowledge base text documents for the AIstronaut RAG pipeline from verified NASA equipment records in `data/artifacts.json`.
+- Created master segmented text document: `data/equipment_knowledge_base.txt` containing all 15 equipment records divided into three language sections:
+  - Section 1: English Knowledge Base (`en`)
+  - Section 2: Russian Knowledge Base (`ru`)
+  - Section 3: Kazakh Knowledge Base (`kk`)
+- Created three dedicated single-language documents for upload into the Django Admin `KnowledgeDocument` model:
+  - `data/knowledge_base_en.txt`: English equipment dossiers.
+  - `data/knowledge_base_ru.txt`: Russian equipment dossiers.
+  - `data/knowledge_base_kk.txt`: Kazakh equipment dossiers.
+- Created `data/build_knowledge_base.py` generator script to regenerate all knowledge base text files whenever catalog data changes.
+- Formatted each vehicle entry with explicit metadata (celestial body, coordinates, launch/landing dates, status), full first-person story narratives, bulleted key engineering facts, sister fleet tables, and NASA source citations.
+
+
+#### Summary of Changes
+- Extended `Artifact` model with `translations` JSONField to store localized narrative stories, statuses, brief descriptions, and key facts in Russian (`ru`) and Kazakh (`kk`).
+- Created migration `catalog/migrations/0002_artifact_translations.py` and applied to PostgreSQL.
+- Updated `data/artifacts.json` with localized narratives, statuses, and key facts across all 15 historic NASA artifacts.
+- Enhanced `catalog/views.py` endpoints (`/api/artifacts/` and `/api/artifacts/<code-or-slug>/`) to support `?lang=ru` and `?lang=kk` query parameters.
+- Implemented client-side translation module in `static/js/artifact_translations.js` with `getLocalizedArtifact(artifact, lang)`.
+- Updated `static/js/card.js`, `static/js/panel.js`, and `static/js/main.js` so that switching language dynamically re-renders:
+  - The slide-out card drawer (stories, facts, status, labels, table headers).
+  - The static museum section (`#museum`) below the 3D scene.
+  - The left objects panel and bottom focus bar.
+- Updated `static/js/i18n.js` with new keys for card headers, table columns, and action buttons across `en`, `ru`, `kk` with complete key parity.
+
+
+
+
+### 2026-11-14: Merge of `feat/equipment-catalog` into `Cosmic-Aza`
+
+#### Summary of Changes
+- Base: the `Cosmic-Aza` 3D experience (dive into the museum, separate museum layer, detail maps). Taken from `feat/equipment-catalog`: the catalog models, API, admin, `seed_catalog`, tests, `data/artifacts.json` (15 artifacts, en/ru/kk), `planet_data.js` and the museum content design.
+- The slide-out artifact card was removed. Its content now forms the museum page (`static/js/museum.js`): type and body, status, location and dates, NASA photo, first-person story, key facts, sister missions table, NASA sources, "Ask this artifact" (opens the chat with a prefilled question), other artifacts on the same body, and an overview of the body.
+- Inside the museum the visitor can open another artifact of the same body; on "3D version" the camera rises next to that artifact (`MuseumScene.setFocusedArtifact()`).
+- The museum header (sticky) has the "3D version" button and its own language switch.
+- Markers come from the API for every artifact with surface coordinates on the Moon or Mars (4 and 7). Artifacts on other bodies (Ceres, Eros, deep space) are in the catalog but not yet in the scene.
+
+#### Clean-up and fixes
+- Removed `static/js/artifact_translations.js`: it duplicated, word for word, the translations stored in the database. Texts are now localized from the `translations` field returned by the API (`localizeArtifact`).
+- Removed the bundled fallback list in `artifacts.js`: the database is the single source of truth. If the API returns nothing, a notice is shown (`error.catalog`); run `python manage.py seed_catalog`.
+- Fixed `i18n.js`: `getLang()` re-read `?lang=` from the URL on every call, so the language switch stopped working when the page was opened with `?lang=`. The current language is again kept in a variable; `applyTranslations()` sets `<html lang>` again.
+- Added the missing `artifact.type.*` keys (the panel showed raw keys such as `artifact.type.lander`) and removed unused keys; en, ru and kk have identical key sets (54).
+- Fixed five broken image URLs in `data/artifacts.json` (wrong letter case or non-existent IDs on images.nasa.gov) and switched images to the lighter `~large` size where available. A photo that fails to load is hidden.
+- Fixed the Phoenix source URL (it pointed to the InSight mission page).
+- `data/build_knowledge_base.py` now writes `data/knowledge/<lang>/equipment-catalog.txt`; the old combined file mixed all languages in one document and was removed. `load_knowledge` loads these files together with the team texts.
+- User-provided strings are HTML-escaped in the museum page.
+
+#### Usage
+```
+python manage.py migrate
+python manage.py seed_catalog            # catalog from data/artifacts.json
+python data/build_knowledge_base.py      # only after editing data/artifacts.json
+python manage.py load_knowledge          # chat knowledge base
+```
+
+#### Tests
+`python manage.py test catalog ai_assistant`: 23 tests pass.

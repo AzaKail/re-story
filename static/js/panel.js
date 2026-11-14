@@ -1,12 +1,12 @@
 import { t } from './i18n.js';
 
-const formatCoord = (value) => `${value.toFixed(1)}°`;
-
 // Left panel: the list of artifacts on the current body. Can be collapsed.
+// describe(artifact) -> { name, type, place } supplies localized text, so the panel stays data-agnostic.
 export class ArtifactPanel {
-  constructor(root, { onSelect }) {
+  constructor(root, { onSelect, describe }) {
     this.root = root;
     this.onSelect = onSelect;
+    this.describe = describe;
     this.list = root.querySelector('[data-panel-list]');
     this.count = root.querySelector('[data-panel-count]');
     this.toggle = root.querySelector('[data-panel-toggle]');
@@ -52,6 +52,7 @@ export class ArtifactPanel {
   }
 
   #renderItem(artifact) {
+    const { name, type, place } = this.describe(artifact);
     const li = document.createElement('li');
     const button = document.createElement('button');
     button.type = 'button';
@@ -59,20 +60,20 @@ export class ArtifactPanel {
     button.dataset.code = artifact.code;
     button.setAttribute('aria-current', String(artifact.code === this.selected));
 
-    const name = document.createElement('span');
-    name.className = 'panel-item-name';
-    name.textContent = t(`artifact.${artifact.code}`);
+    const nameEl = document.createElement('span');
+    nameEl.className = 'panel-item-name';
+    nameEl.textContent = name;
 
     const meta = document.createElement('span');
     meta.className = 'panel-item-meta';
-    const type = document.createElement('span');
-    type.textContent = t('artifact.type.placeholder');
-    const coords = document.createElement('span');
-    coords.className = 'mono';
-    coords.textContent = `${formatCoord(artifact.lat)}, ${formatCoord(artifact.lon)}`;
-    meta.append(type, coords);
+    const typeEl = document.createElement('span');
+    typeEl.textContent = type;
+    const placeEl = document.createElement('span');
+    placeEl.className = 'mono';
+    placeEl.textContent = place;
+    meta.append(typeEl, placeEl);
 
-    button.append(name, meta);
+    button.append(nameEl, meta);
     li.append(button);
     return li;
   }

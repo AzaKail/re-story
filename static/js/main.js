@@ -1,8 +1,9 @@
 import { MuseumScene, webglAvailable } from './scene.js';
 import { FOCUS_ORDER } from './bodies.js';
-import { ARTIFACTS } from './artifacts.js';
+import { loadArtifacts, loadArtifactDetail, localizeArtifact } from './artifacts.js';
 import { ArtifactPanel } from './panel.js';
 import { FocusBar } from './focusbar.js';
+import { MuseumView, artifactTypeLabel, artifactPlace } from './museum.js';
 import { t, getLang, setLang, applyTranslations } from './i18n.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -21,15 +22,15 @@ const dom = {
   bodyName: document.getElementById('body-name'),
   toast: document.getElementById('toast'),
   museum: document.getElementById('museum'),
-  museumTitle: document.getElementById('museum-title'),
   bodyButtons: [...document.querySelectorAll('[data-body]')],
   langButtons: [...document.querySelectorAll('[data-lang]')],
 };
 
-const state = { body: null, artifact: null, museumArtifact: null, busy: false };
-let museum = null;
+const state = { body: null, artifact: null, artifacts: [], busy: false };
+let scene = null;
 let panel = null;
 let focusBar = null;
+let museumView = null;
 
 // ---------- Helpers ----------
 
@@ -45,16 +46,20 @@ function showFallback() {
   dom.loader.classList.add('done');
 }
 
-// Animates the black overlay; resolves when the animation ends.
+// Animates the black curtain; resolves when the animation ends.
 function fadeTo(opacity, { duration, delay = 0 }) {
   const from = getComputedStyle(dom.fade).opacity;
-  const animation = dom.fade.animate([{ opacity: from }, { opacity }], { duration, delay, fill: 'forwards', easing: 'ease-in-out' });
-  return animation.finished;
+  return dom.fade.animate([{ opacity: from }, { opacity }], { duration, delay, fill: 'forwards', easing: 'ease-in-out' }).finished;
 }
 
-function updateMuseumTitle() {
-  dom.museumTitle.textContent = state.museumArtifact ? t(`artifact.${state.museumArtifact}`) : t('museum.title');
-}
+const findArtifact = (code) => state.artifacts.find((a) => a.code === code);
+const artifactsOn = (body) => state.artifacts.filter((a) => a.body === body);
+const artifactName = (code) => localizeArtifact(findArtifact(code), getLang())?.name || code;
+const describeArtifact = (artifact) => ({
+  name: localizeArtifact(artifact, getLang()).name,
+  type: artifactTypeLabel(artifact.artifact_type),
+  place: artifactPlace(artifact),
+});
 
 // Shows either the 3D experience or the museum. Only one of them is interactive at a time.
 function setView(view) {
@@ -62,7 +67,25 @@ function setView(view) {
   dom.museum.hidden = !museumOpen;
   dom.experience.inert = museumOpen;
   document.body.classList.toggle('view-museum', museumOpen);
-  museum.setRunning(!museumOpen);
+  scene.setRunning(!museumOpen);
+}
+
+// Runs a transition once at a time and blocks the UI while it plays.
+function withBusy(task) {
+  return async (...args) => {
+    if (state.busy) return;
+    state.busy = true;
+    document.body.classList.add('is-transitioning');
+    try {
+      await task(...args);
+    } catch (err) {
+      console.error(err);
+      showToast(t('error.catalog'));
+    } finally {
+      document.body.classList.remove('is-transitioning');
+      state.busy = false;
+    }
+  };
 }
 
 // ---------- Actions ----------
@@ -71,61 +94,87 @@ function selectBody(key, { instant = false } = {}) {
   if (key === state.body || state.busy) return;
   closeArtifact({ moveCamera: false });
   state.body = key;
-  museum.focus(key, { instant });
+  scene.focus(key, { instant });
   for (const b of dom.bodyButtons) b.setAttribute('aria-pressed', String(b.dataset.body === key));
   dom.bodyName.textContent = t(`body.${key}`);
-  panel.show(ARTIFACTS.filter((a) => a.body === key));
+  panel.show(artifactsOn(key));
   if (location.hash !== `#${key}`) history.replaceState(null, '', `#${key}`);
 }
 
-function selectArtifact(code) {
-  if (state.busy || !museum.focusArtifact(code)) return;
+function markSelected(code) {
   state.artifact = code;
   panel.setSelected(code);
   focusBar.show(code);
   document.body.classList.add('is-focused');
+  loadArtifactDetail(code).catch(() => {});   // prefetch, so "Learn more" opens instantly
+}
+
+function selectArtifact(code) {
+  if (state.busy || !scene.focusArtifact(code)) return;
+  markSelected(code);
 }
 
 function closeArtifact({ moveCamera = true } = {}) {
   if (!state.artifact || state.busy) return;
-  if (moveCamera) museum.clearArtifact();
+  if (moveCamera) scene.clearArtifact();
   state.artifact = null;
   panel.setSelected(null);
   focusBar.hide();
   document.body.classList.remove('is-focused');
 }
 
-// "Learn more": dive into the artifact, fade to black, open the museum.
-async function openMuseum(code) {
-  if (state.busy) return;
-  state.busy = true;
-  document.body.classList.add('is-transitioning');
-  await Promise.all([
-    museum.diveIntoArtifact(),
-    fadeTo(1, { duration: FADE.out, delay: FADE.outDelay }),
-  ]);
-  state.museumArtifact = code;
-  updateMuseumTitle();
+async function showInMuseum(code) {
+  const detail = await loadArtifactDetail(code);
+  museumView.render(detail, artifactsOn(detail.body).filter((a) => a.code !== code));
+}
+
+// "Learn more": dive into the artifact, fade to black, open its museum page.
+const openMuseum = withBusy(async (code) => {
+  const detail = loadArtifactDetail(code);   // usually already prefetched
+  try {
+    await Promise.all([scene.diveIntoArtifact(), fadeTo(1, { duration: FADE.out, delay: FADE.outDelay }), detail]);
+    await showInMuseum(code);
+  } catch (err) {
+    // Could not load the page: come back up instead of leaving the visitor in the dark.
+    await scene.surfaceFromDive();
+    await fadeTo(0, { duration: FADE.in });
+    throw err;
+  }
   setView('museum');
-  dom.museum.scrollTop = 0;
-  dom.museumTitle.focus({ preventScroll: true });
+  dom.museum.querySelector('[data-museum-title]').focus({ preventScroll: true });
   await fadeTo(0, { duration: FADE.in });
-  document.body.classList.remove('is-transitioning');
-  state.busy = false;
+});
+
+// Another artifact picked inside the museum: switch the page; the camera will rise next to it later.
+async function switchMuseumArtifact(code) {
+  if (scene.setFocusedArtifact(code)) markSelected(code);
+  try {
+    await showInMuseum(code);
+  } catch (err) {
+    console.error(err);
+    showToast(t('error.catalog'));
+  }
 }
 
 // "3D version": fade out, show the scene again and rise back from the artifact.
-async function backTo3D() {
-  if (state.busy) return;
-  state.busy = true;
-  document.body.classList.add('is-transitioning');
+const backTo3D = withBusy(async () => {
   await fadeTo(1, { duration: FADE.in });
   setView('3d');
-  const rise = museum.surfaceFromDive();
+  const rise = scene.surfaceFromDive();
   await fadeTo(0, { duration: FADE.out });
   await rise;
-  document.body.classList.remove('is-transitioning');
-  state.busy = false;
+});
+
+// "Ask this artifact": open the chat and prefill a question about it (the visitor sends it).
+function askAboutArtifact(detail) {
+  const trigger = document.querySelector('.aistronaut-btn-trigger');
+  const chat = document.querySelector('.aistronaut-card');
+  const input = document.querySelector('.aistronaut-input');
+  if (!trigger || !input) return;
+  if (!chat?.classList.contains('open')) trigger.click();
+  input.value = t('chat.ask_prompt', { name: localizeArtifact(detail, getLang()).name });
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+  input.focus();
 }
 
 // ---------- Init ----------
@@ -142,18 +191,25 @@ function initLanguage() {
     if (state.body) dom.bodyName.textContent = t(`body.${state.body}`);
     panel?.refreshLanguage();
     focusBar?.refreshLanguage();
-    updateMuseumTitle();
+    museumView?.refreshLanguage();
   });
 }
 
-function start() {
-  initLanguage();
-  updateMuseumTitle();
+async function loadCatalog() {
+  try {
+    state.artifacts = await loadArtifacts();
+  } catch (err) {
+    console.error(err);
+  }
+  if (!state.artifacts.length) showToast(t('error.catalog'));
+}
 
+async function start() {
+  initLanguage();
   if (!webglAvailable()) return showFallback();
 
   try {
-    museum = new MuseumScene(dom.scene, {
+    scene = new MuseumScene(dom.scene, {
       staticUrl: document.body.dataset.static,
       reducedMotion,
       onError: ({ body }) => showToast(t('error.texture', { body: t(`body.${body}`) })),
@@ -162,20 +218,24 @@ function start() {
     console.error(err);
     return showFallback();
   }
-  museum.addArtifacts(ARTIFACTS);
 
-  panel = new ArtifactPanel(document.getElementById('panel'), { onSelect: selectArtifact });
+  panel = new ArtifactPanel(document.getElementById('panel'), { onSelect: selectArtifact, describe: describeArtifact });
   panel.setCollapsed(isPhone);
   focusBar = new FocusBar(document.getElementById('focusbar'), {
     onMore: openMuseum,
     onClose: () => closeArtifact(),
+    nameOf: artifactName,
   });
+  museumView = new MuseumView(dom.museum, { onSelectArtifact: switchMuseumArtifact, onAsk: askAboutArtifact });
+
+  await loadCatalog();
+  scene.addArtifacts(state.artifacts);
 
   const fromHash = location.hash.slice(1);
   selectBody(FOCUS_ORDER.includes(fromHash) ? fromHash : FOCUS_ORDER[0], { instant: true });
 
   for (const b of dom.bodyButtons) b.addEventListener('click', () => selectBody(b.dataset.body));
-  document.querySelector('[data-action="to-3d"]').addEventListener('click', backTo3D);
+  dom.museum.querySelector('[data-action="to-3d"]').addEventListener('click', backTo3D);
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !document.body.classList.contains('view-museum')) closeArtifact();
   });

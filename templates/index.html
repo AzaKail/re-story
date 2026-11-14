@@ -67,24 +67,27 @@
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
+
   </section>
 
-  <!-- ===== Museum: a separate layer opened by "Learn more" (no 3D here; placeholder content) ===== -->
+  <!-- ===== Museum: artifact page opened by "Learn more" (separate layer, no 3D) ===== -->
   <main id="museum" class="museum" hidden>
     <div class="museum-inner">
-      <button type="button" class="btn btn-ghost" data-action="to-3d">
-        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span data-i18n="museum.back3d">3D version</span>
-      </button>
+      <div class="museum-bar">
+        <button type="button" class="btn btn-ghost" data-action="to-3d">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="museum.back3d">3D version</span>
+        </button>
+        <nav class="switch switch-sm" role="group" data-i18n-aria-label="nav.lang" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+          <button type="button" data-lang="ru" aria-pressed="false" lang="ru">RU</button>
+          <button type="button" data-lang="kk" aria-pressed="false" lang="kk">KZ</button>
+        </nav>
+      </div>
 
-      <p class="museum-kicker" data-i18n="museum.title">Museum</p>
-      <h2 id="museum-title" class="museum-title" tabindex="-1">Museum</h2>
-
-      <!-- Placeholder text: the museum team replaces this section. -->
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae arcu sed nunc pulvinar sodales. Curabitur ullamcorper, justo at dignissim fermentum, sem nibh bibendum lorem, non tincidunt risus mi vel ipsum. Vivamus vel elit a metus luctus aliquet.</p>
-      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi faucibus, nibh sit amet facilisis viverra, lectus mauris pretium nisl, in cursus est nulla vel lacus. Donec posuere, massa eu tempus volutpat, augue odio commodo est, ac consequat urna justo vitae turpis.</p>
-      <p>Suspendisse potenti. Nam finibus tellus at enim condimentum, at faucibus erat posuere. Aliquam erat volutpat. Fusce ut mattis augue, non pharetra libero. Sed tristique, lorem vel aliquet viverra, nisl ex volutpat magna, eu aliquet dolor leo et neque.</p>
-      <p>Quisque dignissim, felis sed placerat lobortis, sapien est laoreet nibh, ac malesuada mauris lectus vel augue. Etiam varius ligula sit amet nisi pulvinar, quis porttitor sem dignissim. In hac habitasse platea dictumst. Ut euismod leo nec massa fermentum, eu placerat enim tempor.</p>
+      <p class="museum-kicker" data-museum-kicker></p>
+      <h2 class="museum-title" data-museum-title tabindex="-1"></h2>
+      <div class="museum-content" data-museum-content></div>
     </div>
 
     <footer class="site-footer">

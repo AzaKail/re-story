@@ -68,16 +68,17 @@ export class MuseumScene {
     this.renderer.setAnimationLoop(running ? () => this.#tick() : null);
   }
 
+  // Adds a marker for every artifact with surface coordinates on a body that exists in the scene.
   addArtifacts(artifacts) {
     for (const artifact of artifacts) {
       const body = this.bodies[artifact.body];
-      if (!body) continue;
+      if (!body || artifact.latitude == null || artifact.longitude == null) continue;
       const r = body.cfg.radius;
       const marker = new THREE.Mesh(
         new THREE.SphereGeometry(r * MARKER_SIZE_FACTOR, 16, 12),
         new THREE.MeshBasicMaterial({ color: MARKER_COLOR }),
       );
-      marker.position.copy(latLonToVector3(artifact.lat, artifact.lon, r * 1.001));
+      marker.position.copy(latLonToVector3(artifact.latitude, artifact.longitude, r * 1.001));
       body.mesh.add(marker);   // child of the spinning mesh, so it turns with the surface
       this.markers[artifact.code] = { marker, body: artifact.body };
     }
@@ -123,8 +124,16 @@ export class MuseumScene {
   // Back from the museum: rise from the dive point to the normal artifact view.
   surfaceFromDive() {
     const view = this.#artifactView(this.focusedArtifact, ARTIFACT_VIEW_FACTOR);
-    if (!view) return Promise.resolve();
+    if (!view) return this.focus(this.current, { keepDirection: true });   // also unlocks the controls
     return this.#fly(view, { durationMs: FLIGHT_DIVE_MS });
+  }
+
+  // Another artifact was picked inside the museum: remember it without moving the camera now,
+  // so surfaceFromDive() rises next to it. Returns false if it has no marker on the current body.
+  setFocusedArtifact(code) {
+    if (this.markers[code]?.body !== this.current) return false;
+    this.focusedArtifact = code;
+    return true;
   }
 
   // ---------- Setup ----------

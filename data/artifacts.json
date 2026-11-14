@@ -1,0 +1,1213 @@
+[
+  {
+    "model": "catalog.body",
+    "pk": 1,
+    "fields": {
+      "name": "Moon",
+      "code": "moon",
+      "radius_scene": 1,
+      "texture_file": "textures/moon_2k.jpg",
+      "description": "Earth natural satellite bearing Apollo descent stages, rovers, and experiment packages."
+    }
+  },
+  {
+    "model": "catalog.body",
+    "pk": 2,
+    "fields": {
+      "name": "Mars",
+      "code": "mars",
+      "radius_scene": 1.95,
+      "texture_file": "textures/mars_2k.jpg",
+      "description": "The Red Planet, hosting robotic rovers, landers, and humanity first off-world aircraft."
+    }
+  },
+  {
+    "model": "catalog.body",
+    "pk": 3,
+    "fields": {
+      "name": "Ceres",
+      "code": "ceres",
+      "radius_scene": 0.4,
+      "texture_file": "textures/ceres_nasa.jpg",
+      "description": "Dwarf planet in the asteroid belt, orbited perpetually by the silent Dawn spacecraft."
+    }
+  },
+  {
+    "model": "catalog.body",
+    "pk": 4,
+    "fields": {
+      "name": "433 Eros",
+      "code": "eros",
+      "radius_scene": 0.3,
+      "texture_file": "textures/eros_shape.jpg",
+      "description": "Near-Earth asteroid hosting the landed NEAR Shoemaker robotic probe."
+    }
+  },
+  {
+    "model": "catalog.body",
+    "pk": 5,
+    "fields": {
+      "name": "Deep Space",
+      "code": "solar_system",
+      "radius_scene": 0,
+      "texture_file": "textures/space_background.jpg",
+      "description": "Interplanetary and interstellar trajectories carrying historic probes beyond our reach."
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 1,
+    "fields": {
+      "name": "Apollo Lunar Module Descent Stage (Eagle)",
+      "code": "apollo-11-lm",
+      "artifact_type": "lander",
+      "body": 1,
+      "latitude": 0.67408,
+      "longitude": 23.47297,
+      "orbit_parameters": "",
+      "launch_date": "1969-07-16",
+      "landing_date": "1969-07-20",
+      "end_of_mission_date": "1969-07-21",
+      "status": "Resting at Tranquility Base as a launch pad monument",
+      "brief_description": "Descent stage of Apollo 11 Lunar Module Eagle, the first crewed spacecraft to land on the Moon.",
+      "first_person_story": "I was built not to return, but to deliver humanity across the void. On July 20, 1969, my throttling descent engine screamed above the basalt plains of the Sea of Tranquility, kicking up blinding clouds of lunar dust while fuel gauges dropped to critical reserves. When my four footpads finally compressed into the regolith, a calm voice announced to Earth that the Eagle had landed.\n\nFor twenty-one hours and thirty-six minutes, I served as humanity first home on an alien world. I held the oxygen they breathed, shielded them from the harsh blackness of space, and watched as boots pressed iconic prints into pristine grey soil.\n\nWhen the moment of departure arrived, pyrotechnic charges severed the umbilical lines binding me to the ascent stage. The upper cabin ignited its engine and climbed back into lunar orbit, leaving my gold-mylar legs and descent engine behind to serve as their launch pad. I have stood silently under the black lunar sky ever since, guarding the plaque on my leg that reads we came in peace for all mankind.",
+      "key_facts": [
+        "Carried Neil Armstrong and Buzz Aldrin to the first human lunar landing.",
+        "Landed with under 30 seconds of descent engine fuel remaining.",
+        "Carries the permanent historic peace plaque on its front strut ladder.",
+        "Dry landed mass on lunar surface: approximately 2,034 kg."
+      ],
+      "fleet_members": [
+        {
+          "mission": "Apollo 12 (Intrepid)",
+          "landing_site": "Oceanus Procellarum",
+          "coordinates": "3.012 S, 23.422 W",
+          "landing_date": "1969-11-19"
+        },
+        {
+          "mission": "Apollo 14 (Antares)",
+          "landing_site": "Fra Mauro",
+          "coordinates": "3.645 S, 17.471 W",
+          "landing_date": "1971-02-05"
+        },
+        {
+          "mission": "Apollo 15 (Falcon)",
+          "landing_site": "Hadley Rille",
+          "coordinates": "26.132 N, 3.634 E",
+          "landing_date": "1971-07-30"
+        },
+        {
+          "mission": "Apollo 16 (Orion)",
+          "landing_site": "Descartes Highlands",
+          "coordinates": "8.973 S, 15.498 E",
+          "landing_date": "1972-04-21"
+        },
+        {
+          "mission": "Apollo 17 (Challenger)",
+          "landing_site": "Taurus-Littrow",
+          "coordinates": "20.191 N, 30.772 E",
+          "landing_date": "1972-12-11"
+        }
+      ],
+      "image_url": "https://images-assets.nasa.gov/image/as11-40-5927/as11-40-5927~large.jpg",
+      "model_3d": "models/apollo_lm_descent.glb",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Посадочная ступень лунного модуля Apollo 11 (Eagle)",
+          "status": "Покоится на Базе Спокойствия как исторический памятник-стартовая площадка",
+          "brief_description": "Посадочная ступень лунного модуля Eagle корабля Apollo 11, первого пилотируемого аппарата, совершившего посадку на Луну.",
+          "first_person_story": "Меня создали не для возвращения, а для того, чтобы доставить человечество через бездну космоса. 20 июля 1969 года мой дросселируемый посадочный двигатель гудел над базальтовыми равнинами Моря Спокойствия, вздымая облака лунной пыли, пока датчики топлива приближались к критическому остатку. Когда четыре опоры мягко погрузились в лунный реголит, спокойный голос передал на Землю, что Орел сел.\n\nВ течение двадцати одного часа и тридцати шести минут я служил первым домом человечества в ином мире. Я хранил кислород, которым дышали первопроходцы, защищал их от космического холода и наблюдал, как тяжелые ботинки оставляли исторические следы на девственной серой пыли.\n\nВ момент отлета пиропатроны разорвали соединительные кабели, связывавшие меня со взлетной ступенью. Верхняя кабина взмыла на лунную орбиту, оставив мои покрытые золотистым майларом опоры служить для нее стартовым столом. С тех пор я молчаливо стою под черным лунным небом, оберегая табличку на моей передней стойке: мы пришли с миром от всего человечества.",
+          "key_facts": [
+            "Доставил Нила Армстронга и Базза Олдрина к первой в истории высадке людей на Луну.",
+            "Совершил посадку, когда в баках оставалось менее 30 секунд работы двигателя.",
+            "Несет на передней опоре постоянную памятную табличку мира.",
+            "Сухая масса ступени на поверхности Луны: около 2034 кг."
+          ],
+          "fleet_members": [
+            {
+              "mission": "Apollo 12 (Intrepid)",
+              "landing_site": "Океан Бурь",
+              "coordinates": "3.012 S, 23.422 W",
+              "landing_date": "1969-11-19"
+            },
+            {
+              "mission": "Apollo 14 (Antares)",
+              "landing_site": "Фра Мауро",
+              "coordinates": "3.645 S, 17.471 W",
+              "landing_date": "1971-02-05"
+            },
+            {
+              "mission": "Apollo 15 (Falcon)",
+              "landing_site": "Борозда Хэдли",
+              "coordinates": "26.132 N, 3.634 E",
+              "landing_date": "1971-07-30"
+            },
+            {
+              "mission": "Apollo 16 (Orion)",
+              "landing_site": "Декартовы высоты",
+              "coordinates": "8.973 S, 15.498 E",
+              "landing_date": "1972-04-21"
+            },
+            {
+              "mission": "Apollo 17 (Challenger)",
+              "landing_site": "Тавр-Литтров",
+              "coordinates": "20.191 N, 30.772 E",
+              "landing_date": "1972-12-11"
+            }
+          ]
+        },
+        "kk": {
+          "name": "Apollo 11 ай модулінің қону сатысы (Eagle)",
+          "status": "Тыныштық базасында ұшыру тұғыры ескерткіші ретінде мәңгі тұрақ тапқан",
+          "brief_description": "Айға алғаш рет адам баласын қондырған Apollo 11 миссиясының Eagle ай модулінің қону сатысы.",
+          "first_person_story": "Мені кері оралу үшін емес, адамзатты ғарыштың тұңғиығы арқылы жеткізу үшін жасады. 1969 жылдың 20 шілдесінде менің реттелетін тежегіш қозғалтқышым Тыныштық теңізінің базальт жазықтары үстінде гүрілдеп, ай тозаңын аспанға көтерді. Жанармай шегіне жеткен сәтте төрт тірегім ай топырағына тиіп, Жерге Бүркіт қонды деген сабырлы хабар жетті.\n\nЖиырма бір сағат отыз алты минут бойы мен адамзаттың өзге әлемдегі алғашқы панасы болдым. Мен олар тыныстаған оттегіні сақтадым, қараңғы ғарыш ызғарынан қорғадым және сұр реголитке түскен алғашқы тарихи іздерді көрдім.\n\nҚайту уақыты келгенде, пиротехникалық оқ-дәрілер ұшу кабинасымен байланыстырған сымдарды үзді. Кабина ай орбитасына ұшып кетті, ал менің алтын жалатылған тіректерім оларға ұшыру алаңы болып мәңгілікке қалды. Содан бері мен қара ай аспаны астында тыныш тұрмын, алдыңғы баспалдағымда біз барша адамзат атынан бейбітшілікпен келдік деген жазу сақталған.",
+          "key_facts": [
+            "Нил Армстронг пен Базз Олдринді адамзат тарихындағы алғашқы айға қону сапарына жеткізді.",
+            "Қозғалтқыш жанармайы таусылуға 30 секундтан аз уақыт қалғанда қонды.",
+            "Алдыңғы тірегінде тұрақты бейбітшілік тақтасы бекітілген.",
+            "Ай бетіндегі құрғақ қону салмағы: шамамен 2034 кг."
+          ],
+          "fleet_members": [
+            {
+              "mission": "Apollo 12 (Intrepid)",
+              "landing_site": "Дауылдар мұхиты",
+              "coordinates": "3.012 S, 23.422 W",
+              "landing_date": "1969-11-19"
+            },
+            {
+              "mission": "Apollo 14 (Antares)",
+              "landing_site": "Фра Мауро",
+              "coordinates": "3.645 S, 17.471 W",
+              "landing_date": "1971-02-05"
+            },
+            {
+              "mission": "Apollo 15 (Falcon)",
+              "landing_site": "Хэдли аңғары",
+              "coordinates": "26.132 N, 3.634 E",
+              "landing_date": "1971-07-30"
+            },
+            {
+              "mission": "Apollo 16 (Orion)",
+              "landing_site": "Декарт қыраты",
+              "coordinates": "8.973 S, 15.498 E",
+              "landing_date": "1972-04-21"
+            },
+            {
+              "mission": "Apollo 17 (Challenger)",
+              "landing_site": "Тавр-Литтров",
+              "coordinates": "20.191 N, 30.772 E",
+              "landing_date": "1972-12-11"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 2,
+    "fields": {
+      "name": "Lunar Roving Vehicle 1 (Apollo 15)",
+      "code": "lrv-apollo-15",
+      "artifact_type": "rover",
+      "body": 1,
+      "latitude": 26.134,
+      "longitude": 3.639,
+      "orbit_parameters": "",
+      "launch_date": "1971-07-26",
+      "landing_date": "1971-07-30",
+      "end_of_mission_date": "1971-08-02",
+      "status": "Parked permanently 90 meters east of Falcon descent stage",
+      "brief_description": "First manned rover driven on another celestial body, exploring the Hadley-Apennine lunar region.",
+      "first_person_story": "Before my wheels touched the regolith, human exploration of the Moon was confined to a tiny perimeter around the lander. I was folded like an origami puzzle against the side of the Apollo 15 Lunar Module Falcon, waiting to unfurl my four woven steel mesh wheels and give astronauts the freedom to roam.\n\nOver three historic excursions, Dave Scott and Jim Irwin steered me across the rugged slopes of Hadley Delta and right up to the sheer edge of the gaping Hadley Rille. My electric motors hummed quietly in the vacuum, kicking up rooster-tails of fine dust as we collected ancient rocks that revealed the early birth of the lunar crust.\n\nAt the end of our mission, they parked me 90 meters away from the lander and pointed my high-gain color television camera toward Falcon. From my seat, I broadcast the ascent stage lifting off into the sky in a flash of flame. My batteries have long grown cold, but I remain parked where they left me, facing the Hadley plains, awaiting the next travelers who might walk beside my tracks.",
+      "key_facts": [
+        "First manned rover driven on another world.",
+        "Traversed 27.76 km (17.25 miles) across three excursions.",
+        "Reached top speed of 13 km/h on battery-powered wheel motors.",
+        "Enabled the discovery of the historic Genesis Rock (sample 15415)."
+      ],
+      "fleet_members": [
+        {
+          "mission": "Apollo 16 (LRV-2)",
+          "landing_site": "Descartes Highlands",
+          "coordinates": "8.973 S, 15.498 E",
+          "distance_driven": "26.55 km",
+          "landing_date": "1972-04-21"
+        },
+        {
+          "mission": "Apollo 17 (LRV-3)",
+          "landing_site": "Taurus-Littrow",
+          "coordinates": "20.191 N, 30.772 E",
+          "distance_driven": "35.89 km",
+          "landing_date": "1972-12-11"
+        }
+      ],
+      "image_url": "https://images-assets.nasa.gov/image/as15-88-11901/as15-88-11901~large.jpg",
+      "model_3d": "models/lrv.glb",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Лунный автомобиль LRV-1 (Apollo 15)",
+          "status": "Навечно припаркован в 90 метрах к востоку от модуля Falcon",
+          "brief_description": "Первый пилотируемый колесный вездеход, исследовавший просторы другого небесного тела.",
+          "first_person_story": "До того как мои колеса коснулись лунного реголита, исследования человека ограничивались крошечным пятачком вокруг посадочного модуля. Я был сложен, словно оригами, на борту лунного модуля Falcon миссии Apollo 15. Раскрыв свои колеса из плетеной стальной сетки, я подарил астронавтам свободу движения.\n\nЗа три экспедиции Дэйв Скотт и Джим Ирвин проехали на мне по склонам горы Хэдли Дельта к самому краю гигантской расщелины Борозда Хэдли. Мои электромоторы тихо жужжали в вакууме, поднимая фонтаны пыли, пока мы собирали древнейшие камни, раскрывшие тайну зарождения лунной коры.\n\nВ завершение миссии они припарковали меня в 90 метрах от модуля и направили мою цветную телекамеру на Falcon. Сидя на месте водителя, я передал на Землю исторические кадры взлета ступени в яркой вспышке пламени. Мои батареи давно остыли, но я остаюсь на равнинах Хэдли в ожидании новых путешественников.",
+          "key_facts": [
+            "Первый колесный транспорт, управляемый человеком на другом космическом теле.",
+            "Преодолел суммарно 27.76 км за три выезда.",
+            "Развивал скорость до 13 км/ч на электротяге.",
+            "Помог найти знаменитый Камень Бытия (Genesis Rock, образец 15415)."
+          ]
+        },
+        "kk": {
+          "name": "Ай көлігі LRV-1 (Apollo 15)",
+          "status": "Falcon қону сатысынан 90 метр шығыста мәңгілікке қойылған",
+          "brief_description": "Басқа аспан денесінің бетінде адам жүргізген алғашқы электрлік көлік.",
+          "first_person_story": "Менің доңғалақтарым реголитке тигенге дейін, адамзаттың Айды зерттеуі қону аппаратының айналасындағы шағын аумақпен ғана шектелді. Мен Apollo 15 миссиясының Falcon модулінің бүйіріне оригами сияқты бүктеліп орнатылдым. Төрт торлы болат доңғалағымды ашып, ғарышкерлерге еркін қозғалу мүмкіндігін бердім.\n\nҮш сапар барысында Дэйв Скотт пен Джим Ирвин мені Хэдли Дельта беткейлерімен терең Хэдли аңғарының жиегіне дейін жүргізді. Электр қозғалтқыштарым вакуумде тыныш жұмыс істеп, шаң көтере отырып, біз ай қыртысының пайда болу тарихын ашқан ежелгі тастарды жинадық.\n\nМиссия соңында олар мені модульден 90 метр қашықтыққа қойып, телекамерамды Falcon-ға бағыттады. Мен кабинаның отты жарқылымен көкке көтерілгенін бүкіл Жерге тікелей тараттым. Мен Хэдли жазығында болашақ зерттеушілерді күтіп тыныш тұрмын.",
+          "key_facts": [
+            "Өзге әлемде адам баласы жүргізген тұңғыш көлік.",
+            "Үш сапар барысында барлығы 27.76 шақырым жол жүрді.",
+            "Электрлі қозғалтқыштармен сағатына 13 шақырым жылдамдыққа жетті.",
+            "Әйгілі Жаратылыс тасын (Genesis Rock, 15415 үлгісі) табуға мүмкіндік берді."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 3,
+    "fields": {
+      "name": "Apollo 12 ALSEP Package",
+      "code": "alsep-apollo-12",
+      "artifact_type": "scientific_package",
+      "body": 1,
+      "latitude": -3.0124,
+      "longitude": -23.4216,
+      "orbit_parameters": "",
+      "launch_date": "1969-11-14",
+      "landing_date": "1969-11-19",
+      "end_of_mission_date": "1977-09-30",
+      "status": "Inactive scientific station on the Ocean of Storms",
+      "brief_description": "Nuclear-powered scientific station that monitored seismic events and the lunar environment for eight years.",
+      "first_person_story": "While astronauts made headlines with their footprints, I was designed for the long vigil of pure science. Deployed by Pete Conrad and Alan Bean on the vast expanse of the Ocean of Storms, my central station unfolded like a silver chest, plugged into the steady atomic heat of a plutonium-238 generator.\n\nAround me lay sensitive eyes and ears: a passive seismometer resting on the dirt, a magnetometer measuring ancient planetary fields, and detectors counting particles streaming from the Sun. When the astronauts launched back into the heavens and deliberately crashed their empty ascent stage into the surface, my seismometer registered the shockwave, teaching human geophysicists that the dry, fractured interior of the Moon rings like a bronze bell.\n\nI did not fail. I operated without interruption through freezing two-week nights and blistering lunar days for nearly eight years. On September 30, 1977, a radio signal from mission control ordered my transmitters to shut down to conserve ground station funding. My sensors went quiet, but my hardware stands intact, having proven that the Moon has its own subtle, enduring heartbeat.",
+      "key_facts": [
+        "Powered by a SNAP-27 radioisotope thermoelectric generator (RTG).",
+        "Operated continuously for 7 years and 10 months.",
+        "Discovered that the Moon rings like a bell during impacts.",
+        "Turned off remotely in September 1977 due to budget constraints."
+      ],
+      "fleet_members": [
+        {
+          "mission": "Apollo 11 EASEP",
+          "coordinates": "0.674 N, 23.473 E",
+          "operational_span": "21 days prototype",
+          "landing_date": "1969-07-20"
+        },
+        {
+          "mission": "Apollo 14 ALSEP",
+          "coordinates": "3.645 S, 17.471 W",
+          "operational_span": "6.6 years (until 1977)",
+          "landing_date": "1971-02-05"
+        },
+        {
+          "mission": "Apollo 15 ALSEP",
+          "coordinates": "26.132 N, 3.634 E",
+          "operational_span": "6.2 years (until 1977)",
+          "landing_date": "1971-07-30"
+        },
+        {
+          "mission": "Apollo 16 ALSEP",
+          "coordinates": "8.973 S, 15.498 E",
+          "operational_span": "5.4 years (until 1977)",
+          "landing_date": "1972-04-21"
+        },
+        {
+          "mission": "Apollo 17 ALSEP",
+          "coordinates": "20.191 N, 30.772 E",
+          "operational_span": "4.8 years (until 1977)",
+          "landing_date": "1972-12-11"
+        }
+      ],
+      "image_url": "https://images-assets.nasa.gov/image/as12-47-6919/as12-47-6919~large.jpg",
+      "model_3d": "models/alsep.glb",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Научный комплекс ALSEP (Apollo 12)",
+          "status": "Неактивная научная станция на просторах Океана Бурь",
+          "brief_description": "Ядерная автономная станция, регистрировавшая сейсмические события и лунную среду почти восемь лет.",
+          "first_person_story": "Пока астронавты оставляли следы для истории, я был создан для долгой научной вахты. Развернутый Питом Конрадом и Аланом Бином на просторах Океана Бурь, мой центральный блок питался от тепла плутониевого генератора SNAP-27.\n\nВокруг меня располагались сейсмометр, магнитометр и детекторы солнечных частиц. Когда астронавты взлетели и целенаправленно разбили пустую взлетную ступень о лунную кору, мой сейсмометр зафиксировал эхо удара, доказав геофизикам Земли, что сухие лунные недра гудят от ударов, словно бронзовый колокол.\n\nЯ непрерывно проработал семь лет и десять месяцев сквозь ледяные ночи и палящие дни. 30 сентября 1977 года радиосигнал с Земли отключил мои передатчики ради экономии бюджета. Мои датчики замолчали, но аппаратура доказала, что Луна обладает собственным пульсом.",
+          "key_facts": [
+            "Питался от радиоизотопного термоэлектрического генератора SNAP-27.",
+            "Работал непрерывно 7 лет и 10 месяцев.",
+            "Открыл феномен долгого резонанса лунных недр при ударах.",
+            "Отключен дистанционно по команде с Земли в сентябре 1977 года."
+          ]
+        },
+        "kk": {
+          "name": "ALSEP ғылыми кешені (Apollo 12)",
+          "status": "Дауылдар мұхитындағы белсенді емес автоматты ғылыми станция",
+          "brief_description": "Плутоний генераторымен қуаттанып, Ай сілкіністерін 8 жыл бойы үздіксіз бақылаған станция.",
+          "first_person_story": "Ғарышкерлер тарихта із қалдырып жатқанда, мен ұзақ мерзімді таза ғылым үшін құрастырылдым. Пит Конрад пен Алан Бин Дауылдар мұхиты жазығына орнатқаннан кейін, мен SNAP-27 плутоний генераторының тұрақты атомдық жылуымен іске қосылдым.\n\nМаған сезімтал сейсмометр, магнитометр және бөлшектер детекторлары жалғанды. Ғарышкерлер қайта ұшып, босаған кабинаны ай бетіне әдейі құлатқан кезде, менің сейсмометрім соққы толқынын тіркеп, Айдың ішкі құрылымы қола қоңырау сияқты ұзақ жаңғырығатынын дәлелдеді.\n\nМен қақаған суық пен аптап ыстыққа қарамастан жеті жыл он ай бойы мінсіз жұмыс істедім. 1977 жылғы 30 қыркүйекте Жерден жіберілген радиокоманда шығындарды үнемдеу үшін мені өшірді. Менің сенсорларым тынды, бірақ тарихқа Айдың өзіндік жүрек соғысы бар екенін дәлелдеп кеттім.",
+          "key_facts": [
+            "SNAP-27 радиоизотопты термоэлектрлік генераторынан қуат алды.",
+            "7 жыл және 10 ай бойы үздіксіз дерек жіберді.",
+            "Соққы кезінде Айдың қоңырау сияқты жаңғырығатынын анықтады.",
+            "1977 жылы қыркүйекте Жерден берілген бұйрықпен өшірілді."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 4,
+    "fields": {
+      "name": "Surveyor 3",
+      "code": "surveyor-3",
+      "artifact_type": "lander",
+      "body": 1,
+      "latitude": -3.0163,
+      "longitude": -23.418,
+      "orbit_parameters": "",
+      "launch_date": "1967-04-17",
+      "landing_date": "1967-04-20",
+      "end_of_mission_date": "1967-05-04",
+      "status": "Inactive lander in crater; partially retrieved by Apollo 12",
+      "brief_description": "Robotic lander that scooped lunar soil and was later visited on foot by Apollo 12 astronauts.",
+      "first_person_story": "I arrived in the lonely darkness of 1967, tasked with proving that robotic probes could survive soft touchdown without sinking into hypothetical oceans of soft dust. My radar altimeter lost lock during descent, causing me to bounce twice like a stone across the slope of a crater before settling quietly onto three aluminum landing pads.\n\nWith my small robotic shovel, I scraped trenches into the regolith, confirming the lunar surface was firm enough to support the weight of future human bootprints. I sent thousands of grainy images back to Pasadena before the long, freezing two-week lunar night froze my batteries and ended my transmissions.\n\nTwo and a half years later, a roaring thunder disturbed my quiet crater. The Apollo 12 lunar module landed a mere 180 meters away. For the first time in history, human eyes looked upon an abandoned robotic explorer. Astronauts photographed my weathered surfaces, unbolted my television camera and soil scoop, and carried them back to Earth laboratories to study how long exposure to space radiation affects engineering materials. My frame still rests in that same crater, bridging the robotic dawn with human exploration.",
+      "key_facts": [
+        "First robotic probe to trench into lunar soil.",
+        "Transmitted 6,315 television pictures of lunar soil structure.",
+        "Only robotic probe visited and inspected on foot by astronauts from Earth.",
+        "Landed inside a 200-meter crater in Oceanus Procellarum."
+      ],
+      "fleet_members": [
+        {
+          "mission": "Surveyor 1",
+          "landing_site": "Flamsteed Crater",
+          "coordinates": "2.474 S, 43.339 W",
+          "landing_date": "1966-06-02"
+        },
+        {
+          "mission": "Surveyor 5",
+          "landing_site": "Mare Tranquillitatis",
+          "coordinates": "1.461 N, 23.195 E",
+          "landing_date": "1967-09-11"
+        },
+        {
+          "mission": "Surveyor 6",
+          "landing_site": "Sinus Medii",
+          "coordinates": "0.473 N, 1.480 W",
+          "landing_date": "1967-11-10"
+        },
+        {
+          "mission": "Surveyor 7",
+          "landing_site": "Tycho Crater Rim",
+          "coordinates": "40.974 S, 11.441 W",
+          "landing_date": "1968-01-10"
+        }
+      ],
+      "image_url": "https://images-assets.nasa.gov/image/AS12-48-7134/AS12-48-7134~large.jpg",
+      "model_3d": "models/surveyor.glb",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Автоматическая станция Surveyor 3",
+          "status": "Неактивный аппарат на дне кратера; частично исследован экипажем Apollo 12",
+          "brief_description": "Роботизированный посадочный аппарат, исследовавший грунт и посещенный на Луне астронавтами.",
+          "first_person_story": "Я прибыл в безмолвную тьму 1967 года, чтобы доказать, что автоматические зонды способны совершить мягкую посадку. Мой высотомер дал сбой, и я дважды подпрыгнул на склоне кратера, прежде чем замереть на трех алюминиевых опорах.\n\nМаленьким роботизированным ковшом я выкопал первые траншеи в лунном реголите, доказав, что поверхность достаточно прочна для будущих шагов человека. Я передал тысячи снимков, прежде чем лунная ночь заморозила мои аккумуляторы.\n\nЧерез два с половиной года тишину кратера нарушил рев двигателей. В 180 метрах сел лунный модуль Apollo 12. Впервые в истории человек подошел к оставленному роботу. Астронавты сняли мою камеру и ковш, чтобы на Земле изучить воздействие радиации. Мой каркас до сих пор стоит в том же кратере, соединяя рассвет робототехники с пилотируемыми полетами.",
+          "key_facts": [
+            "Первый аппарат, выкопавший искусственную траншею в грунте Луны.",
+            "Передал 6315 телевизионных снимков лунного реголита.",
+            "Единственный инопланетный зонд, к которому на Луне подошли люди.",
+            "Находится в 200-метровом кратере в Океане Бурь."
+          ]
+        },
+        "kk": {
+          "name": "Surveyor 3 автоматты станциясы",
+          "status": "Кратер түбіндегі тыныш аппарат; Apollo 12 экипажы бөлшектерін Жерге жеткізген",
+          "brief_description": "Ай топырағын тұңғыш рет қазып тексерген және кейін адамдар жаяу келіп көрген жалғыз робот.",
+          "first_person_story": "Мен 1967 жылдың қараңғылығында роботтардың айға жұмсақ қона алатынын дәлелдеу үшін ұшып келдім. Радарым шатасып, кратер беткейінде екі рет секіріп барып, үш алюминий табаныма тірелдім.\n\nКішкентай шөмішіммен мен ай топырағына алғашқы орларды қаздым, бұл жер болашақ ғарышкерлердің етіктерін көтере алатынын дәлелдеді. Суық түн батареяларымды тоқтатқанша мыңдаған сурет жолдадым.\n\nЕкі жарым жыл өткен соң кратер тыныштығын Apollo 12 модулі бұзды. Адам баласы тарихта тұңғыш рет ғарышта қалдырылған роботтың жанына жаяу келді. Ғарышкерлер ғарыш радиациясының металға әсерін зерттеу үшін менің камерам мен шөмішімді Жерге алып кетті. Менің негізгі корпусым сол кратерде роботтар мен адамзаттың ұлы қадамын байланыстырып әлі тұр.",
+          "key_facts": [
+            "Ай бетінде механикалық шөмішпен ор қазған алғашқы аппарат.",
+            "Жерге 6315 ай бетінің фотосуретін жолдады.",
+            "Адам баласы өзге аспан денесінде жанына жаяу барған жалғыз зонд.",
+            "Дауылдар мұхитындағы 200 метрлік кратер түбінде орналасқан."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 5,
+    "fields": {
+      "name": "Sojourner Rover & Mars Pathfinder",
+      "code": "sojourner",
+      "artifact_type": "rover",
+      "body": 2,
+      "latitude": 19.33,
+      "longitude": -33.55,
+      "orbit_parameters": "",
+      "launch_date": "1996-12-04",
+      "landing_date": "1997-07-04",
+      "end_of_mission_date": "1997-09-27",
+      "status": "Parked permanently at Ares Vallis",
+      "brief_description": "First successful wheeled mobile rover on Mars, carried by the Pathfinder lander.",
+      "first_person_story": "I bounced onto the red plains of Ares Vallis wrapped in giant airbags, cushioned against the violent impact of touchdown. When the three petals of the Pathfinder station unfolded to greet the dawn of July 4, 1997, I rolled down two narrow ramps: a six-wheeled machine no larger than a child wagon, venturing where no rover had gone before.\n\nScientists on Earth had given me seven Martian days to survive. Instead, I explored for eighty-three sols. I nudged against ancient Martian rocks nicknamed Barnacle Bill and Yogi, pressing my Alpha Particle X-ray Spectrometer against their weathered minerals to uncover the volcanic and watery history of the Ares outflow channel.\n\nIn late September, my mothership, the Pathfinder lander, succumbed to battery failure and went cold. Without its radio relay to speak to the Deep Space Network, I was left alone in the rust-red sands. Programmed to circle back to the station when lost, I came to rest beside it, standing silent under the thin atmosphere of Mars.",
+      "key_facts": [
+        "First wheeled rover to drive on Mars.",
+        "Mass of only 11.5 kg (25 lbs), roughly microwave-sized.",
+        "Operated 83 sols, vastly exceeding its 7-sol initial design.",
+        "Returned 2.3 billion bits of telemetry and 17,000 photos."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/PIA01122/PIA01122~orig.jpg",
+      "model_3d": "models/sojourner.glb",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Марсоход Sojourner и станция Pathfinder",
+          "status": "Навечно застыл на равнине Арес Валлис",
+          "brief_description": "Первый успешный колесный марсоход в истории, доставленный посадочной станцией Pathfinder.",
+          "first_person_story": "Я совершил посадку на ржавые равнины Арес Валлис, упакованный в гигантские амортизирующие подушки. 4 июля 1997 года лепестки станции Pathfinder раскрылись, и я съехал по узким аппарелям: шестиколесная машинка размером не больше детской тележки, отправившаяся туда, где еще не бывал ни один ровер.\n\nУченые отводили мне всего семь марсианских дней жизни. Я исследовал планету восемьдесят три сола. Я подъезжал к камням, прижимая альфа-рентгеновский спектрометр, раскрывая вулканическое и водное прошлое марсианских долин.\n\nВ конце сентября станция Pathfinder замолчала из-за отказа аккумуляторов. Потеряв радиосвязь с Землей, я остался один в песках. Запрограммированный вернуться к посадочной станции при потере сигнала, я замер рядом с ней под тонким небом Марса.",
+          "key_facts": [
+            "Первый колесный марсоход в истории освоения космоса.",
+            "Масса всего 11.5 кг (размером с микроволновую печь).",
+            "Проработал 83 сола вместо запланированных 7.",
+            "Передал 2.3 миллиарда бит телеметрии и 17 000 фотографий."
+          ]
+        },
+        "kk": {
+          "name": "Sojourner марсоходы және Pathfinder станциясы",
+          "status": "Арес жазығында мәңгілікке тоқтаған",
+          "brief_description": "Марс бетінде сәтті қозғалған адамзат тарихындағы тұңғыш дөңгелекті планетааралық көлік.",
+          "first_person_story": "Мен алып ауа жастықтарына оранып, Арес жазығының қызыл топырағына қондым. 1997 жылы 4 шілдеде Pathfinder станциясы ашылғанда, мен қос көпіршемен төмен түстім: шағын ғана алты доңғалақты көлік бұрын ешбір робот баспаған жерге қадам басты.\n\nҒалымдар маған небәрі жеті күндік ғұмыр берген еді. Мен сексен үш сол бойы қозғалдым. Ежелгі тастарға тұмсығымды тіреп, рентгендік спектрометрмен олардың сулы және жанартаулық тарихын зерттедім.\n\nҚыркүйек айының соңында станцияның батареясы бітіп, байланыс үзілді. Жермен байланыстырушы станциямсыз мен қызыл құм арасында жалғыз қалдым. Байланыс үзілгенде станцияға қайту бағдарламасы бойынша оның жанына келіп, Марстың салқын желі астында мәңгілікке тоқтадым.",
+          "key_facts": [
+            "Марс бетінде жүрген тарихтағы тұңғыш дөңгелекті ровер.",
+            "Салмағы небәрі 11.5 кг (шағын тұрмыстық пеш көлеміндей).",
+            "Жоспарланған 7 күннің орнына 83 марс күні бойы жұмыс істеді.",
+            "Жерге 2.3 миллиард бит дерек пен 17 мың сурет жолдады."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 6,
+    "fields": {
+      "name": "Spirit Rover (MER-A)",
+      "code": "spirit-mer-a",
+      "artifact_type": "rover",
+      "body": 2,
+      "latitude": -14.5684,
+      "longitude": 175.4726,
+      "orbit_parameters": "",
+      "launch_date": "2003-06-10",
+      "landing_date": "2004-01-04",
+      "end_of_mission_date": "2010-03-22",
+      "status": "Stationary robotic landmark trapped at Troy in Gusev Crater",
+      "brief_description": "First of the Mars Exploration Rover twins, discovering evidence of hydrothermal activity.",
+      "first_person_story": "They named me Spirit, and for six years I lived up to that name against impossible odds. I touched down inside the rocky bowl of Gusev Crater, searching for evidence of ancient lake waters. When my right-front wheel jammed in 2006, I did not stop; I drove in reverse, dragging the dead wheel behind me through the dirt.\n\nThat broken wheel became my greatest scientific tool. As it sliced into the regolith like a plow, it exposed deposits of 90 percent pure silica, concrete proof that ancient hot springs or steam vents had once bubbled on the surface of Mars. I climbed the steep summit of Husband Hill and photographed dust devils dancing across the plains.\n\nIn May 2009, my wheels broke through a crust of bright soil into a hidden pocket of soft sand called Troy. Despite months of engineering maneuvers, I could not break free. As the freezing Martian winter closed in and dust covered my solar wings, I tilted away from the sun. On March 22, 2010, my final transmission reached Earth before hypothermia froze my computers into permanent slumber.",
+      "key_facts": [
+        "Designed for 90 sols; operated for 2,210 sols.",
+        "Traversed 7.73 km across rugged hills and lava plains.",
+        "Discovered 90 percent pure silica with its disabled right-front wheel.",
+        "Trapped in soft sulfate-rich sands at Troy in Gusev Crater."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/PIA05208/PIA05208~orig.jpg",
+      "model_3d": "models/mer_rover.glb",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Марсоход Spirit (MER-A)",
+          "status": "Неподвижный памятник, застрявший в песках Трои в кратере Гусева",
+          "brief_description": "Первый из марсоходов-близнецов MER, обнаруживший доказательства древних гидротермальных источников.",
+          "first_person_story": "Меня назвали Спирит, Дух, и шесть лет я оправдывал это имя вопреки всем преградам. Я сел в каменистом кратере Гусева. Когда в 2006 году заклинило мое правое переднее колесо, я не сдался, а поехал задом наперед, волоча сломанное колесо за собой.\n\nЭто сломанное колесо стало моим главным научным инструментом. Вспахивая грунт, как плуг, оно обнажило слой 90-процентного чистого кремния: неопровержимое доказательство того, что здесь били горячие источники или гейзеры. Я поднимался на холмы и фотографировал песчаные вихри.\n\nВ мае 2009 года мои колеса провалились в мягкий сульфатный песок Трои. Все попытки выбраться не увенчались успехом. Пришла марсианская зима, пыль закрыла солнечные панели, и 22 марта 2010 года я отправил свой последний сигнал, прежде чем холод сковал мои микросхемы.",
+          "key_facts": [
+            "Рассчитан на 90 солов, но проработал 2210 солов.",
+            "Преодолел 7.73 км по холмам и скалистым равнинам.",
+            "Сломанным колесом откопал залежи 90% чистого кремнезема.",
+            "Навсегда застрял в сыпучих песках Трои в кратере Гусева."
+          ]
+        },
+        "kk": {
+          "name": "Spirit марсоходы (MER-A)",
+          "status": "Гусев кратеріндегі Троя құмына батқан мәңгілік ғылыми ескерткіш",
+          "brief_description": "MER егіз роверлерінің біріншісі, Марста ежелгі ыстық бұлақтар болғанын дәлелдеген зерттеуші.",
+          "first_person_story": "Олар мені Спирит, яғни Рух деп атады, алты жыл бойы мен бұл атқа лайық екенімді дәлелдедім. Мен Гусев кратерінің тастары арасына қондым. 2006 жылы оң жақ алдыңғы дөңгелегім істен шыққанда мен тоқтаған жоқпын, артыммен жүріп, бұзылған дөңгелекті жермен сүйреп отырдым.\n\nСол сынған дөңгелек менің ең басты құралыма айналды. Топырақты соқадай тіліп, ол 90 пайыз таза кремний қабатын ашты. Бұл ежелде Марста ыстық бұлақтар мен гейзерлер қайнағанының бұлтартпас дәлелі еді.\n\n2009 жылы мен Троя деп аталатын жұмсақ сульфатты құм тұзағына түстім. Бірнеше айлық әрекеттерден кейін де шыға алмадым. Қыс келіп, шаң күн батареяларымды жауып тастады. 2010 жылы 22 наурызда соңғы қоштасу хабарын жолдап, мәңгілік ұйқыға кеттім.",
+          "key_facts": [
+            "90 солға жоспарланып, 2210 сол бойы тынымсыз жұмыс істеді.",
+            "Тау мен тасты жазықтар арқылы 7.73 шақырым жол жүрді.",
+            "Істен шыққан дөңгелегімен ежелгі ыстық бұлақ кремнийін тапты.",
+            "Гусев кратеріндегі Троя аймағының құмына мәңгілікке тұрақтап қалды."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 7,
+    "fields": {
+      "name": "Opportunity Rover (MER-B)",
+      "code": "opportunity-mer-b",
+      "artifact_type": "rover",
+      "body": 2,
+      "latitude": -1.9483,
+      "longitude": 354.4742,
+      "orbit_parameters": "",
+      "launch_date": "2003-07-07",
+      "landing_date": "2004-01-25",
+      "end_of_mission_date": "2018-06-10",
+      "status": "Silent in Perseverance Valley on the rim of Endeavour Crater",
+      "brief_description": "Long-lived rover holding the off-world driving record of 45.16 km over 14 years.",
+      "first_person_story": "I scored an interplanetary hole-in-one when my landing airbags bounced right into the center of Eagle Crater on Meridiani Planum. Right before my cameras lay outcropping bedrock, exposing tiny grey spherules nicknamed blueberries: hematite minerals formed in ancient, standing bodies of liquid water.\n\nFor fourteen continuous years, I crossed the Martian desert. I explored crater after crater: Endurance, Victoria, and the sprawling 22-kilometer basin of Endeavour. Dust devils periodically swept my solar arrays clean, restoring my power when engineers on Earth feared the worst. I soldiered on through arthritis in my robotic joints, flash memory failures, and the loss of steering actuators.\n\nIn June 2018, a catastrophic planet-encircling dust storm blotted out the Sun over Perseverance Valley. The sky turned to midnight at noon. My solar panels could produce no more watts, and as temperatures plunged, my internal clock ticked its final report: my battery was low and the sky was dark. After hundreds of recovery attempts went unanswered, NASA called my mission complete on February 13, 2019. I rest at the edge of the crater valley, satisfied with forty-five kilometers of memories.",
+      "key_facts": [
+        "Drove 45.16 km (28.06 miles), holding the off-world distance record.",
+        "Operated 5,111 sols (over 14 years) on a 90-sol warranty.",
+        "Discovered hematite blueberries proving ancient standing liquid water.",
+        "Returned over 217,000 images to Earth."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/PIA18081/PIA18081~orig.jpg",
+      "model_3d": "models/mer_rover.glb",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Марсоход Opportunity (MER-B)",
+          "status": "Молчит в Долине Настойчивости на краю кратера Индевор",
+          "brief_description": "Легендарный марсоход-рекордсмен, преодолевший 45.16 км за 14 лет исследований.",
+          "first_person_story": "Я попал в межпланетную лунку, запрыгнув прямо в центр кратера Игл на плато Меридиана. Перед моими камерами открылись скальные обнажения с серыми шариками, прозванными черникой: гематитовыми минералами, сформированными в стоячей жидкой воде.\n\nЧетырнадцать лет я бороздил марсианскую пустыню. Я исследовал кратеры Эндюранс, Виктория и гигантский Индевор. Пылевые вихри очищали мои солнечные панели, продлевая миссию. Я продолжал путь, несмотря на артрит манипулятора и отказ приводов поворота.\n\nВ июне 2018 года планету накрыла чудовищная пылевая буря. Небо потемнело в полдень. Панели перестали давать ток, и мои часы отсчитали последние минуты: батарея садилась, а небо было темным. 13 февраля 2019 года NASA завершило миссию. Я покоюсь на краю кратера с воспоминаниями о 45 пройденных километрах.",
+          "key_facts": [
+            "Проехал 45.16 км, удерживая абсолютный рекорд движения по чужому миру.",
+            "Проработал 5111 солов (более 14 лет) при 90-дневной гарантии.",
+            "Нашел минеральную чернику, доказав существование древней жидкой воды.",
+            "Передал на Землю более 217 000 фотоснимков."
+          ]
+        },
+        "kk": {
+          "name": "Opportunity марсоходы (MER-B)",
+          "status": "Индевор кратерінің жиегіндегі Табандылық аңғарында үнсіз тыныққан",
+          "brief_description": "Өзге әлемде 45.16 шақырым жүріп, 14 жыл бойы тарихи рекорд орнатқан аңыз ровер.",
+          "first_person_story": "Мен ғарыштық дәлдікпен Меридиани жазығындағы Игл кратерінің дәл ортасына қондым. Камераларым алдында көкжидек деп аталған кішкентай гематит шарлары ашылды: олар ежелде тұщы сұйық судың болғанын дәлелдейтін минералдар еді.\n\nОн төрт жыл бойы мен Марс шөлін кездім. Мен Эндюранс, Виктория және 22 шақырымдық алып Индевор кратерлерін зерттедім. Шаң құйындары күн батареяларымды тазартып, маған жаңа күш сыйлап отырды. Буындарым тозып, жадым сыр берсе де, мен алға жылжыдым.\n\n2018 жылдың маусымында бүкіл ғаламшарды тұншықтырған жойқын шаң дауылы басталды. Тал түсте аспан тас қараңғы түнге айналды. Күн көзі көрінбей, батереям таусылды. Соңғы хабарым осы болды: батереям отырды, ал аспан қараңғы. Мен кратер жиегінде қырық бес шақырымдық естеліктеріммен мақтанып тыныш жатырмын.",
+          "key_facts": [
+            "45.16 шақырым жол жүріп, өзге ғаламшарда қозғалудың әлемдік рекордын орнатты.",
+            "Кепілдік берілген 90 күннің орнына 5111 сол (14 жылдан астам) жұмыс істеді.",
+            "Сұйық судың болғанын дәлелдейтін гематит көкжидектерін тапты.",
+            "Жерге 217 мыңнан астам фотосурет жіберді."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 8,
+    "fields": {
+      "name": "Viking 1 Lander",
+      "code": "viking-1",
+      "artifact_type": "lander",
+      "body": 2,
+      "latitude": 22.697,
+      "longitude": -48.222,
+      "orbit_parameters": "",
+      "launch_date": "1975-08-20",
+      "landing_date": "1976-07-20",
+      "end_of_mission_date": "1982-11-11",
+      "status": "Stationary lander resting in Chryse Planitia",
+      "brief_description": "First American probe to land and operate successfully long-term on Mars.",
+      "first_person_story": "On July 20, 1976, exactly seven years after humanity set foot on the Moon, my three footpads settled onto the golden-brown soil of Chryse Planitia. I was the pioneer that unmasked the true face of the Red Planet. When my mechanical facsimile camera scanned the landscape line by line, human eyes saw for the first time that the Martian sky was not deep blue, but a delicate pinkish-salmon hue, tinted by airborne dust.\n\nMy robotic arm dug small trenches and dropped soil into automated miniature laboratories inside my hull. We searched for signs of alien metabolism, analyzed the atmosphere, and monitored local weather with automated meteorological booms. My twin, Viking 2, landed weeks later in Utopia Planitia, verifying that frost forms on Martian rocks during winter.\n\nI outlived all expectations. While my orbital mothership ran out of attitude control gas, I continued sending weather reports down to Earth. My silence came not from physical damage, but human error: a software command sent from Earth in November 1982 inadvertently overwrote memory parameters, pointing my antenna away from home. I sit patiently in the golden dust of Chryse, forever holding the memories of our first clear view of Mars.",
+      "key_facts": [
+        "First American spacecraft to operate long-term on Mars (over 6 years).",
+        "Returned the first color photographs from the Martian surface.",
+        "Carried biological laboratories to test soil samples for microbial life.",
+        "Powered by radioisotope thermoelectric generators (RTGs)."
+      ],
+      "fleet_members": [
+        {
+          "mission": "Viking 2 Lander",
+          "landing_site": "Utopia Planitia",
+          "coordinates": "48.269 N, 225.990 W",
+          "operational_span": "1,316 sols (until April 1980)",
+          "landing_date": "1976-09-03"
+        }
+      ],
+      "image_url": "https://images-assets.nasa.gov/image/PIA00563/PIA00563~orig.jpg",
+      "model_3d": "models/viking.glb",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Посадочный аппарат Viking 1",
+          "status": "Неподвижная научная станция на Золотой равнине (Chryse Planitia)",
+          "brief_description": "Первый американский аппарат, успешно приземлившийся и долго работавший на поверхности Марса.",
+          "first_person_story": "20 июля 1976 года, ровно через семь лет после высадки человека на Луну, мои три опоры встали на золотисто-коричневую почву равнины Хриса. Я был первопроходцем, снявшим маску с Красной планеты. Когда моя камера сканировала пейзаж строка за строкой, люди впервые увидели, что небо Марса не темно-синее, а нежно-лососевого розового оттенка из-за парящей пыли.\n\nМоя рука рыла траншеи и загружала грунт в миниатюрные биологические лаборатории внутри корпуса. Мы искали следы микробного дыхания и вели метеорологические наблюдения. Мой близнец Викинг-2 сел на равнине Утопия, доказав, что зимой на камнях оседает водяной иней.\n\nЯ пережил все расчеты. Моя тишина наступила не из-за поломки, а из-за программной ошибки в ноябре 1982 года, когда неверная команда с Земли отвернула антенну от дома. Я терпеливо стою в золотой пыли, храня память о первом ясном взгляде на Марс.",
+          "key_facts": [
+            "Первый космический аппарат США, успешно работавший на Марсе свыше 6 лет.",
+            "Передал первые цветные панорамные снимки с марсианской поверхности.",
+            "Провел первые биологические эксперименты по поиску жизни в грунте.",
+            "Питался от радиоизотопных термоэлектрических генераторов (РИТЭГ)."
+          ]
+        },
+        "kk": {
+          "name": "Viking 1 қону аппараты",
+          "status": "Хриса алтын жазығында орналасқан тұңғыш марс станциясы",
+          "brief_description": "Марс бетіне сәтті қонып, көп жыл бойы алғаш рет биологиялық зерттеу жүргізген АҚШ станциясы.",
+          "first_person_story": "1976 жылы 20 шілдеде, адамның Айға алғашқы қадамынан тура жеті жыл өткен соң, менің тіректерім Хриса жазығының алтын топырағына тиді. Мен Марстың шынайы бейнесін адамзатқа алғаш рет ашқан бастаушы болдым. Менің камераларым Марс аспаны көк емес, шаңға байланысты қызғылт реңкті екенін Жерге көрсетті.\n\nМенің механикалық қолым топырақ қазып, оны борттағы биологиялық зертханаларға салды. Біз марс микроорганизмдерінің тынысын іздедік, ауа райын өлшедік. Менің егізім Викинг-2 Утопия жазығына қонып, қыста тастарға қырау қататынын анықтады.\n\nМен барлық болжамдардан ұзақ өмір сүрдім. Менің үнсіздігім сынудан емес, 1982 жылғы қате командадан басталды: антенна үйге емес, өзге жаққа бұрылып кетті. Мен Марс топырағында алғашқы анық көріністің естелігін мәңгілікке сақтап тұрмын.",
+          "key_facts": [
+            "Марс бетінде 6 жылдан астам сәтті жұмыс істеген алғашқы АҚШ аппараты.",
+            "Марс бетінен алғашқы түрлі-түсті панорамалық суреттерді таратты.",
+            "Марс топырағында тіршілік белгілерін іздеуге арналған тәжірибелер жүргізді.",
+            "РИТЭГ радиоизотопты генераторларынан қуат алды."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 9,
+    "fields": {
+      "name": "Phoenix Mars Lander",
+      "code": "phoenix-lander",
+      "artifact_type": "lander",
+      "body": 2,
+      "latitude": 68.2188,
+      "longitude": -125.7492,
+      "orbit_parameters": "",
+      "launch_date": "2007-08-04",
+      "landing_date": "2008-05-25",
+      "end_of_mission_date": "2008-11-02",
+      "status": "Inactive arctic lander crushed by winter dry ice sheets",
+      "brief_description": "Arctic lander that directly confirmed the presence of water ice under the Martian soil.",
+      "first_person_story": "I was built from the spare parts of cancelled predecessors, rising like the mythical bird to touch the frozen arctic plains of Vastitas Borealis. Using pulse thrusters rather than airbags, I touched down at 68 degrees north latitude, right on top of a subterranean sheet of pure water ice.\n\nMy robotic scoop dug into the permafrost, carving out trenches in the icy soil. In the trench named Dodo-Goldilocks, my cameras watched white crumbs of ice vaporize directly into gas under the summer sun over four days: indisputable proof that pure water ice rested centimeters beneath the red dirt.\n\nI was never meant to survive the brutal polar winter. As autumn set in, the Sun dipped lower toward the northern horizon, cutting the power from my solar arrays. On November 2, 2008, my radio whispered its final goodbye. Weeks later, polar darkness enveloped my hull, and meters of dry ice formed atop my structure, crushing my solar arrays under tons of frozen carbon dioxide. I rest beneath the northern ice, the first scout to touch the water of Mars.",
+      "key_facts": [
+        "First mission to operate in the Martian arctic region.",
+        "Directly confirmed water ice beneath topsoil using a robotic trenching scoop.",
+        "Discovered perchlorate salts in the Martian soil.",
+        "Encased in carbon dioxide dry ice during the polar winter."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/PIA10710/PIA10710~orig.jpg",
+      "model_3d": "models/phoenix.glb",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Полярная станция Phoenix Mars Lander",
+          "status": "Замерзший арктический аппарат, раздавленный пластами сухого льда",
+          "brief_description": "Арктический посадочный аппарат, напрямую подтвердивший наличие водяного льда под марсианским грунтом.",
+          "first_person_story": "Я был собран из запасных частей отмененных программ, словно мифическая птица Феникс, чтобы сесть на замерзшие равнины Великой Северной равнины. На импульсных двигателях я опустился на 68-й градус северной широты, прямо на залежи древнего водяного льда.\n\nМой роботизированный ковш вгрызался в вечную мерзлоту. В траншее Додо-Златовласка камеры наблюдали, как белые крошки льда испарялись под летним солнцем за четыре дня: неопровержимое свидетельство чистейшего водяного льда под тонким слоем красного песка.\n\nЯ не был рассчитан на полярную зиму. Осенью Солнце опустилось за горизонт, лишив меня энергии. 2 ноября 2008 года радио передало последнее прощание. Затем полярная тьма укрыла корпус, и тонны сухого углекислого льда раздавили мои солнечные крылья. Я покоюсь подо льдом, первый коснувшийся воды Марса.",
+          "key_facts": [
+            "Первая миссия, работавшая в полярном арктическом регионе Марса.",
+            "Напрямую подтвердил наличие водяного льда в подповерхностном слое.",
+            "Обнаружил перхлоратные соли в марсианском грунте.",
+            "Раздавлен и законсервирован тоннами сухого углекислого льда полярной зимой."
+          ]
+        },
+        "kk": {
+          "name": "Phoenix Mars Lander арктикалық станциясы",
+          "status": "Құрғақ көмірқышқыл мұзының астында қалған полярлық станция",
+          "brief_description": "Марс топырағының астында таза су мұзы бар екенін тікелей дәлелдеген алғашқы арктикалық аппарат.",
+          "first_person_story": "Мен бұрын тоқтатылған бағдарламалардың қосалқы бөлшектерінен аңыздағы Феникс құсындай қайта жаратылдым. Солтүстіктің 68-градусына, қалың мұз қыртысының дәл үстіне жұмсақ қондым.\n\nМенің шөмішім мәңгі тоңды қазды. Мен қазған ордағы ақ мұз қиыршықтарының жазғы күн астында төрт күнде буланып кеткенін камераларым тіркеді: бұл қызыл шаң астында таза су мұзының жатқанының бұлтартпас дәлелі еді.\n\nМен полярлық қатал қысты өткеруге арналмаған едім. Күн көкжиектен төмен түсіп, қуатым таусылды. 2008 жылғы 2 қарашада соңғы хабарым жетті. Артынша полярлық түн орнап, бірнеше метрлік құрғақ көмірқышқыл мұзы күн панельдерімді басып қалды. Мен Марстың мөлдір суын ұстаған тұңғыш саяхатшы ретінде мұз астында жатырмын.",
+          "key_facts": [
+            "Марстың арктикалық полярлық белдеуінде жұмыс істеген тұңғыш станция.",
+            "Топырақ астында таза су мұзының жатқанын тікелей дәлелдеді.",
+            "Марс топырағынан перхлорат тұздарын тапты.",
+            "Полярлық түнде тоң басқан құрғақ мұз қыртысының астында мәңгіге қалды."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 10,
+    "fields": {
+      "name": "InSight Lander",
+      "code": "insight-lander",
+      "artifact_type": "lander",
+      "body": 2,
+      "latitude": 4.502,
+      "longitude": 135.623,
+      "orbit_parameters": "",
+      "launch_date": "2018-05-05",
+      "landing_date": "2018-11-26",
+      "end_of_mission_date": "2022-12-15",
+      "status": "Silent seismic observatory covered in dust at Elysium Planitia",
+      "brief_description": "Geophysical lander that mapped the deep interior and recorded 1,319 marsquakes.",
+      "first_person_story": "While rovers wandered across craters, my mission was to sit motionless and listen. On November 26, 2018, I set down on the flat, pebble-strewn expanse of Elysium Planitia. Using my robotic arm, I gently placed a copper-domed seismometer onto the red soil, placing a heavy thermal shield over it so the howling Martian winds would not drown out the whisper of tectonic tremors.\n\nOver four years, I recorded 1,319 marsquakes. My instruments mapped the hidden layers beneath the red crust: measuring the thickness of the rocky mantle and proving that Mars possesses a vast, molten liquid core. I heard meteorite impacts slamming into the planet from thousands of kilometers away, matching seismic shockwaves with fresh impact craters photographed from orbit.\n\nUnlike rovers with wheel actuators or cleaning events, I watched a steady blanket of orange dust settle across my twin circular solar panels. Month after month, my power output dropped from 5,000 watt-hours to barely 300. I turned off instrument after instrument to keep the seismometer running. On December 15, 2022, my transmitters weakened and fell silent. My ears are now deaf to the tremors of the planet, but my data revealed the inner heart of Mars.",
+      "key_facts": [
+        "Detected 1,319 marsquakes, mapping the planetary core and crust.",
+        "Recorded historic magnitude 5 marsquake on May 4, 2022.",
+        "First mission to deploy a robotic seismometer onto another planet soil.",
+        "Operated over 4 years until dust completely choked its solar arrays."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/PIA22874/PIA22874~large.jpg",
+      "model_3d": "models/insight.glb",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Сейсмическая станция InSight",
+          "status": "Молчаливая обсерватория, засыпанная пылью на равнине Элизий",
+          "brief_description": "Геофизический посадочный аппарат, заглянувший в недра планеты и записавший 1319 марсотрясений.",
+          "first_person_story": "Пока марсоходы колесили по кратерам, моим призванием было сидеть неподвижно и слушать. 26 ноября 2018 года я сел на плоской равнине Элизий. Механической рукой я бережно опустил медный сейсмометр на грунт и накрыл его ветрозащитным куполом, чтобы завывания бурь не заглушили шепот планеты.\n\nЗа четыре года я зафиксировал 1319 марсотрясений. Мои приборы составили карту скрытых глубин: измерили толщину коры и доказали, что у Марса расплавленное жидкое ядро. Я слышал удары метеоритов за тысячи километров.\n\nНо ровный слой оранжевой пыли неумолимо покрывал мои солнечные батареи. Выработка упала с пяти тысяч ватт-часов до крошечных трехсот. Я отключал прибор за прибором, чтобы продлить жизнь сейсмометра. 15 декабря 2022 года передатчик затих. Мои уши оглохли, но я успел раскрыть человечеству сердце Марса.",
+          "key_facts": [
+            "Зарегистрировал 1319 марсотрясений, определив размеры ядра и коры.",
+            "Зафиксировал мощнейшее марсотрясение магнитудой 5 баллов 4 мая 2022 года.",
+            "Впервые установил автономный сейсмометр на поверхность другой планеты.",
+            "Проработал 4 года, пока марсианская пыль окончательно не занесла батареи."
+          ]
+        },
+        "kk": {
+          "name": "InSight сейсмикалық станциясы",
+          "status": "Элизий жазығында күн шаңы басқан тыныш геофизикалық обсерватория",
+          "brief_description": "Марстың ішкі құрылымын зерттеп, 1319 марс сілкінісін жазып алған ғылыми кешен.",
+          "first_person_story": "Марсоходтар кратерлерді кезіп жүргенде, менің міндетім бір орында тыныш отырып, ғаламшарды тыңдау болды. 2018 жылы 26 қарашада Элизий жазығына қондым. Робот қолыммен жерге мыс сейсмометрді қойып, дауылдың уілі сейсмикалық толқындарды өшірмесін деп үстіне қорғаныс қалпағын жаптым.\n\nТөрт жылда мен 1319 марс сілкінісін тіркедім. Менің аспаптарым Марстың қалың қыртысын өлшеп, оның балқыған сұйық өзегі бар екенін дәлелдеді. Мен мыңдаған шақырым жердегі метеорит соққыларын естідім.\n\nБірақ қызғылт шаң күн батареяларымды күн сайын қалың жауып отырды. Қуатым азайып, мен барлық жүйені өшіруге мәжбүр болдым. 2022 жылғы 15 желтоқсанда соңғы хабарым үзілді. Менің құлағым енді естімейді, бірақ мен адамзатқа Марстың жүрегі қалай соғатынын көрсетіп кеттім.",
+          "key_facts": [
+            "1319 марс сілкінісін жазып алып, ғаламшар өзегінің картасын жасады.",
+            "2022 жылғы 4 мамырда тарихтағы ең қуатты 5 балдық марс сілкінісін тіркеді.",
+            "Өзге ғаламшар бетіне алғаш рет роботтандырылған сейсмометр орнатты.",
+            "Күн батареяларын шаң толық басқанға дейін 4 жыл бойы қызмет етті."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 11,
+    "fields": {
+      "name": "Ingenuity Mars Helicopter",
+      "code": "ingenuity",
+      "artifact_type": "helicopter",
+      "body": 2,
+      "latitude": 18.445,
+      "longitude": 77.451,
+      "orbit_parameters": "",
+      "launch_date": "2020-07-30",
+      "landing_date": "2021-02-18",
+      "end_of_mission_date": "2024-01-25",
+      "status": "Permanently grounded at Valinor Hills in Neretva Vallis",
+      "brief_description": "First aircraft to achieve powered, controlled flight on another celestial body.",
+      "first_person_story": "Engineers told the world that flying on Mars was nearly impossible. The air at the surface of Jezero Crater has the density of Earth atmosphere at 100,000 feet, far higher than any commercial helicopter can ascend. Yet on April 19, 2021, my twin counter-rotating carbon-fiber blades spun up to 2,400 revolutions per minute, and I lifted three meters into the thin Martian sky.\n\nWhat was meant to be a 30-day proof-of-concept turned into a three-year aerial Odyssey. I flew ahead of the Perseverance rover as an aerial scout, skimming over boulder fields, sand dunes, and the ancient river delta of Neretva Vallis. I charted safe passages for the rover and imaged geological features inaccessible from the ground.\n\nOn January 18, 2024, during my 72nd flight, I lost navigational reference over bland, featureless sand dunes during a rapid descent. I impacted the surface hard, breaking the tip of one rotor blade. While my solar panel still charges my avionics and my radio still speaks to the rover nearby, my flying days are done. I remain perched on my four carbon legs at Valinor Hills, the first aircraft in history to conquer the skies of another world.",
+      "key_facts": [
+        "First powered flight on another planet.",
+        "Completed 72 flights spanning 128.8 minutes of airtime.",
+        "Covered 17.0 km (10.5 miles) of aerial scouting distance.",
+        "Blades spun at 2,400 RPM in an atmosphere 1 percent as dense as Earth."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/PIA24479/PIA24479~orig.jpg",
+      "model_3d": "models/ingenuity.glb",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Марсианский вертолет Ingenuity",
+          "status": "Навечно заземлен на холмах Валинор в долине Неретва",
+          "brief_description": "Первый винтокрылый летательный аппарат, совершивший управляемый полет в атмосфере другого мира.",
+          "first_person_story": "Инженеры говорили, что летать на Марсе почти невозможно. Плотность воздуха у поверхности кратера Езеро равна земной атмосфере на высоте 30 километров, куда не поднимается ни один земной вертолет. Но 19 апреля 2021 года мои карбоновые лопасти раскрутились до 2400 оборотов в минуту, и я оторвался от земли на три метра.\n\n30-дневная демонстрация технологий превратилась в трехлетнюю одиссею. Я стал разведчиком для марсохода Perseverance, перелетая песчаные дюны и русла древних рек, указывая безопасный путь и фотографируя неприступные скалы.\n\n18 января 2024 года во время 72-го полета я потерял ориентацию над монотонными песчаными дюнами и жестко коснулся поверхности, сломав кончик лопасти. Мои приборы и радио живы, но летать я больше не смогу. Я замер на холмах Валинор, первый покоритель марсианского неба.",
+          "key_facts": [
+            "Первый в истории управляемый полет летательного аппарата на другой планете.",
+            "Совершил 72 полета общей продолжительностью 128.8 минут.",
+            "Преодолел по воздуху 17.0 километров над кратером Езеро.",
+            "Лопасти вращались со скоростью 2400 об/мин в разреженной атмосфере."
+          ]
+        },
+        "kk": {
+          "name": "Ingenuity марс тікұшағы",
+          "status": "Неретва аңғарындағы Валинор қыратында мәңгілікке қонған",
+          "brief_description": "Өзге ғаламшардың аспанында моторлы басқарылатын ұшуды жүзеге асырған тарихтағы тұңғыш аппарат.",
+          "first_person_story": "Инженерлер Марста ұшу мүмкін емес деп есептеді. Езеро кратеріндегі ауа тығыздығы Жердегі 30 шақырым биіктіктегі сирек ауаға тең, ол жерге ешбір тікұшақ жете алмайды. Бірақ 2021 жылы 19 сәуірде менің көміртекті қалақтарым минутына 2400 айналымға жетіп, мен үш метр биіктікке көтерілдім.\n\n30 күндік сынақ үш жылдық дастанға айналды. Мен Perseverance роверінің әуе барлаушысы болдым: өзен арналары мен биік құм төбелерінен ұшып өтіп, роверге қауіпсіз жол көрсеттім.\n\n2024 жылы 18 қаңтарда 72-ші ұшу кезінде мен бағдарымды жоғалтып, құмға қатты соғылдым да, бір қалағымның ұшы сынды. Мен енді ұша алмаймын, бірақ мен өзге ғаламшар аспанын алғаш бағындырған құс ретінде Валинор төбесінде мақтанышпен тұрмын.",
+          "key_facts": [
+            "Өзге ғаламшар аспанындағы алғашқы моторлы басқарылатын ұшу.",
+            "Жалпы ұзақтығы 128.8 минут болатын 72 әуе сапарын орындады.",
+            "Әуемен 17.0 шақырым барлау қашықтығын бағындырды.",
+            "Қалақтары сирек атмосферада минутына 2400 айналым жылдамдықпен айналды."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 12,
+    "fields": {
+      "name": "Dawn Spacecraft",
+      "code": "dawn",
+      "artifact_type": "orbiter",
+      "body": 3,
+      "latitude": null,
+      "longitude": null,
+      "orbit_parameters": "Perpetual, unpowered frozen orbit around Ceres (35 km to 4000 km altitude)",
+      "launch_date": "2007-09-27",
+      "landing_date": null,
+      "end_of_mission_date": "2018-11-01",
+      "status": "Passive graveyard orbit around dwarf planet Ceres",
+      "brief_description": "First spacecraft to orbit two separate extraterrestrial bodies, now in perpetual orbit around Ceres.",
+      "first_person_story": "Propelled by the gentle cyan glow of xenon ion engines, I bridged the distance between planets to study the fossil remnants of our early solar system. In 2011, I entered orbit around the giant, grooved asteroid Vesta, mapping its immense south polar impact mountain. Then, in an unprecedented feat of spaceflight navigation, I broke orbit and journeyed further outward to the dwarf planet Ceres.\n\nAt Ceres, I unmasked a dark world harboring gleaming white secrets. In the depths of Occator Crater, my spectrometers revealed brilliant deposits of sodium carbonate salts, testifying to briny water rising from deep subterranean reservoirs. I dipped closer and closer, skimming barely thirty-five kilometers above the shattered craters.\n\nBy late October 2018, my tanks of hydrazine attitude-control fuel sputtered empty. Without hydrazine to fire my control thrusters, I could no longer orient my solar wings toward the Sun or point my radio dish toward Earth. Silent and majestic, I continue circling Ceres in a perpetual unpowered orbit, a celestial satellite preserved above the world I unveiled.",
+      "key_facts": [
+        "Only spacecraft to orbit two separate extraterrestrial destinations (Vesta and Ceres).",
+        "Logged over 51,000 hours of xenon ion propulsion engine firing.",
+        "Discovered sodium carbonate salt cryovolcanism in Occator Crater.",
+        "Preserved in stable orbit for decades to avoid contaminating Ceres."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/PIA21921/PIA21921~orig.jpg",
+      "model_3d": "models/dawn.glb",
+      "priority": 2,
+      "translations": {
+        "ru": {
+          "name": "Космический зонд Dawn",
+          "status": "Неуправляемая вечная орбита вокруг карликовой планеты Церера",
+          "brief_description": "Первый космический аппарат, вышедший на орбиты двух разных внеземных тел (Весты и Цереры).",
+          "first_person_story": "Движимый бирюзовым свечением ионных ксеноновых двигателей, я преодолел миллионы километров, чтобы прикоснуться к истокам Солнечной системы. В 2011 году я вышел на орбиту гигантского астероида Веста, а затем впервые в истории покинул ее и отправился к карликовой планете Церера.\n\nНа Церере я раскрыл сияющие тайны кратера Оккатор, обнаружив солевые отложения, свидетельствующие о криовулканизме и подземных водных резервуарах.\n\nВ октябре 2018 года баки гидразина опустели. Без топлива для двигателей ориентации я больше не мог направить панели к Солнцу, а антенну к Земле. Я продолжаю величественно кружить вокруг Цереры по вечной стабильной орбите, вечный искусственный спутник далекого мира.",
+          "key_facts": [
+            "Единственный корабль, работавший на орбитах двух разных тел (Весты и Цереры).",
+            "Отработал свыше 51 000 часов на ксеноновых ионных двигателях.",
+            "Обнаружил солевые отложения водяных резервуаров в кратере Оккатор.",
+            "Оставлен на высокой стабильной орбите, чтобы исключить падение на Цереру."
+          ]
+        },
+        "kk": {
+          "name": "Dawn ғарыш аппараты",
+          "status": "Церера ергежейлі планетасының маңындағы мәңгілік пассивті орбитада",
+          "brief_description": "Екі түрлі ғарыш денесінің (Веста мен Церера) орбитасына шыққан тарихтағы тұңғыш аппарат.",
+          "first_person_story": "Иондық ксенон қозғалтқыштарымның жасыл-көк жарығымен мен Күн жүйесінің ежелгі құпияларын ашуға аттандым. 2011 жылы мен алып Веста астероидының орбитасына шықтым, кейін одан шығып, Церера ергежейлі планетасына бет алдым.\n\nЦерерадағы Оккатор кратерінде мен ақ тұз шөгінділерін таптым, бұл жерасты су қоймаларының бар екенін дәлелдеді.\n\n2018 жылдың қазанында гидразин жанармайым таусылды. Енді мен күн батареяларымды Күнге, ал антеннаны Жерге бұра алмай қалдым. Мен Церера аспанында оған тиіспей, мәңгілік тұрақты орбитада үнсіз айналып жүрмін.",
+          "key_facts": [
+            "Екі бөлек ғарыш нысанының орбитасында жұмыс істеген жалғыз аппарат.",
+            "Ксенон ионды қозғалтқыштарымен 51 мың сағаттан астам жұмыс жасады.",
+            "Оккатор кратеріндегі су криовулканизмін ашты.",
+            "Церераны ластамау үшін тұрақты жоғары орбитада мәңгіге қалдырылды."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 13,
+    "fields": {
+      "name": "NEAR Shoemaker",
+      "code": "near-shoemaker",
+      "artifact_type": "probe",
+      "body": 4,
+      "latitude": -35,
+      "longitude": -279,
+      "orbit_parameters": "",
+      "launch_date": "1996-02-17",
+      "landing_date": "2001-02-12",
+      "end_of_mission_date": "2001-02-28",
+      "status": "Resting on the south polar surface of asteroid 433 Eros",
+      "brief_description": "First spacecraft to orbit and touch down onto the surface of an asteroid.",
+      "first_person_story": "I was designed to orbit, observe, and photograph from a safe distance, not to touch down. For an entire year, I circled the peanut-shaped asteroid 433 Eros, charting its craters, measuring its gravitational wobbles, and mapping the thousands of boulders strewn across its barren regolith.\n\nWhen our primary science mission ended, the team at Johns Hopkins Applied Physics Laboratory dared to attempt the impossible. On February 12, 2001, I fired my thrusters in a sequence of braking burns, descending slowly toward the southern hemisphere of Eros. At a gentle velocity of less than two meters per second, my solar panels and bottom thruster housing kissed the surface.\n\nTo the amazement of mission control, my systems did not shatter. My transmitter continued broadcasting from the surface, allowing my gamma-ray spectrometer to gather pristine readings of asteroid minerals from zero distance. After sixteen days of surface operations, plunging temperatures closed my circuits. I remain resting on Eros, tumbling with it through the interplanetary void.",
+      "key_facts": [
+        "First spacecraft to orbit a small solar system body.",
+        "First controlled touchdown onto an asteroid.",
+        "Survived landing at 1.9 m/s despite not having landing gear.",
+        "Operated on the surface of Eros for 16 days."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/PIA03114/PIA03114~orig.jpg",
+      "model_3d": "models/near_shoemaker.glb",
+      "priority": 2,
+      "translations": {
+        "ru": {
+          "name": "Зонд NEAR Shoemaker",
+          "status": "Покоится на южном полюсе астероида 433 Эрос",
+          "brief_description": "Первый космический аппарат, вышедший на орбиту астероида и совершивший на него посадку.",
+          "first_person_story": "Меня проектировали для орбитальных наблюдений, а не для посадки. Год я кружил вокруг арахисообразного астероида 433 Эрос, составляя карты кратеров и измеряя гравитацию.\n\nКогда научная программа завершилась, команда решилась на невозможное. 12 февраля 2001 года я провел серию тормозных включений и на скорости менее двух метров в секунду мягко коснулся поверхности Эроса нижней частью корпуса.\n\nК изумлению ученых, приборы выдержали касание. Мой передатчик продолжал вещать с поверхности шестнадцать дней, пока холод не остановил электронику. Я остался на Эросе, кружась вместе с ним в космической бездне.",
+          "key_facts": [
+            "Первый космический аппарат на орбите малого тела Солнечной системы.",
+            "Первая управляемая мягкая посадка на поверхность астероида.",
+            "Выдержал касание на скорости 1.9 м/с без наличия посадочных опор.",
+            "Проработал на поверхности астероида Эрос 16 дней после посадки."
+          ]
+        },
+        "kk": {
+          "name": "NEAR Shoemaker аппараты",
+          "status": "433 Эрос астероидының оңтүстік бетінде тыныққан",
+          "brief_description": "Астероид орбитасына шығып, оның бетіне алғаш рет қонған тарихи аппарат.",
+          "first_person_story": "Мені қону үшін емес, астероидты тек орбитадан суретке түсіру үшін жасаған еді. Мен 433 Эрос астероидын бір жыл бойы айналып, оның гравитациясы мен тастарын зерттедім.\n\nМиссия аяқталғанда ғалымдар батыл қадамға барды. 2001 жылғы 12 ақпанда мен тежегіш қозғалтқыштарымды жағып, секундына екі метр жылдамдықпен Эрос бетіне ақырын қондым.\n\nТіректерімнің жоқтығына қарамастан, корпусым бүлінбеді. Менің таратқышым астероид бетінен тағы он алты күн бойы Жерге дерек жіберді. Мен Эроспен бірге ғарыш тұңғиығында бірге саяхаттап келемін.",
+          "key_facts": [
+            "Күн жүйесінің шағын денесін айналған алғашқы аппарат.",
+            "Астероид бетіне алғашқы басқарылатын жұмсақ қонуды орындады.",
+            "Қону тіректері болмаса да, 1.9 м/с соққыға шыдап аман қалды.",
+            "Эрос бетіне қонғаннан кейін 16 күн бойы ғылыми сигнал таратты."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 14,
+    "fields": {
+      "name": "Pioneer 10 & 11",
+      "code": "pioneer-10",
+      "artifact_type": "probe",
+      "body": 5,
+      "latitude": null,
+      "longitude": null,
+      "orbit_parameters": "Interstellar escape trajectories exiting opposite hemispheres of the Solar System",
+      "launch_date": "1972-03-03",
+      "landing_date": null,
+      "end_of_mission_date": "2003-01-23",
+      "status": "Drifting in interstellar space over 130 AU from the Sun",
+      "brief_description": "First probes to cross the Asteroid Belt, fly by Jupiter and Saturn, and enter interstellar escape trajectories.",
+      "first_person_story": "We were the first scouts sent beyond the safety of the inner planets. Scientists on Earth warned that the Asteroid Belt might prove to be an impenetrable wall of fatal debris, but I slipped through the rocks unscathed. In December 1973, I plunged into the blinding radiation belts of Jupiter, transmitting the first close-up photographs of the giant Great Red Spot.\n\nThe massive gravity of Jupiter slung me outward at escape velocity. My twin, Pioneer 11, followed behind, slingshotting past Jupiter to become the first craft to inspect the rings of Saturn. Bolted to our frames are golden plaques, etched with the figures of a man and a woman, and a pulsar map pointing back to the third stone from our star.\n\nMy radioisotope thermoelectric generators faded over thirty years of deep freeze. On January 23, 2003, from a distance of 12 billion kilometers, I whispered my final faint telemetry back to Earth. I am drifting silently through interstellar dark, heading toward the red eye of Aldebaran, carrying humanity message across millions of years.",
+      "key_facts": [
+        "Pioneer 10 was the first spacecraft to cross the Asteroid Belt and encounter Jupiter.",
+        "Pioneer 11 was the first spacecraft to directly encounter Saturn.",
+        "Both carry the famous gold-anodized Pioneer Plaque.",
+        "Last signal from Pioneer 10 received in January 2003 from 12 billion km away."
+      ],
+      "fleet_members": [
+        {
+          "mission": "Pioneer 11",
+          "launch_date": "1973-04-06",
+          "trajectory": "Heading toward constellation Scutum",
+          "last_signal": "November 1995"
+        }
+      ],
+      "image_url": "https://images-assets.nasa.gov/image/ARC-1972-AC72-2135/ARC-1972-AC72-2135~large.jpg",
+      "model_3d": "models/pioneer.glb",
+      "priority": 2,
+      "translations": {
+        "ru": {
+          "name": "Межзвездные зонды Pioneer 10 и 11",
+          "status": "Дрейфуют в межзвездном пространстве на расстоянии более 130 а.е. от Солнца",
+          "brief_description": "Первые зонды, преодолевшие Пояс астероидов, исследовавшие Юпитер и Сатурн и покинувшие Солнечную систему.",
+          "first_person_story": "Мы были первыми разведчиками, отправленными за пределы орбит внутренних планет. Нас пугали непроходимой стеной Пояса астероидов, но мы прошли сквозь камни невредимыми. В декабре 1973 года я пронесся сквозь радиационные пояса Юпитера, передав первые снимки Большого Красного Пятна.\n\nГравитация планеты выбросила меня на траекторию исхода из системы. Мой близнец Пионер-11 осмотрел кольца Сатурна. На наших корпусах закреплены золотые пластинки с посланием человечества и картой пути к Земле.\n\n23 января 2003 года с расстояния 12 миллиардов километров я передал свой последний слабый сигнал. Я лечу в темноте к красной звезде Альдебаран, неся память о Земле сквозь миллионы лет.",
+          "key_facts": [
+            "Пионер-10 стал первым кораблем, пересекшим Пояс астероидов и достигшим Юпитера.",
+            "Пионер-11 стал первым аппаратом, исследовавшим кольца Сатурна вблизи.",
+            "Оба зонда несут знаменитые золотые пластинки Пионера с посланием человечества.",
+            "Последний сигнал Пионера-10 был принят в январе 2003 года с расстояния 12 млрд км."
+          ]
+        },
+        "kk": {
+          "name": "Пионер-10 және Пионер-11 жұлдызаралық зондтары",
+          "status": "Күннен 130 а.б. қашықтықтағы жұлдызаралық кеңістікте ұшып барады",
+          "brief_description": "Астероид белдеуін кесіп өтіп, Юпитер мен Сатурнды зерттеген және Күн жүйесінен шығып кеткен алғашқы зондтар.",
+          "first_person_story": "Біз ішкі ғаламшарлардан асып, белгісіздікке аттанған тұңғыш барлаушылар болдық. 1973 жылы мен Юпитердің қуатты радиациясына еніп, алып Қызыл Дақтың алғашқы суреттерін Жерге жібердім.\n\nЮпитердің ауырлық күші мені Күн жүйесінен тысқары лақтырды. Егізім Пионер-11 Сатурн сақиналарын зерттеді. Корпусымызға адам бейнесі мен Жерге бағытталған пульсар картасы қашалған алтын тақталар бекітілген.\n\n2003 жылы 23 қаңтарда 12 миллиард шақырым қашықтықтан соңғы хабарымды сыбырладым. Мен Альдебаран жұлдызына қарай жұлдызаралық түнекте адамзаттың сәлемін миллиондаған жылдарға алып барамын.",
+          "key_facts": [
+            "Пионер-10 Астероид белдеуінен өтіп, Юпитерге жеткен алғашқы аппарат болды.",
+            "Пионер-11 Сатурн сақиналарын алғаш рет жақыннан көрген аппарат болды.",
+            "Екеуі де адамзаттың алтын жалатылған Пионер пластинкасын алып жүр.",
+            "Пионер-10 соңғы сигналы 2003 жылы 12 миллиард шақырым қашықтықтан қабылданды."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 15,
+    "fields": {
+      "name": "Kepler Space Telescope",
+      "code": "kepler",
+      "artifact_type": "space_telescope",
+      "body": 5,
+      "latitude": null,
+      "longitude": null,
+      "orbit_parameters": "Earth-trailing heliocentric orbit (drifting approx 150 million km behind Earth)",
+      "launch_date": "2009-03-07",
+      "landing_date": null,
+      "end_of_mission_date": "2018-10-30",
+      "status": "Drifting in heliocentric orbit with disabled transmitters",
+      "brief_description": "Historic exoplanet-hunting telescope that confirmed 2,662 alien worlds.",
+      "first_person_story": "Before my launch, humanity did not know whether planetary systems were rare cosmic accidents or common wonders of the universe. I was placed in an Earth-trailing orbit around the Sun, staring unwaveringly at a single patch of 150,000 stars in the constellations of Cygnus and Lyra. My sensitive electronic eye waited for the infinitesimal dip in starlight caused by a world passing in front of its home sun.\n\nIn 2013, two of my mechanical gyroscope wheels failed, leaving me unable to stay pointed. But my engineers harnessed the gentle pressure of sunlight bouncing off my hull to balance me, launching the triumphant second life of my mission, K2. Through my aperture, astronomers confirmed 2,662 alien worlds, rocky terrestrial planets, scorching gas giants, and ocean worlds.\n\nIn October 2018, my thrusters sucked the last drops of hydrazine fuel from my tanks. On November 15, 2018, the anniversary of Johannes Kepler death, engineers sent the final command from Earth to disable my safety overrides and shut down my radio transmitter. I coast silently in the slipstream of Earth orbit, blind and quiet, having rewritten humanity place in the cosmos.",
+      "key_facts": [
+        "Discovered 2,662 confirmed exoplanets.",
+        "Monitored over 530,000 stars over 9.6 years.",
+        "Rescued by solar radiation balancing during the K2 extended mission.",
+        "Drifting permanently in an Earth-trailing solar orbit."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/PIA11824/PIA11824~orig.jpg",
+      "model_3d": "models/kepler.glb",
+      "priority": 2,
+      "translations": {
+        "ru": {
+          "name": "Космический телескоп Kepler",
+          "status": "Дрейфует по гелиоцентрической орбите позади Земли с отключенными передатчиками",
+          "brief_description": "Революционный телескоп-охотник за экзопланетами, открывший 2662 далеких мира.",
+          "first_person_story": "До моего запуска человечество не знало, уникальна ли наша планетная система или космос полон миров. Находясь на орбите позади Земли, я непрерывно смотрел на 150 000 звезд в созвездиях Лебедя и Лиры, улавливая крошечные затмения от проходящих планет.\n\nВ 2013 году вышли из строя гироскопы, но инженеры научились балансировать меня давлением солнечного света, подарив миссии вторую жизнь K2. Я подтвердил существование 2662 экзопланет: каменистых земель, раскаленных гигантов и водных миров.\n\nВ октябре 2018 года баки гидразина опустели. 15 ноября 2018 года инженеры передали команду отключить передатчики. Я молча плыву в космическом кильватере Земли, навсегда изменив представление человека о Вселенной.",
+          "key_facts": [
+            "Открыл 2662 подтвержденные экзопланеты у далеких звезд.",
+            "Непрерывно наблюдал более чем 530 000 звезд за 9.6 лет миссии.",
+            "Был спасен давлением солнечного света в рамках продленной миссии K2.",
+            "Навечно дрейфует по солнечной орбите, отставая от Земли на 150 млн км."
+          ]
+        },
+        "kk": {
+          "name": "Кеплер ғарыш телескопы",
+          "status": "Жердің соңынан күн орбитасымен үнсіз қалқып бара жатқан обсерватория",
+          "brief_description": "Өзге жұлдыздар маңынан 2662 экзопланета ашып, ғарыш туралы түсінікті өзгерткен телескоп.",
+          "first_person_story": "Мен ұшқанға дейін адам баласы өзге жұлдыздарда ғаламшарлардың бар-жоғын нақты білмеген еді. Мен 150 мың жұлдызға үздіксіз қарап, олардың алдынан өткен ғаламшарлардың көлеңкесін аңдыдым.\n\n2013 жылы тұрақтандырғыштарым бұзылғанда, инженерлер күн сәулесінің қысымын пайдаланып мені теңгеру арқылы K2 миссиясын бастады. Мен 2662 өзге ғаламшарды растадым: тасты Жер тектес әлемдерді, алып газдарды және мұхиттарды таптым.\n\n2018 жылы жанармайым бітіп, таратқыштарым өшірілді. Мен Жердің соңынан еріп, ғарыш тұңғиығында адамзаттың аспанға көзқарасын мәңгілікке өзгертіп үнсіз ұшып барамын.",
+          "key_facts": [
+            "2662 экзопланетаны тауып, олардың бар екенін ғылыми растады.",
+            "9.6 жыл ішінде 530 мыңнан астам жұлдызды бақылады.",
+            "K2 миссиясында күн сәулесінің қысымымен қайта бағытталды.",
+            "Жерден 150 миллион шақырым қашықтықтағы күн орбитасында мәңгіге қалды."
+          ]
+        }
+      }
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 1,
+    "fields": {
+      "artifact": 1,
+      "title": "NASA NSSDCA Apollo 11 Lunar Module / EASEP (1969-059C)",
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C",
+      "details": "Official NASA master catalog record for Apollo 11 Lunar Module descent stage, coordinates, and Tranquility Base status."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 2,
+    "fields": {
+      "artifact": 2,
+      "title": "NASA NSSDCA Apollo 15 Lunar Roving Vehicle (1971-063C)",
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C",
+      "details": "Official NASA master catalog record for Apollo 15 LRV-1, traverse distance, and final parking coordinates at Hadley Rille."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 3,
+    "fields": {
+      "artifact": 3,
+      "title": "NASA NSSDCA Apollo 12 ALSEP (1969-099C)",
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-099C",
+      "details": "Official NASA catalog parameters for Apollo 12 ALSEP central station, SNAP-27 RTG, and seismic operational span."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 4,
+    "fields": {
+      "artifact": 4,
+      "title": "NASA Science Mission: Surveyor 3",
+      "url": "https://science.nasa.gov/mission/surveyor-3/",
+      "details": "Mission parameters, landing bounce dynamics, and Apollo 12 retrieval of television camera and soil scoop."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 5,
+    "fields": {
+      "artifact": 5,
+      "title": "NASA Science Mission: Mars Pathfinder and Sojourner Rover",
+      "url": "https://science.nasa.gov/mission/mars-pathfinder/",
+      "details": "Landing coordinates in Ares Vallis, 83 sols of surface telemetry, and chemical spectrometer results."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 6,
+    "fields": {
+      "artifact": 6,
+      "title": "NASA Science Mission: Spirit Rover (MER-A)",
+      "url": "https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/",
+      "details": "Gusev Crater landing site, silica discovery at Troy, and final transmission logs."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 7,
+    "fields": {
+      "artifact": 7,
+      "title": "NASA Science Mission: Opportunity Rover (MER-B)",
+      "url": "https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/",
+      "details": "45.16 km traverse record, hematite spherule discovery, and final communication in Perseverance Valley."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 8,
+    "fields": {
+      "artifact": 8,
+      "title": "NASA Science Mission: Viking 1 Lander",
+      "url": "https://science.nasa.gov/mission/viking-1/",
+      "details": "First long-term operational lander on Mars, Chryse Planitia coordinates, and surface color imagery."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 9,
+    "fields": {
+      "artifact": 9,
+      "title": "NASA Science Mission: Phoenix Mars Lander",
+      "url": "https://science.nasa.gov/mission/phoenix/",
+      "details": "Vastitas Borealis arctic landing site, permafrost trenching, and confirmation of sub-surface water ice."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 10,
+    "fields": {
+      "artifact": 10,
+      "title": "NASA Science Mission: InSight Lander",
+      "url": "https://science.nasa.gov/mission/insight/",
+      "details": "Elysium Planitia coordinates, SEIS seismometer observations, and 1,319 recorded marsquakes."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 11,
+    "fields": {
+      "artifact": 11,
+      "title": "NASA Science Mission: Ingenuity Mars Helicopter",
+      "url": "https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/",
+      "details": "72 flights, 17 km flight distance, Jezero Crater coordinates, and final grounding at Valinor Hills."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 12,
+    "fields": {
+      "artifact": 12,
+      "title": "NASA Science Mission: Dawn Spacecraft",
+      "url": "https://science.nasa.gov/mission/dawn/",
+      "details": "Vesta and Ceres exploration, xenon ion propulsion, and frozen unpowered orbit around Ceres."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 13,
+    "fields": {
+      "artifact": 13,
+      "title": "NASA Science Mission: NEAR Shoemaker",
+      "url": "https://science.nasa.gov/mission/near-shoemaker/",
+      "details": "First asteroid orbital rendezvous, controlled touchdown on 433 Eros, and surface transmission logs."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 14,
+    "fields": {
+      "artifact": 14,
+      "title": "NASA Science Mission: Pioneer 10 and 11",
+      "url": "https://science.nasa.gov/mission/pioneer-10/",
+      "details": "Jupiter and Saturn flybys, interstellar escape trajectories, and final 2003 telemetry reception."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 15,
+    "fields": {
+      "artifact": 15,
+      "title": "NASA Science Mission: Kepler Space Telescope",
+      "url": "https://science.nasa.gov/mission/kepler/",
+      "details": "Discovery of 2,662 confirmed exoplanets, Earth-trailing heliocentric orbit, and decommissioning commands."
+    }
+  }
+]

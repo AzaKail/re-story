@@ -1,10 +1,10 @@
-import { t } from './i18n.js';
-
 // Bar shown while the camera is focused on an artifact:
-// its name, "Learn more" (scrolls to the museum) and a close button.
+// its name, "Learn more" (dive into the museum) and a close button.
+// nameOf(code) supplies the localized name.
 export class FocusBar {
-  constructor(root, { onMore, onClose }) {
+  constructor(root, { onMore, onClose, nameOf }) {
     this.root = root;
+    this.nameOf = nameOf;
     this.name = root.querySelector('[data-focus-name]');
     this.code = null;
 
@@ -24,6 +24,6 @@ export class FocusBar {
   }
 
   refreshLanguage() {
-    if (this.code) this.name.textContent = t(`artifact.${this.code}`);
+    if (this.code) this.name.textContent = this.nameOf(this.code);
   }
 }

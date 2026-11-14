@@ -11,6 +11,7 @@
   --accent-line: rgba(242, 181, 74, 0.5);
   --accent-ink: #1a1206;
   --radius: 12px;
+  --trans-fast: 0.18s ease;
   --gutter: 16px;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
@@ -258,11 +259,13 @@ a { color: inherit; }
 .panel-item-name { font-size: 0.95rem; }
 .panel-item-meta {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 8px;
+  gap: 2px 8px;
   color: var(--muted);
   font-size: 0.75rem;
 }
+.panel-item-meta .mono { white-space: nowrap; }
 .panel-empty { padding: 10px 12px; color: var(--muted); font-size: 0.85rem; }
 
 /* ---------- Caption ---------- */
@@ -317,7 +320,7 @@ a { color: inherit; }
   z-index: 5;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 64px var(--gutter) 0;
+  padding: 0 var(--gutter);
   background: linear-gradient(to bottom, var(--bg), var(--bg-raised) 240px);
 }
 .museum[hidden] { display: none; }
@@ -348,6 +351,44 @@ a { color: inherit; }
 }
 .museum-title:focus { outline: none; }
 .museum-inner p { margin: 0 0 1.1em; color: var(--text-soft); font-size: 1.05rem; line-height: 1.7; }
+.planet-artifacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.planet-artifact-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  color: inherit;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color var(--trans-fast), background var(--trans-fast), transform var(--trans-fast);
+  text-align: left;
+}
+.planet-artifact-card:hover, .planet-artifact-card:focus-visible {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
+}
+.planet-artifact-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.35;
+}
+.planet-artifact-meta {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
 
 .site-footer {
   max-width: 760px;
@@ -412,6 +453,88 @@ a { color: inherit; }
 .fallback[hidden] { display: none; }
 .fallback h1 { color: var(--accent); }
 
+/* ---------- Museum artifact page ---------- */
+/* Back-to-3D button and language switch stay visible while the page scrolls. */
+.museum-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 calc(-1 * var(--gutter));
+  padding: 16px var(--gutter) 20px;
+  background: linear-gradient(to bottom, var(--bg) 70%, rgba(2, 3, 8, 0));
+}
+.museum-status { margin: -12px 0 20px; color: var(--muted); font-size: 0.95rem; }
+.museum-body-kicker { margin: 0 0 12px; color: var(--accent); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+.card-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0 0 24px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+}
+.meta-item { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.meta-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.meta-val { font-size: 0.88rem; color: var(--text-soft); overflow-wrap: anywhere; }
+
+.card-media {
+  margin: 0 0 24px;
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #000;
+}
+.card-image { display: block; width: 100%; max-height: 440px; object-fit: contain; }
+.card-media-credit { padding: 6px 12px; color: var(--muted); font-size: 0.72rem; }
+
+.card-section { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--panel-border); }
+.card-section-title {
+  margin: 0 0 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.museum-story { border-top: 0; padding-top: 0; margin-top: 0; }
+.museum-inner .card-story-para { margin: 0 0 1.1em; color: var(--text-soft); font-size: 1.05rem; line-height: 1.75; }
+.museum-story .card-story-para:first-child::first-letter { color: var(--accent); }
+
+.card-facts-list { margin: 0; padding-left: 20px; color: var(--text-soft); font-size: 0.95rem; line-height: 1.6; }
+.card-facts-list li + li { margin-top: 8px; }
+.card-facts-list li::marker { color: var(--accent); }
+
+.fleet-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.fleet-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; color: var(--text-soft); text-align: left; }
+.fleet-table th {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--panel-border);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.fleet-table td { padding: 8px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); vertical-align: top; }
+.fleet-table tr:hover td { background: rgba(255, 255, 255, 0.04); }
+.fleet-name { font-weight: 600; color: var(--text); }
+
+.card-sources-list { margin: 0; padding: 0; list-style: none; }
+.card-sources-list li + li { margin-top: 12px; }
+.card-source-link { color: var(--accent); font-size: 0.92rem; text-decoration-color: var(--accent-line); }
+.card-source-link:hover { color: #f6c467; }
+.card-source-details { margin-top: 3px; color: var(--muted); font-size: 0.8rem; line-height: 1.45; }
+
+.museum-actions { margin-top: 28px; }
+
 /* ---------- Phones ---------- */
 @media (max-width: 600px) {
   .topbar { flex-direction: column; align-items: stretch; }
@@ -441,6 +564,8 @@ a { color: inherit; }
     transform: none;
   }
   .focusbar-name { flex: 1; }
+
+  .card-meta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* ---------- Large screens / kiosk ---------- */

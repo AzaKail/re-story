@@ -48,6 +48,7 @@ NASA Space Apps Challenge, "Abandoned but not Forgotten".
 5. Apply database migrations and start server:
    ```bash
    python manage.py migrate
+   python manage.py seed_catalog     # NASA equipment catalog from data/artifacts.json
    python manage.py runserver
    ```
 
