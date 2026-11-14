@@ -1,8 +1,260 @@
-// Placeholder artifacts until the catalog API exists.
-// The coordinates are arbitrary test points, NOT real landing sites.
-// Names come from i18n.js under `artifact.<code>`.
+// NASA Discarded Equipment Dataset and API loader
 
 export const ARTIFACTS = [
-  { code: 'demo-moon', body: 'moon', lat: 20, lon: 30 },
-  { code: 'demo-mars', body: 'mars', lat: -10, lon: -60 },
+  {
+    code: 'apollo-11-lm',
+    name: 'Apollo Lunar Module Descent Stage (Eagle)',
+    body: 'moon',
+    artifact_type: 'lander',
+    latitude: 0.67408,
+    longitude: 23.47297,
+    orbit_parameters: '',
+    launch_date: '1969-07-16',
+    landing_date: '1969-07-20',
+    end_of_mission_date: '1969-07-21',
+    status: 'Resting at Tranquility Base as a launch pad monument',
+    brief_description: 'Descent stage of Apollo 11 Lunar Module Eagle, the first crewed spacecraft to land on the Moon.',
+    priority: 1,
+  },
+  {
+    code: 'lrv-apollo-15',
+    name: 'Lunar Roving Vehicle 1 (Apollo 15)',
+    body: 'moon',
+    artifact_type: 'rover',
+    latitude: 26.134,
+    longitude: 3.639,
+    orbit_parameters: '',
+    launch_date: '1971-07-26',
+    landing_date: '1971-07-30',
+    end_of_mission_date: '1971-08-02',
+    status: 'Parked permanently 90 meters east of Falcon descent stage',
+    brief_description: 'First manned rover driven on another celestial body, exploring the Hadley-Apennine lunar region.',
+    priority: 1,
+  },
+  {
+    code: 'alsep-apollo-12',
+    name: 'Apollo 12 ALSEP Package',
+    body: 'moon',
+    artifact_type: 'scientific_package',
+    latitude: -3.0124,
+    longitude: -23.4216,
+    orbit_parameters: '',
+    launch_date: '1969-11-14',
+    landing_date: '1969-11-19',
+    end_of_mission_date: '1977-09-30',
+    status: 'Inactive scientific station on the Ocean of Storms',
+    brief_description: 'Nuclear-powered scientific station that monitored seismic events and the lunar environment for eight years.',
+    priority: 1,
+  },
+  {
+    code: 'surveyor-3',
+    name: 'Surveyor 3',
+    body: 'moon',
+    artifact_type: 'lander',
+    latitude: -3.0163,
+    longitude: -23.4180,
+    orbit_parameters: '',
+    launch_date: '1967-04-17',
+    landing_date: '1967-04-20',
+    end_of_mission_date: '1967-05-04',
+    status: 'Inactive lander in crater; partially retrieved by Apollo 12',
+    brief_description: 'Robotic lander that scooped lunar soil and was later visited on foot by Apollo 12 astronauts.',
+    priority: 1,
+  },
+  {
+    code: 'sojourner',
+    name: 'Sojourner Rover & Mars Pathfinder',
+    body: 'mars',
+    artifact_type: 'rover',
+    latitude: 19.33,
+    longitude: -33.55,
+    orbit_parameters: '',
+    launch_date: '1996-12-04',
+    landing_date: '1997-07-04',
+    end_of_mission_date: '1997-09-27',
+    status: 'Parked permanently at Ares Vallis',
+    brief_description: 'First successful wheeled mobile rover on Mars, carried by the Pathfinder lander.',
+    priority: 1,
+  },
+  {
+    code: 'spirit-mer-a',
+    name: 'Spirit Rover (MER-A)',
+    body: 'mars',
+    artifact_type: 'rover',
+    latitude: -14.5684,
+    longitude: 175.4726,
+    orbit_parameters: '',
+    launch_date: '2003-06-10',
+    landing_date: '2004-01-04',
+    end_of_mission_date: '2010-03-22',
+    status: 'Stationary robotic landmark trapped at Troy in Gusev Crater',
+    brief_description: 'First of the Mars Exploration Rover twins, discovering evidence of hydrothermal activity.',
+    priority: 1,
+  },
+  {
+    code: 'opportunity-mer-b',
+    name: 'Opportunity Rover (MER-B)',
+    body: 'mars',
+    artifact_type: 'rover',
+    latitude: -1.9483,
+    longitude: 354.4742,
+    orbit_parameters: '',
+    launch_date: '2003-07-07',
+    landing_date: '2004-01-25',
+    end_of_mission_date: '2018-06-10',
+    status: 'Silent in Perseverance Valley on the rim of Endeavour Crater',
+    brief_description: 'Long-lived rover holding the off-world driving record of 45.16 km over 14 years.',
+    priority: 1,
+  },
+  {
+    code: 'viking-1',
+    name: 'Viking 1 Lander',
+    body: 'mars',
+    artifact_type: 'lander',
+    latitude: 22.697,
+    longitude: -48.222,
+    orbit_parameters: '',
+    launch_date: '1975-08-20',
+    landing_date: '1976-07-20',
+    end_of_mission_date: '1982-11-11',
+    status: 'Stationary lander resting in Chryse Planitia',
+    brief_description: 'First American probe to land and operate successfully long-term on Mars.',
+    priority: 1,
+  },
+  {
+    code: 'phoenix-lander',
+    name: 'Phoenix Mars Lander',
+    body: 'mars',
+    artifact_type: 'lander',
+    latitude: 68.2188,
+    longitude: -125.7492,
+    orbit_parameters: '',
+    launch_date: '2007-08-04',
+    landing_date: '2008-05-25',
+    end_of_mission_date: '2008-11-02',
+    status: 'Inactive arctic lander crushed by winter dry ice sheets',
+    brief_description: 'Arctic lander that directly confirmed the presence of water ice under the Martian soil.',
+    priority: 1,
+  },
+  {
+    code: 'insight-lander',
+    name: 'InSight Lander',
+    body: 'mars',
+    artifact_type: 'lander',
+    latitude: 4.502,
+    longitude: 135.623,
+    orbit_parameters: '',
+    launch_date: '2018-05-05',
+    landing_date: '2018-11-26',
+    end_of_mission_date: '2022-12-15',
+    status: 'Silent seismic observatory covered in dust at Elysium Planitia',
+    brief_description: 'Geophysical lander that mapped the deep interior and recorded 1,319 marsquakes.',
+    priority: 1,
+  },
+  {
+    code: 'ingenuity',
+    name: 'Ingenuity Mars Helicopter',
+    body: 'mars',
+    artifact_type: 'helicopter',
+    latitude: 18.445,
+    longitude: 77.451,
+    orbit_parameters: '',
+    launch_date: '2020-07-30',
+    landing_date: '2021-02-18',
+    end_of_mission_date: '2024-01-25',
+    status: 'Permanently grounded at Valinor Hills in Neretva Vallis',
+    brief_description: 'First aircraft to achieve powered, controlled flight on another celestial body.',
+    priority: 1,
+  },
+  {
+    code: 'dawn',
+    name: 'Dawn Spacecraft',
+    body: 'ceres',
+    artifact_type: 'orbiter',
+    latitude: null,
+    longitude: null,
+    orbit_parameters: 'Perpetual, unpowered frozen orbit around Ceres (35 km to 4000 km altitude)',
+    launch_date: '2007-09-27',
+    landing_date: null,
+    end_of_mission_date: '2018-11-01',
+    status: 'Passive graveyard orbit around dwarf planet Ceres',
+    brief_description: 'First spacecraft to orbit two separate extraterrestrial bodies, now in perpetual orbit around Ceres.',
+    priority: 2,
+  },
+  {
+    code: 'near-shoemaker',
+    name: 'NEAR Shoemaker',
+    body: 'eros',
+    artifact_type: 'probe',
+    latitude: -35.0,
+    longitude: -279.0,
+    orbit_parameters: '',
+    launch_date: '1996-02-17',
+    landing_date: '2001-02-12',
+    end_of_mission_date: '2001-02-28',
+    status: 'Resting on the south polar surface of asteroid 433 Eros',
+    brief_description: 'First spacecraft to orbit and touch down onto the surface of an asteroid.',
+    priority: 2,
+  },
+  {
+    code: 'pioneer-10',
+    name: 'Pioneer 10 & 11',
+    body: 'solar_system',
+    artifact_type: 'probe',
+    latitude: null,
+    longitude: null,
+    orbit_parameters: 'Interstellar escape trajectories exiting opposite hemispheres of the Solar System',
+    launch_date: '1972-03-03',
+    landing_date: null,
+    end_of_mission_date: '2003-01-23',
+    status: 'Drifting in interstellar space over 130 AU from the Sun',
+    brief_description: 'First probes to cross the Asteroid Belt, fly by Jupiter and Saturn, and enter interstellar escape trajectories.',
+    priority: 2,
+  },
+  {
+    code: 'kepler',
+    name: 'Kepler Space Telescope',
+    body: 'solar_system',
+    artifact_type: 'space_telescope',
+    latitude: null,
+    longitude: null,
+    orbit_parameters: 'Earth-trailing heliocentric orbit (drifting approx 150 million km behind Earth)',
+    launch_date: '2009-03-07',
+    landing_date: null,
+    end_of_mission_date: '2018-10-30',
+    status: 'Drifting in heliocentric orbit with disabled transmitters',
+    brief_description: 'Historic exoplanet-hunting telescope that confirmed 2,662 alien worlds.',
+    priority: 2,
+  },
 ];
+
+export async function loadArtifactsFromApi() {
+  try {
+    const response = await fetch('/api/artifacts/');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch artifacts: ${response.status}`);
+    }
+    const data = await response.json();
+    if (Array.isArray(data.artifacts) && data.artifacts.length > 0) {
+      return data.artifacts;
+    }
+    return ARTIFACTS;
+  } catch (err) {
+    console.warn('Using bundled artifact catalog fallback:', err);
+    return ARTIFACTS;
+  }
+}
+
+export async function fetchArtifactDetail(code) {
+  try {
+    const response = await fetch(`/api/artifacts/${encodeURIComponent(code)}/`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch artifact detail: ${response.status}`);
+    }
+    return await response.json();
+  } catch (err) {
+    console.warn(`Falling back to local data for artifact ${code}:`, err);
+    const item = ARTIFACTS.find((a) => a.code === code);
+    return item || null;
+  }
+}

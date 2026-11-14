@@ -101,3 +101,34 @@ The assistant integrates cleanly into the core project through exactly three fil
 - `static/ai_assistant/js/widget.js`: Operates chat UI, listens for `langchange` events from the main site language switch, reads SSE stream via Fetch API, and parses formatting safely.
 - `static/ai_assistant/css/widget.css`: Provides fixed floating bottom-right position (`z-index: 9999`) and expands to full screen on mobile devices (`max-width: 480px`).
 
+### 2026-11-14: NASA Discarded Equipment Catalog and Museum Card Architecture (Stage 1)
+
+#### Summary of Changes
+- Implemented the Flagship Representative Pattern across the equipment catalog in `catalog/models.py`.
+- Created relational models: `Body`, `Artifact`, and `Source` with Django Admin registration and inlines.
+- Added `fleet_members` JSONField to `Artifact` to represent sibling spacecraft, landing sites, and operational timelines.
+- Compiled verified NASA dataset covering 5 celestial bodies, 15 artifacts, and 16 official NASA master sources into `data/artifacts.json`.
+- Implemented `seed_catalog` management command (`python manage.py seed_catalog`) with idempotent data ingestion.
+- Built JSON API endpoints in `catalog/views.py`:
+  - `GET /api/bodies/`: Celestial bodies with scene radii and surface texture assets.
+  - `GET /api/artifacts/?body=<body_code>`: Filterable equipment list with coordinates and metadata.
+  - `GET /api/artifacts/<code-or-slug>/`: Comprehensive artifact card payload including first-person story, key facts, fleet members, and NASA sources.
+- Built the interactive slide-out museum card component in `static/js/card.js` with `renderFleetMembers` table generation.
+- Integrated the card drawer into `templates/index.html` and styled via native CSS custom properties in `static/css/main.css`.
+- Synchronized trilingual i18n keys across `en`, `ru`, and `kk` in `static/js/i18n.js` with complete key parity.
+- Maintained Air-Gapped readiness with bundled offline fallback catalog in `static/js/artifacts.js`.
+
+#### Flagship Representative Architecture
+Equipment with identical hardware fleets uses a single primary Flagship card pinned to the most historic coordinates on the 3D globe:
+1. Apollo Lunar Module: Flagship is Apollo 11 LM Eagle (Tranquility Base). Sister fleet table includes Apollo 12 (Intrepid), Apollo 14 (Antares), Apollo 15 (Falcon), Apollo 16 (Orion), and Apollo 17 (Challenger).
+2. Lunar Roving Vehicle: Flagship is LRV-1 (Apollo 15, Hadley Rille). Sister fleet table includes Apollo 16 (LRV-2) and Apollo 17 (LRV-3).
+3. ALSEP Packages: Flagship is Apollo 12 ALSEP (Ocean of Storms). Sister fleet table includes Apollo 11 EASEP, Apollo 14 ALSEP, Apollo 15 ALSEP, Apollo 16 ALSEP, and Apollo 17 ALSEP.
+4. Surveyor Landers: Flagship is Surveyor 3 (Apollo 12 retrieval site). Sister fleet table includes Surveyor 1, Surveyor 5, Surveyor 6, and Surveyor 7.
+5. Independent exploration craft (Spirit, Opportunity, Viking 1, Viking 2, Phoenix, InSight, Ingenuity, Dawn, NEAR Shoemaker, Pioneer 10 and 11, Kepler) maintain dedicated records.
+
+#### Verification and Integrity
+- Ran test suite: `python manage.py test catalog` (6 tests passing, 0 errors).
+- Verified Django system check: `python manage.py check` (0 issues).
+- All official NASA URLs cataloged in `docs/SOURCES.md`.
+
+

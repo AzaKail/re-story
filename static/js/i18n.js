@@ -2,7 +2,7 @@
 // To add a string: add the key to every language (en, ru, kk), then use
 //   data-i18n="key"            -> element text
 //   data-i18n-aria-label="key" -> aria-label attribute
-// or t('key') in JS. Catalog content (stories, facts) will come from the API per language.
+// or t('key') in JS.
 
 const STRINGS = {
   en: {
@@ -12,6 +12,9 @@ const STRINGS = {
     'body.moon': 'Moon',
     'body.mars': 'Mars',
     'body.earth': 'Earth',
+    'body.ceres': 'Ceres',
+    'body.eros': '433 Eros',
+    'body.solar_system': 'Deep Space',
     'scene.label': '3D view of the Moon and Mars. Drag to rotate, scroll or pinch to zoom.',
     'scene.hint': 'Drag to rotate · scroll or pinch to zoom',
     'credits.title': 'Surface maps',
@@ -22,13 +25,34 @@ const STRINGS = {
     'panel.collapse': 'Collapse the list',
     'panel.expand': 'Expand the list',
     'panel.empty': 'No objects yet',
-    'artifact.type.placeholder': 'Placeholder',
-    'artifact.demo-moon': 'Lunar test object',
-    'artifact.demo-mars': 'Martian test object',
+    'artifact.type.placeholder': 'Equipment',
+    'artifact.apollo-11-lm': 'Apollo 11 LM Eagle',
+    'artifact.lrv-apollo-15': 'Lunar Roving Vehicle 1 (Apollo 15)',
+    'artifact.alsep-apollo-12': 'Apollo 12 ALSEP Package',
+    'artifact.surveyor-3': 'Surveyor 3',
+    'artifact.sojourner': 'Sojourner Rover & Pathfinder',
+    'artifact.spirit-mer-a': 'Spirit Rover (MER-A)',
+    'artifact.opportunity-mer-b': 'Opportunity Rover (MER-B)',
+    'artifact.viking-1': 'Viking 1 Lander',
+    'artifact.phoenix-lander': 'Phoenix Mars Lander',
+    'artifact.insight-lander': 'InSight Lander',
+    'artifact.ingenuity': 'Ingenuity Mars Helicopter',
+    'artifact.dawn': 'Dawn Spacecraft',
+    'artifact.near-shoemaker': 'NEAR Shoemaker',
+    'artifact.pioneer-10': 'Pioneer 10 & 11',
+    'artifact.kepler': 'Kepler Space Telescope',
     'focus.more': 'Learn more',
     'focus.close': 'Close the tour',
     'museum.title': 'Museum',
     'museum.back3d': '3D version',
+    'card.location': 'Location',
+    'card.launch': 'Launch',
+    'card.landing': 'Touchdown',
+    'card.end': 'Mission End',
+    'card.ask': 'Ask this artifact',
+    'card.fleet': 'Sister Craft & Fleet Sites',
+    'card.facts': 'Key Scientific and Engineering Facts',
+    'card.sources': 'Official NASA Master Sources',
   },
   ru: {
     'brand.sub': 'Оставлены, но не забыты',
@@ -37,6 +61,9 @@ const STRINGS = {
     'body.moon': 'Луна',
     'body.mars': 'Марс',
     'body.earth': 'Земля',
+    'body.ceres': 'Церера',
+    'body.eros': '433 Эрос',
+    'body.solar_system': 'Дальний космос',
     'scene.label': '3D-вид Луны и Марса. Перетаскивайте, чтобы вращать. Колесо мыши или два пальца меняют масштаб.',
     'scene.hint': 'Перетаскивайте, чтобы вращать · колесо или два пальца для масштаба',
     'credits.title': 'Карты поверхности',
@@ -47,13 +74,34 @@ const STRINGS = {
     'panel.collapse': 'Свернуть список',
     'panel.expand': 'Развернуть список',
     'panel.empty': 'Пока нет объектов',
-    'artifact.type.placeholder': 'Заглушка',
-    'artifact.demo-moon': 'Лунный тестовый объект',
-    'artifact.demo-mars': 'Марсианский тестовый объект',
+    'artifact.type.placeholder': 'Оборудование',
+    'artifact.apollo-11-lm': 'Лунный модуль Apollo 11 (Eagle)',
+    'artifact.lrv-apollo-15': 'Лунный автомобиль LRV-1 (Apollo 15)',
+    'artifact.alsep-apollo-12': 'Научный комплект ALSEP (Apollo 12)',
+    'artifact.surveyor-3': 'Сервейер-3',
+    'artifact.sojourner': 'Марсоход Соджорнер и Пасфайндер',
+    'artifact.spirit-mer-a': 'Марсоход Спирит (MER-A)',
+    'artifact.opportunity-mer-b': 'Марсоход Оппортьюнити (MER-B)',
+    'artifact.viking-1': 'Посадочный аппарат Викинг-1',
+    'artifact.phoenix-lander': 'Полярная станция Феникс',
+    'artifact.insight-lander': 'Сейсмическая станция InSight',
+    'artifact.ingenuity': 'Марсианский вертолет Ingenuity',
+    'artifact.dawn': 'Зонд Dawn',
+    'artifact.near-shoemaker': 'Аппарат NEAR Shoemaker',
+    'artifact.pioneer-10': 'Пионер-10 и Пионер-11',
+    'artifact.kepler': 'Космический телескоп Кеплер',
     'focus.more': 'Узнать больше',
     'focus.close': 'Закрыть экскурсию',
     'museum.title': 'Музей',
     'museum.back3d': '3D-версия',
+    'card.location': 'Местоположение',
+    'card.launch': 'Запуск',
+    'card.landing': 'Посадка',
+    'card.end': 'Конец миссии',
+    'card.ask': 'Спросить у аппарата',
+    'card.fleet': 'Аппараты серии и места посадки',
+    'card.facts': 'Ключевые факты и цифры',
+    'card.sources': 'Официальные источники NASA',
   },
   kk: {
     'brand.sub': 'Тасталған, бірақ ұмытылмаған',
@@ -62,6 +110,9 @@ const STRINGS = {
     'body.moon': 'Ай',
     'body.mars': 'Марс',
     'body.earth': 'Жер',
+    'body.ceres': 'Церера',
+    'body.eros': '433 Эрос',
+    'body.solar_system': 'Терең ғарыш',
     'scene.label': 'Ай мен Марстың 3D көрінісі. Айналдыру үшін сүйреңіз. Масштабты дөңгелекпен немесе екі саусақпен өзгертіңіз.',
     'scene.hint': 'Айналдыру үшін сүйреңіз · масштаб: дөңгелек немесе екі саусақ',
     'credits.title': 'Беткі қабат карталары',
@@ -72,13 +123,34 @@ const STRINGS = {
     'panel.collapse': 'Тізімді жию',
     'panel.expand': 'Тізімді ашу',
     'panel.empty': 'Әзірге нысандар жоқ',
-    'artifact.type.placeholder': 'Уақытша үлгі',
-    'artifact.demo-moon': 'Айдағы сынақ нысаны',
-    'artifact.demo-mars': 'Марстағы сынақ нысаны',
+    'artifact.type.placeholder': 'Жабдық',
+    'artifact.apollo-11-lm': 'Apollo 11 ай модулі (Eagle)',
+    'artifact.lrv-apollo-15': 'Ай көлігі LRV-1 (Apollo 15)',
+    'artifact.alsep-apollo-12': 'ALSEP ғылыми кешені (Apollo 12)',
+    'artifact.surveyor-3': 'Сервейер-3',
+    'artifact.sojourner': 'Соджорнер және Пасфайндер марсоходы',
+    'artifact.spirit-mer-a': 'Спирит марсоходы (MER-A)',
+    'artifact.opportunity-mer-b': 'Оппортьюнити марсоходы (MER-B)',
+    'artifact.viking-1': 'Викинг-1 қону аппараты',
+    'artifact.phoenix-lander': 'Феникс полярлық станциясы',
+    'artifact.insight-lander': 'InSight сейсмикалық станциясы',
+    'artifact.ingenuity': 'Ingenuity марс тікұшағы',
+    'artifact.dawn': 'Dawn ғарыш аппараты',
+    'artifact.near-shoemaker': 'NEAR Shoemaker аппараты',
+    'artifact.pioneer-10': 'Пионер-10 және Пионер-11',
+    'artifact.kepler': 'Кеплер ғарыш телескопы',
     'focus.more': 'Толығырақ',
     'focus.close': 'Экскурсияны жабу',
     'museum.title': 'Мұражай',
     'museum.back3d': '3D нұсқасы',
+    'card.location': 'Орналасқан жері',
+    'card.launch': 'Ұшыру',
+    'card.landing': 'Қону',
+    'card.end': 'Миссияның аяқталуы',
+    'card.ask': 'Аппараттан сұрау',
+    'card.fleet': 'Сериялық аппараттар және қону орындары',
+    'card.facts': 'Негізгі фактілер мен деректер',
+    'card.sources': 'NASA ресми дереккөздері',
   },
 };
 
@@ -98,36 +170,37 @@ function readSaved() {
 // A link with ?lang=ru opens the site in that language and remembers it.
 function readFromUrl() {
   const lang = new URLSearchParams(location.search).get('lang');
-  if (!LANGUAGES.includes(lang)) return null;
-  try { localStorage.setItem(STORAGE_KEY, lang); } catch { /* not remembered */ }
-  return lang;
+  return LANGUAGES.includes(lang) ? lang : null;
 }
 
-let current = readFromUrl() || readSaved() || DEFAULT_LANG;
-
 export function getLang() {
-  return current;
+  return readFromUrl() || readSaved() || DEFAULT_LANG;
+}
+
+export function setLang(lang) {
+  if (!LANGUAGES.includes(lang)) return;
+  try {
+    localStorage.setItem(STORAGE_KEY, lang);
+  } catch {}
+  document.documentElement.lang = lang;
+  applyTranslations();
+  window.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
 }
 
 export function t(key, params = {}) {
-  const text = STRINGS[current][key] ?? STRINGS[DEFAULT_LANG][key] ?? key;
-  return text.replace(/\{(\w+)\}/g, (_, name) => params[name] ?? '');
+  const lang = getLang();
+  let str = STRINGS[lang]?.[key] ?? STRINGS[DEFAULT_LANG]?.[key] ?? key;
+  for (const [k, v] of Object.entries(params)) {
+    str = str.replace(`{${k}}`, v);
+  }
+  return str;
 }
 
-export function applyTranslations(root = document) {
-  document.documentElement.lang = current;
-  for (const el of root.querySelectorAll('[data-i18n]')) el.textContent = t(el.dataset.i18n);
-  for (const el of root.querySelectorAll('[data-i18n-aria-label]')) {
+export function applyTranslations() {
+  for (const el of document.querySelectorAll('[data-i18n]')) {
+    el.textContent = t(el.dataset.i18n);
+  }
+  for (const el of document.querySelectorAll('[data-i18n-aria-label]')) {
     el.setAttribute('aria-label', t(el.dataset.i18nAriaLabel));
   }
-}
-
-// Switches the language, remembers it and notifies listeners (e.g. the chat):
-//   window.addEventListener('langchange', (e) => e.detail.lang)
-export function setLang(lang) {
-  if (!LANGUAGES.includes(lang) || lang === current) return;
-  current = lang;
-  try { localStorage.setItem(STORAGE_KEY, lang); } catch { /* private mode: not remembered */ }
-  applyTranslations();
-  window.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
 }

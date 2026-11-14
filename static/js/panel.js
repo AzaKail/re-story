@@ -1,6 +1,6 @@
 import { t } from './i18n.js';
 
-const formatCoord = (value) => `${value.toFixed(1)}°`;
+const formatCoord = (value) => `${Number(value).toFixed(1)}°`;
 
 // Left panel: the list of artifacts on the current body. Can be collapsed.
 export class ArtifactPanel {
@@ -61,15 +61,27 @@ export class ArtifactPanel {
 
     const name = document.createElement('span');
     name.className = 'panel-item-name';
-    name.textContent = t(`artifact.${artifact.code}`);
+    const translatedName = t(`artifact.${artifact.code}`);
+    name.textContent = (translatedName && translatedName !== `artifact.${artifact.code}`)
+      ? translatedName
+      : (artifact.name || artifact.code);
 
     const meta = document.createElement('span');
     meta.className = 'panel-item-meta';
     const type = document.createElement('span');
-    type.textContent = t('artifact.type.placeholder');
+    type.textContent = (artifact.artifact_type || t('artifact.type.placeholder')).replace('_', ' ');
+
     const coords = document.createElement('span');
     coords.className = 'mono';
-    coords.textContent = `${formatCoord(artifact.lat)}, ${formatCoord(artifact.lon)}`;
+    const lat = artifact.latitude ?? artifact.lat;
+    const lon = artifact.longitude ?? artifact.lon;
+    if (lat != null && lon != null) {
+      coords.textContent = `${formatCoord(lat)}, ${formatCoord(lon)}`;
+    } else if (artifact.orbit_parameters) {
+      coords.textContent = 'Orbit';
+    } else {
+      coords.textContent = 'Deep Space';
+    }
     meta.append(type, coords);
 
     button.append(name, meta);

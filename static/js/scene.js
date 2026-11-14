@@ -63,12 +63,15 @@ export class MuseumScene {
     for (const artifact of artifacts) {
       const body = this.bodies[artifact.body];
       if (!body) continue;
+      const lat = artifact.latitude ?? artifact.lat;
+      const lon = artifact.longitude ?? artifact.lon;
+      if (lat == null || lon == null) continue;
       const r = body.cfg.radius;
       const marker = new THREE.Mesh(
         new THREE.SphereGeometry(r * MARKER_SIZE_FACTOR, 16, 12),
         new THREE.MeshBasicMaterial({ color: MARKER_COLOR }),
       );
-      marker.position.copy(latLonToVector3(artifact.lat, artifact.lon, r * 1.001));
+      marker.position.copy(latLonToVector3(lat, lon, r * 1.001));
       body.mesh.add(marker);   // child of the spinning mesh, so it turns with the surface
       this.markers[artifact.code] = { marker, body: artifact.body };
     }
