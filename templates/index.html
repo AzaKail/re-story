@@ -2,16 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Silent Pioneers</title>
   <meta name="description" content="An interactive 3D museum of NASA equipment left behind on the Moon and Mars.">
+  <meta name="theme-color" content="#020308">
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "{% static 'vendor/three/three.module.min.js' %}",
+        "three/addons/": "{% get_static_prefix %}vendor/three/addons/"
+      }
+    }
+  </script>
+  <link rel="modulepreload" href="{% static 'vendor/three/three.module.min.js' %}">
 </head>
-<body>
-  <main class="stub">
+<body data-static="{% get_static_prefix %}">
+  <div id="scene" class="scene" role="img" aria-label="3D view of the Moon and Mars. Drag to rotate, scroll or pinch to zoom."></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-title">Silent Pioneers</span>
+      <span class="brand-sub">Abandoned but not forgotten</span>
+    </div>
+    <nav class="switch" role="group" aria-label="Choose a world">
+      <button type="button" data-body="moon" aria-pressed="true">Moon</button>
+      <button type="button" data-body="mars" aria-pressed="false">Mars</button>
+    </nav>
+  </header>
+
+  <section class="caption" aria-live="polite">
+    <h1 id="body-name" class="caption-title">Moon</h1>
+    <p class="caption-hint">Drag to rotate &middot; scroll or pinch to zoom</p>
+  </section>
+
+  <footer class="credits">
+    Surface maps:
+    <a href="https://svs.gsfc.nasa.gov/4720" target="_blank" rel="noopener">Moon, NASA SVS / LRO</a> &middot;
+    <a href="https://trek.nasa.gov/mars/" target="_blank" rel="noopener">Mars, NASA Solar System Treks / Viking</a> &middot;
+    <a href="https://earthdata.nasa.gov/eosdis/science-system-description/eosdis-components/gibs" target="_blank" rel="noopener">Earth, NASA GIBS / Blue Marble</a>
+  </footer>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <div id="loader" class="loader" aria-hidden="true"><span>Silent Pioneers</span></div>
+
+  <div id="fallback" class="fallback" hidden>
     <h1>Silent Pioneers</h1>
-    <p>An interactive 3D museum of NASA equipment left behind on the Moon and Mars.</p>
-    <p class="muted">Under construction &middot; NASA Space Apps Challenge</p>
-  </main>
+    <p>Your browser cannot show the 3D view (WebGL is unavailable).</p>
+    <p>A text version of the museum will appear here soon.</p>
+  </div>
+
+  <noscript>
+    <div class="fallback">
+      <h1>Silent Pioneers</h1>
+      <p>Please enable JavaScript to explore the 3D museum.</p>
+    </div>
+  </noscript>
+
+  <script type="module" src="{% static 'js/main.js' %}"></script>
 </body>
 </html>

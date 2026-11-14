@@ -45,3 +45,11 @@ data/        catalog source data (JSON)
 - Start: `gunicorn config.wsgi`
 - Environment variables: `DJANGO_SECRET_KEY`, `DJANGO_DEBUG=False`, `DJANGO_ALLOWED_HOSTS=<your-host>`, `DJANGO_CSRF_TRUSTED_ORIGINS=https://<your-host>`
 
+
+## NASA imagery
+
+- Moon: [NASA Scientific Visualization Studio, CGI Moon Kit](https://svs.gsfc.nasa.gov/4720) (LRO LROC WAC)
+- Mars: [NASA Solar System Treks](https://trek.nasa.gov/mars/), Viking MDIM 2.1 color mosaic
+- Earth: [NASA GIBS](https://www.earthdata.nasa.gov/engage/open-data-services-software/earthdata-developer-portal/gibs-api), Blue Marble Next Generation
+
+3D engine: [Three.js](https://threejs.org/) r170 (MIT), bundled in `static/vendor/three/`.
