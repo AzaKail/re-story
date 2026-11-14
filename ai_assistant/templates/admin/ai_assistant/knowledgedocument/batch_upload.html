@@ -1,0 +1,163 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static %}
+
+{% block extrahead %}
+  {{ block.super }}
+  {{ form.media }}
+  <style>
+    .batch-upload-box {
+      background: var(--body-bg, #fff);
+      border: 1px solid var(--hairline-color, #e0e0e0);
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .batch-intro {
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: var(--body-quiet-color, #666);
+      line-height: 1.5;
+    }
+    .source-options {
+      display: grid;
+      grid-gap: 15px;
+      margin-top: 15px;
+    }
+    .source-card {
+      border: 1px solid var(--hairline-color, #ddd);
+      border-radius: 4px;
+      padding: 15px;
+      background: var(--darkened-bg, #fcfcfc);
+    }
+    .source-card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 15px;
+      color: var(--body-fg, #333);
+    }
+    .help {
+      font-size: 12px;
+      color: var(--body-quiet-color, #777);
+      margin-top: 5px;
+    }
+    .submit-row {
+      margin-top: 25px;
+    }
+    .cancel-btn {
+      display: inline-block;
+      vertical-align: middle;
+      height: 35px;
+      line-height: 35px;
+      padding: 0 15px;
+      margin-left: 10px;
+      background: #777;
+      color: #fff !important;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+    .cancel-btn:hover {
+      background: #555;
+    }
+  </style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+  &rsaquo; <a href="{% url 'admin:app_list' app_label='ai_assistant' %}">AI Assistant AIstronaut</a>
+  &rsaquo; <a href="{% url 'admin:ai_assistant_knowledgedocument_changelist' %}">{% translate 'Knowledge Documents' %}</a>
+  &rsaquo; {% translate 'Batch Upload' %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <form action="" method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    
+    <div class="batch-upload-box">
+      <h2>{% translate "Batch Import Knowledge Documents / Пакетная загрузка" %}</h2>
+      
+      <p class="batch-intro">
+        {% translate "This tool allows you to quickly import multiple .txt and .md documents into the AIstronaut knowledge base. You can specify a folder path on the server or select files/folders directly from your computer." %}
+      </p>
+
+      {% if form.non_field_errors %}
+        <div class="errors">
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+
+      <div class="form-row">
+        <div>
+          <label for="{{ form.language.id_for_label }}" class="required"><strong>{{ form.language.label }}:</strong></label>
+          {{ form.language }}
+          <div class="help">{{ form.language.help_text }}</div>
+          {{ form.language.errors }}
+        </div>
+      </div>
+
+      <div class="source-options">
+        <!-- Option A: Server Folder -->
+        <div class="source-card">
+          <h3>📁 {% translate "Option 1: Server Folder Path" %}</h3>
+          <div>
+            <label for="{{ form.folder_path.id_for_label }}"><strong>{{ form.folder_path.label }}:</strong></label><br>
+            {{ form.folder_path }}
+            <div class="help">{{ form.folder_path.help_text }}</div>
+            {{ form.folder_path.errors }}
+          </div>
+        </div>
+
+        <!-- Option B: Select Files from Computer -->
+        <div class="source-card">
+          <h3>📄 {% translate "Option 2: Select Files from Computer" %}</h3>
+          <div>
+            <label for="{{ form.files.id_for_label }}"><strong>{{ form.files.label }}:</strong></label><br>
+            {{ form.files }}
+            <div class="help">{{ form.files.help_text }}</div>
+            {{ form.files.errors }}
+          </div>
+        </div>
+
+        <!-- Option C: Select Folder from Computer -->
+        <div class="source-card">
+          <h3>📂 {% translate "Option 3: Select an Entire Folder from Computer" %}</h3>
+          <div>
+            <label for="{{ form.folder_upload.id_for_label }}"><strong>{{ form.folder_upload.label }}:</strong></label><br>
+            {{ form.folder_upload }}
+            <div class="help">{{ form.folder_upload.help_text }}</div>
+            {{ form.folder_upload.errors }}
+          </div>
+        </div>
+      </div>
+
+      <fieldset class="module aligned" style="margin-top: 20px;">
+        <h2>{% translate "Options" %}</h2>
+        <div class="form-row">
+          <div class="checkbox-row">
+            {{ form.auto_index }}
+            <label class="vCheckboxLabel" for="{{ form.auto_index.id_for_label }}"><strong>{{ form.auto_index.label }}</strong></label>
+            <div class="help">{{ form.auto_index.help_text }}</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="checkbox-row">
+            {{ form.overwrite }}
+            <label class="vCheckboxLabel" for="{{ form.overwrite.id_for_label }}"><strong>{{ form.overwrite.label }}</strong></label>
+            <div class="help">{{ form.overwrite.help_text }}</div>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="submit-row">
+        <input type="submit" value="🚀 {% translate 'Start Batch Import' %}" class="default" name="_save" style="font-size: 14px; padding: 10px 20px;">
+        <a href="{% url 'admin:ai_assistant_knowledgedocument_changelist' %}" class="cancel-btn">
+          {% translate 'Cancel' %}
+        </a>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
