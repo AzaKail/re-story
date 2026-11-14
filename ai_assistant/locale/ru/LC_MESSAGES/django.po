@@ -1,0 +1,148 @@
+# AIstronaut Russian Translations
+msgid ""
+msgstr ""
+"Project-Id-Version: AIstronaut 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-14 12:00+0000\n"
+"PO-Revision-Date: 2026-11-14 12:00+0000\n"
+"Last-Translator: AIstronaut Team\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "AI Assistant AIstronaut"
+msgstr "ИИ-ассистент AIstronaut"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "File (.txt, .md)"
+msgstr "Файл (.txt, .md)"
+
+msgid "Upload a .txt or .md file encoded in UTF-8, or enter text directly below."
+msgstr "Загрузите файл .txt или .md в кодировке UTF-8 или введите текст напрямую ниже."
+
+msgid "Text Content"
+msgstr "Текст документа"
+
+msgid "Direct text entry. If a file is uploaded, file content takes precedence."
+msgstr "Прямой ввод текста. Если загружен файл, его содержимое имеет приоритет."
+
+msgid "Language"
+msgstr "Язык"
+
+msgid "Indexing Status"
+msgstr "Статус индексации"
+
+msgid "Error Message"
+msgstr "Сообщение об ошибке"
+
+msgid "Created At"
+msgstr "Дата создания"
+
+msgid "Updated At"
+msgstr "Дата обновления"
+
+msgid "English"
+msgstr "Английский"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "Kazakh"
+msgstr "Казахский"
+
+msgid "Pending"
+msgstr "В ожидании"
+
+msgid "Indexed"
+msgstr "Индексирован"
+
+msgid "Error"
+msgstr "Ошибка"
+
+msgid "Either a file or text content must be provided."
+msgstr "Необходимо предоставить файл или текстовое содержимое."
+
+msgid "The file must be encoded in UTF-8."
+msgstr "Файл должен быть в кодировке UTF-8."
+
+msgid "Unable to read file: %(error)s"
+msgstr "Не удалось прочитать файл: %(error)s"
+
+msgid "Knowledge Document"
+msgstr "Документ базы знаний"
+
+msgid "Knowledge Documents"
+msgstr "Документы базы знаний"
+
+msgid "Document Chunk"
+msgstr "Чанк документа"
+
+msgid "Document Chunks"
+msgstr "Чанки документа"
+
+msgid "Document"
+msgstr "Документ"
+
+msgid "Chunk Index"
+msgstr "Номер чанка"
+
+msgid "Chunk Content"
+msgstr "Содержимое чанка"
+
+msgid "Embedding Vector"
+msgstr "Вектор эмбеддинга"
+
+msgid "Preview"
+msgstr "Предпросмотр"
+
+msgid "Embedding"
+msgstr "Эмбеддинг"
+
+msgid "Chunks"
+msgstr "Чанки"
+
+msgid "Document '%(title)s' successfully indexed into %(count)d chunks."
+msgstr "Документ '%(title)s' успешно индексирован на %(count)d чанков."
+
+msgid "Error indexing document '%(title)s': %(error)s"
+msgstr "Ошибка индексации документа '%(title)s': %(error)s"
+
+msgid "Reindex selected documents"
+msgstr "Переиндексировать выбранные документы"
+
+msgid "Successfully reindexed %(count)d documents."
+msgstr "Успешно переиндексировано документов: %(count)d."
+
+msgid "Failed reindexing %(count)d documents."
+msgstr "Не удалось переиндексировать документов: %(count)d."
+
+msgid "Content Preview"
+msgstr "Предпросмотр текста"
+
+msgid "AIstronaut Assistant"
+msgstr "Ассистент AIstronaut"
+
+msgid "AIstronaut Chat Window"
+msgstr "Окно чата AIstronaut"
+
+msgid "Online"
+msgstr "В сети"
+
+msgid "Clear history"
+msgstr "Очистить историю"
+
+msgid "Close chat"
+msgstr "Закрыть чат"
+
+msgid "Ask AIstronaut about Moon and Mars missions..."
+msgstr "Спросите AIstronaut об артефактах Луны и Марса..."
+
+msgid "Message to AIstronaut"
+msgstr "Сообщение для AIstronaut"
+
+msgid "Send message"
+msgstr "Отправить сообщение"

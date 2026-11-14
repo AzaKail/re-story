@@ -73,3 +73,31 @@ The museum is shown to an international jury (English) and to local visitors (Ru
 - Other modules (for example the chat) can react to a language change:
   `window.addEventListener('langchange', (e) => e.detail.lang)`.
 - Catalog content (stories, facts) is not part of this dictionary; it will come from the API per language.
+
+### 2026-11-14: AIstronaut AI Assistant (RAG + Ollama)
+
+#### Summary of Changes
+- Built the `ai_assistant` Django application providing the "AIstronaut" intelligent museum assistant.
+- Implemented RAG pipeline with boundary chunking, semantic overlap, and vector similarity search.
+- Integrated Ollama models: `gemma4:e4b` for grounded generation and `nomic-embed-text` for 768-dimensional embeddings.
+- Created `KnowledgeDocument` and `DocumentChunk` models with `AdaptiveVectorField` supporting native `pgvector` and graceful fallback.
+- Added synchronous indexing on document save in Django Admin with atomic transactions, file upload validation (.txt, .md, UTF-8), and batch reindexing actions.
+- Implemented streaming SSE and JSON endpoints in `ai_assistant/views.py` using native Django View.
+- Developed the floating responsive frontend widget in `ai_assistant/templates/ai_assistant/widget.html`, `static/ai_assistant/css/widget.css`, and `static/ai_assistant/js/widget.js`.
+- Implemented full localization across English, Russian, and Kazakh with complete key parity.
+- Maintained dialog privacy by isolating conversation history solely in browser `sessionStorage` until the browser tab is closed.
+
+#### Integration Points
+The assistant integrates cleanly into the core project through exactly three files:
+1. `config/settings.py`: Added `'ai_assistant'` to `INSTALLED_APPS`, configured `OLLAMA_BASE_URL`, `OLLAMA_CHAT_MODEL`, `OLLAMA_EMBED_MODEL`, and `MEDIA_ROOT`.
+2. `config/urls.py`: Attached `path('ai-assistant/', include('ai_assistant.urls'))`.
+3. `templates/base.html` and `templates/index.html`: Included `{% include 'ai_assistant/widget.html' %}` before `</body>`.
+
+#### Architecture and Services
+- `services/chunking.py`: Splits source text into 500-700 character chunks with 100-150 character overlap, preserving paragraph and sentence boundaries without breaking words.
+- `services/embeddings.py`: Requests 768-dimension embeddings from Ollama embedding endpoints.
+- `services/rag.py`: Performs cosine similarity matching against indexed knowledge chunks, constructs grounded multilingual system prompts, and prevents hallucinations.
+- `services/llm.py`: Connects to Ollama `/api/chat` supporting both real-time token streaming and synchronous generation.
+- `static/ai_assistant/js/widget.js`: Operates chat UI, listens for `langchange` events from the main site language switch, reads SSE stream via Fetch API, and parses formatting safely.
+- `static/ai_assistant/css/widget.css`: Provides fixed floating bottom-right position (`z-index: 9999`) and expands to full screen on mobile devices (`max-width: 480px`).
+

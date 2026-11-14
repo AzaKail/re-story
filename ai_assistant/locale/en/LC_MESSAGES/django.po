@@ -1,0 +1,148 @@
+# AIstronaut English Translations
+msgid ""
+msgstr ""
+"Project-Id-Version: AIstronaut 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-14 12:00+0000\n"
+"PO-Revision-Date: 2026-11-14 12:00+0000\n"
+"Last-Translator: AIstronaut Team\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "AI Assistant AIstronaut"
+msgstr "AI Assistant AIstronaut"
+
+msgid "Title"
+msgstr "Title"
+
+msgid "File (.txt, .md)"
+msgstr "File (.txt, .md)"
+
+msgid "Upload a .txt or .md file encoded in UTF-8, or enter text directly below."
+msgstr "Upload a .txt or .md file encoded in UTF-8, or enter text directly below."
+
+msgid "Text Content"
+msgstr "Text Content"
+
+msgid "Direct text entry. If a file is uploaded, file content takes precedence."
+msgstr "Direct text entry. If a file is uploaded, file content takes precedence."
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Indexing Status"
+msgstr "Indexing Status"
+
+msgid "Error Message"
+msgstr "Error Message"
+
+msgid "Created At"
+msgstr "Created At"
+
+msgid "Updated At"
+msgstr "Updated At"
+
+msgid "English"
+msgstr "English"
+
+msgid "Russian"
+msgstr "Russian"
+
+msgid "Kazakh"
+msgstr "Kazakh"
+
+msgid "Pending"
+msgstr "Pending"
+
+msgid "Indexed"
+msgstr "Indexed"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Either a file or text content must be provided."
+msgstr "Either a file or text content must be provided."
+
+msgid "The file must be encoded in UTF-8."
+msgstr "The file must be encoded in UTF-8."
+
+msgid "Unable to read file: %(error)s"
+msgstr "Unable to read file: %(error)s"
+
+msgid "Knowledge Document"
+msgstr "Knowledge Document"
+
+msgid "Knowledge Documents"
+msgstr "Knowledge Documents"
+
+msgid "Document Chunk"
+msgstr "Document Chunk"
+
+msgid "Document Chunks"
+msgstr "Document Chunks"
+
+msgid "Document"
+msgstr "Document"
+
+msgid "Chunk Index"
+msgstr "Chunk Index"
+
+msgid "Chunk Content"
+msgstr "Chunk Content"
+
+msgid "Embedding Vector"
+msgstr "Embedding Vector"
+
+msgid "Preview"
+msgstr "Preview"
+
+msgid "Embedding"
+msgstr "Embedding"
+
+msgid "Chunks"
+msgstr "Chunks"
+
+msgid "Document '%(title)s' successfully indexed into %(count)d chunks."
+msgstr "Document '%(title)s' successfully indexed into %(count)d chunks."
+
+msgid "Error indexing document '%(title)s': %(error)s"
+msgstr "Error indexing document '%(title)s': %(error)s"
+
+msgid "Reindex selected documents"
+msgstr "Reindex selected documents"
+
+msgid "Successfully reindexed %(count)d documents."
+msgstr "Successfully reindexed %(count)d documents."
+
+msgid "Failed reindexing %(count)d documents."
+msgstr "Failed reindexing %(count)d documents."
+
+msgid "Content Preview"
+msgstr "Content Preview"
+
+msgid "AIstronaut Assistant"
+msgstr "AIstronaut Assistant"
+
+msgid "AIstronaut Chat Window"
+msgstr "AIstronaut Chat Window"
+
+msgid "Online"
+msgstr "Online"
+
+msgid "Clear history"
+msgstr "Clear history"
+
+msgid "Close chat"
+msgstr "Close chat"
+
+msgid "Ask AIstronaut about Moon and Mars missions..."
+msgstr "Ask AIstronaut about Moon and Mars missions..."
+
+msgid "Message to AIstronaut"
+msgstr "Message to AIstronaut"
+
+msgid "Send message"
+msgstr "Send message"

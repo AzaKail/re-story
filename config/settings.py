@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "catalog",
+    "ai_assistant",
 ]
 
 MIDDLEWARE = [
@@ -115,6 +116,13 @@ STORAGES = {
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# Chat bot (Ollama). Requests go through the server only.
+# Media files for uploaded documents
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+# Chat bot (Ollama AIstronaut). Requests go through the server only.
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gemma4:e4b")
+OLLAMA_CHAT_MODEL = os.getenv("OLLAMA_CHAT_MODEL", os.getenv("OLLAMA_MODEL", "gemma4:e4b"))
+OLLAMA_EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text")
+OLLAMA_EMBED_DIM = int(os.getenv("OLLAMA_EMBED_DIM", "768"))
+

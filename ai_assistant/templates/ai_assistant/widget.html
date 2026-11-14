@@ -1,0 +1,67 @@
+{% load static i18n %}
+<!-- AIstronaut Chat Widget Markup -->
+<link rel="stylesheet" href="{% static 'ai_assistant/css/widget.css' %}">
+
+<aside id="aistronaut-widget" aria-label="{% trans 'AIstronaut Assistant' %}">
+  <!-- Collapsed Floating Button -->
+  <button type="button" class="aistronaut-btn-trigger" aria-haspopup="dialog" aria-expanded="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2a9 9 0 0 0-9 9c0 3.57 2.08 6.66 5.11 8.12l-.61 2.45a.75.75 0 0 0 .94.9l2.76-.92c.26.03.53.05.8.05a9 9 0 0 0 9-9 9 9 0 0 0-9-9zm0 4c2.76 0 5 1.79 5 4s-2.24 4-5 4-5-1.79-5-4 2.24-4 5-4z"/>
+    </svg>
+    <span class="aistronaut-trigger-label">AIstronaut</span>
+  </button>
+
+  <!-- Expanded Chat Card -->
+  <div class="aistronaut-card" role="dialog" aria-label="{% trans 'AIstronaut Chat Window' %}">
+    <header class="aistronaut-header">
+      <div class="aistronaut-header-brand">
+        <div class="aistronaut-avatar" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+        </div>
+        <div class="aistronaut-header-info">
+          <span class="aistronaut-title">AIstronaut</span>
+          <span class="aistronaut-status">
+            <span class="aistronaut-status-dot"></span>
+            <span class="aistronaut-status-text">{% trans 'Online' %}</span>
+          </span>
+        </div>
+      </div>
+      <div class="aistronaut-header-actions">
+        <button type="button" class="aistronaut-btn-icon aistronaut-btn-clear" title="{% trans 'Clear history' %}" aria-label="{% trans 'Clear history' %}">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 4V3H9v1H4v2h1v13c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V6h1V4h-5zm2 15H7V6h10v13zM9 8h2v9H9zm4 0h2v9h-2z"/>
+          </svg>
+        </button>
+        <button type="button" class="aistronaut-btn-icon aistronaut-btn-close" title="{% trans 'Close chat' %}" aria-label="{% trans 'Close chat' %}">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="aistronaut-messages" role="log" aria-live="polite"></div>
+
+    <footer class="aistronaut-footer">
+      <form class="aistronaut-form">
+        {% csrf_token %}
+        <textarea
+          class="aistronaut-input"
+          rows="1"
+          placeholder="{% trans 'Ask AIstronaut about Moon and Mars missions...' %}"
+          aria-label="{% trans 'Message to AIstronaut' %}"
+          required
+        ></textarea>
+        <button type="submit" class="aistronaut-btn-send" title="{% trans 'Send message' %}" aria-label="{% trans 'Send message' %}">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </form>
+    </footer>
+  </div>
+</aside>
+
+<script src="{% static 'ai_assistant/js/widget.js' %}"></script>

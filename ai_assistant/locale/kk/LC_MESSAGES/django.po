@@ -1,0 +1,148 @@
+# AIstronaut Kazakh Translations
+msgid ""
+msgstr ""
+"Project-Id-Version: AIstronaut 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-14 12:00+0000\n"
+"PO-Revision-Date: 2026-11-14 12:00+0000\n"
+"Last-Translator: AIstronaut Team\n"
+"Language-Team: Kazakh\n"
+"Language: kk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "AI Assistant AIstronaut"
+msgstr "AIstronaut ЖИ-көмекшісі"
+
+msgid "Title"
+msgstr "Тақырып"
+
+msgid "File (.txt, .md)"
+msgstr "Файл (.txt, .md)"
+
+msgid "Upload a .txt or .md file encoded in UTF-8, or enter text directly below."
+msgstr "UTF-8 кодтауындағы .txt немесе .md файлын жүктеңіз немесе төменде тікелей мәтінді енгізіңіз."
+
+msgid "Text Content"
+msgstr "Құжат мәтіні"
+
+msgid "Direct text entry. If a file is uploaded, file content takes precedence."
+msgstr "Мәтінді тікелей енгізу. Егер файл жүктелсе, оның мазмұны басым болады."
+
+msgid "Language"
+msgstr "Тіл"
+
+msgid "Indexing Status"
+msgstr "Индекстеу күйі"
+
+msgid "Error Message"
+msgstr "Қате туралы хабар"
+
+msgid "Created At"
+msgstr "Құрылған уақыты"
+
+msgid "Updated At"
+msgstr "Жаңартылған уақыты"
+
+msgid "English"
+msgstr "Ағылшын тілі"
+
+msgid "Russian"
+msgstr "Орыс тілі"
+
+msgid "Kazakh"
+msgstr "Қазақ тілі"
+
+msgid "Pending"
+msgstr "Күтуде"
+
+msgid "Indexed"
+msgstr "Индекстелген"
+
+msgid "Error"
+msgstr "Қате"
+
+msgid "Either a file or text content must be provided."
+msgstr "Файл немесе мәтін мазмұнының бірі берілуі керек."
+
+msgid "The file must be encoded in UTF-8."
+msgstr "Файл UTF-8 кодтауында болуы керек."
+
+msgid "Unable to read file: %(error)s"
+msgstr "Файлды оқу мүмкін болмады: %(error)s"
+
+msgid "Knowledge Document"
+msgstr "Білім қорының құжаты"
+
+msgid "Knowledge Documents"
+msgstr "Білім қорының құжаттары"
+
+msgid "Document Chunk"
+msgstr "Құжат бөлігі (чанк)"
+
+msgid "Document Chunks"
+msgstr "Құжат бөліктері (чанктар)"
+
+msgid "Document"
+msgstr "Құжат"
+
+msgid "Chunk Index"
+msgstr "Бөлік нөмірі"
+
+msgid "Chunk Content"
+msgstr "Бөлік мазмұны"
+
+msgid "Embedding Vector"
+msgstr "Эмбеддинг векторы"
+
+msgid "Preview"
+msgstr "Алдын ала қарау"
+
+msgid "Embedding"
+msgstr "Эмбеддинг"
+
+msgid "Chunks"
+msgstr "Бөліктер"
+
+msgid "Document '%(title)s' successfully indexed into %(count)d chunks."
+msgstr "'%(title)s' құжаты %(count)d бөлікке сәтті индекстелді."
+
+msgid "Error indexing document '%(title)s': %(error)s"
+msgstr "'%(title)s' құжатын индекстеу қатесі: %(error)s"
+
+msgid "Reindex selected documents"
+msgstr "Таңдалған құжаттарды қайта индекстеу"
+
+msgid "Successfully reindexed %(count)d documents."
+msgstr "Сәтті қайта индекстелген құжаттар: %(count)d."
+
+msgid "Failed reindexing %(count)d documents."
+msgstr "Қайта индекстеу сәтсіз аяқталған құжаттар: %(count)d."
+
+msgid "Content Preview"
+msgstr "Мәтінді алдын ала қарау"
+
+msgid "AIstronaut Assistant"
+msgstr "AIstronaut көмекшісі"
+
+msgid "AIstronaut Chat Window"
+msgstr "AIstronaut чат терезесі"
+
+msgid "Online"
+msgstr "Желіде"
+
+msgid "Clear history"
+msgstr "Тарихты тазалау"
+
+msgid "Close chat"
+msgstr "Чатты жабу"
+
+msgid "Ask AIstronaut about Moon and Mars missions..."
+msgstr "AIstronaut-тан Ай мен Марс миссиялары туралы сұраңыз..."
+
+msgid "Message to AIstronaut"
+msgstr "AIstronaut-қа хабарлама"
+
+msgid "Send message"
+msgstr "Хабарлама жіберу"

@@ -1,0 +1,424 @@
+/* AIstronaut Floating Widget Styles */
+
+:root {
+  --ai-primary: #38bdf8;
+  --ai-primary-glow: rgba(56, 189, 248, 0.25);
+  --ai-accent: #f59e0b;
+  --ai-bg-dark: rgba(10, 15, 29, 0.94);
+  --ai-bg-card: rgba(18, 26, 47, 0.88);
+  --ai-bubble-user: #0284c7;
+  --ai-bubble-bot: rgba(30, 41, 59, 0.85);
+  --ai-text-main: #f1f5f9;
+  --ai-text-muted: #94a3b8;
+  --ai-border: rgba(148, 163, 184, 0.2);
+  --ai-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), 0 0 20px rgba(56, 189, 248, 0.15);
+}
+
+#aistronaut-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+#aistronaut-widget * {
+  box-sizing: border-box;
+}
+
+/* Floating Trigger Button */
+.aistronaut-btn-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  user-select: none;
+}
+
+.aistronaut-btn-trigger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(2, 132, 199, 0.6);
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+}
+
+.aistronaut-btn-trigger:active {
+  transform: translateY(0);
+}
+
+.aistronaut-btn-trigger svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* Chat Card Window */
+.aistronaut-card {
+  display: none;
+  flex-direction: column;
+  width: 380px;
+  height: 540px;
+  background: var(--ai-bg-dark);
+  border: 1px solid var(--ai-border);
+  border-radius: 16px;
+  box-shadow: var(--ai-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(16px) scale(0.96);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.aistronaut-card.open {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Chat Header */
+.aistronaut-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--ai-bg-card);
+  border-bottom: 1px solid var(--ai-border);
+}
+
+.aistronaut-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.aistronaut-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.aistronaut-avatar svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.aistronaut-header-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.aistronaut-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ai-text-main);
+  line-height: 1.2;
+}
+
+.aistronaut-status {
+  font-size: 11px;
+  color: #34d399;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.aistronaut-status-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #34d399;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #34d399;
+}
+
+.aistronaut-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.aistronaut-btn-icon {
+  background: transparent;
+  border: none;
+  color: var(--ai-text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.aistronaut-btn-icon:hover {
+  color: var(--ai-text-main);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.aistronaut-btn-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Messages History Area */
+.aistronaut-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.3) transparent;
+}
+
+.aistronaut-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.aistronaut-messages::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 3px;
+}
+
+/* Individual Message Items */
+.aistronaut-msg {
+  display: flex;
+  flex-direction: column;
+  max-width: 86%;
+  animation: aistronautFadeIn 0.2s ease-out;
+}
+
+@keyframes aistronautFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.aistronaut-msg-user {
+  align-self: flex-end;
+}
+
+.aistronaut-msg-user .aistronaut-bubble {
+  background: var(--ai-bubble-user);
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+.aistronaut-msg-bot {
+  align-self: flex-start;
+}
+
+.aistronaut-msg-bot .aistronaut-bubble {
+  background: var(--ai-bubble-bot);
+  color: var(--ai-text-main);
+  border: 1px solid var(--ai-border);
+  border-bottom-left-radius: 4px;
+}
+
+.aistronaut-bubble {
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.aistronaut-bubble p {
+  margin: 0 0 6px 0;
+}
+
+.aistronaut-bubble p:last-child {
+  margin-bottom: 0;
+}
+
+.aistronaut-bubble ul,
+.aistronaut-bubble ol {
+  margin: 4px 0 6px 18px;
+  padding: 0;
+}
+
+.aistronaut-bubble li {
+  margin-bottom: 4px;
+}
+
+.aistronaut-bubble strong {
+  color: var(--ai-primary);
+  font-weight: 600;
+}
+
+.aistronaut-bubble code {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.aistronaut-time {
+  font-size: 10px;
+  color: var(--ai-text-muted);
+  margin-top: 3px;
+  padding: 0 4px;
+}
+
+.aistronaut-msg-user .aistronaut-time {
+  text-align: right;
+}
+
+/* Typing Indicator */
+.aistronaut-typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+}
+
+.aistronaut-dot {
+  width: 7px;
+  height: 7px;
+  background-color: var(--ai-primary);
+  border-radius: 50%;
+  animation: aistronautPulse 1.4s infinite ease-in-out both;
+}
+
+.aistronaut-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.aistronaut-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes aistronautPulse {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Input Form Area */
+.aistronaut-footer {
+  padding: 12px 14px;
+  background: var(--ai-bg-card);
+  border-top: 1px solid var(--ai-border);
+}
+
+.aistronaut-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  position: relative;
+}
+
+.aistronaut-input {
+  flex: 1;
+  min-height: 40px;
+  max-height: 110px;
+  padding: 10px 14px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--ai-border);
+  border-radius: 12px;
+  color: var(--ai-text-main);
+  font-size: 13.5px;
+  line-height: 1.4;
+  resize: none;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.aistronaut-input:focus {
+  border-color: var(--ai-primary);
+  box-shadow: 0 0 0 2px var(--ai-primary-glow);
+}
+
+.aistronaut-input::placeholder {
+  color: var(--ai-text-muted);
+}
+
+.aistronaut-btn-send {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.aistronaut-btn-send:hover {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  transform: translateY(-1px);
+}
+
+.aistronaut-btn-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.aistronaut-btn-send svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Mobile Responsive < 480px */
+@media (max-width: 480px) {
+  #aistronaut-widget {
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+
+  .aistronaut-btn-trigger {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .aistronaut-card {
+    width: 100vw;
+    height: 100dvh;
+    border-radius: 0;
+    border: none;
+  }
+
+  .aistronaut-header {
+    padding: 14px 16px;
+  }
+}
