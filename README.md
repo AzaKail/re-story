@@ -1,123 +1,111 @@
 # ReStory
 
-An interactive 3D museum of NASA equipment left behind on the Moon and Mars.
-NASA Space Apps Challenge, "Abandoned but not Forgotten".
+**Abandoned but not forgotten.** An interactive 3D museum of the NASA equipment that stayed forever on the Moon and Mars, where every machine tells its own story.
 
-## Prerequisites
+NASA Space Apps Challenge 2026 · Challenge: *Abandoned but not Forgotten: Storytelling about NASA's Discarded Equipment on the Moon and Mars*
 
-- Python 3.12 or newer
-- PostgreSQL (version 16 or newer)
-- Ollama (for the local AIstronaut RAG assistant)
+![ReStory: the Apollo 11 Eagle descent stage at its real landing site on the Moon](docs/screenshots/readme-moon.jpg)
 
-## Run Locally (About 5 Minutes)
+## What it is
 
-1. Start PostgreSQL and create the database `bd_re_story`:
+Dozens of NASA landers, rovers and science stations are still sitting where their missions ended. ReStory brings them back into the story. Visitors fly to the real landing sites, open each machine's museum page and hear it speak in the first person: why it was built, what it went through and why it fell silent. A "Then and now" view shows the same site today, photographed from orbit, so the heritage is not just remembered but still visible.
+
+## Features
+
+- **3D Moon and Mars** with NASA surface maps (up to 8k), the Earth, the Sun and the other planets in the background.
+- **Real landing sites:** 11 objects at their catalogued coordinates, 4 on the Moon (Apollo 11 Eagle, Apollo 12 ALSEP, Apollo 15 Lunar Roving Vehicle, Surveyor 3) and 7 on Mars (Sojourner and Pathfinder, Spirit, Opportunity, Viking 1, Phoenix, InSight, Ingenuity).
+- **Museum pages:** a first-person story, key facts, mission dates and location, sister missions, a NASA photo and links to the NASA sources for every object.
+- **Then and now:** a mission-era photo next to a present-day image of the site from the Lunar Reconnaissance Orbiter, HiRISE on Mars Reconnaissance Orbiter, or the Perseverance rover.
+- **AIstronaut guide:** a chat guide that answers questions about the missions using only the museum's NASA-sourced texts.
+- **Three languages:** English, Russian and Kazakh, switchable at any moment.
+- **Works everywhere:** desktop, phone and kiosk screens; image quality adapts to the device; respects reduced-motion settings.
+
+| Then and now | Mars | On a phone |
+|---|---|---|
+| ![Then and now: Apollo 11 in 1969 and from lunar orbit in 2009](docs/screenshots/readme-then-now.jpg) | ![Mars with seven abandoned NASA objects](docs/screenshots/readme-mars.jpg) | ![InSight museum page on a phone](docs/screenshots/readme-phone.jpg) |
+
+## NASA data
+
+NASA data is the core of the project:
+
+- **Surface maps:** Moon from the [NASA Scientific Visualization Studio CGI Moon Kit](https://svs.gsfc.nasa.gov/4720) (Lunar Reconnaissance Orbiter), Mars from [NASA Solar System Treks](https://trek.nasa.gov/mars/) (Viking color mosaic), Earth from NASA GIBS (Blue Marble).
+- **Equipment facts, dates and coordinates:** [NASA Space Science Data Coordinated Archive (NSSDCA)](https://nssdc.gsfc.nasa.gov/) and NASA Science mission pages.
+- **Photographs and "Then and now" views:** [NASA Image and Video Library](https://images.nasa.gov/) (Apollo, Viking, Mars Exploration Rovers, Phoenix, InSight, Mars 2020, LRO, HiRISE and more).
+
+Every image and fact with its source and usage terms: [docs/SOURCES.md](docs/SOURCES.md).
+
+## Run locally
+
+You need Python 3.12+, PostgreSQL and, for the chat guide, [Ollama](https://ollama.com/).
+
+1. Create an empty PostgreSQL database `bd_re_story`:
    ```bash
    psql -U postgres -c "CREATE DATABASE bd_re_story;"
    ```
-
-2. Start Ollama and pull the required models:
+2. Pull the chat models:
    ```bash
-   ollama pull gemma4:e4b
+   ollama pull gemma4:e2b
    ollama pull nomic-embed-text
    ```
-
-3. Clone repository and set up virtual environment:
+3. Set up the project:
    ```bash
-   git clone <repo-url> restory
-   cd restory
-
+   git clone https://github.com/AzaKail/re-story.git
+   cd re-story
    python -m venv .venv
-   # Windows:
-   .venv\Scripts\activate
-   # macOS / Linux:
-   source .venv/bin/activate
-
+   .venv\Scripts\activate            # macOS / Linux: source .venv/bin/activate
    pip install -r requirements.txt
+   copy .env.example .env            # macOS / Linux: cp .env.example .env
    ```
-
-4. Configure environment variables:
-   ```bash
-   # Windows PowerShell:
-   copy .env.example .env
-   # macOS / Linux:
-   cp .env.example .env
-   ```
-   Open `.env` and set your PostgreSQL password in `DB_PASSWORD`.
-
-5. Apply database migrations (this also fills the NASA equipment catalog) and start server:
+   Put your PostgreSQL password into `DB_PASSWORD` in `.env`.
+4. Create the database tables (this also loads the equipment catalog), load the chat knowledge base and start:
    ```bash
    python manage.py migrate
+   python manage.py load_knowledge
    python manage.py runserver
    ```
+5. Open http://127.0.0.1:8000/. Add `?lang=ru` or `?lang=kk` for Russian or Kazakh, `#mars` to start on Mars.
 
-Open http://127.0.0.1:8000/ to explore the 3D museum and interact with AIstronaut.
+**On a phone in the same Wi-Fi network:** start the server with `python manage.py runserver 0.0.0.0:8000` and open `http://<computer IP>:8000/`. On Windows the Wi-Fi network must be set to "Private".
 
-## Admin Panel and Knowledge Base
+## Editing the content
 
-1. Create an administrator account:
-   ```bash
-   python manage.py createsuperuser
-   ```
-2. Open http://127.0.0.1:8000/admin/ and log in.
-3. Under the **AI Assistant AIstronaut** section:
-   - Add new `KnowledgeDocument` entries by uploading `.txt` or `.md` files (UTF-8 encoded) or entering text directly.
-   - When saved, the document is automatically chunked and indexed with vector embeddings.
-   - Use the "Reindex selected documents" action in the admin list view whenever needed.
+- **Equipment catalog:** everything about the objects (coordinates, dates, stories, facts, translations, photos, "Then and now") lives in [data/artifacts.json](data/artifacts.json). After editing, run `python manage.py seed_catalog`, then `python data/build_knowledge_base.py` and `python manage.py load_knowledge` to update the chat guide.
+- **Chat knowledge base:** texts in `data/knowledge/<language>/`. More documents can be uploaded in the admin panel (`python manage.py createsuperuser`, then http://127.0.0.1:8000/admin/).
+- **Chat models:** set `OLLAMA_CHAT_MODEL` and `OLLAMA_EMBED_MODEL` in `.env`. After changing the embedding model, re-index with `python manage.py load_knowledge --reindex`.
+- **Interface texts:** [static/js/i18n.js](static/js/i18n.js), with the same keys in English, Russian and Kazakh.
 
-## Loading the Museum Knowledge Base
+## Tech stack
 
-The chat answers only from its knowledge base. To load the team texts from `data/knowledge/` (en, ru, kk):
-
-```bash
-python manage.py load_knowledge
-```
-
-Run it again after editing the texts: changed files are re-indexed, unchanged ones are skipped.
-
-## Changing AI Models in .env
-
-You can change the models at any time directly in your `.env` file without altering application code:
-
-- `OLLAMA_CHAT_MODEL`: Name of any text generation model installed in Ollama (default: `gemma4:e4b`, e.g. `llama3.2`, `mistral`, `qwen2.5`). Restart the Django server after changing.
-- `OLLAMA_EMBED_MODEL`: Name of the embedding model in Ollama (default: `nomic-embed-text`, e.g. `bge-m3`).
-- `OLLAMA_EMBED_DIM`: Dimensions produced by the embedding model (default: `768`).
-- Note: If you change `OLLAMA_EMBED_MODEL`, open the Django Admin panel and run "Reindex selected documents" so stored vectors match the new embedding space.
-
-## Project Layout
+| Layer | Technology |
+|---|---|
+| Server | Python, Django 5.2, PostgreSQL |
+| 3D | Three.js r170 (bundled, works offline) |
+| Interface | Django templates, plain CSS and JavaScript modules, no build step |
+| Chat guide | Ollama: Gemma (answers) and nomic-embed-text (search), retrieval over the museum texts |
 
 ```text
-config/       Django settings and root URL routing
-catalog/      bodies, artifacts, sources
-ai_assistant/ AIstronaut RAG assistant (models, services, widget, views)
-templates/    HTML templates (index.html, base.html)
-static/       JavaScript modules, CSS, NASA textures and Three.js
-data/         catalog source data (JSON)
-docs/         project documentation
+config/        Django settings and URL routing
+catalog/       equipment catalog: models, API, data loading
+ai_assistant/  AIstronaut chat guide
+templates/     HTML templates
+static/        JavaScript, CSS, NASA textures, Three.js
+data/          catalog data and chat knowledge base texts
+docs/          documentation, sources, screenshots
 ```
 
-## Deploy (Render / Railway)
+Technical change log: [docs/documentation.md](docs/documentation.md).
 
-- Build command:
-  ```bash
-  pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
-  ```
-- Start command:
-  ```bash
-  gunicorn config.wsgi
-  ```
-- Required environment variables:
-  - `DJANGO_SECRET_KEY`
-  - `DJANGO_DEBUG=False`
-  - `DJANGO_ALLOWED_HOSTS=<your-host>`
-  - `DJANGO_CSRF_TRUSTED_ORIGINS=https://<your-host>`
-  - Database: `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`
-  - Ollama: `OLLAMA_BASE_URL`, `OLLAMA_CHAT_MODEL`, `OLLAMA_EMBED_MODEL`, `OLLAMA_EMBED_DIM`
+## Team
 
-## NASA Imagery and 3D Assets
+- **Azamat Maksutov:** 3D scene, interface, transitions, languages
+- **Dmitry Minin:** AIstronaut chat guide
+- **Amaliya Aidzhan:** equipment catalog and museum texts
+- **Zaur Kavirov**
 
-- Moon: [NASA Scientific Visualization Studio, CGI Moon Kit](https://svs.gsfc.nasa.gov/4720) (LRO LROC WAC)
-- Mars: [NASA Solar System Treks](https://trek.nasa.gov/mars/), Viking MDIM 2.1 color mosaic
-- Earth: [NASA GIBS](https://www.earthdata.nasa.gov/engage/open-data-services-software/earthdata-developer-portal/gibs-api), Blue Marble Next Generation
+## Use of SI tools
 
-3D engine: [Three.js](https://threejs.org/) r170 (MIT), bundled in `static/vendor/three/`.
+ReStory was designed and mostly built by the team. AI assistants provided a starting base and helped in places with code, documentation and translations; the team extended, reviewed and tested everything. All images in the project come from NASA; none are generated. The AIstronaut guide is an AI feature of the product: it runs a local open model and answers only from the museum texts.
+
+## Credits
+
+Images and data courtesy of NASA. ReStory is a Space Apps Challenge project and is not endorsed by NASA.
