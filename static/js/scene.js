@@ -83,7 +83,7 @@ export class MuseumScene {
           material.needsUpdate = true;
         },
         undefined,
-        () => this.onError(`Could not load the ${cfg.name} surface map. Showing a plain sphere instead.`),
+        () => this.onError({ type: 'texture', body: key }),
       );
     }
   }

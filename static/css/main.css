@@ -46,7 +46,7 @@ a { color: inherit; }
   left: 0;
   right: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
   padding: max(var(--gutter), env(safe-area-inset-top)) var(--gutter) var(--gutter);
@@ -64,6 +64,13 @@ a { color: inherit; }
   color: var(--accent);
 }
 .brand-sub { font-size: 0.8rem; color: var(--muted); }
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
 
 .switch {
   display: flex;
@@ -94,11 +101,27 @@ a { color: inherit; }
   font-weight: 600;
 }
 
+/* Smaller secondary switch (language) */
+.switch-sm { padding: 3px; gap: 3px; }
+.switch-sm button {
+  min-width: 52px;
+  min-height: 44px;
+  padding: 0 12px;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+.switch-sm button[aria-pressed="true"] {
+  background: rgba(242, 181, 74, 0.18);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px rgba(242, 181, 74, 0.5);
+}
+
 /* ---------- Caption ---------- */
 .caption {
   position: fixed;
   left: var(--gutter);
-  bottom: calc(var(--gutter) + 28px);
+  right: 150px;
+  bottom: max(var(--gutter), env(safe-area-inset-bottom));
   pointer-events: none;
 }
 .caption-title {
@@ -110,19 +133,85 @@ a { color: inherit; }
 .caption-hint { margin: 4px 0 0; color: var(--muted); font-size: 0.9rem; }
 
 /* ---------- Credits ---------- */
+/* Hidden behind a small button; shown on hover, keyboard focus or tap. */
 .credits {
   position: fixed;
-  left: var(--gutter);
   right: var(--gutter);
-  bottom: max(8px, env(safe-area-inset-bottom));
-  font-size: 0.72rem;
-  color: var(--muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  bottom: max(var(--gutter), env(safe-area-inset-bottom));
 }
-.credits a { text-decoration-color: rgba(255, 255, 255, 0.25); }
-.credits a:hover { color: var(--text); }
+.credits-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px 0 10px;
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.credits-icon {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.75rem;
+}
+.credits-panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  width: max-content;
+  max-width: min(360px, calc(100vw - 2 * var(--gutter)));
+  padding: 12px 16px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(8px);
+  font-size: 0.8rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+}
+/* Invisible bridge so the panel stays open while the pointer moves up to it */
+.credits-panel::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 8px;
+}
+.credits:hover .credits-panel,
+.credits:focus-within .credits-panel,
+.credits.open .credits-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.credits:hover .credits-toggle,
+.credits.open .credits-toggle { color: var(--text); }
+.credits-title {
+  margin: 0 0 6px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+}
+.credits-panel ul { margin: 0; padding: 0; list-style: none; }
+.credits-panel li + li { margin-top: 6px; }
+.credits-panel a { color: var(--text); text-decoration-color: rgba(255, 255, 255, 0.3); }
+.credits-panel a:hover { color: var(--accent); }
 
 /* ---------- Toast ---------- */
 .toast {
@@ -169,9 +258,11 @@ a { color: inherit; }
 @media (max-width: 600px) {
   .topbar { flex-direction: column; align-items: stretch; }
   .brand { align-items: center; }
-  .switch { align-self: center; }
-  .caption { bottom: calc(var(--gutter) + 40px); }
-  .credits { white-space: normal; text-align: center; font-size: 0.68rem; }
+  .controls { flex-direction: row; justify-content: center; }
+  .switch button { min-width: 72px; padding: 0 14px; }
+  .switch-sm button { min-width: 44px; padding: 0 10px; }
+  .caption { right: 130px; }
+  .caption-hint { font-size: 0.8rem; }
 }
 
 /* ---------- Large screens / kiosk ---------- */

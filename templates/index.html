@@ -18,29 +18,43 @@
   <link rel="modulepreload" href="{% static 'vendor/three/three.module.min.js' %}">
 </head>
 <body data-static="{% get_static_prefix %}">
-  <div id="scene" class="scene" role="img" aria-label="3D view of the Moon and Mars. Drag to rotate, scroll or pinch to zoom."></div>
+  <div id="scene" class="scene" role="img" data-i18n-aria-label="scene.label" aria-label="3D view of the Moon and Mars. Drag to rotate, scroll or pinch to zoom."></div>
 
   <header class="topbar">
     <div class="brand">
       <span class="brand-title">Silent Pioneers</span>
-      <span class="brand-sub">Abandoned but not forgotten</span>
+      <span class="brand-sub" data-i18n="brand.sub">Abandoned but not forgotten</span>
     </div>
-    <nav class="switch" role="group" aria-label="Choose a world">
-      <button type="button" data-body="moon" aria-pressed="true">Moon</button>
-      <button type="button" data-body="mars" aria-pressed="false">Mars</button>
-    </nav>
+    <div class="controls">
+      <nav class="switch" role="group" data-i18n-aria-label="nav.world" aria-label="Choose a world">
+        <button type="button" data-body="moon" aria-pressed="true" data-i18n="body.moon">Moon</button>
+        <button type="button" data-body="mars" aria-pressed="false" data-i18n="body.mars">Mars</button>
+      </nav>
+      <nav class="switch switch-sm" role="group" data-i18n-aria-label="nav.lang" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+        <button type="button" data-lang="ru" aria-pressed="false" lang="ru">RU</button>
+      </nav>
+    </div>
   </header>
 
   <section class="caption" aria-live="polite">
     <h1 id="body-name" class="caption-title">Moon</h1>
-    <p class="caption-hint">Drag to rotate &middot; scroll or pinch to zoom</p>
+    <p class="caption-hint" data-i18n="scene.hint">Drag to rotate &middot; scroll or pinch to zoom</p>
   </section>
 
-  <footer class="credits">
-    Surface maps:
-    <a href="https://svs.gsfc.nasa.gov/4720" target="_blank" rel="noopener">Moon, NASA SVS / LRO</a> &middot;
-    <a href="https://trek.nasa.gov/mars/" target="_blank" rel="noopener">Mars, NASA Solar System Treks / Viking</a> &middot;
-    <a href="https://earthdata.nasa.gov/eosdis/science-system-description/eosdis-components/gibs" target="_blank" rel="noopener">Earth, NASA GIBS / Blue Marble</a>
+  <footer id="credits" class="credits">
+    <button type="button" class="credits-toggle" aria-expanded="false" aria-controls="credits-panel">
+      <span class="credits-icon" aria-hidden="true">i</span>
+      <span data-i18n="credits.button">Sources</span>
+    </button>
+    <div id="credits-panel" class="credits-panel">
+      <p class="credits-title" data-i18n="credits.title">Surface maps</p>
+      <ul>
+        <li><a href="https://svs.gsfc.nasa.gov/4720" target="_blank" rel="noopener"><span data-i18n="body.moon">Moon</span>: NASA SVS / LRO</a></li>
+        <li><a href="https://trek.nasa.gov/mars/" target="_blank" rel="noopener"><span data-i18n="body.mars">Mars</span>: NASA Solar System Treks / Viking</a></li>
+        <li><a href="https://www.earthdata.nasa.gov/engage/open-data-services-software/earthdata-developer-portal/gibs-api" target="_blank" rel="noopener"><span data-i18n="body.earth">Earth</span>: NASA GIBS / Blue Marble</a></li>
+      </ul>
+    </div>
   </footer>
 
   <div id="toast" class="toast" role="status" hidden></div>
@@ -49,8 +63,8 @@
 
   <div id="fallback" class="fallback" hidden>
     <h1>Silent Pioneers</h1>
-    <p>Your browser cannot show the 3D view (WebGL is unavailable).</p>
-    <p>A text version of the museum will appear here soon.</p>
+    <p data-i18n="fallback.nowebgl">Your browser cannot show the 3D view (WebGL is unavailable).</p>
+    <p data-i18n="fallback.soon">A text version of the museum will appear here soon.</p>
   </div>
 
   <noscript>
