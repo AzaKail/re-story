@@ -131,7 +131,21 @@ Equipment with identical hardware fleets uses a single primary Flagship card pin
 - Verified Django system check: `python manage.py check` (0 issues).
 - All official NASA URLs cataloged in `docs/SOURCES.md`.
 
-### 2026-11-14: Multilingual Catalog Content (EN / RU / KK)
+### 2026-11-14: Chatbot Equipment Knowledge Base Text Export
+
+#### Summary of Changes
+- Generated comprehensive UTF-8 knowledge base text documents for the AIstronaut RAG pipeline from verified NASA equipment records in `data/artifacts.json`.
+- Created master segmented text document: `data/equipment_knowledge_base.txt` containing all 15 equipment records divided into three language sections:
+  - Section 1: English Knowledge Base (`en`)
+  - Section 2: Russian Knowledge Base (`ru`)
+  - Section 3: Kazakh Knowledge Base (`kk`)
+- Created three dedicated single-language documents for upload into the Django Admin `KnowledgeDocument` model:
+  - `data/knowledge_base_en.txt`: English equipment dossiers.
+  - `data/knowledge_base_ru.txt`: Russian equipment dossiers.
+  - `data/knowledge_base_kk.txt`: Kazakh equipment dossiers.
+- Created `data/build_knowledge_base.py` generator script to regenerate all knowledge base text files whenever catalog data changes.
+- Formatted each vehicle entry with explicit metadata (celestial body, coordinates, launch/landing dates, status), full first-person story narratives, bulleted key engineering facts, sister fleet tables, and NASA source citations.
+
 
 #### Summary of Changes
 - Extended `Artifact` model with `translations` JSONField to store localized narrative stories, statuses, brief descriptions, and key facts in Russian (`ru`) and Kazakh (`kk`).
