@@ -45,10 +45,9 @@ NASA Space Apps Challenge, "Abandoned but not Forgotten".
    ```
    Open `.env` and set your PostgreSQL password in `DB_PASSWORD`.
 
-5. Apply database migrations and start server:
+5. Apply database migrations (this also fills the NASA equipment catalog) and start server:
    ```bash
    python manage.py migrate
-   python manage.py seed_catalog     # NASA equipment catalog from data/artifacts.json
    python manage.py runserver
    ```
 

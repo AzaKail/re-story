@@ -27,8 +27,7 @@
 3. В `.env` вписать пароль PostgreSQL в `DB_PASSWORD`.
 4. Выполнить:
    ```
-   python manage.py migrate
-   python manage.py seed_catalog
+   python manage.py migrate            (заодно заполняет каталог аппаратов)
    python manage.py load_knowledge
    python manage.py runserver
    ```

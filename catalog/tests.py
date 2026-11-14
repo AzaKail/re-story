@@ -3,9 +3,28 @@ from django.test import Client, TestCase
 from catalog.models import Artifact, Body, Source
 
 
+class CatalogFilledByMigrationsTests(TestCase):
+    """A fresh database gets the full catalog from migrations, without seed_catalog."""
+
+    def test_catalog_present_after_migrate(self):
+        self.assertEqual(Body.objects.count(), 5)
+        self.assertEqual(Artifact.objects.count(), 15)
+        self.assertEqual(Artifact.objects.filter(body__code="moon").count(), 4)
+        self.assertEqual(Artifact.objects.filter(body__code="mars").count(), 7)
+        self.assertTrue(Source.objects.exists())
+
+    def test_seed_catalog_is_idempotent(self):
+        call_command("seed_catalog")
+        call_command("seed_catalog")
+        self.assertEqual(Artifact.objects.count(), 15)
+        self.assertEqual(Source.objects.count(), 15)
+
+
 class CatalogModelsAndApiTests(TestCase):
     def setUp(self):
         self.client = Client()
+        # Start from an empty catalog: migrations pre-fill it with the real dataset.
+        Body.objects.all().delete()
         self.moon = Body.objects.create(
             name="Moon",
             code="moon",

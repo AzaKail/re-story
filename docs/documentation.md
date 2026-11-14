@@ -294,3 +294,11 @@ python manage.py load_knowledge          # chat knowledge base
 1. Windows must treat the Wi-Fi as a Private network, otherwise the firewall blocks the phone.
 2. Start the server on all interfaces: `python manage.py runserver 0.0.0.0:8000`.
 3. Open `http://<laptop IP>:8000/` on the phone (`ipconfig` shows the IP).
+
+### 2026-11-14: Catalog Filled by `migrate`
+
+#### Summary of Changes
+- New data migration `catalog/migrations/0003_load_initial_catalog.py` loads `data/artifacts.json`. A fresh clone now gets the full catalog with `python manage.py migrate`; before, the site stayed empty until someone ran `seed_catalog`.
+- The loading logic lives in `catalog/seeding.py` (`load_catalog`), shared by the migration and the `seed_catalog` command. Loading is idempotent and also removes sources that are no longer in the file.
+- `seed_catalog` is still the way to apply later edits of `data/artifacts.json`.
+- Tests: `CatalogFilledByMigrationsTests` checks the catalog after migrations and that seeding twice creates no duplicates; `CatalogModelsAndApiTests` clears the pre-filled catalog in `setUp`. 31 tests pass.
