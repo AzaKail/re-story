@@ -22,6 +22,7 @@ const dom = {
   bodyName: document.getElementById('body-name'),
   toast: document.getElementById('toast'),
   museum: document.getElementById('museum'),
+  about: document.getElementById('about'),
   bodyButtons: [...document.querySelectorAll('[data-body]')],
   langButtons: [...document.querySelectorAll('[data-lang]')],
 };
@@ -61,14 +62,17 @@ const describeArtifact = (artifact) => ({
   place: artifactPlace(artifact),
 });
 
-// Shows either the 3D experience or the museum. Only one of them is interactive at a time.
+// Shows one view: '3d', 'museum' or 'about'. Only the visible one is interactive,
+// and the 3D scene renders only while it is on screen.
 function setView(view) {
-  const museumOpen = view === 'museum';
-  dom.museum.hidden = !museumOpen;
-  dom.experience.inert = museumOpen;
-  document.body.classList.toggle('view-museum', museumOpen);
-  scene.setRunning(!museumOpen);
+  dom.museum.hidden = view !== 'museum';
+  dom.about.hidden = view !== 'about';
+  dom.experience.inert = view !== '3d';
+  document.body.dataset.view = view;
+  scene.setRunning(view === '3d');
 }
+
+const currentView = () => document.body.dataset.view;
 
 // Runs a transition once at a time and blocks the UI while it plays.
 function withBusy(task) {
@@ -165,6 +169,21 @@ const backTo3D = withBusy(async () => {
   await rise;
 });
 
+// "About": the project name opens a page about the project, NASA data and the team.
+const openAbout = withBusy(async () => {
+  await fadeTo(1, { duration: FADE.in });
+  setView('about');
+  dom.about.scrollTop = 0;
+  dom.about.querySelector('#about-title').focus({ preventScroll: true });
+  await fadeTo(0, { duration: FADE.in });
+});
+
+const closeAbout = withBusy(async () => {
+  await fadeTo(1, { duration: FADE.in });
+  setView('3d');
+  await fadeTo(0, { duration: FADE.in });
+});
+
 // "Ask this artifact": open the chat and prefill a question about it (the visitor sends it).
 function askAboutArtifact(detail) {
   const trigger = document.querySelector('.aistronaut-btn-trigger');
@@ -236,8 +255,12 @@ async function start() {
 
   for (const b of dom.bodyButtons) b.addEventListener('click', () => selectBody(b.dataset.body));
   dom.museum.querySelector('[data-action="to-3d"]').addEventListener('click', backTo3D);
+  document.querySelector('[data-action="about"]').addEventListener('click', openAbout);
+  dom.about.querySelector('[data-action="close-about"]').addEventListener('click', closeAbout);
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !document.body.classList.contains('view-museum')) closeArtifact();
+    if (e.key !== 'Escape') return;
+    if (currentView() === 'about') closeAbout();
+    else if (currentView() === '3d') closeArtifact();
   });
 
   requestAnimationFrame(() => dom.loader.classList.add('done'));

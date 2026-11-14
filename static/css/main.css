@@ -96,7 +96,7 @@ a { color: inherit; }
   inset: 0;
   overflow: hidden;
 }
-.view-museum .experience { visibility: hidden; }
+body:not([data-view="3d"]) .experience { visibility: hidden; }
 .is-transitioning .experience { pointer-events: none; }
 
 .scene {
@@ -123,14 +123,37 @@ a { color: inherit; }
 }
 .topbar > * { pointer-events: auto; }
 
-.brand { display: flex; flex-direction: column; line-height: 1.15; }
-.brand-title {
-  font-size: 1.15rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
+/* The project name is a button: it opens the "About" page. */
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  margin: -6px -10px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 1.15;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
+.brand:hover { background: var(--hover); }
+.brand-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+.brand-re { color: var(--accent); }
+.brand-info { color: var(--muted); transition: color 0.2s; }
+.brand:hover .brand-info { color: var(--accent); }
 .brand-sub { font-size: 0.8rem; color: var(--muted); }
 
 .controls {
@@ -542,7 +565,7 @@ a { color: inherit; }
 /* ---------- Phones ---------- */
 @media (max-width: 600px) {
   .topbar { flex-direction: column; align-items: stretch; }
-  .brand { align-items: center; }
+  .brand { align-items: center; align-self: center; text-align: center; }
   .controls { flex-direction: row; justify-content: center; }
   .switch button { min-width: 72px; padding: 0 14px; }
   .switch-sm button { min-width: 44px; padding: 0 10px; }
@@ -613,3 +636,46 @@ a { color: inherit; }
   box-shadow: 0 10px 26px rgba(252, 163, 17, 0.4);
 }
 #aistronaut-widget .aistronaut-msg-user .aistronaut-bubble { color: var(--accent-ink); }
+
+/* ---------- Then and now (museum page) ---------- */
+.then-now { margin: 0 0 24px; }
+.then-now-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.then-now-item { position: relative; display: flex; flex-direction: column; margin: 0; }
+.then-now-item .card-image { height: 300px; max-height: none; }
+.then-now-item a { display: block; }
+.then-now-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.72);
+  color: var(--text);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.then-now-label-now { background: var(--accent); color: var(--accent-ink); }
+.then-now-item .card-media-credit { display: flex; flex-direction: column; gap: 2px; }
+.then-now-caption { color: var(--text-soft); font-size: 0.8rem; line-height: 1.45; }
+
+/* ---------- About page (opened from the project name) ---------- */
+.about-lead { font-size: 1.15rem; line-height: 1.7; color: var(--text-soft); }
+.about-steps { margin: 0; padding-left: 22px; color: var(--text-soft); line-height: 1.7; }
+.about-steps li + li { margin-top: 6px; }
+.about-steps li::marker { color: var(--accent); font-weight: 600; }
+.about-data { margin: 0; }
+.about-data dt { margin-top: 14px; color: var(--muted); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.about-data dd { margin: 4px 0 0; color: var(--text-soft); line-height: 1.6; }
+.about-data a { color: var(--accent); text-decoration-color: var(--accent-line); }
+.about-team { margin: 0; padding: 0; list-style: none; }
+.about-team li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 10px 0; border-bottom: 1px solid var(--panel-border); }
+.about-team-name { color: var(--text); font-weight: 600; }
+.about-team-role { color: var(--muted); }
+
+@media (max-width: 600px) {
+  .then-now-grid { grid-template-columns: 1fr; }
+  .then-now-item .card-image { height: 230px; }
+}

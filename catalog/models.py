@@ -47,6 +47,8 @@ class Artifact(models.Model):
     key_facts = models.JSONField(default=list)
     fleet_members = models.JSONField(default=list, blank=True)
     translations = models.JSONField(default=dict, blank=True)
+    # Present-day view of the site (orbital or rover photo): image_url, page_url, date, instrument, caption{en,ru,kk}
+    now_view = models.JSONField(default=dict, blank=True)
     image_url = models.URLField(max_length=500, blank=True)
     model_3d = models.CharField(max_length=255, blank=True)
     priority = models.IntegerField(default=1)

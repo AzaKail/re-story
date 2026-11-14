@@ -3,7 +3,7 @@
  * Features:
  * - Session storage isolation (dialog lives only until tab is closed)
  * - Real-time SSE streaming response reader
- * - Dynamic i18n synchronization with Silent Pioneers language switch
+ * - Dynamic i18n synchronization with ReStory language switch
  * - Mobile responsive adaptations (< 480px)
  * - Safe markdown formatting
  */

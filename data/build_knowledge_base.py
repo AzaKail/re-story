@@ -29,7 +29,7 @@ def load_dataset():
 def build_english_doc(bodies, artifacts, sources):
     lines = [
         "================================================================================",
-        "SILENT PIONEERS - NASA DISCARDED EQUIPMENT KNOWLEDGE BASE",
+        "RESTORY - NASA DISCARDED EQUIPMENT KNOWLEDGE BASE",
         "Language: English (en)",
         "Source: NASA Space Science Data Coordinated Archive & NASA Science Missions",
         "================================================================================\n",
@@ -112,7 +112,7 @@ def build_russian_doc(bodies, artifacts, sources):
 
     lines = [
         "================================================================================",
-        "SILENT PIONEERS - БАЗА ЗНАНИЙ ОБ ОСТАВЛЕННОЙ ТЕХНИКЕ NASA",
+        "RESTORY - БАЗА ЗНАНИЙ ОБ ОСТАВЛЕННОЙ ТЕХНИКЕ NASA",
         "Язык: Русский (ru)",
         "Источники: Архивы NASA NSSDCA и научные миссии NASA Science",
         "================================================================================\n",
@@ -205,7 +205,7 @@ def build_kazakh_doc(bodies, artifacts, sources):
 
     lines = [
         "================================================================================",
-        "SILENT PIONEERS - NASA ТАСТАП КЕТКЕН ТЕХНИКАСЫ ТУРАЛЫ БІЛІМ БАЗАСЫ",
+        "RESTORY - NASA ТАСТАП КЕТКЕН ТЕХНИКАСЫ ТУРАЛЫ БІЛІМ БАЗАСЫ",
         "Тіл: Қазақша (kk)",
         "Дереккөздер: NASA NSSDCA ресми мұрағаты және NASA Science ғылыми миссиялары",
         "================================================================================\n",

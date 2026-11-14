@@ -302,3 +302,18 @@ python manage.py load_knowledge          # chat knowledge base
 - The loading logic lives in `catalog/seeding.py` (`load_catalog`), shared by the migration and the `seed_catalog` command. Loading is idempotent and also removes sources that are no longer in the file.
 - `seed_catalog` is still the way to apply later edits of `data/artifacts.json`.
 - Tests: `CatalogFilledByMigrationsTests` checks the catalog after migrations and that seeding twice creates no duplicates; `CatalogModelsAndApiTests` clears the pre-filled catalog in `setUp`. 31 tests pass.
+
+### 2026-11-14: Rename to ReStory, About Page, Then and Now
+
+#### Summary of Changes
+- **Name.** The project is now called ReStory (templates, settings, README, docs, knowledge base headers). In the header the name is shown as "Re" (accent) + "Story".
+- **About page.** Clicking the project name (top left, with a small "i" icon) opens a separate layer, like the museum: the challenge, how to explore in four steps, the NASA data used with links, a note that the AIstronaut guide answers only from the museum texts, and the team. It has its own "3D version" button and language switch; `Esc` closes it. Views are now `3d`, `museum` and `about` (`body[data-view]`); the scene renders only in `3d`.
+- **Then and now.** Six artifacts have a present-day view of their site: Apollo 11 (LRO, PIA12909), Viking 1 (HiRISE, PIA01881), Opportunity (HiRISE, PIA22549), Phoenix (HiRISE, PIA22223), InSight (HiRISE, PIA26515), Ingenuity (Perseverance, PIA26236). On the museum page the archival photo and the present-day view are shown side by side with the year, instrument, date and a caption in en/ru/kk; the present-day image links to its NASA page. Artifacts without such a view keep a single photo.
+
+#### Data
+- New field `Artifact.now_view` (JSON: `nasa_id`, `image_url`, `page_url`, `date`, `instrument`, `caption{en,ru,kk}`), migration `0004_artifact_now_view`, data migration `0005_load_now_views`, returned by `/api/artifacts/<code>/`.
+- Captions are written from the NASA image descriptions. Not found in the NASA Image and Video Library for: Apollo 12 ALSEP, Surveyor 3, Apollo 15 LRV, Spirit, Sojourner.
+- `catalog/seeding.py` keeps only fields that exist on the model, so older migrations keep working on a fresh database.
+
+#### Tests
+34 tests pass (`NowViewTests` added).

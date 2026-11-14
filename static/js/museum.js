@@ -91,12 +91,40 @@ export class MuseumView {
     </div>`;
   }
 
+  // One archival photo, or "Then and now" when a present-day view of the site exists.
   #image(a) {
     if (!a.image_url) return '';
-    return `<figure class="card-media">
-      <img class="card-image" src="${escapeHtml(a.image_url)}" alt="${escapeHtml(a.name)}">
-      <figcaption class="card-media-credit">${escapeHtml(t('card.image_credit'))}</figcaption>
-    </figure>`;
+    if (!a.now_view?.image_url) {
+      return `<figure class="card-media">
+        <img class="card-image" src="${escapeHtml(a.image_url)}" alt="${escapeHtml(a.name)}">
+        <figcaption class="card-media-credit">${escapeHtml(t('card.image_credit'))}</figcaption>
+      </figure>`;
+    }
+    const lang = getLang();
+    const now = a.now_view;
+    const caption = now.caption?.[lang] || now.caption?.en || '';
+    const thenYear = (a.landing_date || a.launch_date || '').slice(0, 4);
+    const nowYear = String(now.date || '').slice(0, 4);
+    return `<section class="then-now" aria-label="${escapeHtml(t('museum.then_now'))}">
+      <h3 class="card-section-title">${escapeHtml(t('museum.then_now'))}</h3>
+      <div class="then-now-grid">
+        <figure class="card-media then-now-item">
+          <span class="then-now-label">${escapeHtml(t('museum.then'))}${thenYear ? ` · ${escapeHtml(thenYear)}` : ''}</span>
+          <img class="card-image" src="${escapeHtml(a.image_url)}" alt="${escapeHtml(a.name)}">
+          <figcaption class="card-media-credit">${escapeHtml(t('card.image_credit'))}</figcaption>
+        </figure>
+        <figure class="card-media then-now-item">
+          <span class="then-now-label then-now-label-now">${escapeHtml(t('museum.now'))}${nowYear ? ` · ${escapeHtml(nowYear)}` : ''}</span>
+          <a href="${escapeHtml(now.page_url || now.image_url)}" target="_blank" rel="noopener" aria-label="${escapeHtml(t('museum.open_nasa'))}">
+            <img class="card-image" src="${escapeHtml(now.image_url)}" alt="${escapeHtml(caption)}">
+          </a>
+          <figcaption class="card-media-credit">
+            <span class="then-now-caption">${escapeHtml(caption)}</span>
+            <span>NASA · ${escapeHtml(now.instrument || '')}${now.date ? `, ${escapeHtml(now.date)}` : ''}</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>`;
   }
 
   #story(a) {

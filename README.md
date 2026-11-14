@@ -1,4 +1,4 @@
-# Silent Pioneers
+# ReStory
 
 An interactive 3D museum of NASA equipment left behind on the Moon and Mars.
 NASA Space Apps Challenge, "Abandoned but not Forgotten".
@@ -24,8 +24,8 @@ NASA Space Apps Challenge, "Abandoned but not Forgotten".
 
 3. Clone repository and set up virtual environment:
    ```bash
-   git clone <repo-url> silent-pioneers
-   cd silent-pioneers
+   git clone <repo-url> restory
+   cd restory
 
    python -m venv .venv
    # Windows:

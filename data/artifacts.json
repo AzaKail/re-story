@@ -201,6 +201,18 @@
             }
           ]
         }
+      },
+      "now_view": {
+        "nasa_id": "PIA12909",
+        "image_url": "https://images-assets.nasa.gov/image/PIA12909/PIA12909~orig.jpg",
+        "page_url": "https://images.nasa.gov/details/PIA12909",
+        "date": "2009",
+        "instrument": "Lunar Reconnaissance Orbiter (LROC)",
+        "caption": {
+          "en": "The Eagle descent stage and the experiments left at Tranquility Base, seen from lunar orbit.",
+          "ru": "Посадочная ступень Eagle и оставленные приборы на Базе Спокойствия, снимок с лунной орбиты.",
+          "kk": "Тыныштық базасындағы Eagle қону сатысы мен қалдырылған аспаптар, Ай орбитасынан түсірілген сурет."
+        }
       }
     }
   },
@@ -602,6 +614,18 @@
             "Жерге 217 мыңнан астам фотосурет жіберді."
           ]
         }
+      },
+      "now_view": {
+        "nasa_id": "PIA22549",
+        "image_url": "https://images-assets.nasa.gov/image/PIA22549/PIA22549~orig.jpg",
+        "page_url": "https://images.nasa.gov/details/PIA22549",
+        "date": "2018-09-20",
+        "instrument": "Mars Reconnaissance Orbiter (HiRISE)",
+        "caption": {
+          "en": "After the dust storm cleared, Opportunity appears as a tiny blip in Perseverance Valley, seen from about 268 km.",
+          "ru": "После пылевой бури Opportunity виден крошечной точкой в Долине Упорства с высоты около 268 км.",
+          "kk": "Шаң дауылы басылғаннан кейін Opportunity шамамен 268 км биіктіктен Табандылық алқабында кішкентай нүкте болып көрінеді."
+        }
       }
     }
   },
@@ -665,6 +689,18 @@
             "РИТЭГ радиоизотопты генераторларынан қуат алды."
           ]
         }
+      },
+      "now_view": {
+        "nasa_id": "PIA01881",
+        "image_url": "https://images-assets.nasa.gov/image/PIA01881/PIA01881~large.jpg",
+        "page_url": "https://images.nasa.gov/details/PIA01881",
+        "date": "2006",
+        "instrument": "Mars Reconnaissance Orbiter (HiRISE)",
+        "caption": {
+          "en": "The Viking 1 lander in Chryse Planitia, found from orbit 30 years after landing.",
+          "ru": "Посадочный аппарат Viking 1 на равнине Хриса, найденный с орбиты через 30 лет после посадки.",
+          "kk": "Хриса жазығындағы Viking 1 қону аппараты, қонғаннан 30 жыл өткен соң орбитадан табылды."
+        }
       }
     }
   },
@@ -719,6 +755,18 @@
             "Марс топырағынан перхлорат тұздарын тапты.",
             "Полярлық түнде тоң басқан құрғақ мұз қыртысының астында мәңгіге қалды."
           ]
+        }
+      },
+      "now_view": {
+        "nasa_id": "PIA22223",
+        "image_url": "https://images-assets.nasa.gov/image/PIA22223/PIA22223~orig.jpg",
+        "page_url": "https://images.nasa.gov/details/PIA22223",
+        "date": "2017",
+        "instrument": "Mars Reconnaissance Orbiter (HiRISE)",
+        "caption": {
+          "en": "Nearly a decade after landing, dust has hidden much of the lander and its hardware.",
+          "ru": "Почти через десять лет после посадки пыль скрыла большую часть аппарата и его оборудования.",
+          "kk": "Қонудан он жылға жуық уақыт өткен соң шаң аппарат пен оның жабдықтарының көп бөлігін жасырған."
         }
       }
     }
@@ -775,6 +823,18 @@
             "Күн батареяларын шаң толық басқанға дейін 4 жыл бойы қызмет етті."
           ]
         }
+      },
+      "now_view": {
+        "nasa_id": "PIA26515",
+        "image_url": "https://images-assets.nasa.gov/image/PIA26515/PIA26515~orig.jpg",
+        "page_url": "https://images.nasa.gov/details/PIA26515",
+        "date": "2024-10",
+        "instrument": "Mars Reconnaissance Orbiter (HiRISE)",
+        "caption": {
+          "en": "Covered in dust, the lander has taken on the same reddish-brown hue as the ground around it.",
+          "ru": "Покрытый пылью, аппарат приобрёл тот же красно-бурый цвет, что и грунт вокруг.",
+          "kk": "Шаңмен жабылған аппарат айналасындағы топырақтың қызыл-қоңыр түсіне енді."
+        }
       }
     }
   },
@@ -829,6 +889,18 @@
             "Әуемен 17.0 шақырым барлау қашықтығын бағындырды.",
             "Қалақтары сирек атмосферада минутына 2400 айналым жылдамдықпен айналды."
           ]
+        }
+      },
+      "now_view": {
+        "nasa_id": "PIA26236",
+        "image_url": "https://images-assets.nasa.gov/image/PIA26236/PIA26236~large.jpg",
+        "page_url": "https://images.nasa.gov/details/PIA26236",
+        "date": "2024-02-04",
+        "instrument": "Perseverance rover (Mastcam-Z)",
+        "caption": {
+          "en": "Ingenuity at its final airfield, Valinor Hills, after damaging its rotor blades on flight 72.",
+          "ru": "Ingenuity на своём последнем аэродроме, холмах Валинор, после повреждения лопастей в 72-м полёте.",
+          "kk": "72-ұшу кезінде қалақтары зақымданғаннан кейін Ingenuity соңғы аэродромы Валинор төбелерінде тұр."
         }
       }
     }

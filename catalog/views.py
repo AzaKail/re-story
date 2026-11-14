@@ -94,6 +94,7 @@ def api_artifact_detail(request, code):
         "fleet_members": trans.get("fleet_members", artifact.fleet_members),
         "translations": artifact.translations,
         "image_url": artifact.image_url,
+        "now_view": artifact.now_view,
         "model_3d": artifact.model_3d,
         "priority": artifact.priority,
         "sources": sources,

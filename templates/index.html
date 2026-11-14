@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Silent Pioneers</title>
+  <title>ReStory</title>
   <meta name="description" content="An interactive 3D museum of NASA equipment left behind on the Moon and Mars.">
   <meta name="theme-color" content="#000000">
   <link rel="icon" href="data:,">
@@ -18,17 +18,20 @@
   </script>
   <link rel="modulepreload" href="{% static 'vendor/three/three.module.min.js' %}">
 </head>
-<body data-static="{% get_static_prefix %}">
+<body data-static="{% get_static_prefix %}" data-view="3d">
 
   <!-- ===== 3D experience (first screen) ===== -->
   <section id="experience" class="experience">
     <div id="scene" class="scene" role="img" data-i18n-aria-label="scene.label" aria-label="3D view of the Moon and Mars. Drag to rotate, scroll or pinch to zoom."></div>
 
     <header class="topbar">
-      <div class="brand">
-        <span class="brand-title">Silent Pioneers</span>
+      <button type="button" class="brand" data-action="about" data-i18n-aria-label="nav.about" aria-label="About ReStory">
+        <span class="brand-title">
+          <span><span class="brand-re">Re</span>Story</span>
+          <svg class="brand-info" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 11v6M12 7.5v.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
         <span class="brand-sub" data-i18n="brand.sub">Abandoned but not forgotten</span>
-      </div>
+      </button>
       <div class="controls">
         <nav class="switch" role="group" data-i18n-aria-label="nav.world" aria-label="Choose a world">
           <button type="button" data-body="moon" aria-pressed="true" data-i18n="body.moon">Moon</button>
@@ -100,21 +103,92 @@
     </footer>
   </main>
 
+  <!-- ===== About: opened by clicking the project name (separate layer, no 3D) ===== -->
+  <main id="about" class="museum about" hidden aria-labelledby="about-title">
+    <div class="museum-inner">
+      <div class="museum-bar">
+        <button type="button" class="btn btn-ghost" data-action="close-about">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="museum.back3d">3D version</span>
+        </button>
+        <nav class="switch switch-sm" role="group" data-i18n-aria-label="nav.lang" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+          <button type="button" data-lang="ru" aria-pressed="false" lang="ru">RU</button>
+          <button type="button" data-lang="kk" aria-pressed="false" lang="kk">KZ</button>
+        </nav>
+      </div>
+
+      <p class="museum-kicker" data-i18n="about.kicker">NASA Space Apps Challenge</p>
+      <h2 id="about-title" class="museum-title" tabindex="-1"><span class="brand-re">Re</span>Story</h2>
+      <p class="about-lead" data-i18n="about.lead"></p>
+
+      <section class="card-section">
+        <h3 class="card-section-title" data-i18n="about.case_title">The challenge</h3>
+        <p data-i18n="about.case"></p>
+      </section>
+
+      <section class="card-section">
+        <h3 class="card-section-title" data-i18n="about.how_title">How to explore</h3>
+        <ol class="about-steps">
+          <li data-i18n="about.how1"></li>
+          <li data-i18n="about.how2"></li>
+          <li data-i18n="about.how3"></li>
+          <li data-i18n="about.how4"></li>
+        </ol>
+      </section>
+
+      <section class="card-section">
+        <h3 class="card-section-title" data-i18n="about.data_title">NASA data we use</h3>
+        <dl class="about-data">
+          <dt data-i18n="about.data.maps">Surface maps</dt>
+          <dd>
+            <a href="https://svs.gsfc.nasa.gov/4720" target="_blank" rel="noopener">NASA SVS, CGI Moon Kit (LRO)</a>,
+            <a href="https://trek.nasa.gov/mars/" target="_blank" rel="noopener">NASA Solar System Treks (Viking)</a>,
+            <a href="https://www.earthdata.nasa.gov/engage/open-data-services-software/earthdata-developer-portal/gibs-api" target="_blank" rel="noopener">NASA GIBS (Blue Marble)</a>
+          </dd>
+          <dt data-i18n="about.data.catalog">Equipment catalog and facts</dt>
+          <dd>
+            <a href="https://nssdc.gsfc.nasa.gov/" target="_blank" rel="noopener">NASA Space Science Data Coordinated Archive (NSSDCA)</a>,
+            <a href="https://science.nasa.gov/" target="_blank" rel="noopener">NASA Science mission pages</a>
+          </dd>
+          <dt data-i18n="about.data.photos">Photographs</dt>
+          <dd>
+            <a href="https://images.nasa.gov/" target="_blank" rel="noopener">NASA Image and Video Library</a>:
+            Apollo, Surveyor, Viking, Mars Pathfinder, Mars Exploration Rovers, Phoenix, InSight, Mars 2020, Dawn, NEAR, Pioneer, Kepler, Cassini, Voyager 2, MESSENGER, Mariner 10
+          </dd>
+          <dt data-i18n="about.data.now">Then and now views</dt>
+          <dd>Lunar Reconnaissance Orbiter, Mars Reconnaissance Orbiter (HiRISE), Perseverance</dd>
+        </dl>
+        <p class="card-source-details" data-i18n="about.chat"></p>
+      </section>
+
+      <section class="card-section">
+        <h3 class="card-section-title" data-i18n="about.team_title">Team</h3>
+        <ul class="about-team">
+          <li><span class="about-team-name">Азамат Максутов</span><span class="about-team-role" data-i18n="about.role.scene"></span></li>
+          <li><span class="about-team-name">Дмитрий Минин</span><span class="about-team-role" data-i18n="about.role.chat"></span></li>
+          <li><span class="about-team-name">Амалия</span><span class="about-team-role" data-i18n="about.role.catalog"></span></li>
+        </ul>
+      </section>
+    </div>
+    <footer class="site-footer"></footer>
+  </main>
+
   <div id="fade" class="fade" aria-hidden="true"></div>
 
   <div id="toast" class="toast" role="status" hidden></div>
 
-  <div id="loader" class="loader" aria-hidden="true"><span>Silent Pioneers</span></div>
+  <div id="loader" class="loader" aria-hidden="true"><span>ReStory</span></div>
 
   <div id="fallback" class="fallback" hidden>
-    <h1>Silent Pioneers</h1>
+    <h1>ReStory</h1>
     <p data-i18n="fallback.nowebgl">Your browser cannot show the 3D view (WebGL is unavailable).</p>
     <p data-i18n="fallback.soon">A text version of the museum will appear here soon.</p>
   </div>
 
   <noscript>
     <div class="fallback">
-      <h1>Silent Pioneers</h1>
+      <h1>ReStory</h1>
       <p>Please enable JavaScript to explore the 3D museum.</p>
     </div>
   </noscript>

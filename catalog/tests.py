@@ -219,3 +219,21 @@ class MasterDatasetIntegrityTests(TestCase):
         res_ingenuity_kk = self.client.get("/api/artifacts/ingenuity/?lang=kk")
         self.assertEqual(res_ingenuity_kk.status_code, 200)
         self.assertIn("тікұшағы", res_ingenuity_kk.json()["name"])
+
+
+class NowViewTests(TestCase):
+    """Present-day views ("Then and now") come with the artifact detail."""
+
+    def test_now_view_in_detail(self):
+        data = self.client.get("/api/artifacts/apollo-11-lm/").json()
+        now = data["now_view"]
+        self.assertTrue(now["image_url"].startswith("https://images-assets.nasa.gov/"))
+        self.assertTrue(now["page_url"].startswith("https://images.nasa.gov/details/"))
+        self.assertEqual(set(now["caption"]), {"en", "ru", "kk"})
+
+    def test_now_view_optional(self):
+        data = self.client.get("/api/artifacts/surveyor-3/").json()
+        self.assertEqual(data["now_view"], {})
+
+    def test_six_artifacts_have_now_views(self):
+        self.assertEqual(Artifact.objects.exclude(now_view={}).count(), 6)

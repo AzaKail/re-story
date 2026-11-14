@@ -33,6 +33,8 @@
 | Фото аппаратов в музее (поле `image_url` в `data/artifacts.json`), исправленные: Apollo 11 `as11-40-5927`, ALSEP Apollo 12 `as12-47-6919`, Surveyor 3 `AS12-48-7134`, Pioneer 10 `ARC-1972-AC72-2135`, Kepler `PIA11824` (иллюстрация NASA) | https://images.nasa.gov/ (страница снимка: https://images.nasa.gov/details/<ID>) | NASA, условия: https://www.nasa.gov/nasa-brand-center/images-and-media/ | страница аппарата в музее |
 | Тексты базы знаний чата (`data/knowledge/<язык>/*.txt`, кроме `equipment-catalog.txt`) | подготовлены командой; ссылки на исходные страницы NASA нужно добавить | NASA (уточнить) | база знаний чата |
 
+| Снимки «Тогда и сейчас» (поле `now_view` в `data/artifacts.json`): Apollo 11 `PIA12909` (LRO), Viking 1 `PIA01881` (HiRISE), Opportunity `PIA22549` (HiRISE), Phoenix `PIA22223` (HiRISE), InSight `PIA26515` (HiRISE), Ingenuity `PIA26236` (Perseverance) | https://images.nasa.gov/details/<ID> | NASA, условия: https://www.nasa.gov/nasa-brand-center/images-and-media/ | страница аппарата в музее, блок «Тогда и сейчас» |
+
 ## Библиотеки кода
 
 | Что | Откуда (URL) | Лицензия | Где используется |

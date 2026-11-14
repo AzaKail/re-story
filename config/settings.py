@@ -1,5 +1,5 @@
 """
-Django settings for Silent Pioneers.
+Django settings for ReStory.
 
 All secrets and environment-specific values come from `.env` (see `.env.example`).
 """

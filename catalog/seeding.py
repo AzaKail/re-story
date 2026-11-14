@@ -24,6 +24,7 @@ ARTIFACT_DEFAULTS = {
     "key_facts": [],
     "fleet_members": [],
     "translations": {},
+    "now_view": {},
     "image_url": "",
     "model_3d": "",
     "priority": 1,
@@ -53,11 +54,14 @@ def load_catalog(Body, Artifact, Source, data_file=DATA_FILE):
         )
 
     artifacts = {}
+    artifact_fields = {field.name for field in Artifact._meta.get_fields()}
     for entry in _records_of(records, "catalog.artifact"):
         f = entry["fields"]
         defaults = {"name": f["name"], "artifact_type": f["artifact_type"], "body": bodies[f["body"]]}
         defaults.update({key: f.get(key) for key in ARTIFACT_OPTIONAL})
         defaults.update({key: f.get(key, default) for key, default in ARTIFACT_DEFAULTS.items()})
+        # Older migrations run with older models: keep only the fields this model has.
+        defaults = {key: value for key, value in defaults.items() if key in artifact_fields}
         artifacts[entry["pk"]], _ = Artifact.objects.update_or_create(code=f["code"], defaults=defaults)
 
     source_urls = {}
