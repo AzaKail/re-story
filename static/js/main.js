@@ -3,8 +3,9 @@ import { FOCUS_ORDER } from './bodies.js';
 import { loadArtifactsFromApi, fetchArtifactDetail } from './artifacts.js';
 import { ArtifactPanel } from './panel.js';
 import { FocusBar } from './focusbar.js';
-import { ArtifactCard } from './card.js';
+import { ArtifactCard, renderFleetMembers } from './card.js';
 import { getLocalizedArtifact } from './artifact_translations.js';
+import { getPlanetData } from './planet_data.js';
 import { t, getLang, setLang, applyTranslations } from './i18n.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -17,7 +18,9 @@ const dom = {
   bodyName: document.getElementById('body-name'),
   toast: document.getElementById('toast'),
   museum: document.getElementById('museum'),
+  museumKicker: document.getElementById('museum-kicker'),
   museumTitle: document.getElementById('museum-title'),
+  museumDynamicContent: document.getElementById('museum-dynamic-content'),
   bodyButtons: [...document.querySelectorAll('[data-body]')],
   langButtons: [...document.querySelectorAll('[data-lang]')],
 };
@@ -54,58 +57,163 @@ function scrollToSection(section) {
   section.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
 }
 
-function updateMuseumContent(rawDetail) {
-  if (!dom.museumTitle) return;
-  if (!rawDetail) {
-    dom.museumTitle.textContent = t('museum.title');
+function renderMuseumSection() {
+  if (!dom.museumTitle || !dom.museumDynamicContent) return;
+  const lang = getLang();
+
+  // If an artifact is currently selected, render artifact museum card
+  if (state.artifactDetail) {
+    const detail = getLocalizedArtifact(state.artifactDetail, lang);
+    if (dom.museumKicker) dom.museumKicker.textContent = t('card.equipment');
+    dom.museumTitle.textContent = detail.name;
+
+    const storyHtml = (detail.first_person_story || detail.brief_description || '')
+      .split('\n\n')
+      .filter((p) => p.trim())
+      .map((p) => `<p class="card-story-para">${p.trim()}</p>`)
+      .join('');
+
+    const factsHtml = Array.isArray(detail.key_facts) && detail.key_facts.length > 0
+      ? `<div class="card-section">
+           <h4 class="card-section-title">${t('card.facts')}</h4>
+           <ul class="card-facts-list">
+             ${detail.key_facts.map((f) => `<li>${f}</li>`).join('')}
+           </ul>
+         </div>`
+      : '';
+
+    const fleetHtml = renderFleetMembers(detail.fleet_members);
+
+    const sourcesHtml = Array.isArray(detail.sources) && detail.sources.length > 0
+      ? `<div class="card-section">
+           <h4 class="card-section-title">${t('card.sources')}</h4>
+           <ul class="card-facts-list">
+             ${detail.sources.map((s) => `
+               <li>
+                 <a href="${s.url}" target="_blank" rel="noopener" class="card-source-link font-bold">
+                   ${s.title}
+                 </a>
+                 ${s.details ? `<div style="font-size: 0.8rem; color: var(--muted); margin-top: 2px;">${s.details}</div>` : ''}
+               </li>
+             `).join('')}
+           </ul>
+         </div>`
+      : '';
+
+    dom.museumDynamicContent.innerHTML = `
+      <div class="card-meta-grid" style="margin: 24px 0;">
+        <div class="meta-item">
+          <span class="meta-label">${t('card.location')}</span>
+          <span class="meta-val font-mono">${detail.latitude != null ? `${detail.latitude.toFixed(4)}°, ${detail.longitude.toFixed(4)}°` : (detail.orbit_parameters || t('card.interstellar'))}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">${t('card.end')}</span>
+          <span class="meta-val">${detail.status || t('card.permanent_monument')}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">${t('card.launch')}</span>
+          <span class="meta-val">${detail.launch_date || 'N/A'}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">${t('card.landing')}</span>
+          <span class="meta-val">${detail.landing_date || t('card.orbital_or_deep')}</span>
+        </div>
+      </div>
+      ${detail.image_url ? `<div class="card-media" style="margin: 20px 0;"><img src="${detail.image_url}" alt="${detail.name}" class="card-image" loading="lazy"></div>` : ''}
+      <div class="card-section" style="border-top: none; padding-top: 0;">
+        <h4 class="card-section-title">${t('card.story_title')}</h4>
+        <div class="card-story">
+          ${storyHtml}
+        </div>
+      </div>
+      ${factsHtml}
+      ${fleetHtml}
+      ${sourcesHtml}
+    `;
     return;
   }
-  const lang = getLang();
-  const detail = getLocalizedArtifact(rawDetail, lang);
 
-  dom.museumTitle.textContent = detail.name;
-  const inner = dom.museum.querySelector('.museum-inner');
-  if (!inner) return;
+  // Equipment is UNSELECTED: Show rich planet/body overview
+  const bodyKey = state.body || 'moon';
+  const planet = getPlanetData(bodyKey, lang);
 
-  const existingDetail = inner.querySelector('.museum-artifact-content');
-  if (existingDetail) {
-    existingDetail.remove();
-  }
+  if (dom.museumKicker) dom.museumKicker.textContent = planet.kicker;
+  dom.museumTitle.textContent = planet.name;
 
-  const contentDiv = document.createElement('div');
-  contentDiv.className = 'museum-artifact-content';
-
-  const storyHtml = (detail.first_person_story || detail.brief_description || '')
-    .split('\n\n')
-    .map((p) => `<p>${p.trim()}</p>`)
+  const storyParagraphs = planet.story
+    .map((p) => `<p class="card-story-para">${p}</p>`)
     .join('');
 
-  contentDiv.innerHTML = `
+  const factsList = planet.facts
+    .map((f) => `<li>${f}</li>`)
+    .join('');
+
+  // Artifacts on this body
+  const bodyArtifacts = state.artifacts.filter((a) => a.body === bodyKey);
+  const artifactsGrid = bodyArtifacts.length > 0
+    ? `<div class="card-section">
+         <h4 class="card-section-title">${t('planet.artifacts_title')}</h4>
+         <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 12px;">${t('planet.select_artifact_hint')}</p>
+         <div class="planet-artifacts-grid">
+           ${bodyArtifacts.map((a) => {
+             const loc = getLocalizedArtifact(a, lang);
+             const typeLabel = t(`artifact.type.${loc.artifact_type}`) || loc.artifact_type;
+             return `
+               <button type="button" class="planet-artifact-card" data-select-artifact="${loc.code}">
+                 <span class="planet-artifact-name">${loc.name}</span>
+                 <span class="planet-artifact-meta font-mono">${typeLabel}</span>
+               </button>
+             `;
+           }).join('')}
+         </div>
+       </div>`
+    : '';
+
+  dom.museumDynamicContent.innerHTML = `
     <div class="card-meta-grid" style="margin: 24px 0;">
       <div class="meta-item">
-        <span class="meta-label">${t('card.location')}</span>
-        <span class="meta-val font-mono">${detail.latitude != null ? `${detail.latitude.toFixed(4)}°, ${detail.longitude.toFixed(4)}°` : (detail.orbit_parameters || t('card.interstellar'))}</span>
+        <span class="meta-label">${t('card.meta.radius')}</span>
+        <span class="meta-val font-mono">${planet.radius}</span>
       </div>
       <div class="meta-item">
-        <span class="meta-label">${t('card.end')}</span>
-        <span class="meta-val">${detail.status || t('card.permanent_monument')}</span>
+        <span class="meta-label">${t('card.meta.gravity')}</span>
+        <span class="meta-val font-mono">${planet.gravity}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">${t('card.meta.day_length')}</span>
+        <span class="meta-val">${planet.day_length}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">${t('card.meta.temperature')}</span>
+        <span class="meta-val">${planet.temperature}</span>
       </div>
     </div>
-    ${detail.image_url ? `<div class="card-media" style="margin: 20px 0;"><img src="${detail.image_url}" alt="${detail.name}" class="card-image"></div>` : ''}
-    <div style="margin: 24px 0;">
-      ${storyHtml}
+
+    <div class="card-section" style="border-top: none; padding-top: 0;">
+      <h4 class="card-section-title">${t('planet.overview_title')}</h4>
+      <div class="card-story">
+        ${storyParagraphs}
+      </div>
     </div>
+
+    <div class="card-section">
+      <h4 class="card-section-title">${t('planet.facts_title')}</h4>
+      <ul class="card-facts-list">
+        ${factsList}
+      </ul>
+    </div>
+
+    ${artifactsGrid}
   `;
 
-  // Hide the generic placeholder paragraphs
-  const paragraphs = inner.querySelectorAll('p:not(.museum-kicker)');
-  paragraphs.forEach((p) => {
-    if (!p.closest('.museum-artifact-content')) {
-      p.style.display = 'none';
-    }
+  // Delegate click on planet artifact cards to open detail
+  dom.museumDynamicContent.querySelectorAll('[data-select-artifact]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const code = btn.dataset.selectArtifact;
+      selectArtifact(code);
+      openArtifactCard(code);
+    });
   });
-
-  inner.appendChild(contentDiv);
 }
 
 // ---------- Actions ----------
@@ -127,6 +235,8 @@ function selectBody(key, { instant = false } = {}) {
   if (location.hash !== `#${key}`) {
     history.replaceState(null, '', `#${key}`);
   }
+
+  renderMuseumSection();
 }
 
 async function selectArtifact(code) {
@@ -149,18 +259,20 @@ async function selectArtifact(code) {
   if (detail) {
     state.artifactDetail = detail;
     focusBar.setName(detail.name);
+    renderMuseumSection();
   }
 }
 
 function closeArtifact({ moveCamera = true } = {}) {
-  if (!state.artifact) return;
-  if (moveCamera) museum.clearArtifact();
+  if (!state.artifact && !state.artifactDetail) return;
+  if (moveCamera && museum) museum.clearArtifact();
   state.artifact = null;
   state.artifactDetail = null;
-  panel.setSelected(null);
-  focusBar.hide();
-  card.close();
+  panel?.setSelected(null);
+  focusBar?.hide();
+  card?.close();
   document.body.classList.remove('is-focused');
+  renderMuseumSection();
 }
 
 async function openArtifactCard(code) {
@@ -171,7 +283,7 @@ async function openArtifactCard(code) {
   }
   if (detail) {
     card.show(detail);
-    updateMuseumContent(detail);
+    renderMuseumSection();
   }
 }
 
@@ -218,9 +330,7 @@ function initLanguage() {
     panel?.refreshLanguage();
     focusBar?.refreshLanguage();
     card?.refreshLanguage();
-    if (state.artifactDetail) {
-      updateMuseumContent(state.artifactDetail);
-    }
+    renderMuseumSection();
   });
 }
 
@@ -263,7 +373,7 @@ async function start() {
   });
 
   card = new ArtifactCard(document.getElementById('artifact-card'), {
-    onClose: () => {},
+    onClose: () => closeArtifact(),
     onAsk: handleAskArtifact,
   });
 

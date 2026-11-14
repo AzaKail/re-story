@@ -331,6 +331,44 @@ a { color: inherit; }
 }
 .museum-title:focus { outline: none; }
 .museum-inner p { margin: 0 0 1.1em; color: var(--text-soft); font-size: 1.05rem; line-height: 1.7; }
+.planet-artifacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.planet-artifact-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  color: inherit;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color var(--trans-fast), background var(--trans-fast), transform var(--trans-fast);
+  text-align: left;
+}
+.planet-artifact-card:hover, .planet-artifact-card:focus-visible {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
+}
+.planet-artifact-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.35;
+}
+.planet-artifact-meta {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
 
 .site-footer {
   max-width: 760px;
