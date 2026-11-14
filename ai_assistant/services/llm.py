@@ -24,14 +24,20 @@ def stream_chat_response(
     """
     base_url = getattr(settings, "OLLAMA_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
     chat_model = model or getattr(settings, "OLLAMA_CHAT_MODEL", "gemma4:e4b")
+    num_ctx = getattr(settings, "OLLAMA_NUM_CTX", 2048)
+    num_gpu = getattr(settings, "OLLAMA_NUM_GPU", 99)
+    keep_alive = getattr(settings, "OLLAMA_KEEP_ALIVE", "1h")
     endpoint = f"{base_url}/api/chat"
 
     payload = json.dumps({
         "model": chat_model,
         "messages": messages,
         "stream": True,
+        "keep_alive": keep_alive,
         "options": {
             "temperature": temperature,
+            "num_ctx": num_ctx,
+            "num_gpu": num_gpu,
         },
     }).encode("utf-8")
 
@@ -75,14 +81,20 @@ def generate_chat_response(
     """
     base_url = getattr(settings, "OLLAMA_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
     chat_model = model or getattr(settings, "OLLAMA_CHAT_MODEL", "gemma4:e4b")
+    num_ctx = getattr(settings, "OLLAMA_NUM_CTX", 2048)
+    num_gpu = getattr(settings, "OLLAMA_NUM_GPU", 99)
+    keep_alive = getattr(settings, "OLLAMA_KEEP_ALIVE", "1h")
     endpoint = f"{base_url}/api/chat"
 
     payload = json.dumps({
         "model": chat_model,
         "messages": messages,
         "stream": False,
+        "keep_alive": keep_alive,
         "options": {
             "temperature": temperature,
+            "num_ctx": num_ctx,
+            "num_gpu": num_gpu,
         },
     }).encode("utf-8")
 

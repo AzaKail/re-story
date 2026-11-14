@@ -22,11 +22,20 @@ def get_embedding(text: str, model: Optional[str] = None) -> List[float]:
 
     base_url = getattr(settings, "OLLAMA_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
     embed_model = model or getattr(settings, "OLLAMA_EMBED_MODEL", "nomic-embed-text")
+    embed_num_gpu = getattr(settings, "OLLAMA_EMBED_NUM_GPU", 0)
+    keep_alive = getattr(settings, "OLLAMA_KEEP_ALIVE", "1h")
     clean_text = text.strip()
 
     # Try /api/embeddings first (standard Ollama embeddings endpoint)
     endpoint_embeddings = f"{base_url}/api/embeddings"
-    payload = json.dumps({"model": embed_model, "prompt": clean_text}).encode("utf-8")
+    payload = json.dumps({
+        "model": embed_model,
+        "prompt": clean_text,
+        "keep_alive": keep_alive,
+        "options": {
+            "num_gpu": embed_num_gpu,
+        },
+    }).encode("utf-8")
     req = urllib.request.Request(
         endpoint_embeddings,
         data=payload,
@@ -57,8 +66,17 @@ def get_embedding(text: str, model: Optional[str] = None) -> List[float]:
 
 def _get_embedding_via_embed_endpoint(base_url: str, model: str, text: str) -> List[float]:
     """Fallback to /api/embed endpoint for newer Ollama builds."""
+    embed_num_gpu = getattr(settings, "OLLAMA_EMBED_NUM_GPU", 0)
+    keep_alive = getattr(settings, "OLLAMA_KEEP_ALIVE", "1h")
     endpoint_embed = f"{base_url}/api/embed"
-    payload = json.dumps({"model": model, "input": text}).encode("utf-8")
+    payload = json.dumps({
+        "model": model,
+        "input": text,
+        "keep_alive": keep_alive,
+        "options": {
+            "num_gpu": embed_num_gpu,
+        },
+    }).encode("utf-8")
     req = urllib.request.Request(
         endpoint_embed,
         data=payload,
