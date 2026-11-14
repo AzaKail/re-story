@@ -28,9 +28,32 @@ if "testserver" not in ALLOWED_HOSTS:
     ALLOWED_HOSTS.append("testserver")
 CSRF_TRUSTED_ORIGINS = env_list("DJANGO_CSRF_TRUSTED_ORIGINS")
 
+# При тесте на мобильном устройстве, будучи в одной подсети ввести команду:
+# python manage.py runserver 0.0.0.0:8000
+
+ALLOWED_HOSTS = [
+    "*",
+    "localhost",
+    "127.0.0.1",
+    ".trycloudflare.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.trycloudflare.com",
+]
+
 if not DEBUG and SECRET_KEY.startswith("dev-only"):
     raise RuntimeError("Set DJANGO_SECRET_KEY in the environment when DJANGO_DEBUG is off.")
 
+# При тесте на мобильном устройстве, будучи в одной подсети ввести команду:
+# python manage.py runserver 0.0.0.0:8000
+
+ALLOWED_HOSTS = [
+    "*",
+    "localhost",
+    "127.0.0.1",
+    ".trycloudflare.com",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -127,4 +150,8 @@ OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
 OLLAMA_CHAT_MODEL = os.getenv("OLLAMA_CHAT_MODEL", os.getenv("OLLAMA_MODEL", "gemma4:e4b"))
 OLLAMA_EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text")
 OLLAMA_EMBED_DIM = int(os.getenv("OLLAMA_EMBED_DIM", "768"))
+OLLAMA_NUM_CTX = int(os.getenv("OLLAMA_NUM_CTX", "2048"))
+OLLAMA_NUM_GPU = int(os.getenv("OLLAMA_NUM_GPU", "99"))
+OLLAMA_EMBED_NUM_GPU = int(os.getenv("OLLAMA_EMBED_NUM_GPU", "0"))
+OLLAMA_KEEP_ALIVE = os.getenv("OLLAMA_KEEP_ALIVE", "1h")
 
