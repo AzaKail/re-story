@@ -243,4 +243,7 @@ async function start() {
   requestAnimationFrame(() => dom.loader.classList.add('done'));
 }
 
-start();
+start().catch((err) => {
+  console.error(err);
+  showFallback();   // never leave the visitor on an endless loader
+});
