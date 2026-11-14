@@ -10,6 +10,7 @@ const ARTIFACT_VIEW_FACTOR = 1.7;  // camera distance at an artifact (body radii
 const DIVE_FACTOR = 1.03;          // camera distance at the end of the "Learn more" dive
 const MARKER_SIZE_FACTOR = 0.014;  // marker radius, in body radii
 const MARKER_COLOR = 0xfca311;
+const MARKER_COLOR_BACK = 0x00e5ff;
 const DEFAULT_VIEW_DIR = new THREE.Vector3(0, 0.18, 1).normalize();
 
 const FLIGHT_ORBIT_MS = 1600;
@@ -76,7 +77,7 @@ export class MuseumScene {
       const r = body.cfg.radius;
       const marker = new THREE.Mesh(
         new THREE.SphereGeometry(r * MARKER_SIZE_FACTOR, 16, 12),
-        new THREE.MeshBasicMaterial({ color: MARKER_COLOR }),
+        new THREE.MeshBasicMaterial({ color: MARKER_COLOR, transparent: true, opacity: 1.0 }),
       );
       marker.position.copy(latLonToVector3(artifact.latitude, artifact.longitude, r * 1.001));
       body.mesh.add(marker);   // child of the spinning mesh, so it turns with the surface
@@ -102,12 +103,11 @@ export class MuseumScene {
   // Flies close to an artifact marker and stops the rotation so it stays in view.
   focusArtifact(code) {
     const view = this.#artifactView(code, ARTIFACT_VIEW_FACTOR);
-    if (!view) return false;
+    if (!view) return null;
     this.focusedArtifact = code;
     this.autoSpin = false;
     clearTimeout(this.resumeTimer);
-    this.#fly(view, { durationMs: FLIGHT_ORBIT_MS });
-    return true;
+    return this.#fly(view, { durationMs: FLIGHT_ORBIT_MS });
   }
 
   clearArtifact() {
@@ -134,6 +134,26 @@ export class MuseumScene {
     if (this.markers[code]?.body !== this.current) return false;
     this.focusedArtifact = code;
     return true;
+  }
+
+  getArtifactScreenPosition(code) {
+    const entry = code && this.markers[code];
+    if (!entry || entry.body !== this.current) return null;
+    const body = this.bodies[entry.body];
+    const pos = new THREE.Vector3();
+    entry.marker.getWorldPosition(pos);
+    const normal = pos.clone().sub(body.group.position).normalize();
+    const viewDir = this.camera.position.clone().sub(pos).normalize();
+    const rawFacing = normal.dot(viewDir) > 0.02;
+    const isFacing = entry.isBackside ? false : (rawFacing || (entry.obscuredSince && (performance.now() - entry.obscuredSince < 1000)));
+    pos.project(this.camera);
+    const rect = this.renderer.domElement.getBoundingClientRect();
+    return {
+      x: (pos.x * 0.5 + 0.5) * rect.width + rect.left,
+      y: (-pos.y * 0.5 + 0.5) * rect.height + rect.top,
+      visible: pos.z < 1,
+      isFacing,
+    };
   }
 
   // ---------- Setup ----------
@@ -298,6 +318,9 @@ export class MuseumScene {
     this.controls.rotateSpeed = 0.6;
     this.controls.zoomSpeed = 0.8;
 
+    this.controls.addEventListener('change', () => {
+      if (this.onCameraMove) this.onCameraMove();
+    });
     this.controls.addEventListener('start', () => {
       this.autoSpin = false;
       clearTimeout(this.resumeTimer);
@@ -397,6 +420,65 @@ export class MuseumScene {
     }
   }
 
+  #updateMarkers() {
+    const vNormal = new THREE.Vector3();
+    const vView = new THREE.Vector3();
+    const markerPos = new THREE.Vector3();
+    const now = performance.now();
+
+    for (const [code, entry] of Object.entries(this.markers)) {
+      const isSelected = code === this.focusedArtifact;
+      const body = this.bodies[entry.body];
+      if (!body) continue;
+
+      if (!isSelected) {
+        entry.obscuredSince = null;
+        if (entry.isBackside) {
+          entry.isBackside = false;
+          entry.marker.material.color.setHex(MARKER_COLOR);
+          entry.marker.material.opacity = 1.0;
+          entry.marker.material.depthTest = true;
+          entry.marker.renderOrder = 0;
+          entry.marker.material.needsUpdate = true;
+        }
+        continue;
+      }
+
+      entry.marker.getWorldPosition(markerPos);
+      vNormal.subVectors(markerPos, body.group.position).normalize();
+      vView.subVectors(this.camera.position, markerPos).normalize();
+      const rawObscured = vNormal.dot(vView) <= 0.02;
+
+      let isBackside = entry.isBackside;
+      if (rawObscured) {
+        if (!entry.obscuredSince) {
+          entry.obscuredSince = now;
+        } else if (now - entry.obscuredSince >= 1000) {
+          isBackside = true;
+        }
+      } else {
+        entry.obscuredSince = null;
+        isBackside = false;
+      }
+
+      if (entry.isBackside !== isBackside) {
+        entry.isBackside = isBackside;
+        if (isBackside) {
+          entry.marker.material.color.setHex(MARKER_COLOR_BACK);
+          entry.marker.material.opacity = 0.65;
+          entry.marker.material.depthTest = false;
+          entry.marker.renderOrder = 1;
+        } else {
+          entry.marker.material.color.setHex(MARKER_COLOR);
+          entry.marker.material.opacity = 1.0;
+          entry.marker.material.depthTest = true;
+          entry.marker.renderOrder = 0;
+        }
+        entry.marker.material.needsUpdate = true;
+      }
+    }
+  }
+
   #tick() {
     const dt = Math.min(this.clock.getDelta(), 0.1);
     if (this.autoSpin) {
@@ -411,6 +493,7 @@ export class MuseumScene {
     } else if (this.controls.enabled) {
       this.controls.update();
     }
+    this.#updateMarkers();
     this.renderer.render(this.scene, this.camera);
     this.#adjustQuality(dt);
   }

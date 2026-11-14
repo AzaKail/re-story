@@ -3,6 +3,7 @@ import { FOCUS_ORDER } from './bodies.js';
 import { loadArtifacts, loadArtifactDetail, localizeArtifact } from './artifacts.js';
 import { ArtifactPanel } from './panel.js';
 import { FocusBar } from './focusbar.js';
+import { TourCard } from './tour_card.js';
 import { MuseumView, artifactTypeLabel, artifactPlace } from './museum.js';
 import { t, getLang, setLang, applyTranslations } from './i18n.js';
 
@@ -27,10 +28,12 @@ const dom = {
   langButtons: [...document.querySelectorAll('[data-lang]')],
 };
 
-const state = { body: null, artifact: null, artifacts: [], busy: false };
+const state = { body: null, artifact: null, artifacts: [], busy: false, tourMode: 'off' };
 let scene = null;
 let panel = null;
 let focusBar = null;
+let tourCard = null;
+let tourTimer = null;
 let museumView = null;
 
 // ---------- Helpers ----------
@@ -95,35 +98,84 @@ function withBusy(task) {
 // ---------- Actions ----------
 
 function selectBody(key, { instant = false } = {}) {
-  if (key === state.body || state.busy) return;
+  if (key === state.body || state.busy) return Promise.resolve();
   closeArtifact({ moveCamera: false });
+  tourCard?.hide();
   state.body = key;
-  scene.focus(key, { instant });
+  const flight = scene.focus(key, { instant });
   for (const b of dom.bodyButtons) b.setAttribute('aria-pressed', String(b.dataset.body === key));
   dom.bodyName.textContent = t(`body.${key}`);
   panel.show(artifactsOn(key));
   if (location.hash !== `#${key}`) history.replaceState(null, '', `#${key}`);
+  return flight;
+}
+
+function scheduleNextTourStep() {
+  clearTimeout(tourTimer);
+  if (state.tourMode === 'off') return;
+  const interval = state.tourMode === '2x' ? 5000 : 15000;
+  tourTimer = setTimeout(() => {
+    if (state.tourMode !== 'off' && currentView() === '3d') {
+      stepTour();
+    }
+  }, interval);
+}
+
+async function stepTour() {
+  if (state.tourMode === 'off' || state.busy) return;
+  const currentList = artifactsOn(state.body);
+  const currentIndex = currentList.findIndex((a) => a.code === state.artifact);
+  const nextIndex = currentIndex + 1;
+
+  if (nextIndex < currentList.length) {
+    await selectArtifact(currentList[nextIndex].code);
+  } else {
+    const currentBodyIndex = FOCUS_ORDER.indexOf(state.body);
+    const nextBodyKey = FOCUS_ORDER[(currentBodyIndex + 1) % FOCUS_ORDER.length];
+    await selectBody(nextBodyKey);
+    await new Promise((r) => setTimeout(r, 900));
+    const nextList = artifactsOn(nextBodyKey);
+    if (nextList.length && state.tourMode !== 'off') {
+      await selectArtifact(nextList[0].code);
+    }
+  }
 }
 
 function markSelected(code) {
   state.artifact = code;
   panel.setSelected(code);
-  focusBar.show(code);
+  focusBar.hide();
   document.body.classList.add('is-focused');
-  loadArtifactDetail(code).catch(() => {});   // prefetch, so "Learn more" opens instantly
+  loadArtifactDetail(code).catch(() => {});
 }
 
-function selectArtifact(code) {
-  if (state.busy || !scene.focusArtifact(code)) return;
+async function selectArtifact(code) {
+  if (state.busy) return;
+  const flight = scene.focusArtifact(code);
+  if (!flight) return;
   markSelected(code);
+
+  focusBar.hide();
+  tourCard.hide();
+  clearTimeout(tourTimer);
+  await flight;
+  if (state.artifact === code) {
+    const pos = scene.getArtifactScreenPosition(code);
+    tourCard.show(findArtifact(code), pos);
+    if (state.tourMode !== 'off') {
+      scheduleNextTourStep();
+    }
+  }
 }
 
 function closeArtifact({ moveCamera = true } = {}) {
   if (!state.artifact || state.busy) return;
+  clearTimeout(tourTimer);
   if (moveCamera) scene.clearArtifact();
   state.artifact = null;
   panel.setSelected(null);
   focusBar.hide();
+  tourCard.hide();
   document.body.classList.remove('is-focused');
 }
 
@@ -134,6 +186,7 @@ async function showInMuseum(code) {
 
 // "Learn more": dive into the artifact, fade to black, open its museum page.
 const openMuseum = withBusy(async (code) => {
+  clearTimeout(tourTimer);
   const detail = loadArtifactDetail(code);   // usually already prefetched
   try {
     await Promise.all([scene.diveIntoArtifact(), fadeTo(1, { duration: FADE.out, delay: FADE.outDelay }), detail]);
@@ -167,6 +220,11 @@ const backTo3D = withBusy(async () => {
   const rise = scene.surfaceFromDive();
   await fadeTo(0, { duration: FADE.out });
   await rise;
+  if (state.artifact) {
+    const pos = scene.getArtifactScreenPosition(state.artifact);
+    tourCard?.show(findArtifact(state.artifact), pos);
+    if (state.tourMode) scheduleNextTourStep();
+  }
 });
 
 // "About": the project name opens a page about the project, NASA data and the team.
@@ -210,6 +268,7 @@ function initLanguage() {
     if (state.body) dom.bodyName.textContent = t(`body.${state.body}`);
     panel?.refreshLanguage();
     focusBar?.refreshLanguage();
+    tourCard?.refreshLanguage();
     museumView?.refreshLanguage();
   });
 }
@@ -245,6 +304,58 @@ async function start() {
     onClose: () => closeArtifact(),
     nameOf: artifactName,
   });
+  tourCard = new TourCard(
+    document.getElementById('tour-card'),
+    document.getElementById('tour-svg'),
+    {
+      onOpen: openMuseum,
+      onClose: () => closeArtifact(),
+    }
+  );
+
+  scene.onCameraMove = () => {
+    if (state.artifact) {
+      const pos = scene.getArtifactScreenPosition(state.artifact);
+      tourCard.updatePosition(pos);
+    }
+  };
+
+  const tourToggle = document.querySelector('[data-tour-toggle]');
+  const tourSpeedBadge = document.querySelector('[data-tour-speed]');
+
+  tourToggle?.addEventListener('click', () => {
+    if (state.tourMode === 'off') {
+      state.tourMode = '1x';
+    } else if (state.tourMode === '1x') {
+      state.tourMode = '2x';
+    } else {
+      state.tourMode = 'off';
+    }
+
+    tourToggle.dataset.tourState = state.tourMode;
+    tourToggle.setAttribute('aria-pressed', String(state.tourMode !== 'off'));
+    document.body.classList.toggle('is-tour-active', state.tourMode !== 'off');
+
+    if (tourSpeedBadge) {
+      if (state.tourMode === 'off') {
+        tourSpeedBadge.hidden = true;
+      } else {
+        tourSpeedBadge.textContent = state.tourMode;
+        tourSpeedBadge.hidden = false;
+      }
+    }
+
+    clearTimeout(tourTimer);
+    if (state.tourMode !== 'off') {
+      if (state.artifact) {
+        scheduleNextTourStep();
+      } else {
+        const list = artifactsOn(state.body);
+        if (list.length) selectArtifact(list[0].code);
+      }
+    }
+  });
+
   museumView = new MuseumView(dom.museum, { onSelectArtifact: switchMuseumArtifact, onAsk: askAboutArtifact });
 
   await loadCatalog();
@@ -261,6 +372,13 @@ async function start() {
     if (e.key !== 'Escape') return;
     if (currentView() === 'about') closeAbout();
     else if (currentView() === '3d') closeArtifact();
+  });
+
+  window.addEventListener('resize', () => {
+    if (state.artifact) {
+      const pos = scene.getArtifactScreenPosition(state.artifact);
+      tourCard.updatePosition(pos);
+    }
   });
 
   requestAnimationFrame(() => dom.loader.classList.add('done'));

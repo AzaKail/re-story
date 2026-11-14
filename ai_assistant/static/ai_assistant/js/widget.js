@@ -18,7 +18,7 @@
       assistantName: 'AIstronaut',
       statusOnline: 'Online',
       triggerLabel: 'AIstronaut',
-      placeholder: 'Ask AIstronaut about Moon and Mars missions...',
+      placeholder: 'Ask about Moon and Mars...',
       greeting: 'Greetings, explorer! I am AIstronaut, your guide to the artifacts of the Moon and Mars. How may I assist your mission today?',
       clearConfirm: 'Clear current conversation history?',
       clearTooltip: 'Clear history',
@@ -30,7 +30,7 @@
       assistantName: 'AIstronaut',
       statusOnline: 'В сети',
       triggerLabel: 'AIstronaut',
-      placeholder: 'Спросите AIstronaut об артефактах Луны и Марса...',
+      placeholder: 'Спросите о миссиях и аппаратах...',
       greeting: 'Приветствую, исследователь! Я AIstronaut, ваш гид по артефактам Луны и Марса. Чем я могу помочь вам сегодня?',
       clearConfirm: 'Очистить историю текущего диалога?',
       clearTooltip: 'Очистить историю',
@@ -42,7 +42,7 @@
       assistantName: 'AIstronaut',
       statusOnline: 'Желіде',
       triggerLabel: 'AIstronaut',
-      placeholder: 'AIstronaut-тан Ай мен Марс миссиялары туралы сұраңыз...',
+      placeholder: 'Миссиялар туралы сұраңыз...',
       greeting: 'Сәлем, зерттеуші! Мен AIstronaut, Ай мен Марс артефактілері бойынша сіздің жолсерігіңізбін. Бүгін сізге қалай көмектесе аламын?',
       clearConfirm: 'Ағымдағы әңгіме тарихын тазалау керек пе?',
       clearTooltip: 'Тарихты тазалау',
@@ -198,7 +198,10 @@
       // Auto-grow textarea height
       this.input.addEventListener('input', () => {
         this.input.style.height = 'auto';
-        this.input.style.height = Math.min(this.input.scrollHeight, 110) + 'px';
+        const scrollH = this.input.scrollHeight;
+        const newHeight = Math.min(scrollH, 100);
+        this.input.style.height = Math.max(newHeight, 24) + 'px';
+        this.input.style.overflowY = scrollH > 100 ? 'auto' : 'hidden';
       });
 
       // Synchronize with external language switch
@@ -309,7 +312,8 @@
       if (!text || this.isGenerating) return;
 
       this.input.value = '';
-      this.input.style.height = 'auto';
+      this.input.style.height = '24px';
+      this.input.style.overflowY = 'hidden';
       this.isGenerating = true;
       this.sendBtn.disabled = true;
 

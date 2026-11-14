@@ -324,7 +324,9 @@
   }
 }
 
-/* Input Form Area */
+/* ==========================================================================
+   OLD INPUT STYLES (Saved for manual rollback)
+   ==========================================================================
 .aistronaut-footer {
   padding: 12px 14px;
   background: var(--ai-bg-card);
@@ -393,6 +395,117 @@
   width: 18px;
   height: 18px;
   fill: currentColor;
+}
+========================================================================== */
+
+/* Upgraded Input Area */
+.aistronaut-footer {
+  padding: 12px 14px;
+  background: rgba(13, 20, 38, 0.95);
+  border-top: 1px solid rgba(252, 163, 17, 0.2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.aistronaut-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  background: rgba(7, 11, 22, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 5px 6px 5px 14px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.aistronaut-form:focus-within {
+  border-color: rgba(252, 163, 17, 0.7);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 14px rgba(252, 163, 17, 0.25);
+}
+
+.aistronaut-input {
+  flex: 1;
+  min-height: 24px;
+  height: 24px;
+  max-height: 100px;
+  padding: 4px 0;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: #f1f5f9;
+  font-family: inherit;
+  font-size: 13.5px;
+  line-height: 24px;
+  resize: none;
+  outline: none !important;
+  box-shadow: none !important;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(252, 163, 17, 0.4) transparent;
+}
+
+.aistronaut-input::-webkit-scrollbar {
+  width: 4px;
+}
+
+.aistronaut-input::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.aistronaut-input::-webkit-scrollbar-thumb {
+  background: rgba(252, 163, 17, 0.4);
+  border-radius: 4px;
+}
+
+.aistronaut-input::placeholder {
+  color: rgba(163, 173, 194, 0.65);
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.aistronaut-btn-send {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #fca311, #e89205) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #0b0f19 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(252, 163, 17, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.aistronaut-btn-send:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(252, 163, 17, 0.55);
+  filter: brightness(1.1);
+}
+
+.aistronaut-btn-send:active {
+  transform: scale(0.96);
+}
+
+.aistronaut-btn-send:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  filter: grayscale(0.5);
+}
+
+.aistronaut-btn-send svg {
+  width: 16px;
+  height: 16px;
+  fill: #0b0f19;
+  transform: translateX(1px);
 }
 
 /* Mobile Responsive < 480px */

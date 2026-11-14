@@ -51,9 +51,15 @@
           <span data-i18n="panel.title">Objects</span>
           <span class="panel-count mono" data-panel-count>0</span>
         </h2>
-        <button type="button" class="icon-btn panel-toggle" data-panel-toggle aria-expanded="true" aria-controls="panel-list" aria-label="Collapse the list">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+        <div class="panel-actions">
+          <button type="button" class="tour-btn" data-tour-toggle data-tour-state="off" aria-pressed="false" data-i18n-title="panel.tour" data-i18n-aria-label="panel.tour" title="Tour mode" aria-label="Tour mode">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg>
+            <span class="tour-speed-badge mono" data-tour-speed hidden>1x</span>
+          </button>
+          <button type="button" class="icon-btn panel-toggle" data-panel-toggle aria-expanded="true" aria-controls="panel-list" aria-label="Collapse the list">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
       </div>
       <ul id="panel-list" class="panel-list" data-panel-list></ul>
     </aside>
@@ -68,6 +74,47 @@
       <button type="button" class="btn btn-accent" data-focus-more data-i18n="focus.more">Learn more</button>
       <button type="button" class="icon-btn" data-focus-close data-i18n-aria-label="focus.close" aria-label="Close the tour">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <svg id="tour-svg" class="tour-svg" aria-hidden="true">
+      <defs>
+        <filter id="tour-glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2.5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      <circle id="tour-reticle" class="tour-reticle" r="14" cx="0" cy="0" />
+      <circle id="tour-dot" class="tour-dot" r="4" cx="0" cy="0" />
+      <polyline id="tour-line" class="tour-line" points="0,0 0,0" filter="url(#tour-glow)" />
+    </svg>
+
+    <div id="tour-card" class="tour-card" hidden>
+      <div class="tour-card-inner">
+        <div class="tour-card-header">
+          <span class="tour-card-sys mono">REC // MISSION DATA</span>
+          <span class="tour-card-coords mono" data-tour-coords></span>
+        </div>
+        <div class="tour-card-media" data-tour-media>
+          <img class="tour-card-img" data-tour-img src="" alt="" loading="lazy" draggable="false">
+        </div>
+        <div class="tour-card-body">
+          <span class="tour-card-type mono" data-tour-type></span>
+          <h3 class="tour-card-title" data-tour-title></h3>
+          <p class="tour-card-desc" data-tour-desc></p>
+          <div class="tour-card-footer">
+            <button type="button" class="btn btn-accent tour-card-btn" data-tour-more>
+              <span data-i18n="focus.more">Learn more</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="icon-btn tour-card-close" data-tour-close aria-label="Close" data-i18n-aria-label="focus.close">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
 
