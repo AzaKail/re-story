@@ -6,6 +6,7 @@
   <title>Silent Pioneers</title>
   <meta name="description" content="An interactive 3D museum of NASA equipment left behind on the Moon and Mars.">
   <meta name="theme-color" content="#020308">
+  <link rel="icon" href="data:,">
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
   <script type="importmap">
     {
@@ -18,45 +19,85 @@
   <link rel="modulepreload" href="{% static 'vendor/three/three.module.min.js' %}">
 </head>
 <body data-static="{% get_static_prefix %}">
-  <div id="scene" class="scene" role="img" data-i18n-aria-label="scene.label" aria-label="3D view of the Moon and Mars. Drag to rotate, scroll or pinch to zoom."></div>
 
-  <header class="topbar">
-    <div class="brand">
-      <span class="brand-title">Silent Pioneers</span>
-      <span class="brand-sub" data-i18n="brand.sub">Abandoned but not forgotten</span>
-    </div>
-    <div class="controls">
-      <nav class="switch" role="group" data-i18n-aria-label="nav.world" aria-label="Choose a world">
-        <button type="button" data-body="moon" aria-pressed="true" data-i18n="body.moon">Moon</button>
-        <button type="button" data-body="mars" aria-pressed="false" data-i18n="body.mars">Mars</button>
-      </nav>
-      <nav class="switch switch-sm" role="group" data-i18n-aria-label="nav.lang" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
-        <button type="button" data-lang="ru" aria-pressed="false" lang="ru">RU</button>
-        <button type="button" data-lang="kk" aria-pressed="false" lang="kk">KZ</button>
-      </nav>
-    </div>
-  </header>
+  <!-- ===== 3D experience (first screen) ===== -->
+  <section id="experience" class="experience">
+    <div id="scene" class="scene" role="img" data-i18n-aria-label="scene.label" aria-label="3D view of the Moon and Mars. Drag to rotate, scroll or pinch to zoom."></div>
 
-  <section class="caption" aria-live="polite">
-    <h1 id="body-name" class="caption-title">Moon</h1>
-    <p class="caption-hint" data-i18n="scene.hint">Drag to rotate &middot; scroll or pinch to zoom</p>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-title">Silent Pioneers</span>
+        <span class="brand-sub" data-i18n="brand.sub">Abandoned but not forgotten</span>
+      </div>
+      <div class="controls">
+        <nav class="switch" role="group" data-i18n-aria-label="nav.world" aria-label="Choose a world">
+          <button type="button" data-body="moon" aria-pressed="true" data-i18n="body.moon">Moon</button>
+          <button type="button" data-body="mars" aria-pressed="false" data-i18n="body.mars">Mars</button>
+        </nav>
+        <nav class="switch switch-sm" role="group" data-i18n-aria-label="nav.lang" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+          <button type="button" data-lang="ru" aria-pressed="false" lang="ru">RU</button>
+          <button type="button" data-lang="kk" aria-pressed="false" lang="kk">KZ</button>
+        </nav>
+      </div>
+    </header>
+
+    <aside id="panel" class="panel" aria-labelledby="panel-title">
+      <div class="panel-head">
+        <h2 id="panel-title" class="panel-title">
+          <span data-i18n="panel.title">Objects</span>
+          <span class="panel-count mono" data-panel-count>0</span>
+        </h2>
+        <button type="button" class="icon-btn panel-toggle" data-panel-toggle aria-expanded="true" aria-controls="panel-list" aria-label="Collapse the list">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <ul id="panel-list" class="panel-list" data-panel-list></ul>
+    </aside>
+
+    <section class="caption" aria-live="polite">
+      <h1 id="body-name" class="caption-title">Moon</h1>
+      <p class="caption-hint" data-i18n="scene.hint">Drag to rotate &middot; scroll or pinch to zoom</p>
+    </section>
+
+    <div id="focusbar" class="focusbar" role="region" aria-live="polite" hidden>
+      <span class="focusbar-name" data-focus-name></span>
+      <button type="button" class="btn btn-accent" data-focus-more data-i18n="focus.more">Learn more</button>
+      <button type="button" class="icon-btn" data-focus-close data-i18n-aria-label="focus.close" aria-label="Close the tour">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
   </section>
 
-  <footer id="credits" class="credits">
-    <button type="button" class="credits-toggle" aria-expanded="false" aria-controls="credits-panel">
-      <span class="credits-icon" aria-hidden="true">i</span>
-      <span data-i18n="credits.button">Sources</span>
-    </button>
-    <div id="credits-panel" class="credits-panel">
-      <p class="credits-title" data-i18n="credits.title">Surface maps</p>
-      <ul>
+  <!-- ===== Museum: a separate layer opened by "Learn more" (no 3D here; placeholder content) ===== -->
+  <main id="museum" class="museum" hidden>
+    <div class="museum-inner">
+      <button type="button" class="btn btn-ghost" data-action="to-3d">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span data-i18n="museum.back3d">3D version</span>
+      </button>
+
+      <p class="museum-kicker" data-i18n="museum.title">Museum</p>
+      <h2 id="museum-title" class="museum-title" tabindex="-1">Museum</h2>
+
+      <!-- Placeholder text: the museum team replaces this section. -->
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae arcu sed nunc pulvinar sodales. Curabitur ullamcorper, justo at dignissim fermentum, sem nibh bibendum lorem, non tincidunt risus mi vel ipsum. Vivamus vel elit a metus luctus aliquet.</p>
+      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi faucibus, nibh sit amet facilisis viverra, lectus mauris pretium nisl, in cursus est nulla vel lacus. Donec posuere, massa eu tempus volutpat, augue odio commodo est, ac consequat urna justo vitae turpis.</p>
+      <p>Suspendisse potenti. Nam finibus tellus at enim condimentum, at faucibus erat posuere. Aliquam erat volutpat. Fusce ut mattis augue, non pharetra libero. Sed tristique, lorem vel aliquet viverra, nisl ex volutpat magna, eu aliquet dolor leo et neque.</p>
+      <p>Quisque dignissim, felis sed placerat lobortis, sapien est laoreet nibh, ac malesuada mauris lectus vel augue. Etiam varius ligula sit amet nisi pulvinar, quis porttitor sem dignissim. In hac habitasse platea dictumst. Ut euismod leo nec massa fermentum, eu placerat enim tempor.</p>
+    </div>
+
+    <footer class="site-footer">
+      <p class="footer-title" data-i18n="credits.title">Surface maps</p>
+      <ul class="footer-links">
         <li><a href="https://svs.gsfc.nasa.gov/4720" target="_blank" rel="noopener"><span data-i18n="body.moon">Moon</span>: NASA SVS / LRO</a></li>
         <li><a href="https://trek.nasa.gov/mars/" target="_blank" rel="noopener"><span data-i18n="body.mars">Mars</span>: NASA Solar System Treks / Viking</a></li>
         <li><a href="https://www.earthdata.nasa.gov/engage/open-data-services-software/earthdata-developer-portal/gibs-api" target="_blank" rel="noopener"><span data-i18n="body.earth">Earth</span>: NASA GIBS / Blue Marble</a></li>
       </ul>
-    </div>
-  </footer>
+    </footer>
+  </main>
+
+  <div id="fade" class="fade" aria-hidden="true"></div>
 
   <div id="toast" class="toast" role="status" hidden></div>
 
