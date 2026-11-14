@@ -60,7 +60,7 @@ export class MuseumView {
       this.#facts(a),
       this.#fleet(a),
       this.#sources(a),
-      this.#askButton(a),
+      this.#askButton(),
       this.#siblings(siblings, lang, body),
       this.#bodyOverview(body),
     ].join('');
@@ -136,9 +136,9 @@ export class MuseumView {
     return this.#section(t('card.sources'), `<ul class="card-sources-list">${items}</ul>`);
   }
 
-  #askButton(a) {
+  #askButton() {
     return `<div class="museum-actions">
-      <button type="button" class="btn btn-accent" data-ask-artifact>${escapeHtml(t('card.ask_btn', { name: a.name }))}</button>
+      <button type="button" class="btn btn-accent" data-ask-artifact>${escapeHtml(t('card.ask_btn'))}</button>
     </div>`;
   }
 

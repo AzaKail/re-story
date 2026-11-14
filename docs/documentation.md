@@ -280,3 +280,17 @@ python manage.py load_knowledge          # chat knowledge base
 
 #### Tests
 `python manage.py test catalog ai_assistant`: 23 tests pass.
+
+### 2026-11-14: Team Colour Palette and Loader Safety Nets
+
+#### Summary of Changes
+- Applied the team palette through the CSS tokens in `static/css/main.css`: Black `#000000` (background), Prussian Blue `#14213d` (panels and cards), Orange `#fca311` (accent, markers), Alabaster Grey `#e5e5e5` (body text), White `#ffffff` (headings). Text on orange buttons is Prussian Blue.
+- The chat widget is recoloured to the same palette by overrides at the end of `static/css/main.css` (section "Chat widget theme"). The widget's own files in `ai_assistant/` are unchanged.
+- Scene background and marker colour in `static/js/scene.js` follow the palette.
+- The "Ask" button in the museum uses a fixed phrase (`card.ask_btn`) instead of inserting the artifact name, which read badly in Russian and Kazakh.
+- Loader safety nets: browsers without import map support (old phones) and any start-up error now show the fallback message instead of an endless loader.
+
+#### Viewing the site on a phone (same Wi-Fi)
+1. Windows must treat the Wi-Fi as a Private network, otherwise the firewall blocks the phone.
+2. Start the server on all interfaces: `python manage.py runserver 0.0.0.0:8000`.
+3. Open `http://<laptop IP>:8000/` on the phone (`ipconfig` shows the IP).

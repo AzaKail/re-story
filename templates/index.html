@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Silent Pioneers</title>
   <meta name="description" content="An interactive 3D museum of NASA equipment left behind on the Moon and Mars.">
-  <meta name="theme-color" content="#020308">
+  <meta name="theme-color" content="#000000">
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
   <script type="importmap">
@@ -119,6 +119,14 @@
     </div>
   </noscript>
 
+  <script>
+    // Browsers without import maps (old phones) cannot start the 3D scene:
+    // show the message instead of an endless loader.
+    if (!(HTMLScriptElement.supports && HTMLScriptElement.supports('importmap'))) {
+      document.getElementById('fallback').hidden = false;
+      document.getElementById('loader').classList.add('done');
+    }
+  </script>
   <script type="module" src="{% static 'js/main.js' %}"></script>
   {% include 'ai_assistant/widget.html' %}
 </body>

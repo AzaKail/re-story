@@ -9,7 +9,7 @@ const RESUME_AFTER_MS = 20000;     // auto-rotation returns this long after the 
 const ARTIFACT_VIEW_FACTOR = 1.7;  // camera distance at an artifact (body radii); also the zoom limit
 const DIVE_FACTOR = 1.03;          // camera distance at the end of the "Learn more" dive
 const MARKER_SIZE_FACTOR = 0.014;  // marker radius, in body radii
-const MARKER_COLOR = 0xf2b54a;
+const MARKER_COLOR = 0xfca311;
 const DEFAULT_VIEW_DIR = new THREE.Vector3(0, 0.18, 1).normalize();
 
 const FLIGHT_ORBIT_MS = 1600;
@@ -149,7 +149,7 @@ export class MuseumScene {
     this.maxAnisotropy = Math.min(8, this.renderer.capabilities.getMaxAnisotropy());
 
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x020308);
+    this.scene.background = new THREE.Color(0x000000);
     this.camera = new THREE.PerspectiveCamera(45, 1, 0.01, 3000);
   }
 
