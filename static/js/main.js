@@ -177,13 +177,23 @@ async function openArtifactCard(code) {
 
 function handleAskArtifact(artifact) {
   const triggerBtn = document.querySelector('.aistronaut-btn-trigger');
+  const chatCard = document.querySelector('.aistronaut-card');
   const input = document.querySelector('.aistronaut-input');
-  if (triggerBtn) {
+
+  if (triggerBtn && (!chatCard || !chatCard.classList.contains('open'))) {
     triggerBtn.click();
   }
+
   if (input) {
-    input.value = `Tell me about the history and mission of ${artifact.name}.`;
+    const lang = getLang();
+    const localized = getLocalizedArtifact(artifact, lang);
+    const artifactName = (localized && localized.name) ? localized.name : (artifact ? artifact.name : '');
+    const promptText = t('chat.ask_prompt', { name: artifactName });
+
+    input.value = promptText;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
     input.focus();
+    input.selectionStart = input.selectionEnd = input.value.length;
   }
 }
 

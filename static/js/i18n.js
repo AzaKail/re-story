@@ -63,6 +63,7 @@ const STRINGS = {
     'card.ask_btn': 'Ask {name}',
     'card.interstellar': 'Interstellar trajectory',
     'card.equipment': 'Equipment',
+    'chat.ask_prompt': 'Tell me about the history and mission of {name}.',
   },
   ru: {
     'brand.sub': 'Оставлены, но не забыты',
@@ -122,6 +123,7 @@ const STRINGS = {
     'card.ask_btn': 'Спросить у {name}',
     'card.interstellar': 'Межзвездная траектория',
     'card.equipment': 'Оборудование',
+    'chat.ask_prompt': 'Расскажи об истории и миссии аппарата {name}.',
   },
   kk: {
     'brand.sub': 'Тасталған, бірақ ұмытылмаған',
@@ -181,6 +183,7 @@ const STRINGS = {
     'card.ask_btn': '{name} туралы сұрау',
     'card.interstellar': 'Жұлдызаралық траектория',
     'card.equipment': 'Жабдық',
+    'chat.ask_prompt': '{name} аппаратының тарихы мен миссиясы туралы айтып беріңізші.',
   },
 };
 
