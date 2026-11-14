@@ -261,7 +261,10 @@ a { color: inherit; }
   .controls { flex-direction: row; justify-content: center; }
   .switch button { min-width: 72px; padding: 0 14px; }
   .switch-sm button { min-width: 44px; padding: 0 10px; }
-  .caption { right: 130px; }
+  .caption {
+    right: var(--gutter);
+    bottom: calc(max(var(--gutter), env(safe-area-inset-bottom)) + 56px);
+  }
   .caption-hint { font-size: 0.8rem; }
 }
 

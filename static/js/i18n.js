@@ -1,5 +1,5 @@
 // Interface strings in every supported language.
-// To add a string: add the key to both `en` and `ru`, then use
+// To add a string: add the key to every language (en, ru, kk), then use
 //   data-i18n="key"            -> element text
 //   data-i18n-aria-label="key" -> aria-label attribute
 // or t('key') in JS. Catalog content (stories, facts) will come from the API per language.
@@ -34,6 +34,21 @@ const STRINGS = {
     'error.texture': 'Не удалось загрузить карту поверхности ({body}). Показан однотонный шар.',
     'fallback.nowebgl': 'Ваш браузер не может показать 3D-сцену (WebGL недоступен).',
     'fallback.soon': 'Скоро здесь появится текстовая версия музея.',
+  },
+  kk: {
+    'brand.sub': 'Тасталған, бірақ ұмытылмаған',
+    'nav.world': 'Әлемді таңдаңыз',
+    'nav.lang': 'Тіл',
+    'body.moon': 'Ай',
+    'body.mars': 'Марс',
+    'body.earth': 'Жер',
+    'scene.label': 'Ай мен Марстың 3D көрінісі. Айналдыру үшін сүйреңіз; масштаб — дөңгелекпен немесе екі саусақпен.',
+    'scene.hint': 'Айналдыру үшін сүйреңіз · масштаб — дөңгелек немесе екі саусақ',
+    'credits.button': 'Дереккөздер',
+    'credits.title': 'Беткі қабат карталары',
+    'error.texture': '{body} беткі картасын жүктеу мүмкін болмады. Бір түсті шар көрсетілді.',
+    'fallback.nowebgl': 'Браузеріңіз 3D көріністі көрсете алмайды (WebGL қолжетімсіз).',
+    'fallback.soon': 'Мұнда жақында мұражайдың мәтіндік нұсқасы пайда болады.',
   },
 };
 
