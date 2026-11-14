@@ -1,103 +1,154 @@
 import { MuseumScene, webglAvailable } from './scene.js';
 import { FOCUS_ORDER } from './bodies.js';
+import { ARTIFACTS } from './artifacts.js';
+import { ArtifactPanel } from './panel.js';
+import { FocusBar } from './focusbar.js';
 import { t, getLang, setLang, applyTranslations } from './i18n.js';
 
-const container = document.getElementById('scene');
-const loader = document.getElementById('loader');
-const nameEl = document.getElementById('body-name');
-const toast = document.getElementById('toast');
-const bodyButtons = [...document.querySelectorAll('[data-body]')];
-const langButtons = [...document.querySelectorAll('[data-lang]')];
-const credits = document.getElementById('credits');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isPhone = window.matchMedia('(max-width: 600px)').matches;
 
-let currentBody = null;
+const dom = {
+  experience: document.getElementById('experience'),
+  scene: document.getElementById('scene'),
+  loader: document.getElementById('loader'),
+  bodyName: document.getElementById('body-name'),
+  toast: document.getElementById('toast'),
+  museum: document.getElementById('museum'),
+  museumTitle: document.getElementById('museum-title'),
+  bodyButtons: [...document.querySelectorAll('[data-body]')],
+  langButtons: [...document.querySelectorAll('[data-lang]')],
+};
+
+const state = { body: null, artifact: null, museumArtifact: null };
+let museum = null;
+let panel = null;
+let focusBar = null;
+
+// ---------- Helpers ----------
 
 function showToast(message) {
-  toast.textContent = message;
-  toast.hidden = false;
+  dom.toast.textContent = message;
+  dom.toast.hidden = false;
   clearTimeout(showToast.timer);
-  showToast.timer = setTimeout(() => { toast.hidden = true; }, 6000);
+  showToast.timer = setTimeout(() => { dom.toast.hidden = true; }, 6000);
 }
 
 function showFallback() {
   document.getElementById('fallback').hidden = false;
-  loader.classList.add('done');
+  dom.loader.classList.add('done');
 }
 
-function setActiveBody(key) {
-  currentBody = key;
-  for (const b of bodyButtons) b.setAttribute('aria-pressed', String(b.dataset.body === key));
-  nameEl.textContent = t(`body.${key}`);
+function scrollToSection(section) {
+  section.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+}
+
+function updateMuseumTitle() {
+  dom.museumTitle.textContent = state.museumArtifact ? t(`artifact.${state.museumArtifact}`) : t('museum.title');
+}
+
+// ---------- Actions ----------
+
+function selectBody(key, { instant = false } = {}) {
+  if (key === state.body) return;
+  closeArtifact({ moveCamera: false });
+  state.body = key;
+  museum.focus(key, { instant });
+  for (const b of dom.bodyButtons) b.setAttribute('aria-pressed', String(b.dataset.body === key));
+  dom.bodyName.textContent = t(`body.${key}`);
+  panel.show(ARTIFACTS.filter((a) => a.body === key));
   if (location.hash !== `#${key}`) history.replaceState(null, '', `#${key}`);
 }
 
+function selectArtifact(code) {
+  if (!museum.focusArtifact(code)) return;
+  state.artifact = code;
+  panel.setSelected(code);
+  focusBar.show(code);
+  document.body.classList.add('is-focused');
+}
+
+function closeArtifact({ moveCamera = true } = {}) {
+  if (!state.artifact) return;
+  if (moveCamera) museum.clearArtifact();
+  state.artifact = null;
+  panel.setSelected(null);
+  focusBar.hide();
+  document.body.classList.remove('is-focused');
+}
+
+function openMuseum(code) {
+  state.museumArtifact = code;
+  updateMuseumTitle();
+  scrollToSection(dom.museum);
+  dom.museumTitle.focus({ preventScroll: true });
+}
+
+// ---------- Init ----------
+
 function initLanguage() {
-  const mark = () => {
-    for (const b of langButtons) b.setAttribute('aria-pressed', String(b.dataset.lang === getLang()));
+  const markActive = () => {
+    for (const b of dom.langButtons) b.setAttribute('aria-pressed', String(b.dataset.lang === getLang()));
   };
   applyTranslations();
-  mark();
-  for (const b of langButtons) b.addEventListener('click', () => setLang(b.dataset.lang));
+  markActive();
+  for (const b of dom.langButtons) b.addEventListener('click', () => setLang(b.dataset.lang));
   window.addEventListener('langchange', () => {
-    mark();
-    if (currentBody) nameEl.textContent = t(`body.${currentBody}`);
+    markActive();
+    if (state.body) dom.bodyName.textContent = t(`body.${state.body}`);
+    panel?.refreshLanguage();
+    focusBar?.refreshLanguage();
+    updateMuseumTitle();
   });
 }
 
-// Sources pop up on hover/focus (CSS); on touch screens a tap toggles them.
-function initCredits() {
-  const button = credits.querySelector('button');
-  button.addEventListener('click', () => {
-    const open = credits.classList.toggle('open');
-    button.setAttribute('aria-expanded', String(open));
-  });
-  document.addEventListener('click', (e) => {
-    if (!credits.contains(e.target)) {
-      credits.classList.remove('open');
-      button.setAttribute('aria-expanded', 'false');
-    }
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      credits.classList.remove('open');
-      button.setAttribute('aria-expanded', 'false');
-    }
-  });
+function initMuseumSection() {
+  updateMuseumTitle();
+  document.querySelector('[data-action="to-3d"]').addEventListener('click', () => scrollToSection(dom.experience));
+}
+
+// Stop rendering while the 3D block is scrolled out of view.
+function pauseWhenHidden() {
+  if (!('IntersectionObserver' in window)) return;
+  new IntersectionObserver(([entry]) => museum.setRunning(entry.isIntersecting)).observe(dom.experience);
 }
 
 function start() {
   initLanguage();
-  initCredits();
+  initMuseumSection();
 
   if (!webglAvailable()) return showFallback();
 
-  let museum;
   try {
-    museum = new MuseumScene(container, {
+    museum = new MuseumScene(dom.scene, {
       staticUrl: document.body.dataset.static,
-      reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      reducedMotion,
       onError: ({ body }) => showToast(t('error.texture', { body: t(`body.${body}`) })),
     });
   } catch (err) {
     console.error(err);
     return showFallback();
   }
+  museum.addArtifacts(ARTIFACTS);
+
+  panel = new ArtifactPanel(document.getElementById('panel'), { onSelect: selectArtifact });
+  panel.setCollapsed(isPhone);
+  focusBar = new FocusBar(document.getElementById('focusbar'), {
+    onMore: openMuseum,
+    onClose: () => closeArtifact(),
+  });
 
   const fromHash = location.hash.slice(1);
   const initial = FOCUS_ORDER.includes(fromHash) ? fromHash : FOCUS_ORDER[0];
-  museum.focus(initial, { instant: true });
-  setActiveBody(initial);
+  selectBody(initial, { instant: true });
 
-  for (const b of bodyButtons) {
-    b.addEventListener('click', () => {
-      const key = b.dataset.body;
-      if (key === museum.current) return;
-      museum.focus(key);
-      setActiveBody(key);
-    });
-  }
+  for (const b of dom.bodyButtons) b.addEventListener('click', () => selectBody(b.dataset.body));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeArtifact();
+  });
+  pauseWhenHidden();
 
-  requestAnimationFrame(() => loader.classList.add('done'));
+  requestAnimationFrame(() => dom.loader.classList.add('done'));
 }
 
 start();

@@ -1,10 +1,17 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { BODIES, SUN } from './bodies.js';
+import { latLonToVector3 } from './geo.js';
 
-const AUTO_SPIN = 0.04;          // rad/s, slow museum rotation
-const RESUME_AFTER_MS = 20000;   // autorotation returns this long after the visitor lets go
+const AUTO_SPIN = 0.04;            // rad/s, slow museum rotation
+const RESUME_AFTER_MS = 20000;     // auto-rotation returns this long after the visitor lets go
 const FLIGHT_MS = 1800;
+const MIN_DISTANCE_FACTOR = 1.1;   // closest zoom, in body radii from the centre
+const ARTIFACT_VIEW_FACTOR = 1.7;  // camera distance when focused on an artifact, in body radii
+const MARKER_SIZE_FACTOR = 0.014;  // marker radius, in body radii
+const MARKER_COLOR = 0xf2b54a;
+const DEFAULT_VIEW_DIR = new THREE.Vector3(0, 0.18, 1).normalize();
+const IDENTITY = new THREE.Quaternion();
 
 const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
@@ -24,10 +31,13 @@ export class MuseumScene {
     this.reducedMotion = reducedMotion;
     this.onError = onError || (() => {});
     this.bodies = {};
+    this.markers = {};
     this.current = null;
+    this.focusedArtifact = null;
     this.flight = null;
     this.autoSpin = !reducedMotion;
     this.resumeTimer = null;
+    this.running = false;
     this.clock = new THREE.Clock();
 
     this.#initRenderer();
@@ -36,8 +46,63 @@ export class MuseumScene {
 
     window.addEventListener('resize', () => this.#resize());
     this.#resize();
-    this.renderer.setAnimationLoop(() => this.#tick());
+    this.setRunning(true);
   }
+
+  // ---------- Public API ----------
+
+  // Pauses rendering while the scene is off screen (e.g. the visitor scrolled to the museum).
+  setRunning(running) {
+    if (running === this.running) return;
+    this.running = running;
+    this.clock.getDelta();
+    this.renderer.setAnimationLoop(running ? () => this.#tick() : null);
+  }
+
+  addArtifacts(artifacts) {
+    for (const artifact of artifacts) {
+      const body = this.bodies[artifact.body];
+      if (!body) continue;
+      const r = body.cfg.radius;
+      const marker = new THREE.Mesh(
+        new THREE.SphereGeometry(r * MARKER_SIZE_FACTOR, 16, 12),
+        new THREE.MeshBasicMaterial({ color: MARKER_COLOR }),
+      );
+      marker.position.copy(latLonToVector3(artifact.lat, artifact.lon, r * 1.001));
+      body.mesh.add(marker);   // child of the spinning mesh, so it turns with the surface
+      this.markers[artifact.code] = { marker, body: artifact.body };
+    }
+  }
+
+  // Shows a whole body. keepDirection: zoom out along the current view instead of the default one.
+  focus(key, { instant = false, keepDirection = false } = {}) {
+    if (!this.bodies[key]?.cfg.focus) return;
+    this.current = key;
+    this.focusedArtifact = null;
+    this.autoSpin = !this.reducedMotion;
+    this.#moveCamera(this.#bodyView(key, keepDirection), { instant });
+  }
+
+  // Flies close to an artifact marker and stops the rotation so it stays in view.
+  focusArtifact(code) {
+    const entry = this.markers[code];
+    if (!entry || entry.body !== this.current) return false;
+    this.focusedArtifact = code;
+    this.autoSpin = false;
+    clearTimeout(this.resumeTimer);
+
+    const { group, cfg } = this.bodies[entry.body];
+    const center = group.position.clone();
+    const dir = entry.marker.getWorldPosition(new THREE.Vector3()).sub(center).normalize();
+    this.#moveCamera({ target: center, position: center.clone().addScaledVector(dir, cfg.radius * ARTIFACT_VIEW_FACTOR) });
+    return true;
+  }
+
+  clearArtifact() {
+    if (this.focusedArtifact) this.focus(this.current, { keepDirection: true });
+  }
+
+  // ---------- Setup ----------
 
   #initRenderer() {
     const lowPower = window.matchMedia('(pointer: coarse)').matches
@@ -49,7 +114,7 @@ export class MuseumScene {
 
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x020308);
-    this.camera = new THREE.PerspectiveCamera(45, 1, 0.05, 2000);
+    this.camera = new THREE.PerspectiveCamera(45, 1, 0.01, 2000);
   }
 
   #initWorld() {
@@ -66,7 +131,6 @@ export class MuseumScene {
       mesh.name = key;
 
       // The group holds the position; the mesh inside it spins.
-      // Artifact markers (stage 3) will be children of the mesh so they turn with the surface.
       const group = new THREE.Group();
       group.position.fromArray(cfg.position);
       group.add(mesh);
@@ -157,11 +221,13 @@ export class MuseumScene {
       clearTimeout(this.resumeTimer);
     });
     this.controls.addEventListener('end', () => {
-      if (this.reducedMotion) return;
+      if (this.reducedMotion || this.focusedArtifact) return;
       clearTimeout(this.resumeTimer);
       this.resumeTimer = setTimeout(() => { this.autoSpin = true; }, RESUME_AFTER_MS);
     });
   }
+
+  // ---------- Camera ----------
 
   // Camera distance at which the whole body fits on screen with some margin.
   #viewDistance(radius) {
@@ -170,30 +236,27 @@ export class MuseumScene {
     return (radius / Math.sin(Math.min(vHalf, hHalf))) * 1.25;
   }
 
-  #viewFor(key) {
+  #bodyView(key, keepDirection) {
     const { cfg, group } = this.bodies[key];
     const target = group.position.clone();
-    const dir = new THREE.Vector3(0, 0.18, 1).normalize();
-    const position = target.clone().addScaledVector(dir, this.#viewDistance(cfg.radius));
-    return { target, position };
+    const dir = keepDirection
+      ? this.camera.position.clone().sub(target).normalize()
+      : DEFAULT_VIEW_DIR.clone();
+    return { target, position: target.clone().addScaledVector(dir, this.#viewDistance(cfg.radius)) };
   }
 
-  #applyLimits(key) {
-    const r = this.bodies[key].cfg.radius;
-    this.controls.minDistance = r * 1.25;
+  #applyLimits() {
+    const r = this.bodies[this.current].cfg.radius;
+    this.controls.minDistance = r * MIN_DISTANCE_FACTOR;
     this.controls.maxDistance = Math.max(r * 7, this.#viewDistance(r) * 1.6);
   }
 
-  focus(key, { instant = false } = {}) {
-    if (!this.bodies[key] || !this.bodies[key].cfg.focus) return;
-    const view = this.#viewFor(key);
-    this.current = key;
-
+  #moveCamera(view, { instant = false } = {}) {
     if (instant || this.reducedMotion) {
       this.flight = null;
       this.camera.position.copy(view.position);
       this.controls.target.copy(view.target);
-      this.#applyLimits(key);
+      this.#applyLimits();
       this.controls.enabled = true;
       this.controls.update();
       return;
@@ -203,14 +266,31 @@ export class MuseumScene {
     this.controls.minDistance = 0;
     this.controls.maxDistance = Infinity;
     this.controls.enabled = false;
+
+    const sameCenter = this.controls.target.distanceTo(view.target) < 1e-6;
     this.flight = {
-      key,
       start: performance.now(),
       fromPos: this.camera.position.clone(),
       fromTarget: this.controls.target.clone(),
       toPos: view.position,
       toTarget: view.target,
+      // Around the same body: travel along an arc so the camera never cuts through the sphere.
+      orbit: sameCenter ? this.#orbitPath(view) : null,
       lift: this.camera.position.distanceTo(view.position) * 0.15,
+    };
+  }
+
+  #orbitPath(view) {
+    const center = view.target.clone();
+    const from = this.camera.position.clone().sub(center);
+    const to = view.position.clone().sub(center);
+    const fromDir = from.clone().normalize();
+    return {
+      center,
+      fromDir,
+      fromDist: from.length(),
+      toDist: to.length(),
+      rotation: new THREE.Quaternion().setFromUnitVectors(fromDir, to.normalize()),
     };
   }
 
@@ -218,18 +298,30 @@ export class MuseumScene {
     const f = this.flight;
     const t = Math.min(1, (performance.now() - f.start) / FLIGHT_MS);
     const k = easeInOutCubic(t);
-    const arc = Math.sin(Math.PI * k) * f.lift;
-    this.camera.position.lerpVectors(f.fromPos, f.toPos, k);
-    this.camera.position.y += arc;
-    this.camera.position.z += arc;
-    this.controls.target.lerpVectors(f.fromTarget, f.toTarget, k);
+
+    if (f.orbit) {
+      const o = f.orbit;
+      const q = new THREE.Quaternion().slerpQuaternions(IDENTITY, o.rotation, k);
+      const dist = THREE.MathUtils.lerp(o.fromDist, o.toDist, k);
+      this.camera.position.copy(o.center).addScaledVector(o.fromDir.clone().applyQuaternion(q), dist);
+      this.controls.target.copy(o.center);
+    } else {
+      const arc = Math.sin(Math.PI * k) * f.lift;
+      this.camera.position.lerpVectors(f.fromPos, f.toPos, k);
+      this.camera.position.y += arc;
+      this.camera.position.z += arc;
+      this.controls.target.lerpVectors(f.fromTarget, f.toTarget, k);
+    }
     this.camera.lookAt(this.controls.target);
+
     if (t >= 1) {
       this.flight = null;
-      this.#applyLimits(f.key);
+      this.#applyLimits();
       this.controls.enabled = true;
     }
   }
+
+  // ---------- Loop ----------
 
   #resize() {
     const w = this.container.clientWidth;
@@ -237,7 +329,7 @@ export class MuseumScene {
     this.renderer.setSize(w, h);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
-    if (this.current && !this.flight) this.#applyLimits(this.current);
+    if (this.current && !this.flight) this.#applyLimits();
   }
 
   #tick() {

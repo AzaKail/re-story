@@ -101,3 +101,24 @@ The assistant integrates cleanly into the core project through exactly three fil
 - `static/ai_assistant/js/widget.js`: Operates chat UI, listens for `langchange` events from the main site language switch, reads SSE stream via Fetch API, and parses formatting safely.
 - `static/ai_assistant/css/widget.css`: Provides fixed floating bottom-right position (`z-index: 9999`) and expands to full screen on mobile devices (`max-width: 480px`).
 
+
+### 2026-11-14: Objects Panel, Artifact Focus, Museum Section (UI skeleton)
+
+#### Summary of Changes
+- Left panel (`#panel`) lists the objects on the current body. It can be collapsed; on phones it starts collapsed.
+- Clicking an object flies the camera close to its point on the surface and shows a yellow marker. Auto-rotation stops while an object is in focus.
+- A focus bar appears at the bottom: object name, "Learn more" and a close button. Close (or `Esc`) zooms back out along the current view direction.
+- "Learn more" scrolls down to the museum section (`#museum`), which has no 3D. The section has a "3D version" button that scrolls back to the top.
+- The page is now one long page: the 3D block (`#experience`) is exactly one screen high, the museum follows below. Rendering pauses while the 3D block is off screen (IntersectionObserver).
+- Map credits moved from the bottom-right popover (now taken by the chat button) to the footer of the museum section.
+
+#### Placeholders
+- `static/js/artifacts.js` holds one test object per body with arbitrary coordinates (not real sites). It will be replaced by the catalog API.
+- The museum section text is lorem ipsum; the museum team replaces it.
+
+#### Files
+- `static/js/panel.js`: `ArtifactPanel` (render, select, collapse).
+- `static/js/focusbar.js`: `FocusBar` (show, hide, Learn more, close).
+- `static/js/scene.js`: `addArtifacts()`, `focusArtifact()`, `clearArtifact()`, `setRunning()`. Camera moves around the same body follow an arc (quaternion slerp), so the camera never passes through the sphere.
+- `static/js/main.js`: page state (current body, focused artifact) and wiring.
+- New i18n keys in `en`, `ru`, `kk`: `panel.*`, `artifact.*`, `focus.*`, `museum.*`. Removed the unused `credits.button`.
