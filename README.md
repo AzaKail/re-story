@@ -65,6 +65,16 @@ Open http://127.0.0.1:8000/ to explore the 3D museum and interact with AIstronau
    - When saved, the document is automatically chunked and indexed with vector embeddings.
    - Use the "Reindex selected documents" action in the admin list view whenever needed.
 
+## Loading the Museum Knowledge Base
+
+The chat answers only from its knowledge base. To load the team texts from `data/knowledge/` (en, ru, kk):
+
+```bash
+python manage.py load_knowledge
+```
+
+Run it again after editing the texts: changed files are re-indexed, unchanged ones are skipped.
+
 ## Changing AI Models in .env
 
 You can change the models at any time directly in your `.env` file without altering application code:

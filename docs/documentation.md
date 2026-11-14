@@ -169,3 +169,22 @@ The assistant integrates cleanly into the core project through exactly three fil
 - `static/js/bodies.js`: texture tiers, new positions, `BACKDROP_PLANETS`.
 - `static/js/main.js`: `openMuseum()` and `backTo3D()` with the black curtain (`#fade`).
 - `templates/index.html`, `static/css/main.css`: museum as a fixed layer, curtain, single-screen page.
+
+### 2026-11-14: Knowledge Base Files and `load_knowledge` Command
+
+#### Summary of Changes
+- Added the museum texts prepared by the team to `data/knowledge/<lang>/<slug>.txt`: 11 topics in English (`en`), Russian (`ru`) and Kazakh (`kk`), 33 files in total. Exact duplicates from the source folder were skipped.
+- Topics (slugs): `apollo-11`, `apollo-12`, `apollo-15`, `surveyor-3`, `mars-pathfinder`, `spirit-opportunity`, `viking-1`, `near-shoemaker`, `pioneer-10`, `kepler`, `solar-system`.
+- New management command `python manage.py load_knowledge` (in `catalog/management/commands/`). It creates one `KnowledgeDocument` per file with the language of its folder and indexes it with `ai_assistant.admin.index_knowledge_document`, the same function the admin uses.
+- The command is idempotent: documents are matched by (title, language); changed files are updated and re-indexed, unchanged ones are skipped, failed ones are retried on the next run. `--reindex` rebuilds everything.
+- Long dashes in the texts were replaced with hyphens.
+
+#### Motivation
+The chat answers only from the knowledge base. It was empty, so every question got "no information". Keeping the texts in the repository lets every team member fill the base with one command.
+
+#### Usage
+1. Ollama must be running with `nomic-embed-text` (embeddings) and the chat model.
+2. `python manage.py load_knowledge`
+3. If the first run reports a timeout (the embedding model was still loading), run the command again.
+
+Result on the reference machine: 33 documents, 735 chunks, all with embeddings.

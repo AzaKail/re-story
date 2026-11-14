@@ -1,0 +1,688 @@
+ENCYCLOPEDIA OF THE SOLAR SYSTEM
+
+Document Version: 1.0
+Format: Text Reference of Astronomical Data
+Language: English
+
+The Solar System is a gravitationally bound planetary system comprising the central star 
+(the Sun) and all natural celestial bodies orbiting it: 8 major planets, 5 officially 
+recognized dwarf planets (and dozens of candidates), hundreds of moons, hundreds of 
+thousands of asteroids, comets, centaurs, meteoroids, and vast reservoirs of icy bodies 
+(the Kuiper Belt, Scattered Disc, and Oort Cloud).
+
+Age of the Solar System: ~4.5682 billion years (determined via uranium-lead dating 
+of the oldest calcium-aluminum-rich inclusions [CAIs] in meteorites).
+Location: Orion Arm of the Milky Way Galaxy, ~26,000 light-years (8 kpc) from the Galactic Center.
+Galactic orbital period (cosmic year): 225-250 million years.
+Orbital speed around the Galactic Center: ~220-240 km/s.
+
+
+1. CENTRAL BODY: THE SUN (SOL)
+
+Spectral Type: G2V (main-sequence yellow dwarf)
+Mass fraction of the Solar System: 99.866%
+
+Key Physical Parameters:
+- Mass: 1.9885 × 10^30 kg (~332,946 Earth masses)
+- Mean radius: 696,342 km (~109 Earth radii)
+- Mean density: 1.408 g/cm³
+- Surface gravity: 274.0 m/s² (~27.9 g)
+- Escape velocity (at surface): 617.7 km/s
+- Luminosity: 3.828 × 10^26 W
+- Photospheric temperature: ~5,778 K (5,505 °C)
+- Core temperature: ~15.7 million K (~1.57 × 10^7 °C)
+- Corona temperature: 1-3 million K
+- Differential rotation period:
+  * at equator: 25.05 Earth days
+  * at poles: 34.4 Earth days
+
+Chemical Composition (by mass in the photosphere):
+- Hydrogen (H): ~73.46%
+- Helium (He): ~24.85%
+- Oxygen (O): ~0.77%
+- Carbon (C): ~0.29%
+- Iron (Fe): ~0.16%
+- Neon (Ne): ~0.12%
+- Nitrogen (N): ~0.09%
+- Silicon (Si): ~0.07%
+- Magnesium (Mg): ~0.05%
+- Sulfur (S): ~0.04%
+
+Internal Structure:
+1. Thermonuclear Core (0 - 0.25 R_sol): density up to 150 g/cm³, site of the proton-proton 
+   chain reaction (fusing 1H into 4He). Every second, ~600 million tons of hydrogen are converted 
+   into 596 million tons of helium, with 4.26 million tons of mass converted directly into energy via E = mc².
+2. Radiative Zone (0.25 - 0.7 R_sol): energy is transported outward by high-energy photons through 
+   repeated absorption and re-emission. A photon takes between 10,000 and 170,000 years to reach the convective zone.
+3. Tachocline: a thin transition shear layer with strong rotational velocity gradient; believed 
+   to be the seat of the solar magnetic dynamo.
+4. Convective Zone (0.7 - 1.0 R_sol): energy transport via turbulent plasma convection cells 
+   (Bénard cells). Manifests at the surface as granulation.
+5. Atmosphere:
+   - Photosphere: visible "surface" ~300-500 km thick, responsible for the absorption line spectrum.
+   - Chromosphere: layer ~2,000 km thick with temperatures ranging from 4,500 K to 20,000 K.
+   - Transition Region: abrupt temperature jump from tens of thousands to millions of kelvins.
+   - Corona: extended outer atmosphere and source of the solar wind.
+
+Solar Cycles:
+- Schwabe Cycle (sunspot number): ~11 years.
+- Hale Cycle (full magnetic polarity reversal): ~22 years.
+
+
+
+2. INNER REGION: TERRESTRIAL PLANETS
+
+The terrestrial (rocky) planets are characterized by high density, silicate-metallic composition, 
+solid surfaces, and few or no natural satellites.
+
+
+2.1. MERCURY
+
+The closest planet to the Sun and the smallest major planet in the Solar System.
+
+Orbital Parameters:
+- Semi-major axis: 57.91 million km (0.3871 AU)
+- Perihelion: 46.00 million km (0.3075 AU)
+- Aphelion: 69.82 million km (0.4667 AU)
+- Orbital eccentricity: 0.2056 (highest among major planets)
+- Orbital inclination to ecliptic: 7.00°
+- Sidereal orbital period: 87.969 Earth days
+- Sidereal rotation period: 58.646 Earth days
+- Orbital resonance: 3:2 spin-orbit resonance (3 rotations on its axis for every 2 orbits)
+- Solar day: 175.94 Earth days
+
+Physical Parameters:
+- Mass: 3.3011 × 10^23 kg (0.055 Earth masses)
+- Equatorial radius: 2,439.7 km (0.383 Earth radii)
+- Mean density: 5.427 g/cm³ (second densest major planet after Earth)
+- Surface gravity: 3.7 m/s² (0.38 g)
+- Escape velocity: 4.25 km/s
+- Albedo: 0.142
+- Surface temperature: from -180 °C (night) to +430 °C (day at subsolar point)
+
+Internal Structure:
+- Huge iron-nickel core with radius ~2,000 km (~85% of planet's radius), partially liquid 
+  (generates a weak dipole magnetic field ~1.1% of Earth's).
+- Thin silicate mantle and crust 400-500 km thick.
+
+Atmosphere (Exosphere):
+Extremely tenuous exosphere with surface pressure less than 10^-14 bar.
+Composition: oxygen (42%), sodium (29%), hydrogen (22%), helium (6%), potassium (0.5%).
+
+Terrain and Geology:
+- Heavily cratered surface with impact basins (Caloris Basin / Caloris Planitia, diameter ~1,550 km).
+- Lobate scarps (cliffs up to 3 km high and hundreds of kilometers long) formed as the planet cooled 
+  and shrank (reducing radius by 5-10 km).
+- Water ice confirmed by radar observations in permanently shadowed polar craters.
+
+
+2.2. VENUS
+
+Second planet from the Sun, often called "Earth's twin" in size and mass, but dominated by a runaway greenhouse effect.
+
+Orbital Parameters:
+- Semi-major axis: 108.21 million km (0.7233 AU)
+- Eccentricity: 0.0067 (most circular orbit of any planet)
+- Inclination to ecliptic: 3.39°
+- Sidereal orbital period: 224.701 Earth days
+- Sidereal rotation period: 243.025 Earth days (retrograde rotation!)
+- Solar day: 116.75 Earth days
+- Axial tilt: 177.36° (clockwise rotation when viewed from celestial north)
+
+Physical Parameters:
+- Mass: 4.8675 × 10^24 kg (0.815 Earth masses)
+- Equatorial radius: 6,051.8 km (0.949 Earth radii)
+- Mean density: 5.243 g/cm³
+- Surface gravity: 8.87 m/s² (0.904 g)
+- Escape velocity: 10.36 km/s
+- Bond albedo: 0.76 (cloud deck reflects most incoming sunlight)
+- Surface temperature: nearly uniform across the planet at ~464 °C (737 K), hotter than Mercury's surface.
+- Surface atmospheric pressure: 92-93 bar (~9.2-9.3 MPa, equivalent to depth of 900 m in Earth's oceans).
+
+Atmosphere:
+- Carbon dioxide (CO2): 96.5%
+- Nitrogen (N2): 3.5%
+- Sulfur dioxide (SO2): 150 ppm
+- Argon (Ar): 70 ppm
+- Water vapor (H2O): 20 ppm
+- Dense cloud deck located at altitudes of 48-65 km composed of droplets of 75-85% sulfuric acid (H2SO4).
+- Atmospheric super-rotation: high-altitude winds circle the planet in just 4 Earth days (speeds up to 100 m/s).
+
+Geology and Surface Features:
+- Basaltic volcanic plains, volcanic domes, shield volcanoes (Maat Mons, height 8 km), tesserae (highly deformed highlands).
+- No plate tectonics in the terrestrial sense; episodic global resurfacing driven by catastrophic volcanic episodes is suspected.
+- Intrinsic dipole magnetic field is virtually absent due to slow rotation or lack of internal core convection; an induced magnetosphere is created by interaction with the solar wind.
+
+
+2.3. EARTH (EARTH / TERRA) AND THE MOON
+
+The only known world in the Universe confirmed to harbor life.
+
+Earth Orbital Parameters:
+- Semi-major axis: 149.598 million km (1.00000011 AU)
+- Perihelion: 147.098 million km (0.9833 AU)
+- Aphelion: 152.098 million km (1.0167 AU)
+- Orbital eccentricity: 0.0167
+- Obliquity to orbit (axial tilt): 23.44° (drives the cycle of seasons)
+- Sidereal orbital period: 365.256 Earth days
+- Sidereal day (rotation period): 23 hours 56 minutes 4.091 seconds
+
+Earth Physical Parameters:
+- Mass: 5.9722 × 10^24 kg
+- Equatorial radius: 6,378.137 km
+- Polar radius: 6,356.752 km (flattening: 1/298.257)
+- Mean density: 5.514 g/cm³ (densest planet in the Solar System)
+- Surface gravity: 9.80665 m/s²
+- Escape velocity: 11.186 km/s
+- Magnetic field: dipole field, surface intensity 30-60 µT, generated by geodynamo in liquid outer core.
+
+Earth Internal Structure:
+- Crust: continental (30-70 km, granites/sediments) and oceanic (5-10 km, basalts).
+- Mantle: upper and lower (down to 2,900 km, peridotite, bridgmanite, ferropericlase).
+- Outer Core: liquid Fe-Ni with light elements (Si, S, O), depth 2,900-5,150 km.
+- Inner Core: solid crystalline Fe-Ni sphere of radius ~1,220 km, temperature ~5,700 K.
+- Hydrosphere: covers ~70.8% of planetary surface (total water volume ~1.386 billion km³).
+- Atmosphere (at surface by volume of dry air):
+  * Nitrogen (N2): 78.084%
+  * Oxygen (O2): 20.946%
+  * Argon (Ar): 0.934%
+  * Carbon dioxide (CO2): ~0.042% (420+ ppm)
+  * Neon, helium, methane, krypton, hydrogen, and variable water vapor (0-4%).
+
+Natural Satellite - The Moon:
+- Semi-major axis: 384,400 km (0.00257 AU)
+- Eccentricity: 0.0549
+- Sidereal month: 27.3217 days (synchronous rotation: tidally locked with one face to Earth)
+- Synodic month (lunar phases): 29.5306 days
+- Mass: 7.342 × 10^22 kg (0.0123 Earth masses, 1/81.3)
+- Mean radius: 1,737.4 km (0.273 Earth radii)
+- Mean density: 3.344 g/cm³
+- Surface gravity: 1.62 m/s² (0.165 g)
+- Escape velocity: 2.38 km/s
+- Surface: lunar maria (dark basaltic lava plains with low albedo) and lunar highlands 
+  (anorthositic ancient cratered terrain).
+- Origin: giant impact hypothesis (collision of proto-Earth with Mars-sized protoplanet Theia ~4.5 billion years ago).
+
+
+2.4. MARS AND ITS MOONS
+
+The fourth planet from the Sun, the outermost terrestrial planet. Known as the "Red Planet" 
+due to ubiquitous iron(III) oxide (Fe2O3, rust) in its regolith.
+
+Orbital Parameters:
+- Semi-major axis: 227.94 million km (1.5237 AU)
+- Perihelion: 206.65 million km (1.3814 AU)
+- Aphelion: 249.23 million km (1.6660 AU)
+- Eccentricity: 0.0934 (causes significant seasonal climate asymmetry)
+- Axial tilt: 25.19° (seasonal variation similar to Earth's)
+- Sidereal orbital period: 686.98 Earth days (1.88 Earth years)
+- Solar day (sol): 24 hours 39 minutes 35.244 seconds
+
+Physical Parameters:
+- Mass: 6.4171 × 10^23 kg (0.107 Earth masses)
+- Equatorial radius: 3,396.2 km (0.532 Earth radii)
+- Polar radius: 3,376.2 km
+- Mean density: 3.933 g/cm³
+- Surface gravity: 3.72 m/s² (0.379 g)
+- Escape velocity: 5.03 km/s
+- Mean surface temperature: about -63 °C (extremes from -140 °C to +20 °C)
+- Surface atmospheric pressure: 6.1 mbar (0.006 atm)
+
+Atmospheric Composition:
+- Carbon dioxide (CO2): 95.32%
+- Nitrogen (N2): 1.9%
+- Argon (Ar): 1.6%
+- Oxygen (O2): 0.13%
+- Carbon monoxide (CO): 0.08%
+- Water vapor: 0.02%
+- Frequent planet-encircling global dust storms.
+
+Prominent Geological Structures:
+- Olympus Mons: highest shield volcano in the Solar System. 
+  Height: 21.9 km above datum, base diameter: ~600 km.
+- Valles Marineris: colossal rift canyon system. 
+  Length: >4,000 km, width: up to 200 km, depth: up to 7-11 km.
+- Crustal Dichotomy: smooth northern lowlands (possible ancient ocean basin) 
+  versus rugged, heavily cratered southern highlands.
+- Polar Caps: permanent water ice covered by seasonal layers of frozen carbon dioxide ("dry ice").
+
+Moons of Mars:
+1. Phobos ("fear"):
+   - Dimensions: 26.8 × 22.4 × 18.4 km (triaxial ellipsoid)
+   - Semi-major axis: 9,376 km (only ~6,000 km from Martian surface)
+   - Orbital period: 7 h 39 min (faster than Mars' rotation: rises in the west, sets in the east)
+   - Orbit decaying by ~1.8 m per century; expected to break up into a ring or impact Mars in 30-50 million years.
+   - Prominent feature: Stickney Crater (~9 km across).
+2. Deimos ("terror"):
+   - Dimensions: 15.0 × 12.2 × 10.4 km
+   - Semi-major axis: 23,463 km
+   - Orbital period: 30 h 18 min
+   - Thick blanket of regolith that subdues impact topography.
+
+
+
+3. MAIN ASTEROID BELT
+
+Toroidal region located between the orbits of Mars and Jupiter (spanning 2.1 to 3.3 AU).
+Total belt mass is modest: ~2.39 × 10^21 kg (~4% of the Moon's mass).
+Over half of this mass is concentrated in four large bodies: Ceres, Vesta, Pallas, and Hygiea.
+The belt features Kirkwood gaps-depleted orbital zones cleared by orbital resonances with Jupiter.
+
+Asteroid Spectral Types:
+- C-type (carbonaceous): ~75% of asteroids, very dark (albedo 0.03-0.09), rich in carbon compounds and hydrated minerals.
+- S-type (silicate/stony): ~17%, albedo 0.10-0.22, composed of magnesium and iron silicates.
+- M-type (metallic): composed primarily of metallic iron and nickel.
+
+
+3.1. DWARF PLANET CERES (1 CERES)
+
+Discovered on January 1, 1801, by Giuseppe Piazzi. Classified as a dwarf planet in 2006.
+Explored by NASA's Dawn spacecraft (2015-2018).
+
+Parameters:
+- Semi-major axis: 413.7 million km (2.767 AU)
+- Orbital period: 4.60 years (1,681 days)
+- Equatorial diameter: 965 km, polar: 891 km (oblate spheroid in hydrostatic equilibrium)
+- Mass: 9.39 × 10^20 kg (~31% of total Main Belt mass)
+- Mean density: 2.16 g/cm³
+- Rotation period: 9.07 hours
+- Internal structure: differentiated into a rocky core and water-ice-rich mantle/crust.
+- Features: cryovolcanism (Ahuna Mons, height 4 km), bright sodium carbonate salt deposits 
+  in Occator Crater (Cerealia and Vinalia Faculae).
+
+
+3.2. LARGEST ASTEROIDS OF THE BELT
+
+4 Vesta (4 Vesta):
+- Dimensions: 578 × 560 × 458 km
+- Mass: 2.59 × 10^20 kg (~9% of belt mass)
+- Differentiated rocky body with metallic core, basaltic crust, and massive Rheasilvia impact crater 
+  (diameter 505 km, central peak 22 km high). Source of HED basaltic meteorites.
+
+2 Pallas (2 Pallas):
+- Dimensions: 568 × 530 × 477 km
+- Mass: 2.05 × 10^20 kg (~7% of belt mass)
+- Highly inclined orbit to ecliptic: 34.8°
+
+10 Hygiea (10 Hygiea):
+- Diameter: 434 km (nearly spherical shape; candidate dwarf planet)
+- Mass: 8.3 × 10^19 kg (~3% of belt mass)
+- Carbonaceous (C-type), extremely low albedo (~0.07).
+
+
+
+4. OUTER REGION: GIANT PLANETS
+
+The gas giants (Jupiter, Saturn) consist predominantly of hydrogen and helium.
+The ice giants (Uranus, Neptune) consist predominantly of heavier volatiles / "ices" 
+(water, ammonia, methane in high-temperature, high-pressure supercritical fluids) beneath hydrogen-helium envelopes.
+
+
+4.1. JUPITER
+
+The largest planet in the Solar System, hosting a miniature "solar system" of 95 known moons (as of 2024-2026).
+
+Orbital Parameters:
+- Semi-major axis: 778.57 million km (5.2044 AU)
+- Orbital period: 11.862 Earth years (4,332.6 days)
+- Eccentricity: 0.0489
+- Axial tilt: only 3.13° (negligible seasonal change)
+- Rotation period: 9 hours 55 minutes 30 seconds (fastest rotator among all planets!)
+
+Physical Parameters:
+- Mass: 1.8982 × 10^27 kg (317.8 Earth masses, 2.48 times the mass of all other planets combined)
+- Equatorial radius: 71,492 km (11.21 Earth radii)
+- Polar radius: 66,854 km (pronounced oblateness: 0.0648)
+- Mean density: 1.326 g/cm³
+- Surface gravity (at 1 bar level): 24.79 m/s² (2.53 g)
+- Escape velocity: 59.5 km/s
+- Magnetic field: strongest planetary magnetic field; dipole moment is 18,000 times that of Earth. 
+  The sunward magnetosphere extends 5 million km, and its magnetotail extends past the orbit of Saturn.
+
+Atmospheric Composition:
+- Hydrogen (H2): ~89.8%
+- Helium (He): ~10.2%
+- Methane (CH4): 0.3%
+- Ammonia (NH3): 0.026%
+- Trace gases: ethane, water, phosphine, hydrogen sulfide.
+- Cloud bands: alternating dark belts and light zones with complex circulation dynamics.
+- Great Red Spot (GRS): persistent anticyclonic storm observed for over 350 years. 
+  Dimensions: ~16,000 × 12,000 km (larger than Earth), peripheral wind speeds up to 430-680 km/h.
+
+Internal Structure:
+1. Outer molecular hydrogen-helium envelope.
+2. Layer of liquid metallic hydrogen (forming at pressures >1-2 million atm and temperatures >10,000 K). 
+   Electrically conductive metallic hydrogen drives the powerful magnetic dynamo.
+3. Dilute, fuzzy rock-ice core of 10-25 Earth masses (revealed by NASA's Juno mission).
+
+Major Moons of Jupiter (Galilean Satellites):
+1. Io:
+   - Diameter: 3,643 km.
+   - Most geologically active body in the Solar System (>400 active volcanoes).
+   - Tidal heating driven by Laplace orbital resonance with Europa and Ganymede (4:2:1).
+   - Surface dominated by silicate lava flows and sulfur deposits; virtually devoid of impact craters.
+2. Europa:
+   - Diameter: 3,121.6 km.
+   - Surface: smooth ice shell 15-30 km thick crisscrossed by fractures (lineae).
+   - Subsurface ocean: global liquid ocean 60-150 km deep, containing 2-3 times the water volume of Earth's oceans.
+   - Direct contact between ocean and silicate mantle with possible hydrothermal vents (prime astrobiological candidate).
+3. Ganymede:
+   - Diameter: 5,268 km (largest moon in the Solar System, larger than Mercury and Titan).
+   - Only moon known to generate its own intrinsic dipole magnetic field (from molten iron core).
+   - Deep stratified ice layers with saline subsurface ocean under a 100-km ice shell.
+4. Callisto:
+   - Diameter: 4,820.6 km (third largest satellite in the Solar System).
+   - Most heavily cratered surface in the Solar System (giant multi-ring impact basins Valhalla and Asgard).
+   - Very low internal activity; partially differentiated structure.
+
+
+4.2. SATURN
+
+The sixth planet from the Sun, celebrated for its spectacular and complex ring system.
+
+Orbital Parameters:
+- Semi-major axis: 1,433.5 million km (9.582 AU)
+- Orbital period: 29.457 Earth years (10,759 days)
+- Eccentricity: 0.0565
+- Axial tilt: 26.73° (distinct seasons)
+- Rotation period: 10 hours 33 minutes
+
+Physical Parameters:
+- Mass: 5.6834 × 10^26 kg (95.16 Earth masses)
+- Equatorial radius: 60,268 km (9.45 Earth radii)
+- Polar radius: 54,364 km (most oblate planet, flattening 0.098)
+- Mean density: 0.687 g/cm³ (only planet less dense than liquid water!)
+- Surface gravity: 10.44 m/s² (1.065 g)
+- Escape velocity: 35.5 km/s
+- Atmospheric feature: persistent hexagonal jet stream at the north pole (Saturn's Hexagon), 
+  each side measuring ~13,800 km.
+
+Saturn's Ring System:
+- Extends from 6,600 km to 120,000 km above Saturn's equator.
+- Ring thickness: extraordinarily thin, averaging only 10 to 100 meters!
+- Composition: 99% pure water ice with minor traces of silicate dust and tholins.
+- Particle sizes: ranging from micrometers to house-sized boulders (mostly 1-10 cm).
+- Main ring regions: D, C, B, A, F, G, E (Ring E is fed by the cryogeysers of Enceladus).
+- Cassini Division: 4,800 km wide dark gap between the A and B rings cleared by orbital resonance with Mimas.
+- Ring mass: ~1.54 × 10^19 kg (~0.4 of Mimas' mass).
+- Age of rings (from Cassini data): relatively young, only 10 to 100 million years old.
+
+Moons of Saturn (>145 confirmed moons):
+1. Titan:
+   - Diameter: 5,149.5 km (second largest moon in the Solar System).
+   - Only satellite with a dense atmosphere: surface pressure of 1.45 atm.
+   - Atmospheric composition: nitrogen (98.4%), methane (1.4%), ethane, hydrogen.
+   - Methane hydrological cycle: methane clouds, rains, drainage networks, and hydrocarbon seas 
+     (Kraken Mare, Ligeia Mare).
+   - Thick organic haze; subsurface water-ammonia liquid ocean.
+2. Enceladus:
+   - Diameter: 504.2 km.
+   - Highest albedo of any body in the Solar System (reflects ~99% of sunlight, pristine water ice).
+   - South polar cryovolcanism: active geysers venting water vapor, ice crystals, salts, and organic molecules 
+     from fractures known as "tiger stripes."
+   - Global subsurface ocean in direct contact with a porous rocky core (hydrothermal vents, high astrobiological interest).
+3. Mimas: diameter 396 km, colossal Herschel Crater (diameter 130 km, gives it the "Death Star" appearance).
+4. Iapetus: diameter 1,470 km; extreme brightness dichotomy between dark leading hemisphere (Cassini Regio) 
+   and bright trailing hemisphere; prominent equatorial ridge up to 20 km high.
+
+
+4.3. URANUS
+
+The seventh planet from the Sun, an ice giant characterized by an extreme axial tilt.
+Discovered by William Herschel in 1781.
+
+Orbital Parameters:
+- Semi-major axis: 2,872.5 million km (19.191 AU)
+- Orbital period: 84.02 Earth years (30,685 days)
+- Eccentricity: 0.0472
+- Axial tilt: 97.77° (rotates virtually "on its side" relative to its orbital plane; retrograde rotation).
+- Rotation period: 17 hours 14 minutes
+
+Physical Characteristics:
+- Mass: 8.6810 × 10^25 kg (14.54 Earth masses)
+- Equatorial radius: 25,559 km (4.01 Earth radii)
+- Polar radius: 24,973 km
+- Mean density: 1.270 g/cm³
+- Surface gravity: 8.87 m/s² (0.89 g)
+- Escape velocity: 21.3 km/s
+- Temperature at 1 bar: ~76 K (-197 °C); lowest recorded tropopause temperature: 49 K (-224 °C), 
+  the coldest planetary atmosphere in the Solar System.
+- Lowest internal heat emission: emits almost no excess internal heat beyond absorbed solar radiation.
+
+Atmosphere and Magnetic Field:
+- Hydrogen (83%), helium (15%), methane (2.3%). Methane absorbs red light, imparting a pale cyan tint.
+- Complex magnetic field: tilted at 59° to the rotational axis and offset from the center of the planet by 0.3 planetary radii.
+
+Rings and Moons (28 known moons):
+- 13 narrow, dark rings (composed of carbonaceous and organic material).
+- Major moons: Miranda, Ariel, Umbriel, Titania, Oberon.
+- Miranda: diameter 471 km, wild scrambled geological terrain with fault scarps up to 20 km high (Verona Rupes). 
+  Possibly disrupted and reassembled by gravitational accretion.
+
+
+4.4. NEPTUNE
+
+The eighth and most distant major planet in the Solar System. Discovered mathematically 
+through orbital perturbations of Uranus (Johann Galle following calculations by Urbain Le Verrier, 1846).
+
+Orbital Parameters:
+- Semi-major axis: 4,495.1 million km (30.07 AU)
+- Orbital period: 164.79 Earth years (completed first full orbit since discovery in 2011)
+- Eccentricity: 0.00867 (nearly circular)
+- Axial tilt: 28.32° (similar to Earth and Mars)
+- Rotation period: 16 hours 6 minutes
+
+Physical Characteristics:
+- Mass: 1.02413 × 10^26 kg (17.15 Earth masses, denser than Uranus)
+- Equatorial radius: 24,764 km (3.88 Earth radii)
+- Polar radius: 24,341 km
+- Mean density: 1.638 g/cm³ (densest of the four giant planets)
+- Surface gravity: 11.15 m/s² (1.14 g)
+- Escape velocity: 23.5 km/s
+- Internal heat engine: unlike Uranus, Neptune radiates 2.61 times more heat than it receives from the Sun.
+
+Atmosphere and Dynamics:
+- Hydrogen (80%), helium (19%), methane (1.5%). Vibrant azure-blue coloration.
+- Extreme supersonic winds: fastest planetary winds in the Solar System, reaching speeds of 600 m/s (2,160 km/h), 
+  blowing primarily westward (retrograde).
+- Massive dynamic storms, such as the Great Dark Spot observed by Voyager 2 in 1989.
+
+Moon Triton:
+- Diameter: 2,706.8 km (seventh largest moon in the Solar System).
+- Only large moon in the Solar System with a retrograde orbit (moves opposite to planetary rotation), 
+  inclined at 157°.
+- Origin: captured Kuiper Belt dwarf planet.
+- Surface temperature: -235 °C (38 K).
+- Active cryovolcanism: nitrogen geysers erupting plumes of nitrogen gas and dark dust up to 8 km high, 
+  drifting for hundreds of kilometers downwind.
+- Unique "cantaloupe terrain" composed of nitrogen and methane ices.
+
+
+
+5. TRANS-NEPTUNIAN REGION: KUIPER BELT AND SCATTERED DISC
+
+The realm beyond Neptune's orbit (from 30 AU to hundreds of AU), preserving remnants 
+of the primordial protoplanetary disc rich in volatile ices (water, methane, ammonia, CO, and N2).
+
+Classification of Trans-Neptunian Objects (TNOs):
+1. Resonant TNOs (including Plutinos with a 2:3 mean-motion resonance with Neptune).
+2. Classical TNOs (Cubewanos, 40-48 AU, non-resonant, low-eccentricity orbits).
+3. Scattered Disc Objects (highly eccentric, inclined orbits influenced by Neptune).
+4. Detached Objects / Sednoids (perihelia well beyond Neptune's gravitational reach).
+
+
+5.1. PLUTO AND ITS SYSTEM
+
+Discovered by Clyde Tombaugh in 1930. Considered the 9th planet until the 2006 IAU reclassification as a dwarf planet.
+Explored by NASA's New Horizons spacecraft in July 2015.
+
+Orbital Parameters:
+- Semi-major axis: 5,906.4 million km (39.482 AU)
+- Perihelion: 4,437 million km (29.66 AU, inside Neptune's orbit!)
+- Aphelion: 7,376 million km (49.30 AU)
+- Eccentricity: 0.2488
+- Orbital inclination to ecliptic: 17.16°
+- Orbital period: 247.94 Earth years
+- Stable 2:3 resonance with Neptune prevents collisions.
+
+Physical Parameters:
+- Mass: 1.303 × 10^22 kg (0.00218 Earth masses, 0.178 Moon masses)
+- Diameter: 2,376.6 km
+- Mean density: 1.854 g/cm³ (~70% rock, 30% water ice)
+- Surface gravity: 0.62 m/s²
+- Surface temperature: 33 to 55 K (-240 to -218 °C)
+- Tenuous atmosphere: ~1 Pa (10 microbars), consisting of N2, CH4, and CO.
+
+Geological Discoveries by New Horizons:
+- Sputnik Planitia: vast nitrogen-ice glacier spanning ~900,000 km², divided into convective polygonal cells.
+- Norgay and Hillary Montes: water-ice mountain ranges rising 3.5-5 km high 
+  (at Pluto's temperatures, water ice behaves like rigid granite).
+- Cryovolcanic structures (Wright Mons and Piccard Mons).
+- Potential subsurface liquid water ocean rich in salts and ammonia.
+
+Moons of Pluto (Binary Planetary System):
+1. Charon:
+   - Diameter: 1,212 km (over half the diameter of Pluto!).
+   - System barycenter lies outside Pluto (approx. 960 km above Pluto's surface).
+   - Mutually tidally locked: Pluto and Charon perpetually show the same face to each other.
+   - Surface dominated by water ice, featuring the dark reddish polar cap Mordor Macula 
+     (photochemically processed tholins captured from Pluto's escaping atmosphere).
+   - Colossal tectonic canyon system (Serenity Chasma) up to 9 km deep.
+2. Small Moons: Styx, Nix, Kerberos, Hydra (chaotically tumbling non-spherical bodies).
+
+
+5.2. ERIS (136199 ERIS) AND DYSNOMIA
+
+The most massive dwarf planet in the Solar System. Discovered in 2005 (Mike Brown, Chad Trujillo, David Rabinowitz), 
+triggering the IAU 2006 redefinition of a planet.
+
+Parameters:
+- Semi-major axis: 67.78 AU (perihelion 37.9 AU, aphelion 97.65 AU)
+- Eccentricity: 0.4407
+- Inclination: 44.04° (Scattered Disc Object)
+- Orbital period: 559 years
+- Diameter: 2,326 km (slightly smaller than Pluto, but significantly denser)
+- Mass: 1.66 × 10^22 kg (27% more massive than Pluto!)
+- Density: 2.52 g/cm³ (high rocky fraction)
+- Albedo: 0.96 (one of the most reflective bodies in the Solar System, coated in fresh methane frost)
+- Moon: Dysnomia (diameter ~700 km).
+
+
+5.3. OTHER MAJOR DWARF PLANETS AND TRANS-NEPTUNIAN OBJECTS
+
+Haumea (136108 Haumea):
+- Rapid rotation: period of only 3.915 hours.
+- Spun into an elongated triaxial ellipsoid: 2,100 × 1,680 × 1,074 km.
+- Possesses a ring system (width 70 km at 2,287 km radius) and two moons: Hiʻiaka and Namaka.
+- Surface: crystalline water ice.
+
+Makemake (136472 Makemake):
+- Classical Kuiper Belt Object (Cubewano), diameter ~1,430 km, covered in methane and ethane frost.
+- Satellite: S/2015 (136472) 1 (nicknamed MK2).
+
+Gonggong (225088 Gonggong):
+- Scattered disc body, diameter ~1,230 km, dark red surface with water ice and tholins.
+- Satellite: Xiangliu.
+
+Quaoar (50000 Quaoar):
+- Classical KBO, diameter ~1,110 km.
+- Features two inhomogeneous rings orbiting well outside its classical Roche limit.
+- Satellite: Weywot.
+
+Sedna (90377 Sedna):
+- Detached object with extremely distant orbit: perihelion 76 AU, aphelion 937 AU.
+- Orbital period: ~11,400 years.
+- Likely originated from the inner Oort Cloud perturbed by passing stars.
+
+Arrokoth (486958 Arrokoth):
+- Contact binary visited by New Horizons on January 1, 2019.
+- Pristine planetesimal formed by low-velocity accretion in the cold classical Kuiper Belt.
+
+
+
+6. FAR REACHES: OORT CLOUD AND COMETS
+
+6.1. THE OORT CLOUD
+
+Hypothesized by Ernst Öpik (1932) and Jan Oort (1950); a vast spherical reservoir of billions of icy planetesimals 
+surrounding the Solar System.
+
+Structure:
+1. Inner Oort Cloud (Hills Cloud): toroidal region extending from 2,000 to 20,000 AU.
+2. Outer Spherical Oort Cloud: extends from 20,000 to 100,000-200,000 AU (up to 1.5-3 light-years, halfway to Alpha Centauri).
+- Estimated population: hundreds of billions to trillions of icy bodies (>1 km).
+- Estimated mass: several to tens of Earth masses.
+- Perturbations: galactic tides and passing stars perturb orbits, sending bodies inward as long-period comets.
+
+
+6.2. FAMOUS COMETS
+
+Comets are icy bodies ("dirty snowballs" per Fred Whipple) that develop comae and dual tails 
+(ion and dust) when heated by solar radiation.
+
+1. Halley's Comet (1P/Halley):
+   - Orbital period: 75-76 years (next perihelion: July 28, 2061).
+   - First comet identified as periodic (Edmond Halley).
+   - Nucleus dimensions: 15 × 8 × 8 km. Albedo only 0.04 (one of the darkest known objects).
+2. Comet 67P/Churyumov-Gerasimenko:
+   - Explored by ESA's Rosetta mission and Philae lander (2014-2016).
+   - Bilobate shape ("rubber duck") formed by gentle contact binary collision in early Solar System.
+   - Discovered glycine (amino acid), phosphorus, molecular oxygen (O2), and complex organics.
+3. Comet Hale-Bopp (C/1995 O1):
+   - "Great Comet of 1997", visible to the naked eye for a record 18 months.
+   - Nucleus diameter: ~60 km. Orbital period: ~2,530 years.
+
+
+6.3. INTERSTELLAR OBJECTS
+
+Celestial bodies passing through the Solar System on unbound hyperbolic trajectories:
+1. 1I/ʻOumuamua (2017):
+   - Orbital eccentricity: e = 1.20.
+   - Highly elongated shape (length ~400 m, width ~40 m), anomalous non-gravitational acceleration.
+2. 2I/Borisov (2019):
+   - First confirmed interstellar comet (discovered by Gennadiy Borisov).
+   - Eccentricity: e = 3.36. Coma showed high CO abundance, indicating formation in an extremely cold outer protoplanetary disk.
+
+
+
+7. BOUNDARIES AND INTERACTION WITH GALAXY: HELIOSPHERE
+
+The Sun continuously emits the solar wind-a stream of protons, electrons, and alpha particles traveling at 300-800 km/s. 
+This supersonic plasma forms a vast teardrop-shaped bubble known as the heliosphere.
+
+Key Boundaries of the Heliosphere:
+1. Termination Shock:
+   - Region where the solar wind drops below the local speed of sound in the interstellar medium (from ~400 km/s to ~100 km/s).
+   - Distance: 80-90 AU.
+   - Crossed by Voyager 1 in December 2004, Voyager 2 in August 2007.
+2. Heliopause:
+   - The outer physical boundary of the heliosphere, where the solar wind's dynamic pressure balances the interstellar medium.
+   - Voyager 1 crossed the heliopause on August 25, 2012, at 121.6 AU.
+   - Voyager 2 crossed it on November 5, 2018, at 119.0 AU.
+   - Beyond the heliopause lies pristine interstellar space (dominated by galactic cosmic rays).
+3. Gravitational Boundary of the Solar System:
+   - Defined by the Sun's Hill Sphere relative to the Milky Way's galactic gravity: 
+     approximately 230,000 AU (~1-2 parsecs or 3.6 light-years).
+
+
+
+SUMMARY TABLE OF MAJOR PLANETS IN THE SOLAR SYSTEM
+
+Parameter      | Mercury  | Venus    | Earth    | Mars     | Jupiter   | Saturn    | Uranus    | Neptune   |
+---------------+----------+----------+----------+----------+-----------+-----------+-----------+-----------+
+Dist. (AU)     | 0.387    | 0.723    | 1.000    | 1.524    | 5.204     | 9.582     | 19.191    | 30.070    |
+Period (years) | 0.24     | 0.62     | 1.00     | 1.88     | 11.86     | 29.46     | 84.02     | 164.79    |
+Diameter (km)  | 4,879    | 12,104   | 12,742   | 6,779    | 139,822   | 116,464   | 50,724    | 49,244    |
+Mass (M_earth) | 0.055    | 0.815    | 1.000    | 0.107    | 317.8     | 95.16     | 14.54     | 17.15     |
+Density (g/cm³)| 5.43     | 5.24     | 5.51     | 3.93     | 1.33      | 0.69      | 1.27      | 1.64      |
+Surface g (g)  | 0.38     | 0.90     | 1.00     | 0.38     | 2.53      | 1.07      | 0.89      | 1.14      |
+Day (axial)    | 58.6 d   | -243 d   | 23h 56m  | 24h 37m  | 9h 55m    | 10h 33m   | -17h 14m  | 16h 06m   |
+Axial tilt (°) | 0.03     | 177.36   | 23.44    | 25.19    | 3.13      | 26.73     | 97.77     | 28.32     |
+Moons (qty)    | 0        | 0        | 1 (Moon) | 2        | 95        | 146       | 28        | 16        |
+Rings          | none     | none     | none     | none     | faint     | spectacular| prominent | distinct  |
+---------------+----------+----------+----------+----------+-----------+-----------+-----------+-----------+
+Note: Values given in Earth relative units (M_earth, g = 9.81 m/s²) and SI units.
+Negative day values indicate retrograde rotation (clockwise).
+
+
+END OF DOCUMENT
