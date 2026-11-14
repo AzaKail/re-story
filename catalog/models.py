@@ -46,6 +46,7 @@ class Artifact(models.Model):
     first_person_story = models.TextField()
     key_facts = models.JSONField(default=list)
     fleet_members = models.JSONField(default=list, blank=True)
+    translations = models.JSONField(default=dict, blank=True)
     image_url = models.URLField(max_length=500, blank=True)
     model_3d = models.CharField(max_length=255, blank=True)
     priority = models.IntegerField(default=1)

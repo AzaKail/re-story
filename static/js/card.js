@@ -1,4 +1,6 @@
-// Slide-out artifact card component and fleet renderer
+// Slide-out artifact card component and fleet renderer with dynamic i18n support
+import { t, getLang } from './i18n.js';
+import { getLocalizedArtifact } from './artifact_translations.js';
 
 export function renderFleetMembers(fleetMembers) {
   if (!fleetMembers || fleetMembers.length === 0) {
@@ -18,15 +20,15 @@ export function renderFleetMembers(fleetMembers) {
 
   return `
     <div class="card-section fleet-section mt-4 pt-3 border-t border-gray-700">
-      <h4 class="text-sm uppercase tracking-wider text-gray-400 mb-2">Sister Craft & Fleet Sites</h4>
+      <h4 class="text-sm uppercase tracking-wider text-gray-400 mb-2">${t('card.fleet')}</h4>
       <div class="overflow-x-auto">
         <table class="w-full text-left text-sm text-gray-300 fleet-table">
           <thead>
             <tr class="text-xs text-gray-400 border-b border-gray-700">
-              <th class="py-1">Mission</th>
-              <th class="py-1">Site / Trajectory</th>
-              <th class="py-1">Coordinates / Lifespan</th>
-              <th class="py-1">Date</th>
+              <th class="py-1">${t('card.table_mission')}</th>
+              <th class="py-1">${t('card.table_site')}</th>
+              <th class="py-1">${t('card.table_coords')}</th>
+              <th class="py-1">${t('card.table_date')}</th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
@@ -96,15 +98,25 @@ export class ArtifactCard {
     this.onClose();
   }
 
-  render(artifact) {
+  refreshLanguage() {
+    if (this.currentArtifact && this.isOpen()) {
+      this.render(this.currentArtifact);
+    }
+  }
+
+  render(rawArtifact) {
+    const lang = getLang();
+    const artifact = getLocalizedArtifact(rawArtifact, lang);
+
     if (this.cardName) {
       this.cardName.textContent = artifact.name || artifact.code;
     }
     if (this.cardType) {
-      this.cardType.textContent = (artifact.artifact_type || 'Equipment').toUpperCase();
+      const rawType = artifact.artifact_type || 'equipment';
+      this.cardType.textContent = t(`artifact.type.${rawType}`) || rawType.replace('_', ' ').toUpperCase();
     }
     if (this.cardStatus) {
-      this.cardStatus.textContent = artifact.status || 'Archived Artifact';
+      this.cardStatus.textContent = artifact.status || t('card.permanent_monument');
     }
 
     if (!this.cardBody) return;
@@ -117,7 +129,7 @@ export class ArtifactCard {
 
     const factsList = Array.isArray(artifact.key_facts) && artifact.key_facts.length > 0
       ? `<div class="card-section">
-           <h4 class="card-section-title">Key Scientific and Engineering Facts</h4>
+           <h4 class="card-section-title">${t('card.facts')}</h4>
            <ul class="card-facts-list">
              ${artifact.key_facts.map(f => `<li>${f}</li>`).join('')}
            </ul>
@@ -128,7 +140,7 @@ export class ArtifactCard {
 
     const sourcesSection = Array.isArray(artifact.sources) && artifact.sources.length > 0
       ? `<div class="card-section">
-           <h4 class="card-section-title">Official NASA Master Sources</h4>
+           <h4 class="card-section-title">${t('card.sources')}</h4>
            <ul class="card-sources-list">
              ${artifact.sources.map(s => `
                <li>
@@ -144,7 +156,7 @@ export class ArtifactCard {
 
     const locationText = (artifact.latitude != null && artifact.longitude != null)
       ? `${artifact.latitude.toFixed(4)}°, ${artifact.longitude.toFixed(4)}°`
-      : (artifact.orbit_parameters || 'Interstellar trajectory');
+      : (artifact.orbit_parameters || t('card.interstellar'));
 
     const imageHtml = artifact.image_url
       ? `<div class="card-media">
@@ -152,30 +164,32 @@ export class ArtifactCard {
          </div>`
       : '';
 
+    const askLabel = t('card.ask_btn', { name: artifact.name });
+
     this.cardBody.innerHTML = `
       <div class="card-meta-grid">
         <div class="meta-item">
-          <span class="meta-label">Location</span>
+          <span class="meta-label">${t('card.location')}</span>
           <span class="meta-val font-mono">${locationText}</span>
         </div>
         <div class="meta-item">
-          <span class="meta-label">Launch</span>
+          <span class="meta-label">${t('card.launch')}</span>
           <span class="meta-val">${artifact.launch_date || 'N/A'}</span>
         </div>
         <div class="meta-item">
-          <span class="meta-label">Touchdown</span>
-          <span class="meta-val">${artifact.landing_date || 'Orbital / Deep Space'}</span>
+          <span class="meta-label">${t('card.landing')}</span>
+          <span class="meta-val">${artifact.landing_date || t('card.orbital_or_deep')}</span>
         </div>
         <div class="meta-item">
-          <span class="meta-label">Mission End</span>
-          <span class="meta-val">${artifact.end_of_mission_date || 'Permanent Silent Monument'}</span>
+          <span class="meta-label">${t('card.end')}</span>
+          <span class="meta-val">${artifact.end_of_mission_date || t('card.permanent_monument')}</span>
         </div>
       </div>
 
       ${imageHtml}
 
       <div class="card-section">
-        <h4 class="card-section-title">First-Person Narrative</h4>
+        <h4 class="card-section-title">${t('card.story_title')}</h4>
         <div class="card-story">
           ${storyParagraphs}
         </div>
@@ -189,7 +203,7 @@ export class ArtifactCard {
 
       <div class="card-actions">
         <button type="button" class="btn btn-accent card-ask-btn" data-ask-artifact="${artifact.name}">
-          Ask ${artifact.name}
+          ${askLabel}
         </button>
       </div>
     `;

@@ -28,17 +28,19 @@ export class FocusBar {
 
   setName(name) {
     this.customName = name;
-    if (name) {
-      this.name.textContent = name;
-    }
+    this.refreshLanguage();
   }
 
   refreshLanguage() {
+    if (this.code) {
+      const translated = t(`artifact.${this.code}`);
+      if (translated && translated !== `artifact.${this.code}`) {
+        this.name.textContent = translated;
+        return;
+      }
+    }
     if (this.customName) {
       this.name.textContent = this.customName;
-    } else if (this.code) {
-      const translated = t(`artifact.${this.code}`);
-      this.name.textContent = (translated && translated !== `artifact.${this.code}`) ? translated : this.code;
     }
   }
 }

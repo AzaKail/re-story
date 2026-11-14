@@ -127,8 +127,23 @@ Equipment with identical hardware fleets uses a single primary Flagship card pin
 5. Independent exploration craft (Spirit, Opportunity, Viking 1, Viking 2, Phoenix, InSight, Ingenuity, Dawn, NEAR Shoemaker, Pioneer 10 and 11, Kepler) maintain dedicated records.
 
 #### Verification and Integrity
-- Ran test suite: `python manage.py test catalog` (6 tests passing, 0 errors).
+- Ran test suite: `python manage.py test catalog` (7 tests passing, 0 errors).
 - Verified Django system check: `python manage.py check` (0 issues).
 - All official NASA URLs cataloged in `docs/SOURCES.md`.
+
+### 2026-11-14: Multilingual Catalog Content (EN / RU / KK)
+
+#### Summary of Changes
+- Extended `Artifact` model with `translations` JSONField to store localized narrative stories, statuses, brief descriptions, and key facts in Russian (`ru`) and Kazakh (`kk`).
+- Created migration `catalog/migrations/0002_artifact_translations.py` and applied to PostgreSQL.
+- Updated `data/artifacts.json` with localized narratives, statuses, and key facts across all 15 historic NASA artifacts.
+- Enhanced `catalog/views.py` endpoints (`/api/artifacts/` and `/api/artifacts/<code-or-slug>/`) to support `?lang=ru` and `?lang=kk` query parameters.
+- Implemented client-side translation module in `static/js/artifact_translations.js` with `getLocalizedArtifact(artifact, lang)`.
+- Updated `static/js/card.js`, `static/js/panel.js`, and `static/js/main.js` so that switching language dynamically re-renders:
+  - The slide-out card drawer (stories, facts, status, labels, table headers).
+  - The static museum section (`#museum`) below the 3D scene.
+  - The left objects panel and bottom focus bar.
+- Updated `static/js/i18n.js` with new keys for card headers, table columns, and action buttons across `en`, `ru`, `kk` with complete key parity.
+
 
 

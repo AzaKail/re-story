@@ -4,6 +4,7 @@ import { loadArtifactsFromApi, fetchArtifactDetail } from './artifacts.js';
 import { ArtifactPanel } from './panel.js';
 import { FocusBar } from './focusbar.js';
 import { ArtifactCard } from './card.js';
+import { getLocalizedArtifact } from './artifact_translations.js';
 import { t, getLang, setLang, applyTranslations } from './i18n.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -53,12 +54,14 @@ function scrollToSection(section) {
   section.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
 }
 
-function updateMuseumContent(detail) {
+function updateMuseumContent(rawDetail) {
   if (!dom.museumTitle) return;
-  if (!detail) {
+  if (!rawDetail) {
     dom.museumTitle.textContent = t('museum.title');
     return;
   }
+  const lang = getLang();
+  const detail = getLocalizedArtifact(rawDetail, lang);
 
   dom.museumTitle.textContent = detail.name;
   const inner = dom.museum.querySelector('.museum-inner');
@@ -80,12 +83,12 @@ function updateMuseumContent(detail) {
   contentDiv.innerHTML = `
     <div class="card-meta-grid" style="margin: 24px 0;">
       <div class="meta-item">
-        <span class="meta-label">Location</span>
-        <span class="meta-val font-mono">${detail.latitude != null ? `${detail.latitude.toFixed(4)}°, ${detail.longitude.toFixed(4)}°` : (detail.orbit_parameters || 'Interstellar')}</span>
+        <span class="meta-label">${t('card.location')}</span>
+        <span class="meta-val font-mono">${detail.latitude != null ? `${detail.latitude.toFixed(4)}°, ${detail.longitude.toFixed(4)}°` : (detail.orbit_parameters || t('card.interstellar'))}</span>
       </div>
       <div class="meta-item">
-        <span class="meta-label">Status</span>
-        <span class="meta-val">${detail.status || 'Monument'}</span>
+        <span class="meta-label">${t('card.end')}</span>
+        <span class="meta-val">${detail.status || t('card.permanent_monument')}</span>
       </div>
     </div>
     ${detail.image_url ? `<div class="card-media" style="margin: 20px 0;"><img src="${detail.image_url}" alt="${detail.name}" class="card-image"></div>` : ''}
@@ -204,6 +207,10 @@ function initLanguage() {
     if (state.body) dom.bodyName.textContent = t(`body.${state.body}`);
     panel?.refreshLanguage();
     focusBar?.refreshLanguage();
+    card?.refreshLanguage();
+    if (state.artifactDetail) {
+      updateMuseumContent(state.artifactDetail);
+    }
   });
 }
 

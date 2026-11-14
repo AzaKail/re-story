@@ -1,4 +1,5 @@
-import { t } from './i18n.js';
+import { t, getLang } from './i18n.js';
+import { getLocalizedArtifact } from './artifact_translations.js';
 
 const formatCoord = (value) => `${Number(value).toFixed(1)}°`;
 
@@ -52,6 +53,9 @@ export class ArtifactPanel {
   }
 
   #renderItem(artifact) {
+    const lang = getLang();
+    const localized = getLocalizedArtifact(artifact, lang);
+
     const li = document.createElement('li');
     const button = document.createElement('button');
     button.type = 'button';
@@ -61,15 +65,14 @@ export class ArtifactPanel {
 
     const name = document.createElement('span');
     name.className = 'panel-item-name';
-    const translatedName = t(`artifact.${artifact.code}`);
-    name.textContent = (translatedName && translatedName !== `artifact.${artifact.code}`)
-      ? translatedName
-      : (artifact.name || artifact.code);
+    const translatedFromDict = t(`artifact.${artifact.code}`);
+    name.textContent = localized.name || (translatedFromDict !== `artifact.${artifact.code}` ? translatedFromDict : artifact.code);
 
     const meta = document.createElement('span');
     meta.className = 'panel-item-meta';
     const type = document.createElement('span');
-    type.textContent = (artifact.artifact_type || t('artifact.type.placeholder')).replace('_', ' ');
+    const rawType = artifact.artifact_type || 'equipment';
+    type.textContent = t(`artifact.type.${rawType}`) || rawType.replace('_', ' ');
 
     const coords = document.createElement('span');
     coords.className = 'mono';

@@ -25,15 +25,18 @@ def api_bodies(request):
 
 def api_artifacts(request):
     body_filter = request.GET.get("body", "").strip().lower()
+    lang = request.GET.get("lang", "").strip().lower()
     artifacts = Artifact.objects.select_related("body").all()
 
     if body_filter:
         artifacts = artifacts.filter(body__code=body_filter)
 
-    data = [
-        {
+    data = []
+    for a in artifacts:
+        trans = a.translations.get(lang, {}) if lang in ("ru", "kk") else {}
+        data.append({
             "id": a.id,
-            "name": a.name,
+            "name": trans.get("name", a.name),
             "code": a.code,
             "artifact_type": a.artifact_type,
             "body": a.body.code,
@@ -44,21 +47,23 @@ def api_artifacts(request):
             "launch_date": a.launch_date.isoformat() if a.launch_date else None,
             "landing_date": a.landing_date.isoformat() if a.landing_date else None,
             "end_of_mission_date": a.end_of_mission_date.isoformat() if a.end_of_mission_date else None,
-            "status": a.status,
-            "brief_description": a.brief_description,
-            "key_facts": a.key_facts,
-            "fleet_members": a.fleet_members,
+            "status": trans.get("status", a.status),
+            "brief_description": trans.get("brief_description", a.brief_description),
+            "key_facts": trans.get("key_facts", a.key_facts),
+            "fleet_members": trans.get("fleet_members", a.fleet_members),
+            "translations": a.translations,
             "image_url": a.image_url,
             "model_3d": a.model_3d,
             "priority": a.priority,
-        }
-        for a in artifacts
-    ]
+        })
     return JsonResponse({"artifacts": data})
 
 
 def api_artifact_detail(request, code):
     artifact = get_object_or_404(Artifact.objects.select_related("body").prefetch_related("sources"), code=code)
+    lang = request.GET.get("lang", "").strip().lower()
+    trans = artifact.translations.get(lang, {}) if lang in ("ru", "kk") else {}
+
     sources = [
         {
             "id": s.id,
@@ -68,9 +73,10 @@ def api_artifact_detail(request, code):
         }
         for s in artifact.sources.all()
     ]
+
     data = {
         "id": artifact.id,
-        "name": artifact.name,
+        "name": trans.get("name", artifact.name),
         "code": artifact.code,
         "artifact_type": artifact.artifact_type,
         "body": artifact.body.code,
@@ -81,11 +87,12 @@ def api_artifact_detail(request, code):
         "launch_date": artifact.launch_date.isoformat() if artifact.launch_date else None,
         "landing_date": artifact.landing_date.isoformat() if artifact.landing_date else None,
         "end_of_mission_date": artifact.end_of_mission_date.isoformat() if artifact.end_of_mission_date else None,
-        "status": artifact.status,
-        "brief_description": artifact.brief_description,
-        "first_person_story": artifact.first_person_story,
-        "key_facts": artifact.key_facts,
-        "fleet_members": artifact.fleet_members,
+        "status": trans.get("status", artifact.status),
+        "brief_description": trans.get("brief_description", artifact.brief_description),
+        "first_person_story": trans.get("first_person_story", artifact.first_person_story),
+        "key_facts": trans.get("key_facts", artifact.key_facts),
+        "fleet_members": trans.get("fleet_members", artifact.fleet_members),
+        "translations": artifact.translations,
         "image_url": artifact.image_url,
         "model_3d": artifact.model_3d,
         "priority": artifact.priority,

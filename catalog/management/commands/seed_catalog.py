@@ -64,6 +64,7 @@ class Command(BaseCommand):
                         "first_person_story": fields.get("first_person_story", ""),
                         "key_facts": fields.get("key_facts", []),
                         "fleet_members": fields.get("fleet_members", []),
+                        "translations": fields.get("translations", {}),
                         "image_url": fields.get("image_url", ""),
                         "model_3d": fields.get("model_3d", ""),
                         "priority": fields.get("priority", 1),

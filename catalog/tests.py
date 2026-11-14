@@ -35,6 +35,18 @@ class CatalogModelsAndApiTests(TestCase):
                 {"mission": "Apollo 12", "landing_site": "Oceanus Procellarum"},
                 {"mission": "Apollo 14", "landing_site": "Fra Mauro"},
             ],
+            translations={
+                "ru": {
+                    "name": "Лунный модуль Apollo 11",
+                    "status": "Покоится на Базе Спокойствия",
+                    "first_person_story": "История на русском языке",
+                },
+                "kk": {
+                    "name": "Apollo 11 ай модулі",
+                    "status": "Тыныштық базасында",
+                    "first_person_story": "Қазақ тіліндегі оқиға",
+                },
+            },
             priority=1,
         )
         self.source = Source.objects.create(
@@ -79,3 +91,14 @@ class CatalogModelsAndApiTests(TestCase):
     def test_api_artifact_detail_not_found(self):
         response = self.client.get("/api/artifacts/non-existent-code/")
         self.assertEqual(response.status_code, 404)
+
+    def test_api_artifact_detail_multilingual(self):
+        response_ru = self.client.get("/api/artifacts/apollo-11-lm/?lang=ru")
+        self.assertEqual(response_ru.status_code, 200)
+        self.assertEqual(response_ru.json()["name"], "Лунный модуль Apollo 11")
+        self.assertEqual(response_ru.json()["status"], "Покоится на Базе Спокойствия")
+
+        response_kk = self.client.get("/api/artifacts/apollo-11-lm/?lang=kk")
+        self.assertEqual(response_kk.status_code, 200)
+        self.assertEqual(response_kk.json()["name"], "Apollo 11 ай модулі")
+        self.assertEqual(response_kk.json()["status"], "Тыныштық базасында")
