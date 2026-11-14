@@ -25,10 +25,11 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+/* One screen: the 3D scene and the museum are separate layers, the page itself never scrolls. */
+html, body { height: 100%; overflow: hidden; }
 body {
   margin: 0;
   background: var(--bg);
-  overflow-x: hidden;
 }
 
 a { color: inherit; }
@@ -86,11 +87,12 @@ a { color: inherit; }
 
 /* ---------- 3D experience (first screen) ---------- */
 .experience {
-  position: relative;
-  height: 100vh;
-  height: 100svh;
+  position: fixed;
+  inset: 0;
   overflow: hidden;
 }
+.view-museum .experience { visibility: hidden; }
+.is-transitioning .experience { pointer-events: none; }
 
 .scene {
   position: absolute;
@@ -308,11 +310,26 @@ a { color: inherit; }
   font-size: 0.95rem;
 }
 
-/* ---------- Museum (below the 3D block) ---------- */
+/* ---------- Museum (own layer with its own scroll; opened by "Learn more") ---------- */
 .museum {
-  min-height: 100vh;
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 64px var(--gutter) 0;
   background: linear-gradient(to bottom, var(--bg), var(--bg-raised) 240px);
+}
+.museum[hidden] { display: none; }
+
+/* ---------- Black curtain for the 3D <-> museum transition ---------- */
+.fade {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
 }
 .museum-inner { max-width: 760px; margin: 0 auto; }
 .museum-kicker {

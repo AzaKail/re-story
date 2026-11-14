@@ -1,5 +1,30 @@
 # Project Documentation
 
+## Technology Stack
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| Server | Python 3.12+, Django 5.2 | pages, admin, API, chat endpoints |
+| Database | PostgreSQL (`bd_re_story`), `psycopg` 3, optional `pgvector` | catalog data, chat knowledge base |
+| Static files | WhiteNoise | serves JS, CSS, textures in production |
+| App server | gunicorn | production WSGI server |
+| 3D | Three.js r170 (bundled in `static/vendor/three/`) | scene, bodies, camera, sprites |
+| Camera controls | Three.js OrbitControls | mouse and touch rotation and zoom |
+| Interface | Django templates, plain CSS (Flexbox/Grid), plain ES modules | no frontend framework, no build step |
+| Languages | client-side dictionary `static/js/i18n.js` (en, ru, kk); Django gettext in `ai_assistant` | interface translation |
+| Chat assistant | `ai_assistant` app: Ollama (`gemma4:e2b` chat, `nomic-embed-text` embeddings), RAG | museum guide |
+| Data sources | NASA SVS, NASA Solar System Treks, NASA GIBS, NASA Images (images.nasa.gov), NASA 3D Resources | textures, images, models |
+
+### Front-end modules (`static/js/`)
+- `main.js`: page state and wiring (body switch, panel, focus bar, 3D/museum transition).
+- `scene.js`: `MuseumScene` (renderer, lights, bodies, textures, markers, camera limits, adaptive quality).
+- `flight.js`: `CameraFlight` (animated camera moves: arc around a body or line between bodies).
+- `bodies.js`: configuration of bodies, Sun and backdrop planets.
+- `artifacts.js`: artifact list (placeholder until the catalog API exists).
+- `panel.js`, `focusbar.js`: left objects panel and the bottom focus bar.
+- `geo.js`: latitude/longitude to 3D point.
+- `i18n.js`: interface strings and language switching.
+
 ## Architecture and Configuration Updates
 
 ### 2026-11-14: PostgreSQL Database Configuration
@@ -101,3 +126,46 @@ The assistant integrates cleanly into the core project through exactly three fil
 - `static/ai_assistant/js/widget.js`: Operates chat UI, listens for `langchange` events from the main site language switch, reads SSE stream via Fetch API, and parses formatting safely.
 - `static/ai_assistant/css/widget.css`: Provides fixed floating bottom-right position (`z-index: 9999`) and expands to full screen on mobile devices (`max-width: 480px`).
 
+
+### 2026-11-14: Objects Panel, Artifact Focus, Museum Section (UI skeleton)
+
+#### Summary of Changes
+- Left panel (`#panel`) lists the objects on the current body. It can be collapsed; on phones it starts collapsed.
+- Clicking an object flies the camera close to its point on the surface and shows a yellow marker. Auto-rotation stops while an object is in focus.
+- A focus bar appears at the bottom: object name, "Learn more" and a close button. Close (or `Esc`) zooms back out along the current view direction.
+- "Learn more" scrolls down to the museum section (`#museum`), which has no 3D. The section has a "3D version" button that scrolls back to the top.
+- The page is now one long page: the 3D block (`#experience`) is exactly one screen high, the museum follows below. Rendering pauses while the 3D block is off screen (IntersectionObserver).
+- Map credits moved from the bottom-right popover (now taken by the chat button) to the footer of the museum section.
+
+#### Placeholders
+- `static/js/artifacts.js` holds one test object per body with arbitrary coordinates (not real sites). It will be replaced by the catalog API.
+- The museum section text is lorem ipsum; the museum team replaces it.
+
+#### Files
+- `static/js/panel.js`: `ArtifactPanel` (render, select, collapse).
+- `static/js/focusbar.js`: `FocusBar` (show, hide, Learn more, close).
+- `static/js/scene.js`: `addArtifacts()`, `focusArtifact()`, `clearArtifact()`, `setRunning()`. Camera moves around the same body follow an arc (quaternion slerp), so the camera never passes through the sphere.
+- `static/js/main.js`: page state (current body, focused artifact) and wiring.
+- New i18n keys in `en`, `ru`, `kk`: `panel.*`, `artifact.*`, `focus.*`, `museum.*`. Removed the unused `credits.button`.
+
+### 2026-11-14: Sharper Maps, Zoom Limit, Backdrop Planets, Dive Transition, Performance
+
+#### Summary of Changes
+- **Sharper maps.** Moon and Mars now have 2k, 4k and 8k maps. The 2k map loads first so the scene appears fast; the sharpest map the device supports (8k on desktops with `maxTextureSize >= 8192`, 4k on phones) loads in the background, only for the body being viewed.
+- **Zoom limit.** The visitor cannot zoom closer than the artifact view (1.7 body radii from the centre). Closer than that the maps would look blurry.
+- **Layout.** Mars moved far from the Moon and Earth (`[140, 0, -60]`); the Sun moved further out (`[400, 110, 330]`, radius 22) so the lighting direction stays the same. Flights between bodies last longer when the distance is larger (1.8 to 3.4 s).
+- **Backdrop planets.** Mercury, Venus, Jupiter, Saturn, Uranus and Neptune are flat NASA photos (sprites) that always face the camera. Black space in each photo was converted to transparency.
+- **"Learn more" transition.** The camera dives towards the selected object, the screen fades to black and the museum opens. The museum is a separate full-screen layer with its own scroll; scrolling cannot bring the 3D scene back. The "3D version" button fades back and the camera rises to the artifact view.
+- **Performance.** Rendering stops while the museum is open. An adaptive quality loop lowers the pixel ratio by 0.25 when the frame rate falls below 40 fps and raises it back above 57 fps. Earth uses a lighter sphere (64x32 segments).
+
+#### Data Sources
+- Moon 2k/4k/8k: NASA SVS CGI Moon Kit, `lroc_color_poles_8k.tif` (https://svs.gsfc.nasa.gov/4720), downscaled. All three sizes come from the same file so colours match when the sharper map replaces the base one.
+- Mars 2k/4k/8k: NASA Solar System Treks, Viking MDIM 2.1 color mosaic, 512 WMTS tiles of level 4 stitched into 8192x4096 and downscaled.
+- Backdrop planets (NASA Images, images.nasa.gov): Mercury PIA15160 (MESSENGER), Venus PIA23791 (Mariner 10, natural-colour half), Jupiter PIA02873 (Cassini), Saturn PIA06193 (Cassini), Uranus PIA18182 (Voyager 2), Neptune PIA01492 (Voyager 2). Stored in `static/textures/planets/`.
+
+#### Files
+- New `static/js/flight.js` (`CameraFlight`).
+- `static/js/scene.js`: detail textures, backdrop sprites, zoom limit, `diveIntoArtifact()`, `surfaceFromDive()`, adaptive quality.
+- `static/js/bodies.js`: texture tiers, new positions, `BACKDROP_PLANETS`.
+- `static/js/main.js`: `openMuseum()` and `backTo3D()` with the black curtain (`#fade`).
+- `templates/index.html`, `static/css/main.css`: museum as a fixed layer, curtain, single-screen page.

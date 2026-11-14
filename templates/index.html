@@ -6,6 +6,7 @@
   <title>Silent Pioneers</title>
   <meta name="description" content="An interactive 3D museum of NASA equipment left behind on the Moon and Mars.">
   <meta name="theme-color" content="#020308">
+  <link rel="icon" href="data:,">
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
   <script type="importmap">
     {
@@ -68,8 +69,8 @@
     </div>
   </section>
 
-  <!-- ===== Museum (no 3D here; content is a placeholder for the museum team) ===== -->
-  <main id="museum" class="museum">
+  <!-- ===== Museum: a separate layer opened by "Learn more" (no 3D here; placeholder content) ===== -->
+  <main id="museum" class="museum" hidden>
     <div class="museum-inner">
       <button type="button" class="btn btn-ghost" data-action="to-3d">
         <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -95,6 +96,8 @@
       </ul>
     </footer>
   </main>
+
+  <div id="fade" class="fade" aria-hidden="true"></div>
 
   <div id="toast" class="toast" role="status" hidden></div>
 

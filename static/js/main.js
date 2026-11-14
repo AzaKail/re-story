@@ -8,10 +8,16 @@ import { t, getLang, setLang, applyTranslations } from './i18n.js';
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isPhone = window.matchMedia('(max-width: 600px)').matches;
 
+// Fade timings for the 3D <-> museum transition (ms).
+const FADE = reducedMotion
+  ? { outDelay: 0, out: 150, in: 150 }
+  : { outDelay: 650, out: 650, in: 500 };
+
 const dom = {
   experience: document.getElementById('experience'),
   scene: document.getElementById('scene'),
   loader: document.getElementById('loader'),
+  fade: document.getElementById('fade'),
   bodyName: document.getElementById('body-name'),
   toast: document.getElementById('toast'),
   museum: document.getElementById('museum'),
@@ -20,7 +26,7 @@ const dom = {
   langButtons: [...document.querySelectorAll('[data-lang]')],
 };
 
-const state = { body: null, artifact: null, museumArtifact: null };
+const state = { body: null, artifact: null, museumArtifact: null, busy: false };
 let museum = null;
 let panel = null;
 let focusBar = null;
@@ -39,18 +45,30 @@ function showFallback() {
   dom.loader.classList.add('done');
 }
 
-function scrollToSection(section) {
-  section.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+// Animates the black overlay; resolves when the animation ends.
+function fadeTo(opacity, { duration, delay = 0 }) {
+  const from = getComputedStyle(dom.fade).opacity;
+  const animation = dom.fade.animate([{ opacity: from }, { opacity }], { duration, delay, fill: 'forwards', easing: 'ease-in-out' });
+  return animation.finished;
 }
 
 function updateMuseumTitle() {
   dom.museumTitle.textContent = state.museumArtifact ? t(`artifact.${state.museumArtifact}`) : t('museum.title');
 }
 
+// Shows either the 3D experience or the museum. Only one of them is interactive at a time.
+function setView(view) {
+  const museumOpen = view === 'museum';
+  dom.museum.hidden = !museumOpen;
+  dom.experience.inert = museumOpen;
+  document.body.classList.toggle('view-museum', museumOpen);
+  museum.setRunning(!museumOpen);
+}
+
 // ---------- Actions ----------
 
 function selectBody(key, { instant = false } = {}) {
-  if (key === state.body) return;
+  if (key === state.body || state.busy) return;
   closeArtifact({ moveCamera: false });
   state.body = key;
   museum.focus(key, { instant });
@@ -61,7 +79,7 @@ function selectBody(key, { instant = false } = {}) {
 }
 
 function selectArtifact(code) {
-  if (!museum.focusArtifact(code)) return;
+  if (state.busy || !museum.focusArtifact(code)) return;
   state.artifact = code;
   panel.setSelected(code);
   focusBar.show(code);
@@ -69,7 +87,7 @@ function selectArtifact(code) {
 }
 
 function closeArtifact({ moveCamera = true } = {}) {
-  if (!state.artifact) return;
+  if (!state.artifact || state.busy) return;
   if (moveCamera) museum.clearArtifact();
   state.artifact = null;
   panel.setSelected(null);
@@ -77,11 +95,37 @@ function closeArtifact({ moveCamera = true } = {}) {
   document.body.classList.remove('is-focused');
 }
 
-function openMuseum(code) {
+// "Learn more": dive into the artifact, fade to black, open the museum.
+async function openMuseum(code) {
+  if (state.busy) return;
+  state.busy = true;
+  document.body.classList.add('is-transitioning');
+  await Promise.all([
+    museum.diveIntoArtifact(),
+    fadeTo(1, { duration: FADE.out, delay: FADE.outDelay }),
+  ]);
   state.museumArtifact = code;
   updateMuseumTitle();
-  scrollToSection(dom.museum);
+  setView('museum');
+  dom.museum.scrollTop = 0;
   dom.museumTitle.focus({ preventScroll: true });
+  await fadeTo(0, { duration: FADE.in });
+  document.body.classList.remove('is-transitioning');
+  state.busy = false;
+}
+
+// "3D version": fade out, show the scene again and rise back from the artifact.
+async function backTo3D() {
+  if (state.busy) return;
+  state.busy = true;
+  document.body.classList.add('is-transitioning');
+  await fadeTo(1, { duration: FADE.in });
+  setView('3d');
+  const rise = museum.surfaceFromDive();
+  await fadeTo(0, { duration: FADE.out });
+  await rise;
+  document.body.classList.remove('is-transitioning');
+  state.busy = false;
 }
 
 // ---------- Init ----------
@@ -102,20 +146,9 @@ function initLanguage() {
   });
 }
 
-function initMuseumSection() {
-  updateMuseumTitle();
-  document.querySelector('[data-action="to-3d"]').addEventListener('click', () => scrollToSection(dom.experience));
-}
-
-// Stop rendering while the 3D block is scrolled out of view.
-function pauseWhenHidden() {
-  if (!('IntersectionObserver' in window)) return;
-  new IntersectionObserver(([entry]) => museum.setRunning(entry.isIntersecting)).observe(dom.experience);
-}
-
 function start() {
   initLanguage();
-  initMuseumSection();
+  updateMuseumTitle();
 
   if (!webglAvailable()) return showFallback();
 
@@ -139,14 +172,13 @@ function start() {
   });
 
   const fromHash = location.hash.slice(1);
-  const initial = FOCUS_ORDER.includes(fromHash) ? fromHash : FOCUS_ORDER[0];
-  selectBody(initial, { instant: true });
+  selectBody(FOCUS_ORDER.includes(fromHash) ? fromHash : FOCUS_ORDER[0], { instant: true });
 
   for (const b of dom.bodyButtons) b.addEventListener('click', () => selectBody(b.dataset.body));
+  document.querySelector('[data-action="to-3d"]').addEventListener('click', backTo3D);
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeArtifact();
+    if (e.key === 'Escape' && !document.body.classList.contains('view-museum')) closeArtifact();
   });
-  pauseWhenHidden();
 
   requestAnimationFrame(() => dom.loader.classList.add('done'));
 }

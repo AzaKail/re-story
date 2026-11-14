@@ -1,19 +1,26 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { BODIES, SUN } from './bodies.js';
+import { BODIES, SUN, BACKDROP_PLANETS } from './bodies.js';
 import { latLonToVector3 } from './geo.js';
+import { CameraFlight } from './flight.js';
 
 const AUTO_SPIN = 0.04;            // rad/s, slow museum rotation
 const RESUME_AFTER_MS = 20000;     // auto-rotation returns this long after the visitor lets go
-const FLIGHT_MS = 1800;
-const MIN_DISTANCE_FACTOR = 1.1;   // closest zoom, in body radii from the centre
-const ARTIFACT_VIEW_FACTOR = 1.7;  // camera distance when focused on an artifact, in body radii
+const ARTIFACT_VIEW_FACTOR = 1.7;  // camera distance at an artifact (body radii); also the zoom limit
+const DIVE_FACTOR = 1.03;          // camera distance at the end of the "Learn more" dive
 const MARKER_SIZE_FACTOR = 0.014;  // marker radius, in body radii
 const MARKER_COLOR = 0xf2b54a;
 const DEFAULT_VIEW_DIR = new THREE.Vector3(0, 0.18, 1).normalize();
-const IDENTITY = new THREE.Quaternion();
 
-const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const FLIGHT_ORBIT_MS = 1600;
+const FLIGHT_DIVE_MS = 1300;
+const flightBetweenBodiesMs = (distance) => THREE.MathUtils.clamp(1400 + distance * 7, 1800, 3400);
+
+// Adaptive quality: lower the pixel ratio when the frame rate drops, raise it back when there is headroom.
+const QUALITY_WINDOW_S = 2;
+const FPS_LOW = 40;
+const FPS_HIGH = 57;
+const PIXEL_RATIO_STEP = 0.25;
 
 export function webglAvailable() {
   try {
@@ -39,6 +46,8 @@ export class MuseumScene {
     this.resumeTimer = null;
     this.running = false;
     this.clock = new THREE.Clock();
+    this.textureLoader = new THREE.TextureLoader();
+    this.quality = { frames: 0, elapsed: 0 };
 
     this.#initRenderer();
     this.#initWorld();
@@ -51,7 +60,7 @@ export class MuseumScene {
 
   // ---------- Public API ----------
 
-  // Pauses rendering while the scene is off screen (e.g. the visitor scrolled to the museum).
+  // Pauses rendering, e.g. while the museum view covers the scene.
   setRunning(running) {
     if (running === this.running) return;
     this.running = running;
@@ -76,25 +85,27 @@ export class MuseumScene {
 
   // Shows a whole body. keepDirection: zoom out along the current view instead of the default one.
   focus(key, { instant = false, keepDirection = false } = {}) {
-    if (!this.bodies[key]?.cfg.focus) return;
+    if (!this.bodies[key]?.cfg.focus) return Promise.resolve();
+    const fromOtherBody = this.current && this.current !== key;
     this.current = key;
     this.focusedArtifact = null;
     this.autoSpin = !this.reducedMotion;
-    this.#moveCamera(this.#bodyView(key, keepDirection), { instant });
+    this.#loadDetailTexture(key);
+    const view = this.#bodyView(key, keepDirection);
+    const durationMs = fromOtherBody
+      ? flightBetweenBodiesMs(this.camera.position.distanceTo(view.position))
+      : FLIGHT_ORBIT_MS;
+    return this.#fly(view, { instant, durationMs });
   }
 
   // Flies close to an artifact marker and stops the rotation so it stays in view.
   focusArtifact(code) {
-    const entry = this.markers[code];
-    if (!entry || entry.body !== this.current) return false;
+    const view = this.#artifactView(code, ARTIFACT_VIEW_FACTOR);
+    if (!view) return false;
     this.focusedArtifact = code;
     this.autoSpin = false;
     clearTimeout(this.resumeTimer);
-
-    const { group, cfg } = this.bodies[entry.body];
-    const center = group.position.clone();
-    const dir = entry.marker.getWorldPosition(new THREE.Vector3()).sub(center).normalize();
-    this.#moveCamera({ target: center, position: center.clone().addScaledVector(dir, cfg.radius * ARTIFACT_VIEW_FACTOR) });
+    this.#fly(view, { durationMs: FLIGHT_ORBIT_MS });
     return true;
   }
 
@@ -102,54 +113,98 @@ export class MuseumScene {
     if (this.focusedArtifact) this.focus(this.current, { keepDirection: true });
   }
 
+  // "Learn more": plunge towards the focused artifact. Controls stay locked until surfaceFromDive().
+  diveIntoArtifact() {
+    const view = this.#artifactView(this.focusedArtifact, DIVE_FACTOR);
+    if (!view) return Promise.resolve();
+    return this.#fly(view, { durationMs: FLIGHT_DIVE_MS, release: false });
+  }
+
+  // Back from the museum: rise from the dive point to the normal artifact view.
+  surfaceFromDive() {
+    const view = this.#artifactView(this.focusedArtifact, ARTIFACT_VIEW_FACTOR);
+    if (!view) return Promise.resolve();
+    return this.#fly(view, { durationMs: FLIGHT_DIVE_MS });
+  }
+
   // ---------- Setup ----------
 
   #initRenderer() {
-    const lowPower = window.matchMedia('(pointer: coarse)').matches
+    this.lowPower = window.matchMedia('(pointer: coarse)').matches
       || Math.min(screen.width, screen.height) < 600;
-    this.renderer = new THREE.WebGLRenderer({ antialias: !lowPower, powerPreference: 'high-performance' });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lowPower ? 1.5 : 2));
+    this.maxPixelRatio = Math.min(window.devicePixelRatio || 1, this.lowPower ? 1.5 : 2);
+    this.renderer = new THREE.WebGLRenderer({ antialias: !this.lowPower, powerPreference: 'high-performance' });
+    this.renderer.setPixelRatio(this.maxPixelRatio);
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.container.appendChild(this.renderer.domElement);
+    this.maxAnisotropy = Math.min(8, this.renderer.capabilities.getMaxAnisotropy());
 
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x020308);
-    this.camera = new THREE.PerspectiveCamera(45, 1, 0.01, 2000);
+    this.camera = new THREE.PerspectiveCamera(45, 1, 0.01, 3000);
   }
 
   #initWorld() {
     this.#addStars();
     this.#addSun();
-    this.scene.add(new THREE.AmbientLight(0xffffff, 0.22));
+    this.scene.add(new THREE.AmbientLight(0xffffff, 0.12));
+    // Soft "headlight" from the camera: whatever the visitor looks at stays readable,
+    // even on the night side. The Sun remains the main, directional light.
+    const headlight = new THREE.DirectionalLight(0xffffff, 0.7);
+    headlight.position.set(0, 0, 1);
+    headlight.target.position.set(0, 0, -1);   // shine along the view direction
+    this.camera.add(headlight, headlight.target);
+    this.scene.add(this.camera);
+    for (const [key, cfg] of Object.entries(BODIES)) this.#addBody(key, cfg);
+    this.#addBackdropPlanets();
+  }
 
-    const loader = new THREE.TextureLoader();
-    const maxAniso = Math.min(8, this.renderer.capabilities.getMaxAnisotropy());
+  #addBody(key, cfg) {
+    const material = new THREE.MeshStandardMaterial({ color: cfg.fallbackColor, roughness: 1, metalness: 0 });
+    const mesh = new THREE.Mesh(new THREE.SphereGeometry(cfg.radius, ...cfg.segments), material);
+    mesh.name = key;
 
-    for (const [key, cfg] of Object.entries(BODIES)) {
-      const material = new THREE.MeshStandardMaterial({ color: cfg.fallbackColor, roughness: 1, metalness: 0 });
-      const mesh = new THREE.Mesh(new THREE.SphereGeometry(cfg.radius, 96, 64), material);
-      mesh.name = key;
+    // The group holds the position; the mesh inside it spins.
+    const group = new THREE.Group();
+    group.position.fromArray(cfg.position);
+    group.add(mesh);
+    this.scene.add(group);
+    this.bodies[key] = { cfg, group, mesh, detail: 'none' };
 
-      // The group holds the position; the mesh inside it spins.
-      const group = new THREE.Group();
-      group.position.fromArray(cfg.position);
-      group.add(mesh);
-      this.scene.add(group);
-      this.bodies[key] = { cfg, group, mesh };
+    this.#loadTexture(cfg.texture.base, (tex) => this.#applyMap(material, tex), () => {
+      this.onError({ type: 'texture', body: key });
+    });
+  }
 
-      loader.load(
-        this.staticUrl + cfg.texture,
-        (tex) => {
-          tex.colorSpace = THREE.SRGBColorSpace;
-          tex.anisotropy = maxAniso;
-          material.map = tex;
-          material.color.set(0xffffff);
-          material.needsUpdate = true;
-        },
-        undefined,
-        () => this.onError({ type: 'texture', body: key }),
-      );
-    }
+  #loadTexture(path, onLoad, onFail) {
+    this.textureLoader.load(this.staticUrl + path, (tex) => {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = this.maxAnisotropy;
+      onLoad(tex);
+    }, undefined, onFail);
+  }
+
+  #applyMap(material, tex) {
+    const old = material.map;
+    material.map = tex;
+    material.color.set(0xffffff);
+    material.needsUpdate = true;
+    old?.dispose();
+  }
+
+  // Loads the sharpest map the device can hold, once, for the body being viewed.
+  #loadDetailTexture(key) {
+    const body = this.bodies[key];
+    const sizes = body.cfg.texture.detail;
+    if (!sizes || body.detail !== 'none') return;
+    const limit = Math.min(this.renderer.capabilities.maxTextureSize, this.lowPower ? 4096 : 8192);
+    const best = Object.keys(sizes).map(Number).filter((s) => s <= limit).sort((a, b) => b - a)[0];
+    if (!best) return;
+    body.detail = 'loading';
+    this.#loadTexture(sizes[best], (tex) => {
+      this.#applyMap(body.mesh.material, tex);
+      body.detail = 'loaded';
+    }, () => { body.detail = 'failed'; });   // keep the base map, nothing else to do
   }
 
   #addStars() {
@@ -160,7 +215,7 @@ export class MuseumScene {
     const v = new THREE.Vector3();
     const c = new THREE.Color();
     for (let i = 0; i < count; i++) {
-      v.randomDirection().multiplyScalar(900);
+      v.randomDirection().multiplyScalar(1500);
       positions.set([v.x, v.y, v.z], i * 3);
       c.setHSL(Math.random() < 0.7 ? 0.6 : 0.1, 0.25, 0.55 + Math.random() * 0.4);
       colors.set([c.r, c.g, c.b], i * 3);
@@ -208,6 +263,24 @@ export class MuseumScene {
     this.scene.add(light);
   }
 
+  // Flat NASA photos of the other planets; sprites always face the camera and cost almost nothing.
+  #addBackdropPlanets() {
+    for (const planet of BACKDROP_PLANETS) {
+      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+        color: 0xdddddd, transparent: true, depthWrite: false,
+      }));
+      sprite.position.fromArray(planet.position);
+      sprite.visible = false;
+      this.scene.add(sprite);
+      this.#loadTexture(planet.image, (tex) => {
+        sprite.material.map = tex;
+        sprite.material.needsUpdate = true;
+        sprite.scale.set(planet.width, planet.width * (tex.image.height / tex.image.width), 1);
+        sprite.visible = true;
+      }, () => {});   // decorative: a missing image is simply not shown
+    }
+  }
+
   #initControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
@@ -245,80 +318,46 @@ export class MuseumScene {
     return { target, position: target.clone().addScaledVector(dir, this.#viewDistance(cfg.radius)) };
   }
 
+  #artifactView(code, distanceFactor) {
+    const entry = code && this.markers[code];
+    if (!entry || entry.body !== this.current) return null;
+    const { group, cfg } = this.bodies[entry.body];
+    const target = group.position.clone();
+    const dir = entry.marker.getWorldPosition(new THREE.Vector3()).sub(target).normalize();
+    return { target, position: target.clone().addScaledVector(dir, cfg.radius * distanceFactor) };
+  }
+
+  // The visitor can zoom in only as far as the artifact view: closer, the maps get blurry.
   #applyLimits() {
     const r = this.bodies[this.current].cfg.radius;
-    this.controls.minDistance = r * MIN_DISTANCE_FACTOR;
+    this.controls.minDistance = r * ARTIFACT_VIEW_FACTOR;
     this.controls.maxDistance = Math.max(r * 7, this.#viewDistance(r) * 1.6);
   }
 
-  #moveCamera(view, { instant = false } = {}) {
+  #releaseControls() {
+    this.#applyLimits();
+    this.controls.enabled = true;
+    this.controls.update();
+  }
+
+  // release=false keeps the controls locked after arrival (used by the dive).
+  #fly(view, { instant = false, durationMs = FLIGHT_ORBIT_MS, release = true } = {}) {
     if (instant || this.reducedMotion) {
       this.flight = null;
       this.camera.position.copy(view.position);
       this.controls.target.copy(view.target);
-      this.#applyLimits();
-      this.controls.enabled = true;
-      this.controls.update();
-      return;
+      this.camera.lookAt(view.target);
+      if (release) this.#releaseControls();
+      else this.controls.enabled = false;
+      return Promise.resolve();
     }
-
-    // Lift the zoom limits during the flight and restore them on arrival.
+    // Lift the zoom limits during the flight; they are restored on arrival.
     this.controls.minDistance = 0;
     this.controls.maxDistance = Infinity;
     this.controls.enabled = false;
-
-    const sameCenter = this.controls.target.distanceTo(view.target) < 1e-6;
-    this.flight = {
-      start: performance.now(),
-      fromPos: this.camera.position.clone(),
-      fromTarget: this.controls.target.clone(),
-      toPos: view.position,
-      toTarget: view.target,
-      // Around the same body: travel along an arc so the camera never cuts through the sphere.
-      orbit: sameCenter ? this.#orbitPath(view) : null,
-      lift: this.camera.position.distanceTo(view.position) * 0.15,
-    };
-  }
-
-  #orbitPath(view) {
-    const center = view.target.clone();
-    const from = this.camera.position.clone().sub(center);
-    const to = view.position.clone().sub(center);
-    const fromDir = from.clone().normalize();
-    return {
-      center,
-      fromDir,
-      fromDist: from.length(),
-      toDist: to.length(),
-      rotation: new THREE.Quaternion().setFromUnitVectors(fromDir, to.normalize()),
-    };
-  }
-
-  #updateFlight() {
-    const f = this.flight;
-    const t = Math.min(1, (performance.now() - f.start) / FLIGHT_MS);
-    const k = easeInOutCubic(t);
-
-    if (f.orbit) {
-      const o = f.orbit;
-      const q = new THREE.Quaternion().slerpQuaternions(IDENTITY, o.rotation, k);
-      const dist = THREE.MathUtils.lerp(o.fromDist, o.toDist, k);
-      this.camera.position.copy(o.center).addScaledVector(o.fromDir.clone().applyQuaternion(q), dist);
-      this.controls.target.copy(o.center);
-    } else {
-      const arc = Math.sin(Math.PI * k) * f.lift;
-      this.camera.position.lerpVectors(f.fromPos, f.toPos, k);
-      this.camera.position.y += arc;
-      this.camera.position.z += arc;
-      this.controls.target.lerpVectors(f.fromTarget, f.toTarget, k);
-    }
-    this.camera.lookAt(this.controls.target);
-
-    if (t >= 1) {
-      this.flight = null;
-      this.#applyLimits();
-      this.controls.enabled = true;
-    }
+    this.flight = new CameraFlight({ camera: this.camera, controls: this.controls, to: view, durationMs });
+    this.flight.release = release;
+    return this.flight.done;
   }
 
   // ---------- Loop ----------
@@ -326,10 +365,27 @@ export class MuseumScene {
   #resize() {
     const w = this.container.clientWidth;
     const h = this.container.clientHeight;
+    if (!w || !h) return;
     this.renderer.setSize(w, h);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
-    if (this.current && !this.flight) this.#applyLimits();
+    if (this.current && !this.flight && this.controls.enabled) this.#applyLimits();
+  }
+
+  #adjustQuality(dt) {
+    const q = this.quality;
+    q.frames += 1;
+    q.elapsed += dt;
+    if (q.elapsed < QUALITY_WINDOW_S) return;
+    const fps = q.frames / q.elapsed;
+    q.frames = 0;
+    q.elapsed = 0;
+    const ratio = this.renderer.getPixelRatio();
+    if (fps < FPS_LOW && ratio > 1) {
+      this.renderer.setPixelRatio(Math.max(1, ratio - PIXEL_RATIO_STEP));
+    } else if (fps > FPS_HIGH && ratio < this.maxPixelRatio) {
+      this.renderer.setPixelRatio(Math.min(this.maxPixelRatio, ratio + PIXEL_RATIO_STEP));
+    }
   }
 
   #tick() {
@@ -337,8 +393,16 @@ export class MuseumScene {
     if (this.autoSpin) {
       for (const b of Object.values(this.bodies)) b.mesh.rotation.y += AUTO_SPIN * dt;
     }
-    if (this.flight) this.#updateFlight();
-    else this.controls.update();
+    if (this.flight) {
+      if (this.flight.update(performance.now())) {
+        const { release } = this.flight;
+        this.flight = null;
+        if (release) this.#releaseControls();
+      }
+    } else if (this.controls.enabled) {
+      this.controls.update();
+    }
     this.renderer.render(this.scene, this.camera);
+    this.#adjustQuality(dt);
   }
 }
