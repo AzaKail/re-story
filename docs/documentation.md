@@ -16,14 +16,16 @@ The project requires a persistent, production-grade relational database backend 
 
 #### Configuration Details
 The database connection is managed through the following environment variables:
-- `DB_ENGINE`: Database engine (default: `django.db.backends.postgresql`).
 - `DB_NAME`: Database name (default: `bd_re_story`).
 - `DB_USER`: Database username (default: `postgres`).
 - `DB_PASSWORD`: Database user password.
 - `DB_HOST`: Host address (default: `127.0.0.1`).
 - `DB_PORT`: Port number (default: `5432`).
 
-If `DB_ENGINE` contains `sqlite`, the settings adapt automatically to configure an SQLite database file.
+#### Update: PostgreSQL only
+The SQLite fallback and the `DB_ENGINE` variable were removed: the project always uses PostgreSQL
+(`django.db.backends.postgresql`). The chat settings in `config/settings.py` now read
+`OLLAMA_BASE_URL` and `OLLAMA_MODEL` from `.env`.
 
 #### Dependencies
 - `psycopg[binary]>=3.2`: Modern PostgreSQL adapter for Python and Django 5.x.

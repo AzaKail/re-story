@@ -71,26 +71,16 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-DB_ENGINE = os.getenv("DB_ENGINE", "django.db.backends.postgresql")
-
-if "sqlite" in DB_ENGINE:
-    DATABASES = {
-        "default": {
-            "ENGINE": DB_ENGINE,
-            "NAME": BASE_DIR / os.getenv("DB_NAME", "db.sqlite3"),
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME", "bd_re_story"),
+        "USER": os.getenv("DB_USER", "postgres"),
+        "PASSWORD": os.getenv("DB_PASSWORD", ""),
+        "HOST": os.getenv("DB_HOST", "127.0.0.1"),
+        "PORT": os.getenv("DB_PORT", "5432"),
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": DB_ENGINE,
-            "NAME": os.getenv("DB_NAME", "bd_re_story"),
-            "USER": os.getenv("DB_USER", "postgres"),
-            "PASSWORD": os.getenv("DB_PASSWORD", ""),
-            "HOST": os.getenv("DB_HOST", "127.0.0.1"),
-            "PORT": os.getenv("DB_PORT", "5432"),
-        }
-    }
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -125,6 +115,6 @@ STORAGES = {
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# Chat bot (stage 6). The key never leaves the server.
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
-ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-opus-5-5")
+# Chat bot (Ollama). Requests go through the server only.
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gemma4:e4b")
