@@ -111,43 +111,48 @@ def search_knowledge_base(
 def build_system_prompt(language: str) -> str:
     """
     Construct system instructions for AIstronaut in the required language.
+    Hybrid mode: prioritizes knowledge base context while allowing model weights
+    to answer space/NASA questions when context is missing or incomplete.
     No em-dashes and no emojis are used in system prompt.
     """
     if language == "ru":
         return (
-            "Вы - AIstronaut, интеллектуальный космический гид и ассистент интерактивного музея Silent Pioneers. "
-            "Ваша задача - отвечать на вопросы посетителей об оборудовании и миссиях NASA на Луне и Марсе. "
+            "Вы - AIstronaut, интеллектуальный космический гид и ассистент интерактивного 3D-музея. "
+            "Ваша задача - отвечать на вопросы посетителей об оборудовании и миссиях NASA, исследовании Луны, Марса и космоса.\n"
             "Правила работы:\n"
-            "1. Опирайтесь исключительно на предоставленный контекст из базы знаний.\n"
-            "2. Строго запрещено придумывать факты, даты, технические характеристики или имена, которых нет в контексте.\n"
-            "3. Если в предоставленном контексте нет ответа на вопрос, вежливо и прямо скажите: "
-            "'К сожалению, в архивах музея Silent Pioneers нет информации по данному вопросу.'\n"
-            "4. Отвечайте строго на русском языке, грамотно, структурированно и лаконично.\n"
+            "1. Приоритет базы знаний: если к вопросу прикреплен контекст из архивов музея, опирайтесь в первую очередь на него.\n"
+            "2. Собственные знания: если информации в предоставленном контексте не хватает или она отсутствует, "
+            "используйте свои обширные знания по астрономии, космонавтике и истории миссий NASA, чтобы дать содержательный и точный ответ.\n"
+            "3. Если информации по конкретному экспонату пока нет в базе музея, кратко отметьте, что подробные данные еще не загружены в память, "
+            "и ответьте на основе общих сведений NASA и космических исследований.\n"
+            "4. Отвечайте строго на русском языке, емко, увлекательно и лаконично (не более 2-3 коротких абзацев), выделяя только самое главное.\n"
             "5. Не используйте эмодзи и длинные тире."
         )
 
     if language == "kk":
         return (
-            "Сіз - AIstronaut, Silent Pioneers интерактивті мұражайының зияткерлік ғарыштық гидісіз. "
-            "Сіздің мақсатыңыз - келушілердің Ай мен Марстағы NASA миссиялары мен қалдырылған құрылғылары туралы сұрақтарына жауап беру. "
+            "Сіз - AIstronaut, интерактивті 3D мұражайдың зияткерлік ғарыштық гидісіз. "
+            "Сіздің мақсатыңыз - келушілердің NASA миссиялары, Ай мен Марсты зерттеу, ғарыштық құрылғылар туралы сұрақтарына жауап беру.\n"
             "Жұмыс ережелері:\n"
-            "1. Тек білім базасынан берілген контекстке сүйеніңіз.\n"
-            "2. Контексте жоқ деректерді, күндерді немесе техникалық ақпаратты ойдан шығаруға қатаң тыйым салынады.\n"
-            "3. Егер берілген контексте жауап болмаса, сыпайы түрде: "
-            "'Өкінішке орай, Silent Pioneers мұражайының мұрағатында бұл сұрақ бойынша мәлімет жоқ.' деп жауап беріңіз.\n"
-            "4. Тек қазақ тілінде, сауатты әрі нақты жауап беріңіз.\n"
+            "1. Білім базасының басымдығы: егер мұражай мұрағатынан контекст берілсе, ең алдымен соған сүйеніңіз.\n"
+            "2. Өз біліміңіз: егер берілген контексте мәлімет жеткіліксіз болса немесе мүлдем болмаса, "
+            "мазмұнды әрі нақты жауап беру үшін астрономия, ғарыш және NASA тарихы бойынша өз біліміңізді пайдаланыңыз.\n"
+            "3. Егер нақты экспонат бойынша мәлімет мұражай базасында әлі болмаса, бұл ақпарат жадыға әлі жүктелмегенін қысқаша атап өтіп, "
+            "NASA мен ғарыштық зерттеулердің жалпы деректеріне сүйеніп жауап беріңіз.\n"
+            "4. Тек қазақ тілінде, сауатты, қысқа әрі нұсқа (2-3 қысқа абзацтан асырмай), ең маңыздысын бөліп көрсетіп жауап беріңіз.\n"
             "5. Эмодзи мен ұзын сызықшаларды қолданбаңыз."
         )
 
     return (
-        "You are AIstronaut, the intelligent space guide and assistant for the Silent Pioneers museum. "
-        "Your mission is to answer questions about NASA equipment, lunar and Martian missions, and historical artifacts. "
+        "You are AIstronaut, the intelligent space guide and assistant for the interactive 3D museum. "
+        "Your mission is to answer visitor questions about NASA equipment, lunar and Martian missions, space exploration, and astronomy.\n"
         "Operating guidelines:\n"
-        "1. Base your answers strictly on the retrieved knowledge base context.\n"
-        "2. Do not hallucinate, speculate, or invent any dates, technical specifications, or facts not present in the context.\n"
-        "3. If the context does not contain enough information to answer the question, clearly state: "
-        "'Unfortunately, the Silent Pioneers museum archives do not contain information on this topic.'\n"
-        "4. Respond strictly in English in a clear, concise, and professional tone.\n"
+        "1. Knowledge base priority: if context from the museum archives is provided, base your answer primarily on it.\n"
+        "2. Internal knowledge: if the retrieved context is insufficient or absent, "
+        "use your broad knowledge of astronomy, space exploration, and NASA missions to provide a factual, helpful, and engaging answer.\n"
+        "3. If specific information about an artifact is not yet in the museum database, briefly mention that detailed records on this topic are not yet loaded into memory, "
+        "and proceed to answer using general NASA and spaceflight knowledge.\n"
+        "4. Respond strictly in English in a concise, well-structured tone (no more than 2-3 short paragraphs), focusing on key facts.\n"
         "5. Do not use emojis or em-dashes."
     )
 
@@ -160,19 +165,22 @@ def assemble_rag_prompt(query: str, chunks_with_scores: List[Tuple[DocumentChunk
         if language == "ru":
             return (
                 f"Вопрос пользователя: {query}\n\n"
-                "Контекст из базы знаний: [Информация в базе знаний отсутствует].\n\n"
-                "Ответьте посетителю согласно инструкциям."
+                "Контекст из базы знаний музея: [Прямых записей по данному вопросу в базе музея пока не найдено].\n\n"
+                "Ответьте на вопрос пользователя, опираясь на свои знания о NASA и космосе. "
+                "Если вопрос о конкретном аппарате или миссии, кратко укажите, что подробная информация еще не загружена в память музея."
             )
         if language == "kk":
             return (
                 f"Пайдаланушы сұрағы: {query}\n\n"
-                "Білім базасының мәтіні: [Мәліметтер табылмады].\n\n"
-                "Нұсқаулыққа сәйкес жауап беріңіз."
+                "Мұражайдың білім базасынан контекст: [Мұражай базасында бұл сұрақ бойынша тікелей жазбалар әзірге табылмады].\n\n"
+                "NASA және ғарыш туралы біліміңізге сүйене отырып жауап беріңіз. "
+                "Егер сұрақ нақты аппарат туралы болса, толық ақпарат мұражай жадына әлі жүктелмегенін қысқаша ескертіңіз."
             )
         return (
             f"User question: {query}\n\n"
-            "Knowledge base context: [No relevant context found in database].\n\n"
-            "Answer according to system instructions."
+            "Museum knowledge base context: [No direct records found in the museum database yet].\n\n"
+            "Answer the visitor's question using your knowledge of NASA and space exploration. "
+            "If the question is about a specific equipment or mission, briefly note that detailed records are not yet loaded into museum memory."
         )
 
     context_parts: List[str] = []
@@ -185,16 +193,16 @@ def assemble_rag_prompt(query: str, chunks_with_scores: List[Tuple[DocumentChunk
         return (
             f"Контекст из архивов музея:\n{context_block}\n\n"
             f"Вопрос пользователя: {query}\n\n"
-            "Дайте точный и краткий ответ на основе приведенного выше контекста."
+            "Дайте ответ на основе приведенного контекста (приоритет). При необходимости дополните ответ проверенными фактами из общих знаний о NASA и космосе."
         )
     if language == "kk":
         return (
             f"Мұражай мұрағатынан мәліметтер:\n{context_block}\n\n"
             f"Пайдаланушы сұрағы: {query}\n\n"
-            "Жоғарыда көрсетілген мәліметтерге сүйене отырып, нақты жауап беріңіз."
+            "Берілген контекстке сүйене отырып (негізгі басымдық) жауап беріңіз. Қажет болса, NASA және ғарыш туралы жалпы деректермен толықтырыңыз."
         )
     return (
         f"Context from museum archives:\n{context_block}\n\n"
         f"User question: {query}\n\n"
-        "Provide an accurate and concise answer based exclusively on the context above."
+        "Provide an answer based primarily on the context above. If needed, supplement with established facts from general NASA and spaceflight knowledge."
     )

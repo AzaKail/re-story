@@ -27,17 +27,20 @@ def stream_chat_response(
     num_ctx = getattr(settings, "OLLAMA_NUM_CTX", 2048)
     num_gpu = getattr(settings, "OLLAMA_NUM_GPU", 99)
     keep_alive = getattr(settings, "OLLAMA_KEEP_ALIVE", "1h")
+    num_predict = getattr(settings, "OLLAMA_NUM_PREDICT", 350)
     endpoint = f"{base_url}/api/chat"
 
     payload = json.dumps({
         "model": chat_model,
         "messages": messages,
         "stream": True,
+        "think": False,
         "keep_alive": keep_alive,
         "options": {
             "temperature": temperature,
             "num_ctx": num_ctx,
             "num_gpu": num_gpu,
+            "num_predict": num_predict,
         },
     }).encode("utf-8")
 
@@ -84,17 +87,20 @@ def generate_chat_response(
     num_ctx = getattr(settings, "OLLAMA_NUM_CTX", 2048)
     num_gpu = getattr(settings, "OLLAMA_NUM_GPU", 99)
     keep_alive = getattr(settings, "OLLAMA_KEEP_ALIVE", "1h")
+    num_predict = getattr(settings, "OLLAMA_NUM_PREDICT", 350)
     endpoint = f"{base_url}/api/chat"
 
     payload = json.dumps({
         "model": chat_model,
         "messages": messages,
         "stream": False,
+        "think": False,
         "keep_alive": keep_alive,
         "options": {
             "temperature": temperature,
             "num_ctx": num_ctx,
             "num_gpu": num_gpu,
+            "num_predict": num_predict,
         },
     }).encode("utf-8")
 
