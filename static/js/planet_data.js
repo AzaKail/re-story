@@ -1,5 +1,4 @@
 // Multilingual encyclopedic dataset for celestial bodies and exploration history.
-// Constraints: standard hyphens (-) only, no em-dashes, no en-dashes, no emojis.
 
 export const PLANET_DATA = {
   moon: {
