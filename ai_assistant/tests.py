@@ -66,10 +66,11 @@ class RAGLogicTests(TestCase):
         self.assertIn("AIstronaut", ru_prompt)
         self.assertIn("AIstronaut", kk_prompt)
 
-        # Confirm no em-dashes or emojis in system prompts
+        # Confirm no em-dashes, emojis, or Silent Pioneers in system prompts
         for p in (en_prompt, ru_prompt, kk_prompt):
             self.assertNotIn("\u2014", p)
             self.assertNotIn("\u2013", p)
+            self.assertNotIn("Silent Pioneers", p)
 
 
 class ModelsValidationTests(TestCase):

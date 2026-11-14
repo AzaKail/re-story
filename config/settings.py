@@ -147,11 +147,12 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # Chat bot (Ollama AIstronaut). Requests go through the server only.
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
-OLLAMA_CHAT_MODEL = os.getenv("OLLAMA_CHAT_MODEL", os.getenv("OLLAMA_MODEL", "gemma4:e4b"))
+OLLAMA_CHAT_MODEL = os.getenv("OLLAMA_CHAT_MODEL", os.getenv("OLLAMA_MODEL", "gemma4:e2b"))
 OLLAMA_EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text")
 OLLAMA_EMBED_DIM = int(os.getenv("OLLAMA_EMBED_DIM", "768"))
 OLLAMA_NUM_CTX = int(os.getenv("OLLAMA_NUM_CTX", "2048"))
 OLLAMA_NUM_GPU = int(os.getenv("OLLAMA_NUM_GPU", "99"))
 OLLAMA_EMBED_NUM_GPU = int(os.getenv("OLLAMA_EMBED_NUM_GPU", "0"))
 OLLAMA_KEEP_ALIVE = os.getenv("OLLAMA_KEEP_ALIVE", "1h")
+OLLAMA_NUM_PREDICT = int(os.getenv("OLLAMA_NUM_PREDICT", "450"))
 
