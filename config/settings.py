@@ -29,6 +29,15 @@ CSRF_TRUSTED_ORIGINS = env_list("DJANGO_CSRF_TRUSTED_ORIGINS")
 if not DEBUG and SECRET_KEY.startswith("dev-only"):
     raise RuntimeError("Set DJANGO_SECRET_KEY in the environment when DJANGO_DEBUG is off.")
 
+# При тесте на мобильном устройстве, будучи в одной подсети ввести команду:
+# python manage.py runserver 0.0.0.0:8000
+
+ALLOWED_HOSTS = [
+    "*",
+    "localhost",
+    "127.0.0.1",
+    ".trycloudflare.com",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
