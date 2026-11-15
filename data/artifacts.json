@@ -1212,7 +1212,7 @@
           "landing_date": "1968-01-31"
         }
       ],
-      "image_url": "https://images-assets.nasa.gov/image/as11-44-6551/as11-44-6551~large.jpg",
+      "image_url": "https://images-assets.nasa.gov/image/LRC-1966-B701_P-07825/LRC-1966-B701_P-07825~large.jpg",
       "model_3d": "",
       "priority": 1,
       "translations": {
@@ -1292,18 +1292,6 @@
             }
           ]
         }
-      },
-      "now_view": {
-        "nasa_id": "PIA13608",
-        "image_url": "https://images-assets.nasa.gov/image/PIA13608/PIA13608~orig.jpg",
-        "page_url": "https://images.nasa.gov/details/PIA13608",
-        "date": "2011",
-        "instrument": "Lunar Reconnaissance Orbiter (LROC)",
-        "caption": {
-          "en": "LROC reconstruction of the iconic Lunar Orbiter 1 Earthrise perspective from lunar orbit.",
-          "ru": "Реконструкция исторического вида Земли со снимков Lunar Orbiter 1 с борта LRO.",
-          "kk": "Lunar Orbiter 1 аппараты түсірген Жер бейнесінің LRO орбиталық зонды арқылы жасалған көрінісі."
-        }
       }
     }
   },
@@ -1331,7 +1319,7 @@
         "Paved the scientific and resource foundation for the NASA Artemis program and future lunar base life support."
       ],
       "fleet_members": [],
-      "image_url": "https://images-assets.nasa.gov/image/PIA12294/PIA12294~large.jpg",
+      "image_url": "https://images-assets.nasa.gov/image/ARC-2008-ACD07-0073-412/ARC-2008-ACD07-0073-412~large.jpg",
       "model_3d": "",
       "priority": 1,
       "translations": {
@@ -1358,18 +1346,6 @@
             "Сумен қатар метан, аммиак және сутегі сияқты маңызды ұшқыш заттарды тіркеді.",
             "NASA-ның Artemis бағдарламасы мен болашақ Ай базасының ғылыми негізін қалады."
           ]
-        }
-      },
-      "now_view": {
-        "nasa_id": "PIA12294",
-        "image_url": "https://images-assets.nasa.gov/image/PIA12294/PIA12294~orig.jpg",
-        "page_url": "https://images.nasa.gov/details/PIA12294",
-        "date": "2009",
-        "instrument": "LCROSS Visible Camera",
-        "caption": {
-          "en": "LCROSS camera capture seconds before impacting the floor of Cabeus crater.",
-          "ru": "Кадр камеры LCROSS за секунды до удара о дно полярного кратера Кабео.",
-          "kk": "LCROSS камерасының Кабео кратеріне соғылуға бірнеше секунд қалғанда түсірген суреті."
         }
       }
     }
@@ -1426,18 +1402,6 @@
             "7329 фотосурет жіберіп, Марс туралы ғылыми түсінікті түбегейлі өзгертті."
           ]
         }
-      },
-      "now_view": {
-        "nasa_id": "PIA02996",
-        "image_url": "https://images-assets.nasa.gov/image/PIA02996/PIA02996~orig.jpg",
-        "page_url": "https://images.nasa.gov/details/PIA02996",
-        "date": "1972",
-        "instrument": "Mariner 9 Television Camera",
-        "caption": {
-          "en": "Mariner 9 historical orbital panorama of Olympus Mons rising through atmospheric dust.",
-          "ru": "Историческая орбитальная панорама вулкана Олимп, снятая Маринером-9 сквозь остатки пылевой бури.",
-          "kk": "Маринер-9 аппараты шаң дауылы сейілгенде түсірген Олимп жанартауының тарихи панорамасы."
-        }
       }
     }
   },
@@ -1465,7 +1429,7 @@
         "Mapped hematite mineral deposits that dictated the landing site for the Opportunity rover."
       ],
       "fleet_members": [],
-      "image_url": "https://images-assets.nasa.gov/image/PIA02008/PIA02008~large.jpg",
+      "image_url": "https://images-assets.nasa.gov/image/PIA17486/PIA17486~large.jpg",
       "model_3d": "",
       "priority": 1,
       "translations": {
@@ -1492,18 +1456,6 @@
             "Марс кратерлерінен жақында аққан су немесе тұзды ерітінді іздерін тапты.",
             "Opportunity марсоходы қонған Меридиани жазығындағы минералды гематитті тапты."
           ]
-        }
-      },
-      "now_view": {
-        "nasa_id": "PIA02008",
-        "image_url": "https://images-assets.nasa.gov/image/PIA02008/PIA02008~orig.jpg",
-        "page_url": "https://images.nasa.gov/details/PIA02008",
-        "date": "1999",
-        "instrument": "Mars Orbiter Camera (MOC)",
-        "caption": {
-          "en": "Mars Global Surveyor high-resolution view of modern sedimentary layers and gullies.",
-          "ru": "Снимок высокого разрешения с MGS: осадочные слои и овраги в марсианском кратере.",
-          "kk": "Mars Global Surveyor түсірген Марс кратеріндегі қазіргі шөгінді қабаттар мен жыралар."
         }
       }
     }
@@ -1532,7 +1484,7 @@
         "Concluded with a planned grazing surface impact on September 3, 2006, observed by ground telescopes."
       ],
       "fleet_members": [],
-      "image_url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2006/09/artist_s_impression_of_smart-1_impact/9998808-2-eng-GB/Artist_s_impression_of_SMART-1_impact_pillars.jpg",
+      "image_url": "",
       "model_3d": "",
       "priority": 2,
       "translations": {
@@ -1601,7 +1553,7 @@
           "landing_date": "2009-06-30"
         }
       ],
-      "image_url": "https://images-assets.nasa.gov/image/PIA12234/PIA12234~large.jpg",
+      "image_url": "",
       "model_3d": "",
       "priority": 2,
       "translations": {
@@ -1670,7 +1622,7 @@
           "landing_date": "2024-01-19"
         }
       ],
-      "image_url": "https://www.isas.jaxa.jp/en/missions/spacecraft/current/images/slim_01.jpg",
+      "image_url": "",
       "model_3d": "",
       "priority": 2,
       "translations": {
@@ -1733,7 +1685,7 @@
           "landing_date": "1966-12-24"
         }
       ],
-      "image_url": "https://images-assets.nasa.gov/image/as11-40-5927/as11-40-5927~large.jpg",
+      "image_url": "",
       "model_3d": "",
       "priority": 2,
       "translations": {
@@ -1796,7 +1748,7 @@
           "landing_date": "1973-01-15"
         }
       ],
-      "image_url": "https://images-assets.nasa.gov/image/PIA13098/PIA13098~large.jpg",
+      "image_url": "https://images-assets.nasa.gov/image/PIA12967/PIA12967~orig.jpg",
       "model_3d": "",
       "priority": 2,
       "translations": {
@@ -1852,7 +1804,7 @@
         "Landed safely, but two of its four solar panels failed to fully unfurl, trapping the radio antenna inside."
       ],
       "fleet_members": [],
-      "image_url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2015/01/beagle_2_hardware_on_mars/15201103-1-eng-GB/Beagle_2_hardware_on_Mars_pillars.jpg",
+      "image_url": "https://images-assets.nasa.gov/image/PIA19107/PIA19107~orig.jpg",
       "model_3d": "",
       "priority": 2,
       "translations": {
@@ -1921,7 +1873,7 @@
           "landing_date": "1974-03-12"
         }
       ],
-      "image_url": "https://images-assets.nasa.gov/image/PIA16922/PIA16922~large.jpg",
+      "image_url": "https://images-assets.nasa.gov/image/PIA16920/PIA16920~medium.jpg",
       "model_3d": "",
       "priority": 2,
       "translations": {
@@ -1977,7 +1929,7 @@
         "Both Rosetta and Philae remain permanently embedded on Comet 67P on its 6.5-year orbit around the Sun."
       ],
       "fleet_members": [],
-      "image_url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2016/09/philae_on_comet_67p_c-g/16140507-1-eng-GB/Philae_on_Comet_67P_C-G_pillars.jpg",
+      "image_url": "https://images-assets.nasa.gov/image/PIA19096/PIA19096~orig.jpg",
       "model_3d": "",
       "priority": 2,
       "translations": {
@@ -2046,7 +1998,7 @@
           "landing_date": "2018-09-21"
         }
       ],
-      "image_url": "https://www.isas.jaxa.jp/en/missions/spacecraft/current/images/hayabusa2_01.jpg",
+      "image_url": "",
       "model_3d": "",
       "priority": 2,
       "translations": {
