@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { BODIES, SUN, BACKDROP_PLANETS } from './bodies.js';
 import { latLonToVector3 } from './geo.js';
 import { CameraFlight } from './flight.js';
+import { SurfaceModel } from './surface_model.js';
 
 const AUTO_SPIN = 0.04;            // rad/s, slow museum rotation
 const RESUME_AFTER_MS = 20000;     // auto-rotation returns this long after the visitor lets go
@@ -16,6 +17,18 @@ const SHOWCASE_SPEED = 0.6;          // OrbitControls autoRotateSpeed: 2.0 is on
 const PICK_RADIUS_PX = { mouse: 22, touch: 34 };   // how close a click must be to a marker
 const CLICK_MAX_MOVE_PX = 6;         // a drag that moved further is a rotation, not a click
 const CLICK_MAX_MS = 600;
+
+// Next to a NASA 3D model the camera looks at the model, tilted towards the horizon, and orbits it.
+const MODEL_VIEW_FACTOR = 0.32;      // camera distance from the model, in body radii
+const MODEL_DIVE_FACTOR = 0.05;      // end of the "Learn more" dive towards a model
+const MODEL_VIEW_TILT = THREE.MathUtils.degToRad(55);   // angle between the view and the surface normal
+const MODEL_ZOOM = { min: 0.12, max: 1.0 };              // zoom limits around a model, in body radii
+const MODEL_MAX_POLAR = THREE.MathUtils.degToRad(80);    // never look from under the surface
+const MODEL_LOOK_ABOVE = 0.05;     // aim this far above the model (body radii): the model sits lower on screen,
+                                   // leaving room for the plaque above it
+const FLIGHT_MODEL_MS = 1100;
+const FLIGHT_RISE_MS = 900;
+const WORLD_UP = new THREE.Vector3(0, 1, 0);
 
 const FLIGHT_ORBIT_MS = 1600;
 const FLIGHT_DIVE_MS = 1300;
@@ -53,6 +66,9 @@ export class MuseumScene {
     this.clock = new THREE.Clock();
     this.textureLoader = new THREE.TextureLoader();
     this.quality = { frames: 0, elapsed: 0 };
+    this.surfaceModel = new SurfaceModel(staticUrl);
+    this.inModelView = false;
+    this.diveCode = null;
 
     this.#initRenderer();
     this.#initWorld();
@@ -86,7 +102,8 @@ export class MuseumScene {
       );
       marker.position.copy(latLonToVector3(artifact.latitude, artifact.longitude, r * 1.001));
       body.mesh.add(marker);   // child of the spinning mesh, so it turns with the surface
-      this.markers[artifact.code] = { marker, body: artifact.body };
+      const model = artifact.model?.url ? artifact.model : null;   // NASA 3D model, if there is one
+      this.markers[artifact.code] = { marker, body: artifact.body, model };
     }
   }
 
@@ -96,6 +113,7 @@ export class MuseumScene {
     const fromOtherBody = this.current && this.current !== key;
     this.current = key;
     this.focusedArtifact = null;
+    this.surfaceModel.hide();
     this.autoSpin = !this.reducedMotion;
     this.#loadDetailTexture(key);
     const view = this.#bodyView(key, keepDirection);
@@ -105,14 +123,41 @@ export class MuseumScene {
     return this.#fly(view, { instant, durationMs });
   }
 
-  // Flies close to an artifact marker and stops the rotation so it stays in view.
+  // Flies close to an artifact and stops the rotation so it stays in view. If the artifact has a
+  // NASA 3D model, the camera then descends to the model, which replaces the marker.
+  // Returns a promise that resolves on arrival, or null if the artifact is not on this body.
   focusArtifact(code) {
     const view = this.#artifactView(code, ARTIFACT_VIEW_FACTOR);
     if (!view) return null;
+    const previous = this.inModelView ? this.focusedArtifact : null;
     this.focusedArtifact = code;
     this.autoSpin = false;
     clearTimeout(this.resumeTimer);
-    return this.#fly(view, { durationMs: FLIGHT_ORBIT_MS });
+    return this.#travelToArtifact(code, previous);
+  }
+
+  async #travelToArtifact(code, previous) {
+    const entry = this.markers[code];
+    // Next to another model: rise above it first, so the camera never flies through the ground.
+    if (previous) {
+      await this.#fly(this.#artifactView(previous, ARTIFACT_VIEW_FACTOR), { durationMs: FLIGHT_RISE_MS, release: false });
+    }
+    if (this.focusedArtifact !== code) return;
+    this.surfaceModel.hide();
+    await this.#fly(this.#artifactView(code, ARTIFACT_VIEW_FACTOR), { durationMs: FLIGHT_ORBIT_MS, release: !entry.model });
+    if (entry.model && this.focusedArtifact === code) await this.#approachModel(code);
+  }
+
+  // Loads the model (while the camera moves) and flies to the tilted view around it.
+  #approachModel(code) {
+    const entry = this.markers[code];
+    this.surfaceModel.show(entry, this.bodies[entry.body].cfg.radius)
+      .then(() => this.onCameraMove?.())   // the plaque moves up to the top of the model
+      .catch((err) => {
+        console.error(err);
+        entry.marker.visible = true;   // no model: keep the orange marker
+      });
+    return this.#fly(this.#modelView(code, MODEL_VIEW_FACTOR), { durationMs: FLIGHT_MODEL_MS });
   }
 
   clearArtifact() {
@@ -121,16 +166,31 @@ export class MuseumScene {
 
   // "Learn more": plunge towards the focused artifact. Controls stay locked until surfaceFromDive().
   diveIntoArtifact() {
-    const view = this.#artifactView(this.focusedArtifact, DIVE_FACTOR);
+    const code = this.focusedArtifact;
+    if (!code || !this.markers[code]) return Promise.resolve();
+    const view = this.inModelView
+      ? this.#modelView(code, MODEL_DIVE_FACTOR)
+      : this.#artifactView(code, DIVE_FACTOR);
     if (!view) return Promise.resolve();
+    this.diveCode = code;
     return this.#fly(view, { durationMs: FLIGHT_DIVE_MS, release: false });
   }
 
-  // Back from the museum: rise from the dive point to the normal artifact view.
-  surfaceFromDive() {
-    const view = this.#artifactView(this.focusedArtifact, ARTIFACT_VIEW_FACTOR);
-    if (!view) return this.focus(this.current, { keepDirection: true });   // also unlocks the controls
-    return this.#fly(view, { durationMs: FLIGHT_DIVE_MS });
+  // Back from the museum: rise from the dive point to the artifact view (and its model).
+  // If another artifact was opened in the museum, rise above the old place and arc to the new one.
+  async surfaceFromDive() {
+    const code = this.focusedArtifact;
+    const entry = code && this.markers[code];
+    if (!entry || entry.body !== this.current) return this.focus(this.current, { keepDirection: true });
+    const sameSpot = this.diveCode === code;
+    this.diveCode = null;
+    if (sameSpot && entry.model && this.surfaceModel.active?.entry === entry) {
+      return this.#fly(this.#modelView(code, MODEL_VIEW_FACTOR), { durationMs: FLIGHT_DIVE_MS });
+    }
+    if (!sameSpot) await this.#fly(this.#riseView(), { durationMs: FLIGHT_RISE_MS, release: false });
+    this.surfaceModel.hide();
+    await this.#fly(this.#artifactView(code, ARTIFACT_VIEW_FACTOR), { durationMs: FLIGHT_DIVE_MS, release: !entry.model });
+    if (entry.model && this.focusedArtifact === code) await this.#approachModel(code);
   }
 
   // Another artifact was picked inside the museum: remember it without moving the camera now,
@@ -148,6 +208,8 @@ export class MuseumScene {
     const pos = new THREE.Vector3();
     entry.marker.getWorldPosition(pos);
     const normal = pos.clone().sub(body.group.position).normalize();
+    // With a 3D model in place, point at the top of the model so the plaque does not cover it.
+    pos.addScaledVector(normal, this.surfaceModel.heightOf(entry));
     const viewDir = this.camera.position.clone().sub(pos).normalize();
     const rawFacing = normal.dot(viewDir) > 0.02;
     const isFacing = entry.isBackside ? false : (rawFacing || (entry.obscuredSince && (performance.now() - entry.obscuredSince < 1000)));
@@ -420,6 +482,29 @@ export class MuseumScene {
     return { target, position: target.clone().addScaledVector(dir, this.#viewDistance(cfg.radius)) };
   }
 
+  // Straight up from where the camera is now, to the usual artifact height.
+  #riseView() {
+    const { group, cfg } = this.bodies[this.current];
+    const target = group.position.clone();
+    const up = this.camera.position.clone().sub(target).setLength(cfg.radius * ARTIFACT_VIEW_FACTOR);
+    return { target, position: target.clone().add(up) };
+  }
+
+  // Tilted view of a 3D model: the camera looks at the model from the south, above the horizon,
+  // with the surface normal as "up", so orbiting turns around the model.
+  #modelView(code, distanceFactor) {
+    const entry = this.markers[code];
+    const { group, cfg } = this.bodies[entry.body];
+    const target = entry.marker.getWorldPosition(new THREE.Vector3());
+    const normal = target.clone().sub(group.position).normalize();
+    target.addScaledVector(normal, cfg.radius * MODEL_LOOK_ABOVE);
+    const north = WORLD_UP.clone().addScaledVector(normal, -normal.dot(WORLD_UP));
+    if (north.lengthSq() < 1e-6) north.set(1, 0, 0);
+    north.normalize();
+    const dir = normal.clone().multiplyScalar(Math.cos(MODEL_VIEW_TILT)).addScaledVector(north, -Math.sin(MODEL_VIEW_TILT));
+    return { target, position: target.clone().addScaledVector(dir, cfg.radius * distanceFactor), up: normal };
+  }
+
   #artifactView(code, distanceFactor) {
     const entry = code && this.markers[code];
     if (!entry || entry.body !== this.current) return null;
@@ -429,11 +514,22 @@ export class MuseumScene {
     return { target, position: target.clone().addScaledVector(dir, cfg.radius * distanceFactor) };
   }
 
-  // The visitor can zoom in only as far as the artifact view: closer, the maps get blurry.
+  // Around a body the visitor can zoom in only as far as the artifact view (closer, the maps get
+  // blurry). Around a 3D model the camera orbits the model and stays above the ground.
   #applyLimits() {
     const r = this.bodies[this.current].cfg.radius;
-    this.controls.minDistance = r * ARTIFACT_VIEW_FACTOR;
-    this.controls.maxDistance = Math.max(r * 7, this.#viewDistance(r) * 1.6);
+    if (this.inModelView) {
+      this.controls.minDistance = r * MODEL_ZOOM.min;
+      this.controls.maxDistance = r * MODEL_ZOOM.max;
+      this.controls.maxPolarAngle = MODEL_MAX_POLAR;
+    } else {
+      this.controls.minDistance = r * ARTIFACT_VIEW_FACTOR;
+      this.controls.maxDistance = Math.max(r * 7, this.#viewDistance(r) * 1.6);
+      this.controls.maxPolarAngle = Math.PI;
+    }
+    // OrbitControls keeps the rotation for camera.up from its constructor; refresh it for the current up.
+    this.controls._quat.setFromUnitVectors(this.camera.up, WORLD_UP);
+    this.controls._quatInverse.copy(this.controls._quat).invert();
   }
 
   #releaseControls() {
@@ -444,8 +540,10 @@ export class MuseumScene {
 
   // release=false keeps the controls locked after arrival (used by the dive).
   #fly(view, { instant = false, durationMs = FLIGHT_ORBIT_MS, release = true } = {}) {
+    this.inModelView = Boolean(view.up);
     if (instant || this.reducedMotion) {
       this.flight = null;
+      this.camera.up.copy(view.up || WORLD_UP);
       this.camera.position.copy(view.position);
       this.controls.target.copy(view.target);
       this.camera.lookAt(view.target);

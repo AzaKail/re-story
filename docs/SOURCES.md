@@ -35,6 +35,8 @@
 
 | Снимки «Тогда и сейчас» (поле `now_view` в `data/artifacts.json`): Apollo 11 `PIA12909` (LRO), Viking 1 `PIA01881` (HiRISE), Opportunity `PIA22549` (HiRISE), Phoenix `PIA22223` (HiRISE), InSight `PIA26515` (HiRISE), Ingenuity `PIA26236` (Perseverance) | https://images.nasa.gov/details/<ID> | NASA, условия: https://www.nasa.gov/nasa-brand-center/images-and-media/ | страница аппарата в музее, блок «Тогда и сейчас» |
 
+| 3D-модели аппаратов NASA 3D Resources: лунный модуль Apollo и Viking Lander (автор NASA/Michael D. Carbajal), Mars Exploration Rover Opportunity (NASA/Ames Research Center, используется и для Spirit), InSight Lander с раскрытыми панелями и Ingenuity (NASA/Brian E. Kumanchik) | https://science.nasa.gov/3d-resources/ , файлы с https://github.com/nasa/NASA-3D-Resources | NASA, условия: https://www.nasa.gov/nasa-brand-center/images-and-media/ | `static/models/*.glb`, показываются на поверхности при подлёте к объекту |
+
 ## Библиотеки кода
 
 | Что | Откуда (URL) | Лицензия | Где используется |
@@ -43,6 +45,8 @@
 | python-dotenv | https://github.com/theskumar/python-dotenv | BSD-3-Clause | чтение `.env` |
 | WhiteNoise | https://whitenoise.readthedocs.io/ | MIT | раздача статики на хостинге |
 | gunicorn | https://gunicorn.org/ | MIT | веб-сервер на хостинге |
+| Three.js GLTFLoader, DRACOLoader, BufferGeometryUtils (r170) | https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/ | MIT | загрузка 3D-моделей |
+| Draco decoder (из Three.js r170) | https://github.com/google/draco | Apache-2.0 (`static/vendor/three/draco/LICENSE`) | распаковка сжатых моделей |
 | Three.js r170 (three.module.min.js, OrbitControls, CSS2DRenderer) | https://threejs.org/ , файлы с https://cdn.jsdelivr.net/npm/three@0.170.0/ | MIT (`static/vendor/three/LICENSE`) | 3D-сцена, управление камерой, выноски (этап 3) |
 | psycopg 3 | https://www.psycopg.org/ | LGPL-3.0 | драйвер подключения PostgreSQL |
 

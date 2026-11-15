@@ -1,6 +1,12 @@
 import { localizeArtifact } from './artifacts.js';
 import { artifactTypeLabel, artifactPlace } from './museum.js';
-import { getLang } from './i18n.js';
+import { getLang, t } from './i18n.js';
+
+// The plaque never goes over the top bar (title and switches); on phones the bar is taller.
+function topLimit() {
+  const bar = document.querySelector('.topbar .controls');
+  return Math.round((bar?.getBoundingClientRect().bottom ?? 76) + 8);
+}
 
 export class TourCard {
   constructor(root, svgRoot, { onOpen, onClose }) {
@@ -24,6 +30,7 @@ export class TourCard {
     this.type = root.querySelector('[data-tour-type]');
     this.title = root.querySelector('[data-tour-title]');
     this.desc = root.querySelector('[data-tour-desc]');
+    this.modelCredit = root.querySelector('[data-tour-model]');
     this.closeBtn = root.querySelector('[data-tour-close]');
 
     this.reticle = svgRoot.querySelector('#tour-reticle');
@@ -75,7 +82,7 @@ export class TourCard {
       const cardH = this.root.offsetHeight || 290;
 
       const newLeft = Math.max(16, Math.min(winW - cardW - 16, this.cardStart.x + dx));
-      const newTop = Math.max(84, Math.min(winH - cardH - 24, this.cardStart.y + dy));
+      const newTop = Math.max(topLimit(), Math.min(winH - cardH - 24, this.cardStart.y + dy));
 
       this.root.style.left = `${Math.round(newLeft)}px`;
       this.root.style.top = `${Math.round(newTop)}px`;
@@ -106,6 +113,10 @@ export class TourCard {
     const localized = localizeArtifact(artifact, getLang());
     this.title.textContent = localized.name || artifact.code;
     this.desc.textContent = localized.brief_description || '';
+    // Objects with a NASA 3D model: name its author and say it is enlarged.
+    const credit = artifact.model?.credit;
+    this.modelCredit.hidden = !credit;
+    this.modelCredit.textContent = credit ? t('tour.model', { credit }) : '';
     this.type.textContent = artifactTypeLabel(artifact.artifact_type);
     if (this.coords) {
       this.coords.textContent = artifactPlace(artifact);
@@ -132,7 +143,7 @@ export class TourCard {
     const cardW = this.root.offsetWidth || Math.min(360, winW - 32);
     const cardH = this.root.offsetHeight || 170;
     const gap = 44;
-    const minTop = 84;
+    const minTop = topLimit();
 
     const px = screenPoint?.x ?? winW / 2;
     const py = screenPoint?.y ?? winH / 2;
@@ -209,7 +220,7 @@ export class TourCard {
       : screenPoint.y - cardH - 55;
 
     left = Math.max(16, Math.min(winW - cardW - 16, left));
-    top = Math.max(84, Math.min(winH - cardH - 24, top));
+    top = Math.max(topLimit(), Math.min(winH - cardH - 24, top));
 
     this.root.style.left = `${Math.round(left)}px`;
     this.root.style.top = `${Math.round(top)}px`;

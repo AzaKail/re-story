@@ -1053,3 +1053,5 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
 .is-cinematic #aistronaut-widget { display: none !important; }
 .tour-card-media[hidden] { display: none; }
 .tour-card-inner:has(.tour-card-media[hidden]) { grid-template-columns: minmax(0, 1fr); grid-template-areas: "header" "body"; }
+.tour-card-model { margin: 2px 0 0; color: var(--muted); font-size: 0.68rem; letter-spacing: 0.02em; }
+.tour-card-model[hidden] { display: none; }

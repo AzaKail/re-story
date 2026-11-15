@@ -237,3 +237,19 @@ class NowViewTests(TestCase):
 
     def test_six_artifacts_have_now_views(self):
         self.assertEqual(Artifact.objects.exclude(now_view={}).count(), 6)
+
+
+class ModelTests(TestCase):
+    """NASA 3D models come with the catalog list, so the 3D scene knows which objects have one."""
+
+    def test_models_in_list(self):
+        items = {a["code"]: a for a in self.client.get("/api/artifacts/?body=mars").json()["artifacts"]}
+        self.assertEqual(items["ingenuity"]["model"]["url"], "models/ingenuity.glb")
+        self.assertTrue(items["ingenuity"]["model"]["credit"].startswith("NASA/"))
+        self.assertEqual(items["phoenix-lander"]["model"], {})
+
+    def test_model_files_exist(self):
+        from pathlib import Path
+        from django.conf import settings
+        for artifact in Artifact.objects.exclude(model={}):
+            self.assertTrue((Path(settings.BASE_DIR) / "static" / artifact.model["url"]).is_file(), artifact.code)

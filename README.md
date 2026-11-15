@@ -13,6 +13,7 @@ Dozens of NASA landers, rovers and science stations are still sitting where thei
 ## Features
 
 - **3D Moon and Mars** with NASA surface maps (up to 8k), the Earth, the Sun and the other planets in the background.
+- **NASA 3D models on the surface:** fly to Apollo 11, Viking 1, Spirit, Opportunity, InSight or Ingenuity and the marker turns into the official NASA 3D model that you can orbit and zoom. Models are loaded one at a time, only when needed. Apollo 11 shows only the descent stage, as on the Moon today.
 - **Real landing sites:** 11 objects at their catalogued coordinates, 4 on the Moon (Apollo 11 Eagle, Apollo 12 ALSEP, Apollo 15 Lunar Roving Vehicle, Surveyor 3) and 7 on Mars (Sojourner and Pathfinder, Spirit, Opportunity, Viking 1, Phoenix, InSight, Ingenuity).
 - **Museum pages:** a first-person story, key facts, mission dates and location, sister missions, a NASA photo and links to the NASA sources for every object.
 - **Then and now:** a mission-era photo next to a present-day image of the site from the Lunar Reconnaissance Orbiter, HiRISE on Mars Reconnaissance Orbiter, or the Perseverance rover.
@@ -31,6 +32,7 @@ NASA data is the core of the project:
 
 - **Surface maps:** Moon from the [NASA Scientific Visualization Studio CGI Moon Kit](https://svs.gsfc.nasa.gov/4720) (Lunar Reconnaissance Orbiter), Mars from [NASA Solar System Treks](https://trek.nasa.gov/mars/) (Viking color mosaic), Earth from NASA GIBS (Blue Marble).
 - **Equipment facts, dates and coordinates:** [NASA Space Science Data Coordinated Archive (NSSDCA)](https://nssdc.gsfc.nasa.gov/) and NASA Science mission pages.
+- **3D models:** [NASA 3D Resources](https://science.nasa.gov/3d-resources/) (Apollo Lunar Module, Viking Lander, Mars Exploration Rover, InSight, Ingenuity), authors credited in the app.
 - **Photographs and "Then and now" views:** [NASA Image and Video Library](https://images.nasa.gov/) (Apollo, Viking, Mars Exploration Rovers, Phoenix, InSight, Mars 2020, LRO, HiRISE and more).
 
 Every image and fact with its source and usage terms: [docs/SOURCES.md](docs/SOURCES.md).
@@ -80,7 +82,7 @@ You need Python 3.12+, PostgreSQL and, for the chat guide, [Ollama](https://olla
 | Layer | Technology |
 |---|---|
 | Server | Python, Django 5.2, PostgreSQL |
-| 3D | Three.js r170 (bundled, works offline) |
+| 3D | Three.js r170 with GLTFLoader and Draco decoder (bundled, works offline) |
 | Interface | Django templates, plain CSS and JavaScript modules, no build step |
 | Chat guide | Ollama: Gemma (answers) and nomic-embed-text (search), retrieval over the museum texts |
 

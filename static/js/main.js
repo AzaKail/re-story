@@ -207,6 +207,7 @@ async function selectArtifact(code) {
   const flight = scene.focusArtifact(code);
   if (!flight) return;
   markSelected(code);
+  if (isPhone) panel.setCollapsed(true);   // on a phone the list would cover the object
 
   focusBar.hide();
   tourCard.hide();

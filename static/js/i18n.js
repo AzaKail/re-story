@@ -90,6 +90,8 @@ const STRINGS = {
     'tour.mode.off': 'Automatic tour is off. Click to start (one object every 15 s).',
     'tour.mode.1x': 'Automatic tour: one object every 15 s. Click to speed up.',
     'tour.mode.2x': 'Automatic tour: one object every 5 s. Click to stop.',
+    'tour.model': '3D model: {credit}, enlarged',
+    'about.data.models': '3D models',
   },
   ru: {
     'brand.sub': 'Оставлены, но не забыты',
@@ -176,6 +178,8 @@ const STRINGS = {
     'tour.mode.off': 'Автоэкскурсия выключена. Нажмите, чтобы начать (объект каждые 15 с).',
     'tour.mode.1x': 'Автоэкскурсия: объект каждые 15 с. Нажмите, чтобы ускорить.',
     'tour.mode.2x': 'Автоэкскурсия: объект каждые 5 с. Нажмите, чтобы выключить.',
+    'tour.model': '3D-модель: {credit}, увеличена',
+    'about.data.models': '3D-модели',
   },
   kk: {
     'brand.sub': 'Тасталған, бірақ ұмытылмаған',
@@ -262,6 +266,8 @@ const STRINGS = {
     'tour.mode.off': 'Автоэкскурсия өшірулі. Бастау үшін басыңыз (әр 15 секунд сайын бір нысан).',
     'tour.mode.1x': 'Автоэкскурсия: әр 15 секунд сайын бір нысан. Жылдамдату үшін басыңыз.',
     'tour.mode.2x': 'Автоэкскурсия: әр 5 секунд сайын бір нысан. Өшіру үшін басыңыз.',
+    'tour.model': '3D модель: {credit}, үлкейтілген',
+    'about.data.models': '3D модельдер',
   },
 };
 

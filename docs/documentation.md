@@ -349,3 +349,31 @@ python manage.py load_knowledge          # chat knowledge base
 - **Tour button.** Off: outlined; 1x: orange outline with a pulse; 2x: filled orange. A speed badge shows 1x or 2x, and the tooltip and `aria-label` explain the current mode and what the next click does (`tour.mode.off`, `tour.mode.1x`, `tour.mode.2x` in en, ru, kk; the old `panel.tour` key was removed).
 - **Objects list.** The selected object has an orange bar on the left and an orange name; the keyboard focus ring is drawn inside the item; the selected item scrolls into view (useful during the tour on Mars with 7 objects).
 - Zaur Kavirov's role: "Automatic tour".
+
+### 2026-11-15: NASA 3D Models on the Surface
+
+#### Summary of Changes
+- When the camera reaches an object that has an official NASA 3D model, its orange marker is replaced by the model standing on the surface. The camera looks at it at an angle, uses the surface normal as "up" and orbits the model, so visitors can turn around it and zoom (0.12 to 1.0 body radii). Objects without a model keep the orange marker.
+- Only one model is loaded at a time (`static/js/surface_model.js`, `SurfaceModel`); it is freed (geometry, materials, textures) when the camera leaves. Models are loaded on demand from `static/models/`, never at start-up.
+- Models are enlarged and marked so on the plaque ("3D model: <author>, enlarged"), with the author from the NASA model page.
+- Apollo 11: only the descent stage stayed on the Moon, so the parts of the Lunar Module model above 45% of its height (the ascent stage) are hidden (`keep_below` in the data).
+- Camera moves: to a model the camera first arcs around the body to the object, then descends; between two models it first rises, so it never flies through the ground. Flights blend the camera "up" vector (`flight.js`). Coming back from the museum works the same way.
+- The plaque points at the top of the model and never goes over the top bar; on phones the objects list collapses after a selection.
+
+#### Data
+- New field `Artifact.model` (`url`, `credit`, `page_url`, optional `keep_below`), migration `0006_artifact_model` (adds the field and reloads `data/artifacts.json`), returned by both catalog API endpoints.
+- Models (NASA 3D Resources, https://science.nasa.gov/3d-resources/, mirrored at https://github.com/nasa/NASA-3D-Resources):
+
+| Object | File | Author on the NASA page |
+|---|---|---|
+| Apollo 11 Eagle | `apollo-lunar-module.glb` | NASA/Michael D. Carbajal |
+| Viking 1 | `viking-lander.glb` | NASA/Michael D. Carbajal |
+| Opportunity, Spirit (twin rovers, same design) | `mer-opportunity.glb` | NASA/Ames Research Center |
+| InSight | `insight-lander.glb` (panels deployed) | NASA/Brian E. Kumanchik |
+| Ingenuity | `ingenuity.glb` | NASA/Brian E. Kumanchik |
+
+No NASA models exist for the Lunar Roving Vehicle, Surveyor, Sojourner, Phoenix or ALSEP.
+
+#### Libraries
+- Three.js `GLTFLoader`, `DRACOLoader`, `BufferGeometryUtils` (MIT) in `static/vendor/three/addons/`.
+- Draco decoder (Apache-2.0) in `static/vendor/three/draco/`, needed because most NASA models use Draco mesh compression. Everything is local; no CDN.
