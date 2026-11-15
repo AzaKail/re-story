@@ -105,7 +105,7 @@ Technical change log: [docs/documentation.md](docs/documentation.md).
 ## Team
 
 - **Azamat Maksutov, Team lead, 3D scene and interface.** Built the 3D world in Three.js: the Moon and Mars on NASA maps, smooth camera flights to every object, NASA 3D models that appear on the surface, the museum pages with then and now views and this window. Made the site work in three languages and on phones, and brought the whole team's work together.
-- **Dmitry Minin, AIstronaut guide.** Built the AIstronaut chat guide: a local language model (Ollama) that first finds the right passages in the museum knowledge base (vector search in PostgreSQL) and answers only from them. Set up the database and the admin pages for loading knowledge documents.
+- **Dmitriy Minin, AIstronaut guide.** Built the AIstronaut chat guide: a local language model (Ollama) that first finds the right passages in the museum knowledge base (vector search in PostgreSQL) and answers only from them. Set up the database and the admin pages for loading knowledge documents.
 - **Aijan Amaliya, Catalog and museum texts.** Designed the catalog of 15 objects and the museum card, gathered facts from NSSDCA and NASA mission pages and wrote every story in English, Russian and Kazakh. Turned the texts into the knowledge base the guide answers from, wrote the catalog tests and the planet overview shown when nothing is selected.
 - **Zaur Kavirov, Automatic tour.** Made the automatic tour: one button sends the camera from object to object on its own, every 15 seconds or every 5 at double speed, while a plaque gives a short summary of each one. Also designed the first version of that plaque and redesigned the AIstronaut input field.
 
