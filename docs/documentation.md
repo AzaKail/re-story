@@ -492,3 +492,9 @@ Work happens in the `more_catalog` branch (Aijan Amaliya's catalog expansion, me
 - `ai_assistant/templates/ai_assistant/widget.html`: Added cache-busting version query `?v=4` to CSS and JS includes; added inline scrollbar suppression styles on textarea.
 - `ai_assistant/static/ai_assistant/css/widget.css`: Top-anchored dynamic viewport variables for `<= 600px`, body scroll lock, 16px mobile input font with 12px placeholder, and scrollbar suppression rules.
 - `ai_assistant/static/ai_assistant/js/widget.js`: Visual Viewport tracking, mobile input focus and blur handlers, scroll lock toggling, and clean input overflow management.
+
+### 2026-11-15: Chat Update Merged, Team Descriptions
+
+#### Summary of Changes
+- Branch `dev-chat` (Dmitriy Minin, "update mobile chat") merged into `more_catalog`: the chat window follows the phone's on-screen keyboard (`visualViewport` handling in `ai_assistant/static/ai_assistant/js/widget.js`, viewport `interactive-widget=resizes-content` in `templates/index.html` and `templates/base.html`) and new mobile styles in `widget.css`. While merging, the page title stays "ReStory" (the branch still had the old name), the chat files keep the versioned URLs (`asset_version`), and the input keeps its 24 px minimum height from the earlier input redesign.
+- Team descriptions in the About window and README rewritten in a shorter, more formal style that names each person's contribution without listing every detail. The English spelling of the name is now "Dmitriy Minin" (`team.dmitry`); Russian and Kazakh keep "Дмитрий Минин".

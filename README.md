@@ -105,10 +105,10 @@ Technical change log: [docs/documentation.md](docs/documentation.md).
 
 ## Team
 
-- **Azamat Maksutov, Team lead, 3D scene and interface.** Built the 3D world in Three.js: the Moon and Mars on NASA maps, smooth camera flights to every object, NASA 3D models that appear on the surface, the museum pages with then and now views, this window and the catalog page for browsers without 3D. Made the site work in three languages and on phones, and brought the whole team's work together.
-- **Dmitry Minin, AIstronaut guide.** Built the AIstronaut chat guide: a local language model (Ollama) that first finds the right passages in the museum knowledge base (vector search in PostgreSQL) and answers only from them. Set up the database and the admin pages for loading knowledge documents.
-- **Aijan Amaliya, Catalog and museum texts.** Designed the catalog and the museum card, then expanded it from 15 to 28 objects, adding Soviet, European and Japanese machines left on the Moon, on Mars, on a comet and on an asteroid. Gathered facts from NSSDCA and mission pages and wrote every story in English, Russian and Kazakh. Turned the texts into the knowledge base the guide answers from, wrote the catalog tests and the planet overview shown when nothing is selected.
-- **Zaur Kavirov, Automatic tour and catalog design.** Made the automatic tour: one button sends the camera from object to object on its own, every 15 seconds or every 5 at double speed, while a plaque gives a short summary of each one. Designed the first version of that plaque, redesigned the AIstronaut input field and gave the catalog its new look.
+- **Azamat Maksutov, Team lead; 3D visualisation and interface.** Led the project and integrated the team's work. Designed the interactive 3D environment, in which the Moon and Mars are rendered from NASA surface data, each object stands at its catalogued coordinates and NASA spacecraft models are shown in place. Developed the museum interface, its multilingual and mobile versions and a text catalog for browsers without 3D support.
+- **Dmitriy Minin, Conversational guide (AIstronaut).** Developed AIstronaut, a conversational guide based on retrieval-augmented generation: a locally run language model answers questions using only passages retrieved from the museum knowledge base. Built the storage and maintenance tools for this knowledge base and adapted the guide for mobile devices.
+- **Aijan Amaliya, Catalog and museum texts.** Compiled the catalog of 28 spacecraft left on the Moon, Mars and other bodies, based on NSSDCA records and mission documentation. Wrote the museum narratives in English, Russian and Kazakh and prepared them as the knowledge base of the guide.
+- **Zaur Kavirov, Automatic tour and catalog design.** Developed the automatic tour, which leads the visitor from object to object with a short summary of each, and designed the visual presentation of the catalog and of the guide's interface.
 
 ## Use of SI tools
 
