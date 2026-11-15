@@ -1,6 +1,6 @@
 {% load static i18n %}
 <!-- AIstronaut Chat Widget Markup -->
-<link rel="stylesheet" href="{% static 'ai_assistant/css/widget.css' %}">
+<link rel="stylesheet" href="{% static 'ai_assistant/css/widget.css' %}?v=4">
 
 <aside id="aistronaut-widget" aria-label="{% trans 'AIstronaut Assistant' %}">
   <!-- Collapsed Floating Button -->
@@ -50,6 +50,7 @@
         <textarea
           class="aistronaut-input"
           rows="1"
+          style="overflow-y: hidden; resize: none; scrollbar-width: none;"
           placeholder="{% trans 'Ask AIstronaut about Moon and Mars missions...' %}"
           aria-label="{% trans 'Message to AIstronaut' %}"
           required
@@ -64,4 +65,4 @@
   </div>
 </aside>
 
-<script src="{% static 'ai_assistant/js/widget.js' %}"></script>
+<script src="{% static 'ai_assistant/js/widget.js' %}?v=4"></script>

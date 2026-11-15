@@ -172,6 +172,7 @@
       this.isOpen = false;
       this.isGenerating = false;
       this.history = loadHistory();
+      this.savedScrollY = 0;
 
       this.initEvents();
       this.applyTranslations();
@@ -195,16 +196,95 @@
         }
       });
 
-      // Auto-grow textarea height
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && this.isOpen) {
+          this.close();
+        }
+      });
+
+      // Auto-grow textarea height without visible scrollbars
       this.input.addEventListener('input', () => {
         this.input.style.height = 'auto';
-        this.input.style.height = Math.min(this.input.scrollHeight, 110) + 'px';
+        const maxHeight = 110;
+        const newHeight = Math.min(this.input.scrollHeight, maxHeight);
+        this.input.style.height = newHeight + 'px';
+        this.input.style.overflowY = this.input.scrollHeight > maxHeight ? 'auto' : 'hidden';
+      });
+
+      // Synchronize viewport dimensions on mobile when virtual keyboard appears or orientation changes
+      const handleViewportChange = () => {
+        if (this.isOpen) {
+          this.updateMobileViewport();
+        }
+      };
+
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', handleViewportChange);
+        window.visualViewport.addEventListener('scroll', handleViewportChange);
+      }
+      window.addEventListener('resize', handleViewportChange);
+      window.addEventListener('orientationchange', handleViewportChange);
+
+      // Keep mobile viewport aligned and prevent unwanted page scrolls on focus/blur
+      this.input.addEventListener('focus', () => {
+        if (window.matchMedia('(max-width: 600px)').matches) {
+          this.updateMobileViewport();
+          window.scrollTo(0, 0);
+          setTimeout(() => {
+            this.updateMobileViewport();
+            window.scrollTo(0, 0);
+            this.scrollToBottom();
+          }, 100);
+          setTimeout(() => {
+            this.updateMobileViewport();
+            window.scrollTo(0, 0);
+            this.scrollToBottom();
+          }, 300);
+        }
+      });
+
+      this.input.addEventListener('blur', () => {
+        if (window.matchMedia('(max-width: 600px)').matches) {
+          setTimeout(() => {
+            this.updateMobileViewport();
+            window.scrollTo(0, 0);
+          }, 100);
+        }
       });
 
       // Synchronize with external language switch
       window.addEventListener('langchange', () => {
         this.applyTranslations();
       });
+    }
+
+    updateMobileViewport() {
+      if (!window.matchMedia('(max-width: 600px)').matches) {
+        this.card.style.removeProperty('--ai-viewport-height');
+        this.card.style.removeProperty('--ai-viewport-top');
+        this.root.style.removeProperty('--ai-viewport-height');
+        this.root.style.removeProperty('--ai-viewport-top');
+        return;
+      }
+
+      if (window.visualViewport) {
+        const height = window.visualViewport.height;
+        const top = window.visualViewport.offsetTop;
+        const heightPx = `${Math.round(height)}px`;
+        const topPx = `${Math.round(top)}px`;
+
+        this.card.style.setProperty('--ai-viewport-height', heightPx);
+        this.card.style.setProperty('--ai-viewport-top', topPx);
+        this.root.style.setProperty('--ai-viewport-height', heightPx);
+        this.root.style.setProperty('--ai-viewport-top', topPx);
+      } else {
+        const heightPx = `${window.innerHeight}px`;
+        this.card.style.setProperty('--ai-viewport-height', heightPx);
+        this.card.style.setProperty('--ai-viewport-top', '0px');
+        this.root.style.setProperty('--ai-viewport-height', heightPx);
+        this.root.style.setProperty('--ai-viewport-top', '0px');
+      }
     }
 
     applyTranslations() {
@@ -231,16 +311,43 @@
 
     open() {
       this.isOpen = true;
+      this.root.classList.add('is-open');
       this.card.classList.add('open');
       this.triggerBtn.style.display = 'none';
+
+      const isMobile = window.matchMedia('(max-width: 600px)').matches;
+      if (isMobile) {
+        this.savedScrollY = window.scrollY;
+        document.body.classList.add('aistronaut-open');
+        this.updateMobileViewport();
+      }
+
       this.scrollToBottom();
-      setTimeout(() => this.input.focus(), 150);
+
+      if (!isMobile) {
+        setTimeout(() => this.input.focus(), 150);
+      }
     }
 
     close() {
       this.isOpen = false;
+      this.root.classList.remove('is-open');
       this.card.classList.remove('open');
       this.triggerBtn.style.display = 'flex';
+
+      const isMobile = window.matchMedia('(max-width: 600px)').matches;
+      if (isMobile) {
+        document.body.classList.remove('aistronaut-open');
+        if (typeof this.savedScrollY === 'number') {
+          window.scrollTo(0, this.savedScrollY);
+        }
+      }
+
+      this.card.style.removeProperty('--ai-viewport-height');
+      this.card.style.removeProperty('--ai-viewport-top');
+      this.root.style.removeProperty('--ai-viewport-height');
+      this.root.style.removeProperty('--ai-viewport-top');
+      this.input.blur();
     }
 
     renderInitialState() {
@@ -401,7 +508,10 @@
         this.isGenerating = false;
         this.sendBtn.disabled = false;
         this.scrollToBottom();
-        this.input.focus();
+        const isMobile = window.matchMedia('(max-width: 600px)').matches;
+        if (!isMobile) {
+          this.input.focus();
+        }
       }
     }
   }
