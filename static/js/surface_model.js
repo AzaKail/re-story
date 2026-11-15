@@ -27,7 +27,7 @@ export class SurfaceModel {
       disposeObject(gltf.scene);
       return;
     }
-    const pivot = buildPivot(gltf.scene, entry.model, bodyRadius);
+    const pivot = buildPivot(gltf.scene, entry.model, bodyRadius * MODEL_SIZE_FACTOR);
     // Stand on the surface: the model's up axis follows the surface normal at the marker.
     pivot.position.copy(entry.marker.position);
     pivot.quaternion.setFromUnitVectors(Y_AXIS, entry.marker.position.clone().normalize());
@@ -52,20 +52,25 @@ export class SurfaceModel {
   }
 
   #getLoader() {
-    if (!this.loader) {
-      const draco = new DRACOLoader();
-      draco.setDecoderPath(`${this.staticUrl}vendor/three/draco/`);
-      this.loader = new GLTFLoader();
-      this.loader.setDRACOLoader(draco);
-    }
+    if (!this.loader) this.loader = createModelLoader(this.staticUrl);
     return this.loader;
   }
 }
 
-// Centres the model on its footprint, puts its lowest point at the surface and scales it.
+// GLTF loader with the local Draco decoder (most NASA models use Draco compression).
+export function createModelLoader(staticUrl) {
+  const draco = new DRACOLoader();
+  draco.setDecoderPath(`${staticUrl}vendor/three/draco/`);
+  const loader = new GLTFLoader();
+  loader.setDRACOLoader(draco);
+  return loader;
+}
+
+// Centres the model on its footprint, puts its lowest point at the surface and scales its
+// largest side to `size`.
 // model.keep_below (0..1) hides parts whose centre is above that share of the height:
 // for Apollo only the descent stage stayed on the Moon, the ascent stage flew away.
-function buildPivot(scene, model, bodyRadius) {
+export function buildPivot(scene, model, size) {
   scene.updateMatrixWorld(true);
   const partBox = new THREE.Box3();
   const partCenter = new THREE.Vector3();
@@ -82,19 +87,19 @@ function buildPivot(scene, model, bodyRadius) {
   scene.traverse((obj) => {
     if (obj.isMesh && obj.visible) box.union(partBox.setFromObject(obj));
   });
-  const size = box.getSize(new THREE.Vector3());
+  const extent = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
   scene.position.set(-center.x, -box.min.y, -center.z);
 
   const pivot = new THREE.Group();
   pivot.add(scene);
-  const scale = (bodyRadius * MODEL_SIZE_FACTOR) / Math.max(size.x, size.y, size.z);
+  const scale = size / Math.max(extent.x, extent.y, extent.z);
   pivot.scale.setScalar(scale);
-  pivot.userData.height = size.y * scale;   // used to place the plaque above the model
+  pivot.userData.height = extent.y * scale;   // used to place the plaque above the model
   return pivot;
 }
 
-function disposeObject(root) {
+export function disposeObject(root) {
   root.traverse((obj) => {
     obj.geometry?.dispose();
     const materials = Array.isArray(obj.material) ? obj.material : [obj.material];

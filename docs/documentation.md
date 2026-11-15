@@ -443,3 +443,33 @@ Work happens in the `more_catalog` branch (Aijan Amaliya's catalog expansion, me
 - Zaur Kavirov: role "Automatic tour and catalog design".
 - Azamat Maksutov: the description mentions the catalog page for browsers without 3D.
 - README: Features list updated (28 objects, 20 placed on the surface, catalog without 3D) and the Team section.
+
+### 2026-11-15: More NASA 3D Models, Photo Authors, Full Source List
+
+#### 3D models on museum pages
+- Six more models from NASA 3D Resources (https://github.com/nasa/NASA-3D-Resources), files in `static/models/`:
+
+| Object | File | Author on the NASA page |
+|---|---|---|
+| Mars Global Surveyor | `mars-global-surveyor.glb` | NASA/JPL/Eyes on the Solar System |
+| Dawn | `dawn.glb` | NASA/Brian E. Kumanchik |
+| Kepler | `kepler.glb` (Kepler A) | NASA/Brian E. Kumanchik, NASA/Christian A. Lopez |
+| NEAR Shoemaker | `near-shoemaker.glb` | NASA (no author named) |
+| Pioneer 10 and 11 | `pioneer-10.glb` | NASA/JPL/Eyes on the Solar System |
+| Philae and Rosetta | `rosetta.glb` (the orbiter that carried Philae) | NASA (no author named) |
+
+- None of these has a place on the globe, so models are now also shown on the museum page: `static/js/model_viewer.js` (`ModelViewer`) draws the model in its own small WebGL view that turns slowly and can be dragged (no wheel zoom, so the page still scrolls). It is used for every object with a model, including the landers and rovers that also appear on the globe. The view is created when the page opens and freed when it changes or the visitor leaves the museum. Without WebGL the block is not shown.
+- `static/js/surface_model.js` now exports `createModelLoader`, `buildPivot(scene, model, size)` and `disposeObject`, shared by the globe and the museum page.
+- No models exist in NASA 3D Resources for the Lunar Roving Vehicle, Surveyor, Sojourner, Phoenix, ALSEP, Lunar Orbiter, LCROSS, Mariner 9 or the non-NASA machines.
+
+#### Photo authors
+- New field `Artifact.image_credit` (migration `0008_artifact_image_credit`, which also reloads the data), returned by both catalog API endpoints. It holds the author from the NASA Image and Video Library record, for example "NASA/JPL-Caltech/Univ. of Arizona". The museum page shows "Photo: <author>" under each photo and the author of the then-and-now image (`now_view.credit`) under it.
+- Three more photos showed the wrong machine and were replaced: Spirit (now PIA16442, Spirit in the McMurdo panorama), Opportunity (PIA17759, self-portrait of January 2014; it was a Curiosity image) and Ingenuity (PIA24542, Perseverance selfie with Ingenuity; it was the Europa Clipper vault).
+- The Philae photo is copyright ESA/Rosetta/Philae/CNES/FD and is credited so.
+- Four fact sources that did not open were replaced with working NASA pages: Luna 9 and Lunokhod 1 (NSSDCA "Soviet Missions to the Moon"), Mars 3 and Beagle 2 (NASA Photojournal HiRISE pages).
+
+#### Source list
+- `docs/SOURCES.md` is rewritten in English and lists, object by object: place, fact sources, photo with NASA ID and author, then-and-now image with author, 3D model with author; plus maps, background planets, chat models and code libraries with licenses. The per-object tables are generated from `data/artifacts.json`.
+- About window: the data section lists all 11 models with authors, says that each photo shows its author, and links to `docs/SOURCES.md` (keys `about.data.photo_authors`, `about.sources_link`; 104 keys per language).
+- README: NASA data section updated (11 models with authors, photo authors, other agencies' pages).
+- Tests: every photo has an author, the API returns it, every model has an author and a NASA 3D Resources page.

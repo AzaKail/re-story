@@ -36,11 +36,11 @@ Every machine here finished its mission and stayed exactly where it stopped: in 
 NASA data is the core of the project:
 
 - **Surface maps:** Moon from the [NASA Scientific Visualization Studio CGI Moon Kit](https://svs.gsfc.nasa.gov/4720) (Lunar Reconnaissance Orbiter), Mars from [NASA Solar System Treks](https://trek.nasa.gov/mars/) (Viking color mosaic), Earth from NASA GIBS (Blue Marble).
-- **Equipment facts, dates and coordinates:** [NASA Space Science Data Coordinated Archive (NSSDCA)](https://nssdc.gsfc.nasa.gov/) and NASA Science mission pages.
-- **3D models:** [NASA 3D Resources](https://science.nasa.gov/3d-resources/) (Apollo Lunar Module, Viking Lander, Mars Exploration Rover, InSight, Ingenuity), authors credited in the app.
-- **Photographs and "Then and now" views:** [NASA Image and Video Library](https://images.nasa.gov/) (Apollo, Viking, Mars Exploration Rovers, Phoenix, InSight, Mars 2020, LRO, HiRISE and more).
+- **Equipment facts, dates and coordinates:** [NASA Space Science Data Coordinated Archive (NSSDCA)](https://nssdc.gsfc.nasa.gov/), NASA Science mission pages and NASA Photojournal; for the machines of other agencies (USSR, ESA, JAXA) also ESA and JAXA mission pages.
+- **3D models:** [NASA 3D Resources](https://science.nasa.gov/3d-resources/), 11 models: Apollo Lunar Module and Viking Lander (NASA/Michael D. Carbajal); Mars Exploration Rover (NASA/Ames Research Center); InSight, Ingenuity and Dawn (NASA/Brian E. Kumanchik); Kepler (NASA/Brian E. Kumanchik, NASA/Christian A. Lopez); Mars Global Surveyor and Pioneer 10 (NASA/JPL/Eyes on the Solar System); NEAR Shoemaker and Rosetta (NASA). Landers and rovers appear on the globe; every model can also be turned on the object's museum page.
+- **Photographs and "Then and now" views:** [NASA Image and Video Library](https://images.nasa.gov/) (Apollo, Lunar Orbiter, LCROSS, LRO, Viking, Mariner 9, Mars Global Surveyor, Mars Exploration Rovers, Phoenix, InSight, Mars 2020, HiRISE and more). Each photo shows its author from the NASA record (for example NASA/JPL-Caltech/Univ. of Arizona); the one non-NASA photo, Philae on the comet, is credited ESA/Rosetta/Philae/CNES/FD.
 
-Every image and fact with its source and usage terms: [docs/SOURCES.md](docs/SOURCES.md).
+Every map, fact, photo and 3D model, object by object, with its source and author: [docs/SOURCES.md](docs/SOURCES.md).
 
 ## Run locally
 

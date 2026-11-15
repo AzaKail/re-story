@@ -6,6 +6,7 @@ import { FocusBar } from './focusbar.js';
 import { TourCard } from './tour_card.js';
 import { MuseumView, artifactTypeLabel, artifactPlace } from './museum.js';
 import { CatalogView } from './catalog_view.js';
+import { ModelViewer } from './model_viewer.js';
 import { t, getLang, setLang, applyTranslations } from './i18n.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -39,6 +40,7 @@ let tourCard = null;
 let tourTimer = null;
 let museumView = null;
 let catalogView = null;
+let modelViewer = null;   // turntable for NASA 3D models on museum pages
 
 // ---------- Helpers ----------
 
@@ -77,6 +79,7 @@ function setView(view) {
   dom.experience.inert = view !== '3d';
   document.body.dataset.view = view;
   scene?.setRunning(view === '3d');
+  if (view !== 'museum') modelViewer?.unmount();
 }
 
 const currentView = () => document.body.dataset.view;
@@ -338,7 +341,11 @@ async function startCatalogOnly({ noWebgl }) {
   dom.experience.hidden = true;
   dom.catalog.querySelector('[data-catalog-note]').hidden = !noWebgl;
   pointBackButtonsToCatalog();
-  museumView = new MuseumView(dom.museum, { onSelectArtifact: switchMuseumArtifact, onAsk: askAboutArtifact });
+  museumView = new MuseumView(dom.museum, {
+    onSelectArtifact: switchMuseumArtifact,
+    onAsk: askAboutArtifact,
+    onModel: museumModelHandler(),
+  });
   catalogView = new CatalogView(dom.catalog, { onOpen: openFromCatalog });
 
   dom.museum.querySelector('[data-action="to-3d"]').addEventListener('click', backToCatalog);
@@ -366,6 +373,13 @@ function askAboutArtifact(detail) {
   input.value = t('chat.ask_prompt', { name: localizeArtifact(detail, getLang()).name });
   input.dispatchEvent(new Event('input', { bubbles: true }));
   input.focus();
+}
+
+// Museum pages show the NASA 3D model when the browser can draw WebGL.
+function museumModelHandler() {
+  if (!webglAvailable()) return null;
+  modelViewer = new ModelViewer(document.body.dataset.static);
+  return (stage, model) => (stage ? modelViewer.mount(stage, model) : modelViewer.unmount());
 }
 
 // ---------- Init ----------
@@ -446,7 +460,11 @@ async function start() {
   };
 
   renderTourButton();
-  museumView = new MuseumView(dom.museum, { onSelectArtifact: switchMuseumArtifact, onAsk: askAboutArtifact });
+  museumView = new MuseumView(dom.museum, {
+    onSelectArtifact: switchMuseumArtifact,
+    onAsk: askAboutArtifact,
+    onModel: museumModelHandler(),
+  });
 
   await loadCatalog();
   scene.addArtifacts(state.artifacts);

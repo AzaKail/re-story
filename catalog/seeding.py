@@ -27,6 +27,7 @@ ARTIFACT_DEFAULTS = {
     "now_view": {},
     "model": {},
     "image_url": "",
+    "image_credit": "",
     "model_3d": "",
     "priority": 1,
 }

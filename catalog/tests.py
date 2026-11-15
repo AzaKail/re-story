@@ -254,3 +254,20 @@ class ModelTests(TestCase):
         from django.conf import settings
         for artifact in Artifact.objects.exclude(model={}):
             self.assertTrue((Path(settings.BASE_DIR) / "static" / artifact.model["url"]).is_file(), artifact.code)
+
+
+class CreditTests(TestCase):
+    """Every photo shown on the site names its author, as given by the NASA Image and Video Library."""
+
+    def test_every_photo_has_a_credit(self):
+        for artifact in Artifact.objects.exclude(image_url=""):
+            self.assertTrue(artifact.image_credit, artifact.code)
+
+    def test_credit_in_api(self):
+        data = self.client.get("/api/artifacts/opportunity-mer-b/").json()
+        self.assertTrue(data["image_credit"].startswith("NASA/"))
+
+    def test_models_have_credits(self):
+        for artifact in Artifact.objects.exclude(model={}):
+            self.assertTrue(artifact.model.get("credit"), artifact.code)
+            self.assertTrue(artifact.model.get("page_url", "").startswith("https://science.nasa.gov/3d-resources/"), artifact.code)
