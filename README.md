@@ -101,7 +101,7 @@ Technical change log: [docs/documentation.md](docs/documentation.md).
 - **Azamat Maksutov:** 3D scene, interface, transitions, languages
 - **Dmitry Minin:** AIstronaut chat guide
 - **Amaliya Aidzhan:** equipment catalog and museum texts
-- **Zaur Kavirov:** automatic tour and object cards
+- **Zaur Kavirov:** automatic tour, object cards and chat design
 
 ## Use of SI tools
 

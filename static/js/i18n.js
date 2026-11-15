@@ -86,7 +86,8 @@ const STRINGS = {
     'about.role.catalog': 'Catalog and museum texts',
     'panel.tour': 'Automatic tour: off, 1x, 2x',
     'tour.sys': 'Mission data',
-    'about.role.tour': 'Automatic tour and object cards',
+    'about.role.tour': 'Automatic tour, object cards and chat design',
+    'panel.tour_short': 'Tour',
   },
   ru: {
     'brand.sub': 'Оставлены, но не забыты',
@@ -169,7 +170,8 @@ const STRINGS = {
     'about.role.catalog': 'Каталог и тексты музея',
     'panel.tour': 'Автоэкскурсия: выкл, 1x, 2x',
     'tour.sys': 'Данные миссии',
-    'about.role.tour': 'Автоэкскурсия и карточки объектов',
+    'about.role.tour': 'Автоэкскурсия, карточки объектов и дизайн чата',
+    'panel.tour_short': 'Экскурсия',
   },
   kk: {
     'brand.sub': 'Тасталған, бірақ ұмытылмаған',
@@ -252,7 +254,8 @@ const STRINGS = {
     'about.role.catalog': 'Каталог және мұражай мәтіндері',
     'panel.tour': 'Автоэкскурсия: өшірулі, 1x, 2x',
     'tour.sys': 'Миссия деректері',
-    'about.role.tour': 'Автоэкскурсия және нысан карточкалары',
+    'about.role.tour': 'Автоэкскурсия, нысан карточкалары және чат дизайны',
+    'panel.tour_short': 'Экскурсия',
   },
 };
 

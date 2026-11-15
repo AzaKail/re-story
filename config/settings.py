@@ -61,6 +61,9 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    # Serve static files through WhiteNoise in development too: with DEBUG on it sends
+    # max-age=0, so browsers always pick up fresh JS/CSS after a git pull.
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "catalog",
     "ai_assistant",

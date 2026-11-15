@@ -332,3 +332,11 @@ python manage.py load_knowledge          # chat knowledge base
 - `static/js/scene.js`: `#initPicking()`, `#markerAt()`, `startShowcase()`, `stopShowcase()`, `onMarkerClick` callback.
 - `static/js/main.js`: `setTourMode()`, `startCinematic()`, `stopCinematic()`, key handling.
 - `static/css/main.css`: `.is-cinematic` hides the interface.
+
+### 2026-11-15: Fresh Static Files in Development, Tour Button Label
+
+#### Summary of Changes
+- **Stale browser cache fixed.** `whitenoise.runserver_nostatic` was added to `INSTALLED_APPS`, so `runserver` serves static files through WhiteNoise. With `DEBUG` on, WhiteNoise sends `Cache-Control: max-age=0`, and browsers re-check JS and CSS on every load. Before, browsers could keep old modules after a `git pull` (for example the old focus bar instead of the tour card).
+- The tour button now has a visible label ("Tour", "Экскурсия"); `panel.tour_short` key in en, ru, kk.
+- Zaur Kavirov's role: "Automatic tour, object cards and chat design" (`about.role.tour`, README).
+- About page: the empty footer and the line under the last team member were removed.
