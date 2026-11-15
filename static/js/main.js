@@ -7,10 +7,11 @@ import { TourCard } from './tour_card.js';
 import { MuseumView, artifactTypeLabel, artifactPlace } from './museum.js';
 import { CatalogView } from './catalog_view.js';
 import { ModelViewer } from './model_viewer.js';
+import { MuseumSides } from './museum_sides.js';
 import { t, getLang, setLang, applyTranslations } from './i18n.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const isPhone = window.matchMedia('(max-width: 600px)').matches;
+const isPhone = window.matchMedia('(max-width: 768px)').matches;
 
 // Fade timings for the 3D <-> museum transition (ms).
 const FADE = reducedMotion
@@ -40,9 +41,10 @@ let tourCard = null;
 let tourTimer = null;
 let museumView = null;
 let catalogView = null;
+let museumSides = null;   // catalog at the sides of the museum page
 let modelViewer = null;   // turntable for NASA 3D models on museum pages
 
-// ---------- Helpers ----------
+// ---------- Помощ ----------
 
 function showToast(message) {
   dom.toast.textContent = message;
@@ -80,6 +82,8 @@ function setView(view) {
   document.body.dataset.view = view;
   scene?.setRunning(view === '3d');
   if (view !== 'museum') modelViewer?.unmount();
+  if (view === 'museum') museumSides?.start();
+  else museumSides?.stop();
 }
 
 const currentView = () => document.body.dataset.view;
@@ -243,6 +247,7 @@ function closeArtifact({ moveCamera = true } = {}) {
 async function showInMuseum(code) {
   const detail = await loadArtifactDetail(code);
   museumView.render(detail, allArtifactsOn(detail.body).filter((a) => a.code !== code));
+  museumSides?.render(state.artifacts, code);
 }
 
 // "Learn more": dive into the artifact, fade to black, open its museum page.
@@ -265,7 +270,24 @@ const openMuseum = withBusy(async (code) => {
 
 // Another artifact picked inside the museum: switch the page; the camera will rise next to it later.
 async function switchMuseumArtifact(code) {
-  if (scene?.setFocusedArtifact(code)) markSelected(code);
+  const artifact = findArtifact(code);
+  if (artifact) {
+    if (artifact.body === 'moon' || artifact.body === 'mars') {
+      if (state.body !== artifact.body) {
+        state.body = artifact.body;
+        for (const b of dom.bodyButtons) b.setAttribute('aria-pressed', String(b.dataset.body === artifact.body));
+        dom.bodyName.textContent = t(`body.${artifact.body}`);
+        panel?.show(artifactsOn(artifact.body));
+        if (location.hash !== `#${artifact.body}`) history.replaceState(null, '', `#${artifact.body}`);
+      }
+    }
+  }
+  if (scene?.setFocusedArtifact(code)) {
+    markSelected(code);
+  } else {
+    state.artifact = code;
+    panel?.setSelected(code);
+  }
   try {
     await showInMuseum(code);
   } catch (err) {
@@ -341,11 +363,7 @@ async function startCatalogOnly({ noWebgl }) {
   dom.experience.hidden = true;
   dom.catalog.querySelector('[data-catalog-note]').hidden = !noWebgl;
   pointBackButtonsToCatalog();
-  museumView = new MuseumView(dom.museum, {
-    onSelectArtifact: switchMuseumArtifact,
-    onAsk: askAboutArtifact,
-    onModel: museumModelHandler(),
-  });
+  createMuseum();
   catalogView = new CatalogView(dom.catalog, { onOpen: openFromCatalog });
 
   dom.museum.querySelector('[data-action="to-3d"]').addEventListener('click', backToCatalog);
@@ -382,6 +400,16 @@ function museumModelHandler() {
   return (stage, model) => (stage ? modelViewer.mount(stage, model) : modelViewer.unmount());
 }
 
+// Museum page: the object's text, its NASA 3D model and the catalog at the sides.
+function createMuseum() {
+  museumView = new MuseumView(dom.museum, {
+    onSelectArtifact: switchMuseumArtifact,
+    onAsk: askAboutArtifact,
+    onModel: museumModelHandler(),
+  });
+  museumSides = new MuseumSides(dom.museum, { staticUrl: document.body.dataset.static, onSelect: switchMuseumArtifact });
+}
+
 // ---------- Init ----------
 
 function initLanguage() {
@@ -400,6 +428,7 @@ function initLanguage() {
     renderTourButton();
     museumView?.refreshLanguage();
     catalogView?.refreshLanguage();
+    museumSides?.refreshLanguage();
   });
 }
 
@@ -460,11 +489,7 @@ async function start() {
   };
 
   renderTourButton();
-  museumView = new MuseumView(dom.museum, {
-    onSelectArtifact: switchMuseumArtifact,
-    onAsk: askAboutArtifact,
-    onModel: museumModelHandler(),
-  });
+  createMuseum();
 
   await loadCatalog();
   scene.addArtifacts(state.artifacts);

@@ -136,12 +136,16 @@ export class MuseumView {
     </section>`;
   }
 
-  // NASA 3D model that can be turned (drawn by onModel). Shown only when WebGL is available.
+  // NASA 3D model that can be turned (drawn by onModel). Without WebGL the block says that the
+  // device cannot show it, instead of disappearing.
   #model(a) {
-    if (!a.model?.url || !this.onModel) return '';
+    if (!a.model?.url) return '';
+    const stage = this.onModel
+      ? `<div class="museum-model-stage is-loading" data-model-stage role="img"
+           aria-label="${escapeHtml(t('museum.model_label', { name: a.name }))}"></div>`
+      : `<div class="museum-model-stage museum-model-off"><p>${escapeHtml(t('museum.model_unsupported'))}</p></div>`;
     return `<figure class="card-media museum-model">
-      <div class="museum-model-stage is-loading" data-model-stage role="img"
-           aria-label="${escapeHtml(t('museum.model_label', { name: a.name }))}"></div>
+      ${stage}
       <figcaption class="card-media-credit">
         <a href="${escapeHtml(a.model.page_url || 'https://science.nasa.gov/3d-resources/')}" target="_blank" rel="noopener">${escapeHtml(t('museum.model_credit', { credit: a.model.credit || 'NASA' }))}</a>
         <span>${escapeHtml(t('museum.model_hint'))}</span>

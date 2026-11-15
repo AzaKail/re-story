@@ -92,7 +92,7 @@ Facts, dates and coordinates come from the NASA Space Science Data Coordinated A
 
 | What | Source | License |
 |---|---|---|
-| Knowledge base `data/knowledge/<lang>/equipment-catalog.txt` | generated from the catalog texts above (Aijan Amaliya) | same sources as the objects |
+| Knowledge base `data/knowledge/<lang>/equipment-catalog.txt` | generated from the catalog texts above (Amaliya Aijan) | same sources as the objects |
 | Other knowledge files in `data/knowledge/` | prepared by the team from the NASA pages above | NASA material, see usage terms |
 | Chat model Gemma (`gemma4:e2b` by default) run locally through Ollama | https://ollama.com/ | Gemma Terms of Use; Ollama MIT |
 | Embedding model `nomic-embed-text` | https://ollama.com/library/nomic-embed-text | Apache-2.0 |

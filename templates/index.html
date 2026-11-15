@@ -6,7 +6,9 @@
   <title>ReStory</title>
   <meta name="description" content="An interactive 3D museum of NASA equipment left behind on the Moon and Mars.">
   <meta name="theme-color" content="#000000">
-  <link rel="icon" href="data:,">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/logo-32.png' %}">
+  <link rel="icon" type="image/png" sizes="64x64" href="{% static 'img/logo-64.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'img/logo-180.png' %}">
   <link rel="stylesheet" href="{% static 'css/main.css' %}?v={{ asset_version }}">
   <script type="importmap">
 {{ importmap_json|safe }}
@@ -141,6 +143,9 @@
   </main>
 
   <main id="museum" class="museum" hidden>
+    <!-- The museum page is also the catalog: Moon and its objects on the left, Mars and the rest on the right -->
+    <div class="museum-layout">
+    <aside class="museum-side museum-side-moon" data-museum-side="moon"></aside>
     <div class="museum-inner">
       <div class="museum-bar">
         <button type="button" class="btn btn-ghost" data-action="to-3d">
@@ -157,6 +162,8 @@
       <p class="museum-kicker" data-museum-kicker></p>
       <h2 class="museum-title" data-museum-title tabindex="-1"></h2>
       <div class="museum-content" data-museum-content></div>
+    </div>
+    <aside class="museum-side museum-side-mars" data-museum-side="mars"></aside>
     </div>
 
     <footer class="site-footer">
@@ -248,7 +255,7 @@
         <ul class="about-team">
           <li><span class="about-team-name" data-i18n="team.azamat">Azamat Maksutov</span><span class="about-team-role" data-i18n="about.role.scene"></span><p class="about-team-desc" data-i18n="about.role.scene_desc"></p></li>
           <li><span class="about-team-name" data-i18n="team.dmitry">Dmitriy Minin</span><span class="about-team-role" data-i18n="about.role.chat"></span><p class="about-team-desc" data-i18n="about.role.chat_desc"></p></li>
-          <li><span class="about-team-name" data-i18n="team.amaliya">Aijan Amaliya</span><span class="about-team-role" data-i18n="about.role.catalog"></span><p class="about-team-desc" data-i18n="about.role.catalog_desc"></p></li>
+          <li><span class="about-team-name" data-i18n="team.amaliya">Amaliya Aijan</span><span class="about-team-role" data-i18n="about.role.catalog"></span><p class="about-team-desc" data-i18n="about.role.catalog_desc"></p></li>
           <li><span class="about-team-name" data-i18n="team.zaur">Zaur Kavirov</span><span class="about-team-role" data-i18n="about.role.tour"></span><p class="about-team-desc" data-i18n="about.role.tour_desc"></p></li>
         </ul>
       </section>

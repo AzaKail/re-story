@@ -1,8 +1,4 @@
-// Interface strings in every supported language.
-// To add a string: add the key to every language (en, ru, kk), then use
-//   data-i18n="key"            -> element text
-//   data-i18n-aria-label="key" -> aria-label attribute
-// or t('key') in JS.
+// вофтпщ
 
 const STRINGS = {
   en: {
@@ -93,7 +89,7 @@ const STRINGS = {
     'about.data.models': '3D models',
     'team.azamat': 'Azamat Maksutov',
     'team.dmitry': 'Dmitriy Minin',
-    'team.amaliya': 'Aijan Amaliya',
+    'team.amaliya': 'Amaliya Aijan',
     'team.zaur': 'Zaur Kavirov',
     'panel.has_model': 'Has a NASA 3D model',
     'about.name_title': 'Why ReStory',
@@ -110,6 +106,8 @@ const STRINGS = {
     'museum.model_label': '3D model of {name}',
     'about.data.photo_authors': 'The author of each photo is shown under it.',
     'about.sources_link': 'Every source and author, object by object',
+    'museum.side_beyond': 'Beyond the Moon and Mars',
+    'museum.model_unsupported': 'This device or browser cannot show the 3D model.',
   },
   ru: {
     'brand.sub': 'Оставлены, но не забыты',
@@ -216,6 +214,8 @@ const STRINGS = {
     'museum.model_label': '3D-модель: {name}',
     'about.data.photo_authors': 'Автор каждого фото указан под ним.',
     'about.sources_link': 'Все источники и авторы по каждому объекту',
+    'museum.side_beyond': 'Дальше Луны и Марса',
+    'museum.model_unsupported': 'Это устройство или браузер не может показать 3D-модель.',
   },
   kk: {
     'brand.sub': 'Тасталған, бірақ ұмытылмаған',
@@ -322,6 +322,8 @@ const STRINGS = {
     'museum.model_label': '3D модель: {name}',
     'about.data.photo_authors': 'Әр фотоның авторы оның астында көрсетілген.',
     'about.sources_link': 'Әр нысан бойынша барлық дереккөздер мен авторлар',
+    'museum.side_beyond': 'Ай мен Марстан әрі',
+    'museum.model_unsupported': 'Бұл құрылғы немесе браузер 3D модельді көрсете алмайды.',
   },
 };
 

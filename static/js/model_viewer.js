@@ -1,13 +1,20 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { createModelLoader, buildPivot, disposeObject } from './surface_model.js';
+import { t } from './i18n.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const VIEW_DIRECTION = new THREE.Vector3(1.5, 0.6, 1.9).normalize();   // slightly from above and the side
 
-// Small turntable for one NASA 3D model on the museum page: it turns slowly by itself and can be
-// dragged around. Used for every object that has a model, including orbiters and deep-space probes
-// that have no place on the 3D globe. One viewer at a time; it is freed when the page changes.
+// Дисплей показывать
+function showUnsupported(stage) {
+  stage.classList.remove('is-loading');
+  stage.classList.add('museum-model-off');
+  const note = document.createElement('p');
+  note.textContent = t('museum.model_unsupported');
+  stage.replaceChildren(note);
+}
+
 export class ModelViewer {
   constructor(staticUrl) {
     this.staticUrl = staticUrl;
@@ -16,11 +23,18 @@ export class ModelViewer {
     this.requestId = 0;
   }
 
-  // stage: empty element to draw in; model: { url, credit, keep_below }.
+  // stage
   async mount(stage, model) {
     this.unmount();
     const requestId = ++this.requestId;
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    } catch (err) {
+      console.error(err);
+      showUnsupported(stage);
+      return;
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     stage.append(renderer.domElement);
@@ -59,16 +73,14 @@ export class ModelViewer {
       }
       const pivot = buildPivot(gltf.scene, model, 1);   // largest side = 1
       scene.add(pivot);
-      // Fit the camera to the visible parts (Apollo's hidden ascent stage does not count),
-      // so the model fills the stage at any angle while it turns.
+      // Надо починить чуть камеру, чтобы она смотрела на центр модели и была на правильном расстоянии
       pivot.updateMatrixWorld(true);
       const box = new THREE.Box3();
       const part = new THREE.Box3();
       pivot.traverse((obj) => {
         if (obj.isMesh && obj.visible) box.union(part.setFromObject(obj));
       });
-      // It turns around the vertical axis: its height on screen stays the same, its width is at most
-      // the horizontal diagonal. Take the distance that fits both, plus room for the near side.
+      // Вертится по х у коорде
       const size = box.getSize(new THREE.Vector3());
       const center = box.getCenter(new THREE.Vector3());
       const tanHalf = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
@@ -86,7 +98,7 @@ export class ModelViewer {
       console.error(err);
       if (requestId === this.requestId) {
         this.unmount();
-        stage.closest('figure')?.remove();   // no model rather than an empty box
+        showUnsupported(stage);   // a short note instead of an empty box
       }
     }
   }

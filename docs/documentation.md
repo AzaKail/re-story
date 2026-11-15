@@ -505,3 +505,61 @@ Work happens in the `more_catalog` branch (Aijan Amaliya's catalog expansion, me
 - The objects list (`.panel-list`) and the full-page layers that scroll (`.museum`: museum pages, About, catalog) have a styled scrollbar: an 8 px orange pill (`--accent-line`, full `--accent` on hover) on a transparent track, without arrow buttons. Rules are in the "Scrollbars in the site style" block at the end of `static/css/main.css`.
 - Chrome, Edge and Safari use the `::-webkit-scrollbar` rules; Firefox, which does not support them, gets `scrollbar-width: thin` and `scrollbar-color` through `@supports not selector(::-webkit-scrollbar)`. The standard properties are not set for Chrome on purpose: once they are set, Chrome ignores the `::-webkit-scrollbar` styles.
 - The chat widget keeps its own scrollbar styles (`ai_assistant/static/ai_assistant/css/widget.css`).
+
+### 2026-11-15: Interactive Museum Side Catalog (Drag-to-Rotate Globes and Object Navigation)
+
+#### Summary of Changes
+- Implemented interactive drag-to-rotate controls for the Moon and Mars side globes on the museum artifact page (`FlatGlobe` in `static/js/museum_sides.js`). Visitors can now click or touch and drag horizontally to spin each planet smoothly with natural velocity sensitivity (180 degrees per globe diameter).
+- Fixed mouse interaction state handling: auto-rotation pauses during hover or drag, and resumes after 3 seconds of idle time or upon pointer leave.
+- Added drag-vs-click threshold detection (4 px movement threshold), allowing reliable dot selection without accidental trigger when dragging the globe.
+- Upgraded globe texture resolution to full 2K (2048x1024 matching `moon_2k.jpg` and `mars_2k.jpg`), eliminating blocky pixelation on high-DPI screens without increasing pixel traversal iterations in the canvas rendering loop.
+- Ensured coordinate normalization across multiple full rotations and fixed coordinate alignment for both texture sampling and dot marker placement.
+- Fixed artifact switching (`switchMuseumArtifact` in `static/js/main.js` and `setFocusedArtifact` in `static/js/scene.js`): selecting an artifact on another celestial body now properly updates active body state, body caption, panel objects, URL hash, and 3D camera orientation so returning via "3D version" surfaces at the correct artifact.
+- Refined responsive layout in `static/css/main.css`: fixed an unclosed `@media (max-width: 600px)` media query block that broke all following CSS on desktop screens; established a 3-column museum page grid (`240px minmax(0, 1fr) 240px`) placing the 2D Moon on the left, article text in the center, and 2D Mars on the right; set explicit 180 px globe dimensions, grab/grabbing cursors, touch-action none for drag gestures, and automatic scroll-into-view for active list items.
+- Added bidirectional hover highlighting: hovering an equipment name in the side list activates a pulsing keyframe animation (`@keyframes dot-blink`, `.side-globe-dot.is-highlighted`) on the corresponding landing marker on the globe; hovering a dot highlights the associated list entry.
+
+#### Files
+- `static/js/museum_sides.js`: Added drag-to-rotate pointer listeners, idle timer, touch handling, drag threshold for dots, full 2K texture buffer (2048x1024), DOM recycling optimization on artifact selection, and bidirectional hover link methods (`setHighlighted`, `highlightListItem`).
+- `static/js/main.js`: Updated `switchMuseumArtifact` to handle body switching and state synchronization when picking objects from side catalogs.
+- `static/js/scene.js`: Updated `setFocusedArtifact` to switch target body camera focus when selecting an artifact on a different body.
+- `static/css/main.css`: Responsive 3-column grid (`240px minmax(0, 1fr) 240px`), cursor grab/grabbing styles, touch action, dot pulsing animation keyframes, and z-index elevation for active/highlighted dots.
+
+### 2026-11-15: Adaptive Side Globe Sizing for Mobile Devices (museum_sides.js)
+
+#### Summary of Changes
+- Implemented automatic adaptive width calculation (`getAdaptiveGlobeSize`) in `static/js/museum_sides.js` to ensure the side globes scale proportionally and open properly on all mobile phones and orientations.
+- Added dynamic viewport width and height detection with touch device awareness (`isPhone`, `isSmallPhone`), scaling globe diameter between 110 px and 160 px based on available screen width on small phones (such as iPhone SE and compact Android devices).
+- Handled landscape orientation on mobile phones by constraining globe height to 38 percent of viewport height (capped at 140 px), preventing the globes from pushing artifact details or catalog lists off-screen.
+- Added viewport resize and device orientation change event listeners (`orientationchange`, `resize`) to trigger automatic dimension recalculation and instant canvas redraws across device rotations.
+- Replaced fragile DOM `offsetParent` visibility checks in `MuseumSides.start()` with a robust `isVisible()` method (`offsetWidth`, `offsetHeight`, `getClientRects()`), resolving animation freezes and rendering failures on mobile WebKit and iOS Safari where elements inside fixed containers return null `offsetParent`.
+- Synchronized CSS media queries in `static/css/main.css` for `@media (max-width: 600px)` with `clamp(110px, 38vw, 160px)`, expanded touch targets for dots (`.side-globe-dot::before` inset -10px), and preserved single-column fluid stacking.
+
+#### Files
+- `static/js/museum_sides.js`: Dynamic dimension calculation in `getAdaptiveGlobeSize()`, `updateSize()`, `resize()`, `orientationchange` listener, and robust `isVisible()` DOM visibility check.
+- `static/css/main.css`: Synchronized clamp boundaries and touch target sizing under `@media (max-width: 600px)`.
+
+### 2026-11-15: Multi-Line Dynamic Layout for Moon Surface Message (moon_message.js)
+
+#### Summary of Changes
+- Updated `drawMessage` in `static/js/moon_message.js` to dynamically handle any number of lines (including 3 or more lines), rather than assuming a fixed two-line layout.
+- Added dynamic canvas height calculation (`getCanvasHeight`) scaling canvas height proportionally with the number of text lines (420 px for 1 line, 640 px for 2 lines, and 260 px per line for 3 or more lines).
+- Implemented adaptive line height (`canvasH / count`) and dynamic font sizing (`baseSize = Math.min(190, Math.floor(lineHeight * 0.68))`) with automatic horizontal downscaling, ensuring all lines fit comfortably without overlapping vertically or clipping horizontally.
+- Updated `createMoonMessage` to derive the curved surface mesh height dynamically from the canvas aspect ratio (`width * (canvas.height / canvas.width)`), maintaining undistorted typography when bent across the lunar sphere.
+
+#### Files
+- `static/js/moon_message.js`: Added `getCanvasHeight()`, dynamic line positioning, adaptive font scaling, and aspect-ratio based plane geometry generation.
+
+### 2026-11-15: Mobile Viewport Horizontal Overflow and Width Adaptation Fix
+
+#### Summary of Changes
+- Eliminated horizontal viewport overflow (`overflow-x: hidden`) on `.museum`, preventing unwanted horizontal scrolling and screen shifting on mobile devices.
+- Added `min-width: 0` to `.museum-layout`, `.museum-layout > .museum-inner`, and `.museum-side`, preventing CSS Grid items from enforcing min-content track widths that exceeded small mobile viewports.
+- Standardized the primary mobile media query breakpoint to `768px` across `main.css`, `main.js`, and `museum_sides.js`, ensuring consistent mobile layouts on devices with small-display zooms, foldables, and landscape phones.
+- Compacted navigation controls (`.museum-bar`, `.btn`, `.switch-sm`) on screens under `768px` (smaller padding, 38 px touch target height, reduced font size and button widths), allowing the top action bar to fit comfortably even on 320 px screens with browser text scaling.
+- Adjusted `.museum-title` font size to `clamp(1.35rem, 5.5vw, 1.85rem)` on mobile with `overflow-wrap: break-word` and `word-break: break-word`, preventing long words from overflowing the viewport width.
+- Optimized `.card-meta-grid` on mobile with 8 px gap, 10 px padding, and flexible word wrapping for coordinate data.
+
+#### Files
+- `static/css/main.css`: Added `overflow-x: hidden` to `.museum`, `min-width: 0` to grid tracks and items, `clamp(1.5rem, 5vw, 3rem)` and word breaking to `.museum-title`, and responsive mobile styles under `@media (max-width: 768px)`.
+- `static/js/main.js`: Updated mobile media query check to `max-width: 768px`.
+- `static/js/museum_sides.js`: Updated phone threshold to `768px` in `getAdaptiveGlobeSize()`.
