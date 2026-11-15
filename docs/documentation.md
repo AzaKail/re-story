@@ -348,4 +348,4 @@ python manage.py load_knowledge          # chat knowledge base
 - **Plaque above the marker.** The object card (tour card) is now a compact plaque: header with coordinates, a small photo on the left, type, name, a two-line description and "Learn more". It is placed centred right above the marker with a short callout line, or below it when there is no room above. It can still be dragged.
 - **Tour button.** Off: outlined; 1x: orange outline with a pulse; 2x: filled orange. A speed badge shows 1x or 2x, and the tooltip and `aria-label` explain the current mode and what the next click does (`tour.mode.off`, `tour.mode.1x`, `tour.mode.2x` in en, ru, kk; the old `panel.tour` key was removed).
 - **Objects list.** The selected object has an orange bar on the left and an orange name; the keyboard focus ring is drawn inside the item; the selected item scrolls into view (useful during the tour on Mars with 7 objects).
-- Zaur Kavirov's role: "Automatic tour, help with the catalog and across the project".
+- Zaur Kavirov's role: "Automatic tour".
