@@ -16,6 +16,7 @@ Dozens of NASA landers, rovers and science stations are still sitting where thei
 - **Real landing sites:** 11 objects at their catalogued coordinates, 4 on the Moon (Apollo 11 Eagle, Apollo 12 ALSEP, Apollo 15 Lunar Roving Vehicle, Surveyor 3) and 7 on Mars (Sojourner and Pathfinder, Spirit, Opportunity, Viking 1, Phoenix, InSight, Ingenuity).
 - **Museum pages:** a first-person story, key facts, mission dates and location, sister missions, a NASA photo and links to the NASA sources for every object.
 - **Then and now:** a mission-era photo next to a present-day image of the site from the Lunar Reconnaissance Orbiter, HiRISE on Mars Reconnaissance Orbiter, or the Perseverance rover.
+- **Object cards and automatic tour:** clicking an orange marker or a list item flies to the object and opens a card with its photo, type, coordinates and a short description; the tour visits every object on its own.
 - **AIstronaut guide:** a chat guide that answers questions about the missions using only the museum's NASA-sourced texts.
 - **Three languages:** English, Russian and Kazakh, switchable at any moment.
 - **Works everywhere:** desktop, phone and kiosk screens; image quality adapts to the device; respects reduced-motion settings.
@@ -100,7 +101,7 @@ Technical change log: [docs/documentation.md](docs/documentation.md).
 - **Azamat Maksutov:** 3D scene, interface, transitions, languages
 - **Dmitry Minin:** AIstronaut chat guide
 - **Amaliya Aidzhan:** equipment catalog and museum texts
-- **Zaur Kavirov**
+- **Zaur Kavirov:** automatic tour and object cards
 
 ## Use of SI tools
 

@@ -528,7 +528,7 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 6px 12px;
+  padding: 6px 44px 6px 12px;   /* room for the close button */
   background: rgba(252, 163, 17, 0.08);
   border-bottom: 1px solid rgba(252, 163, 17, 0.2);
   font-size: 0.68rem;
@@ -540,6 +540,10 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
 }
 .tour-card-coords {
   opacity: 0.85;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .tour-card-media {
   width: 100%;
@@ -1011,3 +1015,14 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
   .then-now-grid { grid-template-columns: 1fr; }
   .then-now-item .card-image { height: 230px; }
 }
+
+/* ---------- Hidden showcase for GIFs (keys 1 and 2) ----------
+   Only the space scene stays on screen while the camera circles the body. */
+.is-cinematic .topbar,
+.is-cinematic .panel,
+.is-cinematic .caption,
+.is-cinematic .focusbar,
+.is-cinematic .tour-card,
+.is-cinematic .tour-svg,
+.is-cinematic .toast,
+.is-cinematic #aistronaut-widget { display: none !important; }

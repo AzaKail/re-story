@@ -317,3 +317,18 @@ python manage.py load_knowledge          # chat knowledge base
 
 #### Tests
 34 tests pass (`NowViewTests` added).
+
+### 2026-11-15: Merge of `doordom` (tour card, automatic tour), Marker Click, Showcase Keys
+
+#### Summary of Changes
+- Merged `doordom` (Zaur Kavirov): after the camera reaches an object, a draggable card appears next to its marker with a callout line, the NASA photo, type, coordinates, a short description and "Learn more"; an automatic tour (off, 1x every 15 s, 2x every 5 s) is toggled from the objects panel; the selected marker turns cyan when it moves behind the body.
+- **Marker click:** clicking or tapping an orange marker selects that object. Picking uses screen distance (22 px for mouse, 34 px for touch) and only markers on the visible side of the current body; drags are treated as rotation. The cursor becomes a pointer over a marker.
+- **Showcase keys for GIFs:** keys `1` and `2` fly to the Moon or Mars, hide the whole interface and start a slow camera orbit (`OrbitControls.autoRotate`). The same key again, `0` or `Esc` stops it; dragging also stops the orbit. Keys are ignored while typing in the chat.
+- Tour mode switching moved into `setTourMode()`; after returning from the museum the tour resumes only if it is on.
+- i18n: `applyTranslations()` now also handles `data-i18n-title`; new keys `panel.tour`, `tour.sys`, `about.role.tour` in en, ru and kk (81 keys each).
+- Tour card header leaves room for the close button; long coordinates are truncated.
+
+#### Files
+- `static/js/scene.js`: `#initPicking()`, `#markerAt()`, `startShowcase()`, `stopShowcase()`, `onMarkerClick` callback.
+- `static/js/main.js`: `setTourMode()`, `startCinematic()`, `stopCinematic()`, key handling.
+- `static/css/main.css`: `.is-cinematic` hides the interface.

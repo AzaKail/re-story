@@ -28,7 +28,7 @@ const dom = {
   langButtons: [...document.querySelectorAll('[data-lang]')],
 };
 
-const state = { body: null, artifact: null, artifacts: [], busy: false, tourMode: 'off' };
+const state = { body: null, artifact: null, artifacts: [], busy: false, tourMode: 'off', cinematic: null };
 let scene = null;
 let panel = null;
 let focusBar = null;
@@ -96,6 +96,50 @@ function withBusy(task) {
 }
 
 // ---------- Actions ----------
+
+// Automatic tour: 'off', '1x' (15 s per object) or '2x' (5 s per object).
+function setTourMode(mode) {
+  state.tourMode = mode;
+  const toggle = document.querySelector('[data-tour-toggle]');
+  const badge = document.querySelector('[data-tour-speed]');
+  if (toggle) {
+    toggle.dataset.tourState = mode;
+    toggle.setAttribute('aria-pressed', String(mode !== 'off'));
+  }
+  if (badge) {
+    badge.hidden = mode === 'off';
+    badge.textContent = mode;
+  }
+  document.body.classList.toggle('is-tour-active', mode !== 'off');
+  clearTimeout(tourTimer);
+  if (mode === 'off') return;
+  if (state.artifact) scheduleNextTourStep();
+  else {
+    const list = artifactsOn(state.body);
+    if (list.length) selectArtifact(list[0].code);
+  }
+}
+
+// Hidden showcase for recording GIFs: keys 1 / 2 make the camera circle the Moon / Mars
+// slowly with the interface hidden. Esc, 0 or the same key again stops it.
+async function startCinematic(key) {
+  if (state.busy || currentView() !== '3d') return;
+  if (state.cinematic === key) return stopCinematic();
+  setTourMode('off');
+  closeArtifact({ moveCamera: false });
+  state.cinematic = key;
+  document.body.classList.add('is-cinematic');
+  if (key === state.body) await scene.focus(key);
+  else await selectBody(key);
+  if (state.cinematic === key) scene.startShowcase();
+}
+
+function stopCinematic() {
+  if (!state.cinematic) return;
+  state.cinematic = null;
+  scene.stopShowcase();
+  document.body.classList.remove('is-cinematic');
+}
 
 function selectBody(key, { instant = false } = {}) {
   if (key === state.body || state.busy) return Promise.resolve();
@@ -223,7 +267,7 @@ const backTo3D = withBusy(async () => {
   if (state.artifact) {
     const pos = scene.getArtifactScreenPosition(state.artifact);
     tourCard?.show(findArtifact(state.artifact), pos);
-    if (state.tourMode) scheduleNextTourStep();
+    if (state.tourMode !== 'off') scheduleNextTourStep();
   }
 });
 
@@ -320,41 +364,12 @@ async function start() {
     }
   };
 
-  const tourToggle = document.querySelector('[data-tour-toggle]');
-  const tourSpeedBadge = document.querySelector('[data-tour-speed]');
-
-  tourToggle?.addEventListener('click', () => {
-    if (state.tourMode === 'off') {
-      state.tourMode = '1x';
-    } else if (state.tourMode === '1x') {
-      state.tourMode = '2x';
-    } else {
-      state.tourMode = 'off';
-    }
-
-    tourToggle.dataset.tourState = state.tourMode;
-    tourToggle.setAttribute('aria-pressed', String(state.tourMode !== 'off'));
-    document.body.classList.toggle('is-tour-active', state.tourMode !== 'off');
-
-    if (tourSpeedBadge) {
-      if (state.tourMode === 'off') {
-        tourSpeedBadge.hidden = true;
-      } else {
-        tourSpeedBadge.textContent = state.tourMode;
-        tourSpeedBadge.hidden = false;
-      }
-    }
-
-    clearTimeout(tourTimer);
-    if (state.tourMode !== 'off') {
-      if (state.artifact) {
-        scheduleNextTourStep();
-      } else {
-        const list = artifactsOn(state.body);
-        if (list.length) selectArtifact(list[0].code);
-      }
-    }
-  });
+  const nextMode = { off: '1x', '1x': '2x', '2x': 'off' };
+  document.querySelector('[data-tour-toggle]')?.addEventListener('click', () => setTourMode(nextMode[state.tourMode]));
+  scene.onMarkerClick = (code) => {
+    if (currentView() !== '3d' || state.cinematic) return;
+    if (code !== state.artifact) selectArtifact(code);
+  };
 
   museumView = new MuseumView(dom.museum, { onSelectArtifact: switchMuseumArtifact, onAsk: askAboutArtifact });
 
@@ -368,9 +383,15 @@ async function start() {
   dom.museum.querySelector('[data-action="to-3d"]').addEventListener('click', backTo3D);
   document.querySelector('[data-action="about"]').addEventListener('click', openAbout);
   dom.about.querySelector('[data-action="close-about"]').addEventListener('click', closeAbout);
+  const CINEMATIC_KEYS = { 1: 'moon', 2: 'mars' };
   document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    if (currentView() === 'about') closeAbout();
+    const typing = e.target.closest?.('input, textarea, [contenteditable="true"]');
+    if (typing || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (CINEMATIC_KEYS[e.key]) return startCinematic(CINEMATIC_KEYS[e.key]);
+    if (e.key !== 'Escape' && e.key !== '0') return;
+    if (state.cinematic) stopCinematic();
+    else if (e.key !== 'Escape') return;
+    else if (currentView() === 'about') closeAbout();
     else if (currentView() === '3d') closeArtifact();
   });
 

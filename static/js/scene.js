@@ -12,6 +12,10 @@ const MARKER_SIZE_FACTOR = 0.014;  // marker radius, in body radii
 const MARKER_COLOR = 0xfca311;
 const MARKER_COLOR_BACK = 0x00e5ff;
 const DEFAULT_VIEW_DIR = new THREE.Vector3(0, 0.18, 1).normalize();
+const SHOWCASE_SPEED = 0.6;          // OrbitControls autoRotateSpeed: 2.0 is one orbit in 30 s
+const PICK_RADIUS_PX = { mouse: 22, touch: 34 };   // how close a click must be to a marker
+const CLICK_MAX_MOVE_PX = 6;         // a drag that moved further is a rotation, not a click
+const CLICK_MAX_MS = 600;
 
 const FLIGHT_ORBIT_MS = 1600;
 const FLIGHT_DIVE_MS = 1300;
@@ -53,6 +57,7 @@ export class MuseumScene {
     this.#initRenderer();
     this.#initWorld();
     this.#initControls();
+    this.#initPicking();
 
     window.addEventListener('resize', () => this.#resize());
     this.#resize();
@@ -154,6 +159,18 @@ export class MuseumScene {
       visible: pos.z < 1,
       isFacing,
     };
+  }
+
+  // Slow camera orbit around the current body (for recording GIFs). Stops when the visitor drags.
+  startShowcase() {
+    this.autoSpin = false;
+    clearTimeout(this.resumeTimer);
+    this.controls.autoRotate = true;
+    this.controls.autoRotateSpeed = SHOWCASE_SPEED;
+  }
+
+  stopShowcase() {
+    this.controls.autoRotate = false;
   }
 
   // ---------- Setup ----------
@@ -324,12 +341,65 @@ export class MuseumScene {
     this.controls.addEventListener('start', () => {
       this.autoSpin = false;
       clearTimeout(this.resumeTimer);
+      this.controls.autoRotate = false;
     });
     this.controls.addEventListener('end', () => {
       if (this.reducedMotion || this.focusedArtifact) return;
       clearTimeout(this.resumeTimer);
       this.resumeTimer = setTimeout(() => { this.autoSpin = true; }, RESUME_AFTER_MS);
     });
+  }
+
+  // Click or tap on an orange marker -> onMarkerClick(code). Uses screen distance, so small
+  // markers are still easy to hit; drags (camera rotation) are ignored.
+  #initPicking() {
+    const el = this.renderer.domElement;
+    let down = null;
+    el.addEventListener('pointerdown', (e) => {
+      down = { x: e.clientX, y: e.clientY, time: performance.now() };
+    });
+    el.addEventListener('pointerup', (e) => {
+      if (!down) return;
+      const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y);
+      const quick = performance.now() - down.time < CLICK_MAX_MS;
+      down = null;
+      if (moved > CLICK_MAX_MOVE_PX || !quick) return;
+      const code = this.#markerAt(e.clientX, e.clientY, e.pointerType);
+      if (code) this.onMarkerClick?.(code);
+    });
+    el.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse' || e.buttons) return;
+      el.style.cursor = this.#markerAt(e.clientX, e.clientY, 'mouse') ? 'pointer' : '';
+    });
+  }
+
+  // Closest visible marker of the current body within the pick radius, or null.
+  #markerAt(clientX, clientY, pointerType) {
+    if (!this.current || this.flight) return null;
+    const rect = this.renderer.domElement.getBoundingClientRect();
+    const limit = pointerType === 'touch' ? PICK_RADIUS_PX.touch : PICK_RADIUS_PX.mouse;
+    const center = this.bodies[this.current].group.position;
+    const pos = new THREE.Vector3();
+    const normal = new THREE.Vector3();
+    const toCamera = new THREE.Vector3();
+    let best = null;
+    let bestDist = limit;
+    for (const [code, entry] of Object.entries(this.markers)) {
+      if (entry.body !== this.current) continue;
+      entry.marker.getWorldPosition(pos);
+      normal.subVectors(pos, center).normalize();
+      toCamera.subVectors(this.camera.position, pos).normalize();
+      if (normal.dot(toCamera) <= 0.05) continue;   // on the far side of the body
+      pos.project(this.camera);
+      const x = (pos.x * 0.5 + 0.5) * rect.width + rect.left;
+      const y = (-pos.y * 0.5 + 0.5) * rect.height + rect.top;
+      const dist = Math.hypot(x - clientX, y - clientY);
+      if (dist < bestDist) {
+        best = code;
+        bestDist = dist;
+      }
+    }
+    return best;
   }
 
   // ---------- Camera ----------

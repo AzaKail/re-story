@@ -84,6 +84,9 @@ const STRINGS = {
     'about.role.scene': '3D scene and interface',
     'about.role.chat': 'AIstronaut guide',
     'about.role.catalog': 'Catalog and museum texts',
+    'panel.tour': 'Automatic tour: off, 1x, 2x',
+    'tour.sys': 'Mission data',
+    'about.role.tour': 'Automatic tour and object cards',
   },
   ru: {
     'brand.sub': 'Оставлены, но не забыты',
@@ -164,6 +167,9 @@ const STRINGS = {
     'about.role.scene': '3D-сцена и интерфейс',
     'about.role.chat': 'Гид AIstronaut',
     'about.role.catalog': 'Каталог и тексты музея',
+    'panel.tour': 'Автоэкскурсия: выкл, 1x, 2x',
+    'tour.sys': 'Данные миссии',
+    'about.role.tour': 'Автоэкскурсия и карточки объектов',
   },
   kk: {
     'brand.sub': 'Тасталған, бірақ ұмытылмаған',
@@ -244,6 +250,9 @@ const STRINGS = {
     'about.role.scene': '3D сахна және интерфейс',
     'about.role.chat': 'AIstronaut гиді',
     'about.role.catalog': 'Каталог және мұражай мәтіндері',
+    'panel.tour': 'Автоэкскурсия: өшірулі, 1x, 2x',
+    'tour.sys': 'Миссия деректері',
+    'about.role.tour': 'Автоэкскурсия және нысан карточкалары',
   },
 };
 
@@ -301,5 +310,8 @@ export function applyTranslations() {
   }
   for (const el of document.querySelectorAll('[data-i18n-aria-label]')) {
     el.setAttribute('aria-label', t(el.dataset.i18nAriaLabel));
+  }
+  for (const el of document.querySelectorAll('[data-i18n-title]')) {
+    el.setAttribute('title', t(el.dataset.i18nTitle));
   }
 }
