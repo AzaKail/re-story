@@ -2,10 +2,16 @@ import { localizeArtifact } from './artifacts.js';
 import { artifactTypeLabel, artifactPlace } from './museum.js';
 import { getLang, t } from './i18n.js';
 
-// The plaque never goes over the top bar (title and switches); on phones the bar is taller.
+const PHONE_BOTTOM_GAP = 88;   // room for the chat button under the plaque on phones
+
+// The plaque never goes over the top bar (title and switches), nor over the collapsed objects
+// button that sits under it on phones. An open objects list may cover the plaque: it has priority.
 function topLimit() {
-  const bar = document.querySelector('.topbar .controls');
-  return Math.round((bar?.getBoundingClientRect().bottom ?? 76) + 8);
+  const bar = document.querySelector('.topbar .controls')?.getBoundingClientRect().bottom ?? 76;
+  const panel = document.querySelector('.panel.collapsed');
+  const isPhone = window.matchMedia('(max-width: 600px)').matches;
+  const panelBottom = panel && isPhone ? panel.getBoundingClientRect().bottom : 0;
+  return Math.round(Math.max(bar, panelBottom) + 8);
 }
 
 export class TourCard {
@@ -149,6 +155,10 @@ export class TourCard {
     const py = screenPoint?.y ?? winH / 2;
 
     const left = Math.max(16, Math.min(winW - cardW - 16, px - cardW / 2));
+    // Phones: the plaque sits at the bottom, above the chat button; the object stays visible above it.
+    if (window.matchMedia('(max-width: 600px)').matches) {
+      return { dx: left - px, dy: winH - cardH - PHONE_BOTTOM_GAP - py };
+    }
     const above = py - gap - cardH;
     const top = above >= minTop ? above : Math.min(winH - cardH - 24, py + gap);
 

@@ -1055,3 +1055,19 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
 .tour-card-inner:has(.tour-card-media[hidden]) { grid-template-columns: minmax(0, 1fr); grid-template-areas: "header" "body"; }
 .tour-card-model { margin: 2px 0 0; color: var(--muted); font-size: 0.68rem; letter-spacing: 0.02em; }
 .tour-card-model[hidden] { display: none; }
+
+/* ---------- Objects list above the plaque ----------
+   The list is the main navigation, so it stays on top of the object plaque and its callout line. */
+.panel { z-index: 4; }
+
+/* ---------- Phones: a smaller plaque ---------- */
+@media (max-width: 600px) {
+  .tour-card-inner { grid-template-columns: 68px minmax(0, 1fr); }
+  .tour-card-media { width: 56px; height: 56px; margin: 10px 0 10px 10px; }
+  .tour-card-body { padding: 8px 12px 10px; }
+  .tour-card-title { font-size: 0.92rem; }
+  .tour-card-desc { font-size: 0.78rem; -webkit-line-clamp: 2; }
+  .tour-card-model { font-size: 0.62rem; }
+  .tour-card-btn { padding: 6px 12px; font-size: 0.72rem; }
+  .tour-card-header { font-size: 0.62rem; }
+}

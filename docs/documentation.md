@@ -377,3 +377,10 @@ No NASA models exist for the Lunar Roving Vehicle, Surveyor, Sojourner, Phoenix 
 #### Libraries
 - Three.js `GLTFLoader`, `DRACOLoader`, `BufferGeometryUtils` (MIT) in `static/vendor/three/addons/`.
 - Draco decoder (Apache-2.0) in `static/vendor/three/draco/`, needed because most NASA models use Draco mesh compression. Everything is local; no CDN.
+
+### 2026-11-15: Mobile Layout of the Object Plaque
+
+#### Summary of Changes
+- The objects list (`.panel`, z-index 4) is drawn above the object plaque: an open list always has priority.
+- Phones (width 600 px or less): the plaque is pinned to the bottom of the screen above the chat button, with a smaller photo and text; the camera aims slightly below the 3D model so the model sits in the upper half of the screen and stays visible. The plaque also never goes over the collapsed "Objects" button.
+- Desktop behaviour is unchanged: the plaque stands above the model.

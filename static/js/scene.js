@@ -24,8 +24,10 @@ const MODEL_DIVE_FACTOR = 0.05;      // end of the "Learn more" dive towards a m
 const MODEL_VIEW_TILT = THREE.MathUtils.degToRad(55);   // angle between the view and the surface normal
 const MODEL_ZOOM = { min: 0.12, max: 1.0 };              // zoom limits around a model, in body radii
 const MODEL_MAX_POLAR = THREE.MathUtils.degToRad(80);    // never look from under the surface
-const MODEL_LOOK_ABOVE = 0.05;     // aim this far above the model (body radii): the model sits lower on screen,
-                                   // leaving room for the plaque above it
+// Where to aim relative to the model (body radii). Desktop: above it, so the model sits lower and
+// the plaque fits above. Phone: below it, so the model sits higher and the plaque fits underneath.
+const MODEL_LOOK_OFFSET = { desktop: 0.05, phone: -0.035 };
+const isPhoneScreen = () => window.matchMedia('(max-width: 600px)').matches;
 const FLIGHT_MODEL_MS = 1100;
 const FLIGHT_RISE_MS = 900;
 const WORLD_UP = new THREE.Vector3(0, 1, 0);
@@ -497,7 +499,7 @@ export class MuseumScene {
     const { group, cfg } = this.bodies[entry.body];
     const target = entry.marker.getWorldPosition(new THREE.Vector3());
     const normal = target.clone().sub(group.position).normalize();
-    target.addScaledVector(normal, cfg.radius * MODEL_LOOK_ABOVE);
+    target.addScaledVector(normal, cfg.radius * MODEL_LOOK_OFFSET[isPhoneScreen() ? 'phone' : 'desktop']);
     const north = WORLD_UP.clone().addScaledVector(normal, -normal.dot(WORLD_UP));
     if (north.lengthSq() < 1e-6) north.set(1, 0, 0);
     north.normalize();
