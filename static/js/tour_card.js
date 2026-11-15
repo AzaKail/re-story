@@ -119,59 +119,29 @@ export class TourCard {
       this.media.hidden = true;
     }
 
-    this.offset = this.#choosePlacement(screenPoint);
     this.root.hidden = false;
+    this.offset = this.#choosePlacement(screenPoint);
     this.updatePosition(screenPoint, true);
   }
 
+  // The plaque stands right above its marker, centred, with a short callout line.
+  // If there is no room above (marker near the top of the screen), it goes below.
   #choosePlacement(screenPoint) {
     const winW = window.innerWidth;
     const winH = window.innerHeight;
-    const cardW = Math.min(320, winW - 32);
-    const cardH = this.root.offsetHeight || 290;
+    const cardW = this.root.offsetWidth || Math.min(360, winW - 32);
+    const cardH = this.root.offsetHeight || 170;
+    const gap = 44;
+    const minTop = 84;
 
     const px = screenPoint?.x ?? winW / 2;
     const py = screenPoint?.y ?? winH / 2;
 
-    const minLeft = 16;
-    const maxLeft = winW - cardW - 16;
-    const minTop = 84;
-    const maxTop = winH - cardH - 24;
+    const left = Math.max(16, Math.min(winW - cardW - 16, px - cardW / 2));
+    const above = py - gap - cardH;
+    const top = above >= minTop ? above : Math.min(winH - cardH - 24, py + gap);
 
-    const angles = [-40, -65, -125, -145, -20, -160, 35, 145];
-    const candidates = [];
-
-    for (const deg of angles) {
-      const rad = (deg * Math.PI) / 180;
-      const dist = 95 + Math.random() * 55;
-      const targetCenterX = px + Math.cos(rad) * (dist + cardW / 2);
-      const targetCenterY = py + Math.sin(rad) * (dist + cardH / 2);
-
-      const left = targetCenterX - cardW / 2;
-      const top = targetCenterY - cardH / 2;
-
-      const fitsScreen = left >= minLeft && left <= maxLeft && top >= minTop && top <= maxTop;
-      const avoidsLeftPanel = !(left < 310 && top < 420);
-      const avoidsCenter = Math.hypot(px - (left + cardW / 2), py - (top + cardH / 2)) > 75;
-
-      if (fitsScreen && avoidsLeftPanel && avoidsCenter) {
-        candidates.push({ left, top });
-      }
-    }
-
-    let chosen;
-    if (candidates.length > 0) {
-      chosen = candidates[Math.floor(Math.random() * candidates.length)];
-    } else {
-      const fallbackLeft = Math.max(minLeft, Math.min(maxLeft, px - cardW / 2));
-      const fallbackTop = Math.max(minTop, Math.min(maxTop, py - cardH - 55));
-      chosen = { left: fallbackLeft, top: fallbackTop };
-    }
-
-    return {
-      dx: chosen.left - px,
-      dy: chosen.top - py,
-    };
+    return { dx: left - px, dy: top - py };
   }
 
   #findClosestAnchor(px, py, left, top, cardW, cardH) {

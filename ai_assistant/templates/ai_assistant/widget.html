@@ -1,6 +1,6 @@
 {% load static i18n %}
 <!-- AIstronaut Chat Widget Markup -->
-<link rel="stylesheet" href="{% static 'ai_assistant/css/widget.css' %}">
+<link rel="stylesheet" href="{% static 'ai_assistant/css/widget.css' %}?v={{ asset_version }}">
 
 <aside id="aistronaut-widget" aria-label="{% trans 'AIstronaut Assistant' %}">
   <!-- Collapsed Floating Button -->
@@ -84,4 +84,4 @@
   </div>
 </aside>
 
-<script src="{% static 'ai_assistant/js/widget.js' %}"></script>
+<script src="{% static 'ai_assistant/js/widget.js' %}?v={{ asset_version }}"></script>

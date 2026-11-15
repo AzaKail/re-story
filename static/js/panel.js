@@ -30,7 +30,10 @@ export class ArtifactPanel {
   setSelected(code) {
     this.selected = code;
     for (const button of this.list.querySelectorAll('[data-code]')) {
-      button.setAttribute('aria-current', String(button.dataset.code === code));
+      const current = button.dataset.code === code;
+      button.setAttribute('aria-current', String(current));
+      // Keep the selected object visible in a scrolled list (e.g. during the tour).
+      if (current && !this.collapsed) button.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
   }
 

@@ -98,18 +98,27 @@ function withBusy(task) {
 // ---------- Actions ----------
 
 // Automatic tour: 'off', '1x' (15 s per object) or '2x' (5 s per object).
-function setTourMode(mode) {
-  state.tourMode = mode;
+// Shows the current mode on the tour button: state, speed badge and an explaining tooltip.
+function renderTourButton() {
+  const mode = state.tourMode;
   const toggle = document.querySelector('[data-tour-toggle]');
   const badge = document.querySelector('[data-tour-speed]');
   if (toggle) {
+    const hint = t(`tour.mode.${mode}`);
     toggle.dataset.tourState = mode;
     toggle.setAttribute('aria-pressed', String(mode !== 'off'));
+    toggle.title = hint;
+    toggle.setAttribute('aria-label', hint);
   }
   if (badge) {
     badge.hidden = mode === 'off';
     badge.textContent = mode;
   }
+}
+
+function setTourMode(mode) {
+  state.tourMode = mode;
+  renderTourButton();
   document.body.classList.toggle('is-tour-active', mode !== 'off');
   clearTimeout(tourTimer);
   if (mode === 'off') return;
@@ -313,6 +322,7 @@ function initLanguage() {
     panel?.refreshLanguage();
     focusBar?.refreshLanguage();
     tourCard?.refreshLanguage();
+    renderTourButton();
     museumView?.refreshLanguage();
   });
 }
@@ -371,6 +381,7 @@ async function start() {
     if (code !== state.artifact) selectArtifact(code);
   };
 
+  renderTourButton();
   museumView = new MuseumView(dom.museum, { onSelectArtifact: switchMuseumArtifact, onAsk: askAboutArtifact });
 
   await loadCatalog();
