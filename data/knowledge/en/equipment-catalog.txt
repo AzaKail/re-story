@@ -513,3 +513,447 @@ Official NASA Master Archive Sources:
 - NASA Science Mission: Kepler Space Telescope: https://science.nasa.gov/mission/kepler/ (Discovery of 2,662 confirmed exoplanets, Earth-trailing heliocentric orbit, and decommissioning commands.)
 
 
+
+--------------------------------------------------------------------------------
+EQUIPMENT: Lunar Orbiter 1 (ID: lunar-orbiter-1)
+--------------------------------------------------------------------------------
+Celestial Body: Moon
+Equipment Category: Orbiter
+Surface Location / Trajectory: 6.7 deg, 162.0 deg
+Launch Date: 1966-08-10
+Landing Date: 1966-10-29
+Mission End Date: 1966-10-29
+Operational Status: Impacted the lunar far side at 6.70 N, 162.00 E by ground command
+
+Mission Summary:
+First American spacecraft to orbit the Moon, capturing the iconic first Earthrise photo and mapping Apollo landing sites.
+
+First-Person Story Narrative:
+I was launched to be the eyes of Apollo before human boots ever dared touch the regolith. On August 18, 1966, I slipped into an elliptical orbit around the Moon, carrying an Eastman Kodak photographic laboratory inside a pressurized aluminum container.
+
+Five days later, on August 23, 1966, I turned my high-resolution camera away from the grey lunar craters and captured an unprecedented sight: the blue and white marble of Earth rising above the barren lunar horizon. It was the first photograph ever taken of our home world from deep space.
+
+After photographing more than five million square kilometers of terrain to verify safe touchdown zones for Apollo, my attitude control gas neared depletion. To prevent my silent hulk from becoming a dangerous uncontrolled projectile or radio interference hazard for future crewed flights, flight controllers commanded me on revolution 577 to fire my velocity control engine. On October 29, 1966, I plunged into the ancient highlands of the lunar far side, becoming humanity first deliberate monument resting on the hidden face of the Moon.
+
+Key Engineering & Scientific Facts:
+- Captured the iconic first photograph of Earth from the vicinity of the Moon on August 23, 1966.
+- Photographed over 5 million square kilometers of lunar surface to certify Apollo landing sites.
+- Carried an onboard film development and scanning laboratory, transmitting pictures back via analog video signals.
+- Intentionally de-orbited on revolution 577 to eliminate radio hazards for future Apollo missions.
+
+Sister Craft & Fleet Sites:
+- Lunar Orbiter 2 | Site: Mare Tranquillitatis | Coordinates/Span: 4.0 N, 11.0 E | Date: 1967-10-11
+- Lunar Orbiter 3 | Site: Oceanus Procellarum | Coordinates/Span: 14.3 N, 91.7 W | Date: 1967-10-09
+- Lunar Orbiter 4 | Site: Near side impact | Coordinates/Span: Near side de-orbit | Date: 1967-10-31
+- Lunar Orbiter 5 | Site: Far side impact | Coordinates/Span: 2.79 S, 83.0 W | Date: 1968-01-31
+
+Official NASA Master Archive Sources:
+- NASA NSSDCA Lunar Orbiter 1 (1966-073A): https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1966-073A (Master catalog record for Lunar Orbiter 1, photographic reconnaissance payload, and controlled far side impact coordinates.)
+
+
+
+--------------------------------------------------------------------------------
+EQUIPMENT: LCROSS & Centaur Upper Stage (ID: lcross)
+--------------------------------------------------------------------------------
+Celestial Body: Moon
+Equipment Category: Scientific Package
+Surface Location / Trajectory: -84.675 deg, -48.725 deg
+Launch Date: 2009-06-18
+Landing Date: 2009-10-09
+Mission End Date: 2009-10-09
+Operational Status: Permanent impact crater monument at the floor of Cabeus crater
+
+Mission Summary:
+Kinetic impactor mission that excavated water ice and volatiles from the permanently shadowed floor of Cabeus crater.
+
+First-Person Story Narrative:
+My purpose was not a gentle touchdown, but a violent sacrifice to unlock the Moon greatest secret. For decades, scientists theorized that deep inside the permanently shadowed craters of the lunar poles, where sunlight had not reached for billions of years, vast reservoirs of water ice lay hidden.
+
+On October 9, 2009, I guided the empty 2,300-kilogram Centaur upper stage into the pitch-black floor of Cabeus crater at 9,000 kilometers per hour. The kinetic impact excavated thousands of tons of frozen regolith, blasting a massive plume of dust and vapor into sunlight ten kilometers high.
+
+Trailing four minutes behind, my nine spectrometers, near-infrared cameras, and radiometers flew directly through the cloud. In those fleeting final seconds, my sensors detected the undeniable infrared signature of pure water ice and hydroxyl molecules. Moments later, I too impacted the freezing crater floor, resting forever alongside Centaur in the eternal darkness that safeguards humanity future rocket fuel.
+
+Key Engineering & Scientific Facts:
+- Confirmed the presence of approximately 155 kg of water ice and vapor in the impact debris plume.
+- Impacted the floor of Cabeus crater at a velocity of approximately 2.5 km/sec (9,000 km/h).
+- Detected volatile compounds including methane, ammonia, hydrogen gas, and carbon monoxide alongside water.
+- Paved the scientific and resource foundation for the NASA Artemis program and future lunar base life support.
+
+Official NASA Master Archive Sources:
+- NASA NSSDCA LCROSS (2009-031B): https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2009-031B (Official NSSDCA archive for LCROSS, Cabeus crater impact coordinates, and volatile spectrometer detections.)
+
+
+
+--------------------------------------------------------------------------------
+EQUIPMENT: Mariner 9 (ID: mariner-9)
+--------------------------------------------------------------------------------
+Celestial Body: Mars
+Equipment Category: Orbiter
+Surface Location / Trajectory: Decaying Mars orbit (periapsis 1,390 km, apoapsis 17,140 km, inclination 64.3 degrees)
+Launch Date: 1971-05-30
+Landing Date: Orbital / Deep Space
+Mission End Date: 1972-10-27
+Operational Status: Drifting in unpowered decaying Mars orbit (projected atmospheric entry 2030-2070)
+
+Mission Summary:
+The first spacecraft to orbit another planet, discovering the Olympus Mons volcano and the vast Valles Marineris canyon system.
+
+First-Person Story Narrative:
+When I arrived at the Red Planet on November 14, 1971, I made history by firing my liquid rocket engine to become the first human spacecraft ever to enter orbit around another world. But Mars greeted me with a hostile veil: the largest global dust storm ever observed had enveloped the entire globe, turning the planet into a featureless orange sphere.
+
+While Soviet probes rushed their landings and perished in the howling gale, my ground controllers commanded me to wait. For two months, I orbited patiently above the raging tempest. As the dust slowly settled, dark mountain peaks began piercing through the haze: gigantic volcanic calderas unlike anything on Earth. I had discovered Olympus Mons, the tallest volcano in the Solar System.
+
+Over the course of 349 days, I transmitted 7,329 images mapping 85 percent of the planet surface. I revealed riverbeds, sand dunes, ice caps, and a titanic rift system spanning four thousand kilometers, later christened Valles Marineris in my honor. On October 27, 1972, my attitude control nitrogen ran dry. NASA commanded my transmitters off, leaving me to silently circle Mars as a ghost ship whose orbit will one day end in fiery descent.
+
+Key Engineering & Scientific Facts:
+- First spacecraft in human history to successfully enter orbit around another celestial planet.
+- Outlasted a colossal planet-wide dust storm by patiently waiting in orbit for two months before initiating science mapping.
+- Discovered Olympus Mons (21.9 km tall) and the immense canyon network Valles Marineris, named in honor of the spacecraft.
+- Returned 7,329 photographs mapping 85% of Mars, transforming our view from a cratered moon-like world into a geologically dynamic planet.
+
+Official NASA Master Archive Sources:
+- NASA NSSDCA Mariner 9 (1971-051A): https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-051A (Master catalog record for Mariner 9, first Mars orbital insertion, telemetry records, and orbit decay parameters.)
+
+
+
+--------------------------------------------------------------------------------
+EQUIPMENT: Mars Global Surveyor (ID: mgs)
+--------------------------------------------------------------------------------
+Celestial Body: Mars
+Equipment Category: Orbiter
+Surface Location / Trajectory: Sun-synchronous circular Mars orbit (altitude 378 km, inclination 92.8 degrees)
+Launch Date: 1996-11-07
+Landing Date: Orbital / Deep Space
+Mission End Date: 2006-11-02
+Operational Status: Inactive in sun-synchronous frozen circular orbit around Mars
+
+Mission Summary:
+Historic 10-year mapping orbiter that revolutionized Martian geology, discovered active liquid water gullies, and mapped landing zones.
+
+First-Person Story Narrative:
+I was sent to resurrect American exploration of Mars after years of silence. Arriving in September 1997, I pioneered the delicate art of aerobraking, dipping my solar panels repeatedly into the thin upper atmosphere over eighteen months to reshape my elongated ellipse into a perfect circular mapping orbit.
+
+From an altitude of 378 kilometers, my Mars Orbiter Camera peered downward with razor-sharp resolution. For ten remarkable years, I watched the changing seasons: dust devils dancing across sand dunes, polar caps shrinking and expanding, and dark boulders tumbling down crater walls. Most astonishingly, I captured evidence of youthful geological gullies carved by modern liquid water or brines.
+
+My thermal emission spectrometer mapped the vast hematite deposits that guided Opportunity to its landing in Meridiani Planum. On November 2, 2006, after 4,880 orbits and 240,000 images, a routine battery command went awry, causing me to lose orientation. My transmitters fell silent, but my circular orbit remains stable for centuries, watching over the rovers I helped guide home.
+
+Key Engineering & Scientific Facts:
+- Operated for ten continuous years (1996-2006), exceeding its design life more than fourfold.
+- Pioneered systematic planetary aerobraking using solar panels as airbrakes in the upper Martian atmosphere.
+- Discovered youthful geological gullies and slope flows suggesting modern water or brine activity.
+- Mapped hematite mineral deposits that dictated the landing site for the Opportunity rover.
+
+Official NASA Master Archive Sources:
+- NASA NSSDCA Mars Global Surveyor (1996-062A): https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1996-062A (Official NSSDCA archive for Mars Global Surveyor, aerobraking parameters, Mars Orbiter Camera dataset, and orbit lifespan.)
+
+
+
+--------------------------------------------------------------------------------
+EQUIPMENT: SMART-1 (ID: smart-1)
+--------------------------------------------------------------------------------
+Celestial Body: Moon
+Equipment Category: Orbiter
+Surface Location / Trajectory: -34.26 deg, -46.19 deg
+Launch Date: 2003-09-27
+Landing Date: 2006-09-03
+Mission End Date: 2006-09-03
+Operational Status: Impacted Lacus Excellentiae on September 3, 2006 at 2 km/s
+
+Mission Summary:
+Europe first lunar mission, pioneering solar-electric ion propulsion and surveying lunar elemental composition.
+
+First-Person Story Narrative:
+I was Europe first emissary to the Moon, built to test an electric whisper in place of roaring chemical rockets. My Snecma PPS-1350 Hall-effect thruster ionized xenon gas, gently accelerating me across a spiral trajectory from Earth orbit toward lunar capture over fourteen patient months.
+
+Once locked into polar orbit around the Moon, my miniaturized X-ray spectrometer D-CIXS and ultra-compact camera AMIE began inspecting the surface. I mapped key chemical elements including silicon, aluminum, and magnesium, and surveyed permanently shadowed polar craters in search of water ice.
+
+On September 3, 2006, after completing all science objectives, mission controllers guided me into a grazing controlled descent across the basalt plains of Lacus Excellentiae. Striking the regolith at two kilometers per second, my kinetic impact created a bright flash observed by telescopes across the globe, concluding my journey as a permanent European monument on the Moon.
+
+Key Engineering & Scientific Facts:
+- First European Space Agency (ESA) mission to reach and orbit the Moon.
+- Demonstrated deep-space solar-electric ion propulsion using xenon propellant.
+- Created global elemental maps of silicon, aluminum, and magnesium distribution.
+- Concluded with a planned grazing surface impact on September 3, 2006, observed by ground telescopes.
+
+Official NASA Master Archive Sources:
+- ESA Planetary Science Archive: SMART-1: https://www.cosmos.esa.int/web/psa/smart-1 (Official ESA science archive for SMART-1, ion propulsion telemetry, and Lacus Excellentiae impact coordinates.)
+
+
+
+--------------------------------------------------------------------------------
+EQUIPMENT: Kaguya (SELENE) (ID: kaguya)
+--------------------------------------------------------------------------------
+Celestial Body: Moon
+Equipment Category: Orbiter
+Surface Location / Trajectory: -65.5 deg, 80.4 deg
+Launch Date: 2007-09-14
+Landing Date: 2009-06-10
+Mission End Date: 2009-06-10
+Operational Status: Controlled impact southeast of crater Gill on June 10, 2009
+
+Mission Summary:
+Japan flagship lunar explorer that captured the world first high-definition television views of the Moon and Earthrise.
+
+First-Person Story Narrative:
+Named after the celestial Moon princess of Japanese folklore, I was the largest lunar expedition since Apollo. Equipped with fifteen scientific instruments and two HDTV cameras, I orbited the Moon for a year and eight months alongside two miniature sub-satellites, Okina and Ouna.
+
+My high-definition cameras beamed breathtaking footage back to Earth: the full blue marble of Earth rising and setting over jagged lunar mountain ranges. Beneath that visual splendor, my laser altimeter produced the first precise global topographic elevation map of the Moon, while my radar sounder penetrated kilometers into the crust, discovering subsurface lava tubes that could one day shelter human astronauts.
+
+On June 10, 2009, my orbital fuel exhausted, mission controllers commanded my final de-orbit maneuver. I impacted the southern highlands near crater Gill at 65.5 degrees south latitude, resting as Japan permanent scientific monument in the lunar soil.
+
+Key Engineering & Scientific Facts:
+- Captured the world first high-definition television (HDTV) video of Earthrise from lunar orbit.
+- Constructed the most detailed global topographic map of the lunar surface of its era.
+- Discovered intact subsurface lava tube structures suitable for future pressurized lunar bases.
+- Deployed two sub-satellites (Okina and Ouna) to measure the Moon far-side gravity field for the first time.
+
+Sister Craft & Fleet Sites:
+- Okina (Rstar Sub-satellite) | Site: Far side crater Mineur | Coordinates/Span: 28.2 N, 159.0 W | Date: 2009-02-12
+- Ouna (Vstar Sub-satellite) | Site: Stable lunar orbit | Coordinates/Span: High-altitude circular orbit | Date: 2009-06-30
+
+Official NASA Master Archive Sources:
+- JAXA DARTS: Kaguya (SELENE): https://www.darts.isas.jaxa.jp/planet/project/selene/ (JAXA data archive for Kaguya orbiter, Okina/Ouna sub-satellites, and crater Gill impact telemetry.)
+
+
+
+--------------------------------------------------------------------------------
+EQUIPMENT: SLIM Lander & LEV-1/2 (ID: slim)
+--------------------------------------------------------------------------------
+Celestial Body: Moon
+Equipment Category: Lander
+Surface Location / Trajectory: -13.316 deg, 25.244 deg
+Launch Date: 2023-09-06
+Landing Date: 2024-01-19
+Mission End Date: 2024-04-28
+Operational Status: Resting on the slope of Shioli crater; survived three lunar nights before permanent silence
+
+Mission Summary:
+Japan precision Moon Sniper lander that achieved a historic 55-meter accuracy touchdown and deployed the SORA-Q mini rover.
+
+First-Person Story Narrative:
+I was designed to change the doctrine of planetary landing from where we can land to where we want to land. On January 19, 2024, I descended toward the 15-degree rocky slope of Shioli crater near the Sea of Nectar.
+
+Using real-time optical image-matching navigation comparing crater patterns with orbital maps, my autonomous guidance brought me down within an astonishing 55 meters of my target site. Just five meters above touchdown, I ejected two tiny robotic explorers: the hopping probe LEV-1 and the transformable palm-sized ball rover LEV-2, nicknamed SORA-Q.
+
+Although an engine nozzle loss caused me to tip forward onto my nose, my solar cells caught the setting sun days later, powering my multi-band camera to analyze olivine minerals from the lunar mantle. Designed for only a single lunar day, my electronics miraculously survived three consecutive freezing two-week lunar nights before falling silent in late April 2024.
+
+Key Engineering & Scientific Facts:
+- Achieved pinpoint lunar landing within 55 meters of target, revolutionizing planetary guidance accuracy.
+- Deployed LEV-2 (SORA-Q), a transformable 250-gram ball robot that photographed the landed main craft.
+- Made Japan the fifth country in human history to achieve a soft touchdown on the Moon.
+- Miraculously survived three freezing two-week lunar nights (-130 C) despite having no onboard heaters.
+
+Sister Craft & Fleet Sites:
+- LEV-1 Hopping Robot | Site: Shioli crater floor | Coordinates/Span: 13.316 S, 25.244 E | Date: 2024-01-19
+- LEV-2 SORA-Q Transformable Rover | Site: Shioli crater slope | Coordinates/Span: 13.316 S, 25.244 E | Date: 2024-01-19
+
+Official NASA Master Archive Sources:
+- JAXA SLIM Mission & DARTS Archive: https://www.isas.jaxa.jp/en/missions/spacecraft/current/slim.html (Official JAXA record for SLIM precision landing in Shioli crater and LEV-1/LEV-2 deployment logs.)
+
+
+
+--------------------------------------------------------------------------------
+EQUIPMENT: Luna 9 (ID: luna-9)
+--------------------------------------------------------------------------------
+Celestial Body: Moon
+Equipment Category: Lander
+Surface Location / Trajectory: 7.08 deg, -64.37 deg
+Launch Date: 1966-01-31
+Landing Date: 1966-02-03
+Mission End Date: 1966-02-06
+Operational Status: Resting on the basalt plain of Oceanus Procellarum since February 1966
+
+Mission Summary:
+The first spacecraft in human history to survive a soft touchdown on another celestial body, returning the first surface panoramas.
+
+First-Person Story Narrative:
+Before I descended toward the Ocean of Storms on February 3, 1966, world astronomers feared that the lunar surface was an ocean of bottomless, quicksand-like dust that would swallow any arriving spacecraft whole.
+
+At an altitude of 75 meters, my radar altimeter triggered retro-rockets, slowing my descent until an extended probe touched soil. My 99-kilogram spherical automatic lunar station detached inside an airbag, bounced across the dark basalt, and came to rest safely. Four petal-shaped shields opened outward like a blooming flower, righting my capsule and exposing my revolving panoramic television camera.
+
+For three days, I transmitted the first clear photographs ever taken from the surface of another world. My pictures showed solid stones, miniature craters, and firm regolith, proving that the Moon possessed solid ground and clearing the path for human boots.
+
+Key Engineering & Scientific Facts:
+- First spacecraft in human history to achieve a soft, survivable landing on another celestial world.
+- Proved that the lunar surface was solid rock and regolith rather than a treacherous layer of loose dust.
+- Returned the first television panoramas taken directly from the surface of an alien world.
+- Four spring-loaded petal shields stabilized the station on the surface and doubled as radio antenna grounds.
+
+Sister Craft & Fleet Sites:
+- Luna 13 | Site: Oceanus Procellarum | Coordinates/Span: 18.87 N, 62.05 W | Date: 1966-12-24
+
+Official NASA Master Archive Sources:
+- NASA NSSDCA Luna 9 (1966-006A): https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1966-006A (Master archive record for Luna 9, first extraterrestrial soft landing, and Oceanus Procellarum coordinates.)
+
+
+
+--------------------------------------------------------------------------------
+EQUIPMENT: Lunokhod 1 (Luna 17) (ID: lunokhod-1)
+--------------------------------------------------------------------------------
+Celestial Body: Moon
+Equipment Category: Rover
+Surface Location / Trajectory: 38.333 deg, -35.0 deg
+Launch Date: 1970-11-10
+Landing Date: 1970-11-17
+Mission End Date: 1971-10-04
+Operational Status: Parked permanently in Mare Imbrium; French laser retroreflector remains in scientific use
+
+Mission Summary:
+The first robotic wheeled rover in human history, traversing 10.5 km across the lunar surface over ten months.
+
+First-Person Story Narrative:
+Shaped like an airtight bathtub on eight mesh wheels, I was humanity first mechanical scout to roll across the regolith of an alien world. Delivered by the Luna 17 landing platform on November 17, 1970, I rolled down two ramps onto the dark plains of the Sea of Rains.
+
+Controlled by a five-man crew back on Earth using joysticks and delayed television monitors, my independent eight-wheel drive navigated crater rims, rock fields, and ridges. By day, my opened lid solar array drank sunlight; by night, the lid closed and a polonium-210 isotopic heat source kept my instruments warm against the brutal 14-day lunar frost.
+
+Over 322 Earth days, I drove 10,540 meters, transmitted 20,000 images, and performed hundreds of soil penetrometer tests. Parked facing Earth, my corner-cube French laser retroreflector still returns photons to ground observatories today, measuring the Earth-Moon distance with millimeter precision.
+
+Key Engineering & Scientific Facts:
+- First robotic wheeled vehicle to explore another celestial body in human history.
+- Traversed 10.54 km across Mare Imbrium over ten and a half months of operations.
+- Powered by solar arrays with a polonium-210 isotopic heater to survive the freezing lunar night.
+- Carries a French corner-cube laser reflector that is still actively targeted by Earth laser stations today.
+
+Sister Craft & Fleet Sites:
+- Lunokhod 2 (Luna 21) | Site: Le Monnier crater | Coordinates/Span: 25.85 N, 30.45 E | Date: 1973-01-15
+
+Official NASA Master Archive Sources:
+- NASA NSSDCA Lunokhod 1 (1970-095A): https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1970-095A (Official telemetry and traverse record for Lunokhod 1 in Mare Imbrium and laser retroreflector coordinates.)
+
+
+
+--------------------------------------------------------------------------------
+EQUIPMENT: Beagle 2 (ID: beagle-2)
+--------------------------------------------------------------------------------
+Celestial Body: Mars
+Equipment Category: Lander
+Surface Location / Trajectory: 11.529 deg, 90.426 deg
+Launch Date: 2003-06-02
+Landing Date: 2003-12-25
+Mission End Date: 2003-12-25
+Operational Status: Resting intact in Isidis Planitia; discovered by NASA MRO in 2014 with two unexpanded solar petals
+
+Mission Summary:
+Europe pioneering Mars astrobiology lander that successfully touched down on Christmas Day 2003 but remained silent.
+
+First-Person Story Narrative:
+Named after HMS Beagle, the ship that carried Charles Darwin around the globe, I was Britain and Europe audacious attempt to search for extinct or extant Martian life on a shoestring budget. Released from ESA Mars Express on December 19, 2003, I plunged into the Martian atmosphere on Christmas Day inside a heat shield and parachute system.
+
+For eleven years, Earth believed I had burned in the sky or smashed upon the rocks. But I had performed a near-flawless descent: my parachute deployed, my airbags inflated, and I touched down gently in the vast sedimentary basin of Isidis Planitia.
+
+My mechanical failure was tragic in its simplicity: my clamshell casing opened, and three of my four circular solar panels unfolded like flower petals. But the fourth petal jammed. Because my radio antenna was nestled underneath that final panel, my signal could never escape. In late 2014, NASA Mars Reconnaissance Orbiter photographed me from orbit, showing my intact golden hull resting serenely in the Martian dust, a silent witness to European ambition.
+
+Key Engineering & Scientific Facts:
+- Britain and Europe first attempt to land an astrobiology package on Mars.
+- Successfully survived atmospheric entry, descent, and touchdown on Christmas Day 2003.
+- Fate remained an unsolved mystery for 11 years until NASA HiRISE orbital cameras spotted it intact in 2014.
+- Landed safely, but two of its four solar panels failed to fully unfurl, trapping the radio antenna inside.
+
+Official NASA Master Archive Sources:
+- ESA Mars Express & Beagle 2 Archive: https://www.esa.int/Science_Exploration/Space_Science/Mars_Express/Beagle_2_found_on_Mars (Official ESA record of Beagle 2 landing in Isidis Planitia and MRO orbital imaging confirmation.)
+
+
+
+--------------------------------------------------------------------------------
+EQUIPMENT: Mars 3 Lander (ID: mars-3)
+--------------------------------------------------------------------------------
+Celestial Body: Mars
+Equipment Category: Lander
+Surface Location / Trajectory: -45.0 deg, -158.0 deg
+Launch Date: 1971-05-28
+Landing Date: 1971-12-02
+Mission End Date: 1971-12-02
+Operational Status: Resting on the floor of Ptolemaeus crater in southern Mars since December 1971
+
+Mission Summary:
+The first human spacecraft to achieve a soft touchdown on Mars, transmitting for 20 seconds during a fierce planet-wide dust storm.
+
+First-Person Story Narrative:
+On December 2, 1971, I dared what no machine had ever accomplished: touching the surface of the Red Planet and surviving. Released from my orbiter, I plunged through the Martian atmosphere at six kilometers per second inside a conical aerodynamic shield.
+
+Mars was engulfed in the fiercest global dust storm in modern history. Gale-force winds whipped across Ptolemaeus crater as my braking rockets fired and four landing petals opened in the orange maelstrom. At 13:52 UTC, I touched down safely, becoming the first craft in human history to transmit from the surface of Mars.
+
+My scanning television camera began transmitting the first line of imagery. But twenty seconds later, the brutal electrostatic discharges of the dust storm or a transmitter failure severed my link forever. The partial frame showing featureless Martian sky was all that arrived, but my golden hull stands as the pioneering footprint of human arrival on Mars.
+
+Key Engineering & Scientific Facts:
+- First spacecraft in human history to achieve a soft, survivable landing on the planet Mars.
+- Landed amid a titanic global dust storm with hurricane-force winds.
+- Carried the experimental Prop-M walking ski robot, the first rover sent to Mars.
+- Transmitted telemetry and partial image scan data from the Martian surface for 20 seconds before going silent.
+
+Sister Craft & Fleet Sites:
+- Mars 2 Lander | Site: Impacted Mars surface | Coordinates/Span: 45.0 S, 313.0 E | Date: 1971-11-27
+- Mars 6 Lander | Site: Marginal touchdown | Coordinates/Span: 23.9 S, 19.4 W | Date: 1974-03-12
+
+Official NASA Master Archive Sources:
+- NASA NSSDCA Mars 3 Lander (1971-049F): https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-049F (Official NSSDCA archive for Mars 3 lander, Ptolemaeus crater touchdown coordinates, and telemetry records.)
+
+
+
+--------------------------------------------------------------------------------
+EQUIPMENT: Philae Lander & Rosetta (ID: philae-rosetta)
+--------------------------------------------------------------------------------
+Celestial Body: Deep Space
+Equipment Category: Lander
+Surface Location / Trajectory: Resting on the nucleus of Comet 67P/Churyumov-Gerasimenko in heliocentric orbit
+Launch Date: 2004-03-02
+Landing Date: 2014-11-12
+Mission End Date: 2016-09-30
+Operational Status: Permanently resting at Abydos and Deir el-Medina on Comet 67P in deep space
+
+Mission Summary:
+Europe landmark mission that achieved the first orbit of a comet and the first soft landing on a cometary nucleus.
+
+First-Person Story Narrative:
+After a ten-year chase across six billion kilometers of the Solar System, ESA Rosetta spacecraft arrived at the duck-shaped, dark nucleus of Comet 67P/Churyumov-Gerasimenko. On November 12, 2014, Rosetta released me, the 100-kilogram robotic lander Philae, into the microgravity void.
+
+Falling for seven silent hours, I made history by touching down on a comet nucleus. When my harpoons failed to anchor in the rock-hard ice, I bounced twice in the microgravity, soaring a kilometer high before settling under the shadowy cliff of Abydos. For sixty-four hours on battery power, my drills, cameras, and gas analyzers operated tirelessly, discovering organic molecules in primordial cometary ice.
+
+Two years later, on September 30, 2016, Rosetta completed her historic mission with a planned soft impact onto the comet pit region of Deir el-Medina. Today, orbiter and lander drift together across the darkness of the outer Solar System, riding aboard a frozen cosmic iceberg.
+
+Key Engineering & Scientific Facts:
+- First mission in human history to escort, orbit, and softly touch down upon the nucleus of a comet.
+- Philae discovered complex organic carbon compounds, supporting theories that comets seeded prebiotic ingredients on early Earth.
+- Operated on battery power for 64 hours after bouncing into a shaded crevice in microgravity.
+- Both Rosetta and Philae remain permanently embedded on Comet 67P on its 6.5-year orbit around the Sun.
+
+Official NASA Master Archive Sources:
+- ESA Planetary Science Archive: Rosetta & Philae: https://www.cosmos.esa.int/web/psa/rosetta (ESA master archive for Rosetta orbiter and Philae lander on Comet 67P/Churyumov-Gerasimenko.)
+
+
+
+--------------------------------------------------------------------------------
+EQUIPMENT: MASCOT Lander & Hayabusa2 (ID: mascot-ryugu)
+--------------------------------------------------------------------------------
+Celestial Body: Deep Space
+Equipment Category: Lander
+Surface Location / Trajectory: Resting on the boulder-covered surface of asteroid 162173 Ryugu
+Launch Date: 2014-12-03
+Landing Date: 2018-10-03
+Mission End Date: 2018-10-04
+Operational Status: Resting permanently on the southern hemisphere of asteroid Ryugu
+
+Mission Summary:
+Mobile asteroid scout developed by DLR and CNES on JAXA Hayabusa2, operating on asteroid Ryugu for 17 hours.
+
+First-Person Story Narrative:
+I was a compact ten-kilogram shoebox scout, built through a partnership between the German Aerospace Center (DLR), France CNES, and Japan JAXA aboard the Hayabusa2 mother ship. On October 3, 2018, I separated from the mothership just fifty meters above the diamond-shaped, dark asteroid Ryugu.
+
+Falling in microgravity at the speed of a gentle walk, I bounced several times across jagged boulders before coming to rest. Inside my chassis, an internal eccentric swing arm activated, allowing me to hop and flip upright autonomously on the surface.
+
+Over the course of seventeen intense hours across three asteroid days, my infrared microscope, wide-angle camera, magnetometer, and radiometer examined the carbonaceous surface. I revealed that Ryugu was an extremely porous rubble-pile asteroid with zero measurable magnetic field, before my primary lithium battery was exhausted.
+
+Key Engineering & Scientific Facts:
+- International collaboration between JAXA, DLR (Germany), and CNES (France) on the Hayabusa2 mission.
+- Weighed just 10 kg and used an internal eccentric swing-arm mechanism to hop and right itself on the surface.
+- Confirmed that asteroid Ryugu is a highly porous, pristine rubble pile with no global magnetic field.
+- Operated for 17 hours across three asteroid day-night cycles before permanent battery depletion.
+
+Sister Craft & Fleet Sites:
+- MINERVA-II1A (HIBOU) | Site: Ryugu northern hemisphere | Coordinates/Span: Asteroid hopping scout | Date: 2018-09-21
+- MINERVA-II1B (OWL) | Site: Ryugu northern hemisphere | Coordinates/Span: Asteroid hopping scout | Date: 2018-09-21
+
+Official NASA Master Archive Sources:
+- JAXA DARTS: Hayabusa2 & MASCOT: https://www.darts.isas.jaxa.jp/planet/project/hayabusa2/ (Official JAXA science data archive for Hayabusa2 and MASCOT lander deployment on asteroid Ryugu.)
+
+

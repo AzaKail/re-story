@@ -52,6 +52,8 @@ class Artifact(models.Model):
     # NASA 3D model shown when the camera is at the object: url, credit, page_url, optional keep_below (0..1)
     model = models.JSONField(default=dict, blank=True)
     image_url = models.URLField(max_length=500, blank=True)
+    # Author of the photo as given by the NASA Image and Video Library, e.g. "NASA/JPL-Caltech"
+    image_credit = models.CharField(max_length=200, blank=True)
     model_3d = models.CharField(max_length=255, blank=True)
     priority = models.IntegerField(default=1)
 

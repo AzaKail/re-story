@@ -198,9 +198,13 @@ export class MuseumScene {
   }
 
   // Another artifact was picked inside the museum: remember it without moving the camera now,
-  // so surfaceFromDive() rises next to it. Returns false if it has no marker on the current body.
+  // so surfaceFromDive() rises next to it.
   setFocusedArtifact(code) {
-    if (this.markers[code]?.body !== this.current) return false;
+    const entry = this.markers[code];
+    if (!entry) return false;
+    if (entry.body !== this.current) {
+      this.focus(entry.body, { instant: true });
+    }
     this.focusedArtifact = code;
     return true;
   }

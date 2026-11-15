@@ -406,3 +406,160 @@ No NASA models exist for the Lunar Roving Vehicle, Surveyor, Sojourner, Phoenix 
   - Aijan Amaliya, catalog and museum texts: the 15-object catalog and museum card, facts from NSSDCA and NASA mission pages, stories in three languages, the knowledge base texts for the guide, catalog tests, the planet overview.
   - Zaur Kavirov, automatic tour: the tour (15 s per object, 5 s at double speed) with its summary plaque, the first version of the plaque and the AIstronaut input redesign.
 - Interface strings: 97 keys per language, identical in English, Russian and Kazakh.
+
+### 2026-11-15: Larger Catalog (more_catalog) and Catalog Page Without 3D
+
+Work happens in the `more_catalog` branch (Aijan Amaliya's catalog expansion, merged with `main`). Zaur Kavirov is redesigning the catalog view on top of it.
+
+#### Larger catalog
+- The catalog grew from 15 to 28 objects (Aijan Amaliya). New: Lunar Orbiter 1, LCROSS, Mariner 9, Mars Global Surveyor, SMART-1 (ESA), Kaguya and SLIM (JAXA), Luna 9, Lunokhod 1 and Mars 3 (USSR), Beagle 2 (UK/ESA), Philae (ESA) and MASCOT (DLR/CNES on JAXA Hayabusa2). Facts and coordinates come from NSSDCA and the agencies' mission pages; texts in English, Russian and Kazakh; the chat knowledge base files in `data/knowledge/` were extended too.
+- Merging `main` restored the NASA 3D model field (`model`) for the six objects that have one; the catalog tests check 28 objects plus the 3D model tests.
+- Photos were checked against the NASA Image and Video Library. Several pointed to unrelated images or did not load, and were replaced with matching NASA images:
+
+| Object | Photo now |
+|---|---|
+| Lunar Orbiter 1 | LRC-1966-B701_P-07825, Earth from the Moon taken by Lunar Orbiter 1 (1966) |
+| LCROSS | ARC-2008-ACD07-0073-412, LCROSS in the Ames clean room |
+| Mars Global Surveyor | PIA17486, artist concept |
+| Lunokhod 1 | PIA12967, Soviet lunar rovers seen by LRO |
+| Mars 3 | PIA16920, possible Mars 3 lander seen by HiRISE |
+| Beagle 2 | PIA19107, Beagle 2 on Mars seen by HiRISE |
+| Philae | PIA19096, Philae on the comet surface |
+
+  Luna 9, Kaguya, SMART-1, SLIM and MASCOT have no matching photo in the NASA library, so they show none (the page hides the photo block) instead of a wrong or broken one. The then-and-now views of Lunar Orbiter 1, LCROSS, Mariner 9 and Mars Global Surveyor showed unrelated images and were removed; six objects keep a then-and-now view.
+- Migration `0007_load_more_catalog` reloads `data/artifacts.json`, so `python manage.py migrate` brings existing databases up to 28 objects.
+
+#### 3D scene
+- Only objects with surface coordinates get a marker and appear in the 3D list and the tour (`artifactsOn` in `static/js/main.js`, using `hasSurfacePosition`): 11 on the Moon and 9 on Mars. Orbiters without a place (Mariner 9, Mars Global Surveyor) and deep-space probes are in the catalog page and on the museum pages (`allArtifactsOn` for the "other objects" list).
+
+#### Catalog page without 3D
+- If the browser cannot show WebGL (or creating the 3D scene fails, or start-up fails), the site opens the catalog of every object instead of the 3D scene. The same page opens with `?view=catalog` in the address, for testing and design work.
+- Markup: `<main id="catalog">` in `templates/index.html`; logic: `static/js/catalog_view.js` (`CatalogView`: groups by body in the order Moon, Mars, Ceres, Eros, deep space; each item shows the photo, name, type, place and short description; a photo that fails to load is replaced by a plain placeholder); styles: "Catalog of every object" block at the end of `static/css/main.css`.
+- In this mode (`state.no3d`, class `is-no3d` on `<body>`) a catalog item opens the museum page; the museum and About "back" buttons say "Catalog" and lead back to it; Esc does the same. The chat and the language switch work as usual.
+- The old "text version will appear here soon" placeholder (`#fallback`, key `fallback.soon`) is removed; `fallback.nowebgl` now explains that the catalog is shown instead. New keys: `catalog.kicker`, `catalog.lead`, `catalog.back` (99 keys per language, identical in English, Russian and Kazakh).
+
+#### Team roles
+- Aijan Amaliya: the description now mentions the expansion from 15 to 28 objects.
+- Zaur Kavirov: role "Automatic tour and catalog design".
+- Azamat Maksutov: the description mentions the catalog page for browsers without 3D.
+- README: Features list updated (28 objects, 20 placed on the surface, catalog without 3D) and the Team section.
+
+### 2026-11-15: More NASA 3D Models, Photo Authors, Full Source List
+
+#### 3D models on museum pages
+- Six more models from NASA 3D Resources (https://github.com/nasa/NASA-3D-Resources), files in `static/models/`:
+
+| Object | File | Author on the NASA page |
+|---|---|---|
+| Mars Global Surveyor | `mars-global-surveyor.glb` | NASA/JPL/Eyes on the Solar System |
+| Dawn | `dawn.glb` | NASA/Brian E. Kumanchik |
+| Kepler | `kepler.glb` (Kepler A) | NASA/Brian E. Kumanchik, NASA/Christian A. Lopez |
+| NEAR Shoemaker | `near-shoemaker.glb` | NASA (no author named) |
+| Pioneer 10 and 11 | `pioneer-10.glb` | NASA/JPL/Eyes on the Solar System |
+| Philae and Rosetta | `rosetta.glb` (the orbiter that carried Philae) | NASA (no author named) |
+
+- None of these has a place on the globe, so models are now also shown on the museum page: `static/js/model_viewer.js` (`ModelViewer`) draws the model in its own small WebGL view that turns slowly and can be dragged (no wheel zoom, so the page still scrolls). It is used for every object with a model, including the landers and rovers that also appear on the globe. The view is created when the page opens and freed when it changes or the visitor leaves the museum. Without WebGL the block is not shown.
+- `static/js/surface_model.js` now exports `createModelLoader`, `buildPivot(scene, model, size)` and `disposeObject`, shared by the globe and the museum page.
+- No models exist in NASA 3D Resources for the Lunar Roving Vehicle, Surveyor, Sojourner, Phoenix, ALSEP, Lunar Orbiter, LCROSS, Mariner 9 or the non-NASA machines.
+
+#### Photo authors
+- New field `Artifact.image_credit` (migration `0008_artifact_image_credit`, which also reloads the data), returned by both catalog API endpoints. It holds the author from the NASA Image and Video Library record, for example "NASA/JPL-Caltech/Univ. of Arizona". The museum page shows "Photo: <author>" under each photo and the author of the then-and-now image (`now_view.credit`) under it.
+- Three more photos showed the wrong machine and were replaced: Spirit (now PIA16442, Spirit in the McMurdo panorama), Opportunity (PIA17759, self-portrait of January 2014; it was a Curiosity image) and Ingenuity (PIA24542, Perseverance selfie with Ingenuity; it was the Europa Clipper vault).
+- The Philae photo is copyright ESA/Rosetta/Philae/CNES/FD and is credited so.
+- Four fact sources that did not open were replaced with working NASA pages: Luna 9 and Lunokhod 1 (NSSDCA "Soviet Missions to the Moon"), Mars 3 and Beagle 2 (NASA Photojournal HiRISE pages).
+
+#### Source list
+- `docs/SOURCES.md` is rewritten in English and lists, object by object: place, fact sources, photo with NASA ID and author, then-and-now image with author, 3D model with author; plus maps, background planets, chat models and code libraries with licenses. The per-object tables are generated from `data/artifacts.json`.
+- About window: the data section lists all 11 models with authors, says that each photo shows its author, and links to `docs/SOURCES.md` (keys `about.data.photo_authors`, `about.sources_link`; 104 keys per language).
+- README: NASA data section updated (11 models with authors, photo authors, other agencies' pages).
+- Tests: every photo has an author, the API returns it, every model has an author and a NASA 3D Resources page.
+
+### 2026-11-15: Mobile Keyboard Viewport Adaptation and Chat Input Optimization
+
+#### Summary of Changes
+- Fixed mobile keyboard pushing chat header and messages out of view when focusing the chat input on mobile devices.
+- Synchronized chat card height and top position with `window.visualViewport` on mobile (`<= 600px`), ensuring the header remains anchored at the top and the input remains directly above the virtual keyboard.
+- Added `interactive-widget=resizes-content` to the viewport meta tag in `templates/base.html` and `templates/index.html` to support native keyboard viewport resizing on Chromium-based mobile browsers.
+- Added a full page scroll lock (`body.aistronaut-open`) while the chat widget is active on mobile, preserving the user scroll position upon closing the chat.
+- Prevented automatic input focus on mobile devices after AI streaming finishes, preventing the on-screen keyboard from unexpectedly reopening over generated responses.
+- Removed unwanted vertical scrollbars in `.aistronaut-input` using `overflow-y: hidden !important`, `scrollbar-width: none !important`, and `-webkit-scrollbar` suppression rules.
+- Set 16px font size on mobile for `.aistronaut-input` to prevent iOS Safari auto-zooming and viewport shifting on focus. Set placeholder font size to 12px for compact hint rendering.
+- Added cache-busting query parameter `?v=4` to widget static assets in `ai_assistant/templates/ai_assistant/widget.html`.
+
+#### Files
+- `templates/base.html`: Added `interactive-widget=resizes-content` to viewport meta tag.
+- `templates/index.html`: Added `interactive-widget=resizes-content` to viewport meta tag.
+- `ai_assistant/templates/ai_assistant/widget.html`: Added cache-busting version query `?v=4` to CSS and JS includes; added inline scrollbar suppression styles on textarea.
+- `ai_assistant/static/ai_assistant/css/widget.css`: Top-anchored dynamic viewport variables for `<= 600px`, body scroll lock, 16px mobile input font with 12px placeholder, and scrollbar suppression rules.
+- `ai_assistant/static/ai_assistant/js/widget.js`: Visual Viewport tracking, mobile input focus and blur handlers, scroll lock toggling, and clean input overflow management.
+
+### 2026-11-15: Chat Update Merged, Team Descriptions
+
+#### Summary of Changes
+- Branch `dev-chat` (Dmitriy Minin, "update mobile chat") merged into `more_catalog`: the chat window follows the phone's on-screen keyboard (`visualViewport` handling in `ai_assistant/static/ai_assistant/js/widget.js`, viewport `interactive-widget=resizes-content` in `templates/index.html` and `templates/base.html`) and new mobile styles in `widget.css`. While merging, the page title stays "ReStory" (the branch still had the old name), the chat files keep the versioned URLs (`asset_version`), and the input keeps its 24 px minimum height from the earlier input redesign.
+- Team descriptions in the About window and README rewritten in a shorter, more formal style that names each person's contribution without listing every detail. The English spelling of the name is now "Dmitriy Minin" (`team.dmitry`); Russian and Kazakh keep "Дмитрий Минин".
+
+### 2026-11-15: Scrollbars in the Site Style
+
+#### Summary of Changes
+- The objects list (`.panel-list`) and the full-page layers that scroll (`.museum`: museum pages, About, catalog) have a styled scrollbar: an 8 px orange pill (`--accent-line`, full `--accent` on hover) on a transparent track, without arrow buttons. Rules are in the "Scrollbars in the site style" block at the end of `static/css/main.css`.
+- Chrome, Edge and Safari use the `::-webkit-scrollbar` rules; Firefox, which does not support them, gets `scrollbar-width: thin` and `scrollbar-color` through `@supports not selector(::-webkit-scrollbar)`. The standard properties are not set for Chrome on purpose: once they are set, Chrome ignores the `::-webkit-scrollbar` styles.
+- The chat widget keeps its own scrollbar styles (`ai_assistant/static/ai_assistant/css/widget.css`).
+
+### 2026-11-15: Interactive Museum Side Catalog (Drag-to-Rotate Globes and Object Navigation)
+
+#### Summary of Changes
+- Implemented interactive drag-to-rotate controls for the Moon and Mars side globes on the museum artifact page (`FlatGlobe` in `static/js/museum_sides.js`). Visitors can now click or touch and drag horizontally to spin each planet smoothly with natural velocity sensitivity (180 degrees per globe diameter).
+- Fixed mouse interaction state handling: auto-rotation pauses during hover or drag, and resumes after 3 seconds of idle time or upon pointer leave.
+- Added drag-vs-click threshold detection (4 px movement threshold), allowing reliable dot selection without accidental trigger when dragging the globe.
+- Upgraded globe texture resolution to full 2K (2048x1024 matching `moon_2k.jpg` and `mars_2k.jpg`), eliminating blocky pixelation on high-DPI screens without increasing pixel traversal iterations in the canvas rendering loop.
+- Ensured coordinate normalization across multiple full rotations and fixed coordinate alignment for both texture sampling and dot marker placement.
+- Fixed artifact switching (`switchMuseumArtifact` in `static/js/main.js` and `setFocusedArtifact` in `static/js/scene.js`): selecting an artifact on another celestial body now properly updates active body state, body caption, panel objects, URL hash, and 3D camera orientation so returning via "3D version" surfaces at the correct artifact.
+- Refined responsive layout in `static/css/main.css`: fixed an unclosed `@media (max-width: 600px)` media query block that broke all following CSS on desktop screens; established a 3-column museum page grid (`240px minmax(0, 1fr) 240px`) placing the 2D Moon on the left, article text in the center, and 2D Mars on the right; set explicit 180 px globe dimensions, grab/grabbing cursors, touch-action none for drag gestures, and automatic scroll-into-view for active list items.
+- Added bidirectional hover highlighting: hovering an equipment name in the side list activates a pulsing keyframe animation (`@keyframes dot-blink`, `.side-globe-dot.is-highlighted`) on the corresponding landing marker on the globe; hovering a dot highlights the associated list entry.
+
+#### Files
+- `static/js/museum_sides.js`: Added drag-to-rotate pointer listeners, idle timer, touch handling, drag threshold for dots, full 2K texture buffer (2048x1024), DOM recycling optimization on artifact selection, and bidirectional hover link methods (`setHighlighted`, `highlightListItem`).
+- `static/js/main.js`: Updated `switchMuseumArtifact` to handle body switching and state synchronization when picking objects from side catalogs.
+- `static/js/scene.js`: Updated `setFocusedArtifact` to switch target body camera focus when selecting an artifact on a different body.
+- `static/css/main.css`: Responsive 3-column grid (`240px minmax(0, 1fr) 240px`), cursor grab/grabbing styles, touch action, dot pulsing animation keyframes, and z-index elevation for active/highlighted dots.
+
+### 2026-11-15: Adaptive Side Globe Sizing for Mobile Devices (museum_sides.js)
+
+#### Summary of Changes
+- Implemented automatic adaptive width calculation (`getAdaptiveGlobeSize`) in `static/js/museum_sides.js` to ensure the side globes scale proportionally and open properly on all mobile phones and orientations.
+- Added dynamic viewport width and height detection with touch device awareness (`isPhone`, `isSmallPhone`), scaling globe diameter between 110 px and 160 px based on available screen width on small phones (such as iPhone SE and compact Android devices).
+- Handled landscape orientation on mobile phones by constraining globe height to 38 percent of viewport height (capped at 140 px), preventing the globes from pushing artifact details or catalog lists off-screen.
+- Added viewport resize and device orientation change event listeners (`orientationchange`, `resize`) to trigger automatic dimension recalculation and instant canvas redraws across device rotations.
+- Replaced fragile DOM `offsetParent` visibility checks in `MuseumSides.start()` with a robust `isVisible()` method (`offsetWidth`, `offsetHeight`, `getClientRects()`), resolving animation freezes and rendering failures on mobile WebKit and iOS Safari where elements inside fixed containers return null `offsetParent`.
+- Synchronized CSS media queries in `static/css/main.css` for `@media (max-width: 600px)` with `clamp(110px, 38vw, 160px)`, expanded touch targets for dots (`.side-globe-dot::before` inset -10px), and preserved single-column fluid stacking.
+
+#### Files
+- `static/js/museum_sides.js`: Dynamic dimension calculation in `getAdaptiveGlobeSize()`, `updateSize()`, `resize()`, `orientationchange` listener, and robust `isVisible()` DOM visibility check.
+- `static/css/main.css`: Synchronized clamp boundaries and touch target sizing under `@media (max-width: 600px)`.
+
+### 2026-11-15: Multi-Line Dynamic Layout for Moon Surface Message (moon_message.js)
+
+#### Summary of Changes
+- Updated `drawMessage` in `static/js/moon_message.js` to dynamically handle any number of lines (including 3 or more lines), rather than assuming a fixed two-line layout.
+- Added dynamic canvas height calculation (`getCanvasHeight`) scaling canvas height proportionally with the number of text lines (420 px for 1 line, 640 px for 2 lines, and 260 px per line for 3 or more lines).
+- Implemented adaptive line height (`canvasH / count`) and dynamic font sizing (`baseSize = Math.min(190, Math.floor(lineHeight * 0.68))`) with automatic horizontal downscaling, ensuring all lines fit comfortably without overlapping vertically or clipping horizontally.
+- Updated `createMoonMessage` to derive the curved surface mesh height dynamically from the canvas aspect ratio (`width * (canvas.height / canvas.width)`), maintaining undistorted typography when bent across the lunar sphere.
+
+#### Files
+- `static/js/moon_message.js`: Added `getCanvasHeight()`, dynamic line positioning, adaptive font scaling, and aspect-ratio based plane geometry generation.
+
+### 2026-11-15: Mobile Viewport Horizontal Overflow and Width Adaptation Fix
+
+#### Summary of Changes
+- Eliminated horizontal viewport overflow (`overflow-x: hidden`) on `.museum`, preventing unwanted horizontal scrolling and screen shifting on mobile devices.
+- Added `min-width: 0` to `.museum-layout`, `.museum-layout > .museum-inner`, and `.museum-side`, preventing CSS Grid items from enforcing min-content track widths that exceeded small mobile viewports.
+- Standardized the primary mobile media query breakpoint to `768px` across `main.css`, `main.js`, and `museum_sides.js`, ensuring consistent mobile layouts on devices with small-display zooms, foldables, and landscape phones.
+- Compacted navigation controls (`.museum-bar`, `.btn`, `.switch-sm`) on screens under `768px` (smaller padding, 38 px touch target height, reduced font size and button widths), allowing the top action bar to fit comfortably even on 320 px screens with browser text scaling.
+- Adjusted `.museum-title` font size to `clamp(1.35rem, 5.5vw, 1.85rem)` on mobile with `overflow-wrap: break-word` and `word-break: break-word`, preventing long words from overflowing the viewport width.
+- Optimized `.card-meta-grid` on mobile with 8 px gap, 10 px padding, and flexible word wrapping for coordinate data.
+
+#### Files
+- `static/css/main.css`: Added `overflow-x: hidden` to `.museum`, `min-width: 0` to grid tracks and items, `clamp(1.5rem, 5vw, 3rem)` and word breaking to `.museum-title`, and responsive mobile styles under `@media (max-width: 768px)`.
+- `static/js/main.js`: Updated mobile media query check to `max-width: 768px`.
+- `static/js/museum_sides.js`: Updated phone threshold to `768px` in `getAdaptiveGlobeSize()`.

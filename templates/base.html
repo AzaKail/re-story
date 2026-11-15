@@ -1,8 +1,11 @@
 {% load static i18n %}<!doctype html>
 <html lang="{{ LANGUAGE_CODE|default:'en' }}">
 <head>
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/logo-32.png' %}">
+  <link rel="icon" type="image/png" sizes="64x64" href="{% static 'img/logo-64.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'img/logo-180.png' %}">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
   <title>{% block title %}ReStory{% endblock %}</title>
   {% block extra_head %}{% endblock %}
 </head>

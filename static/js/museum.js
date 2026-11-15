@@ -24,8 +24,12 @@ export function artifactPlace(artifact) {
   return artifact.orbit_parameters || t('card.orbital_or_deep');
 }
 
+const photoCredit = (a) => t('card.image_credit', { credit: a.image_credit || 'NASA' });
+
 export class MuseumView {
-  constructor(root, { onSelectArtifact, onAsk }) {
+  // onModel(stage, model): draws a NASA 3D model in `stage`, or frees it when stage is null.
+  constructor(root, { onSelectArtifact, onAsk, onModel = null }) {
+    this.onModel = onModel;
     this.root = root;
     this.kicker = root.querySelector('[data-museum-kicker]');
     this.title = root.querySelector('[data-museum-title]');
@@ -56,6 +60,7 @@ export class MuseumView {
       this.#status(a),
       this.#meta(a),
       this.#image(a),
+      this.#model(a),
       this.#story(a),
       this.#facts(a),
       this.#fleet(a),
@@ -65,6 +70,10 @@ export class MuseumView {
       this.#bodyOverview(body),
     ].join('');
     this.root.scrollTop = 0;
+    if (this.onModel) {
+      const stage = this.content.querySelector('[data-model-stage]');
+      this.onModel(stage, stage ? a.model : null);
+    }
   }
 
   refreshLanguage() {
@@ -97,7 +106,7 @@ export class MuseumView {
     if (!a.now_view?.image_url) {
       return `<figure class="card-media">
         <img class="card-image" src="${escapeHtml(a.image_url)}" alt="${escapeHtml(a.name)}">
-        <figcaption class="card-media-credit">${escapeHtml(t('card.image_credit'))}</figcaption>
+        <figcaption class="card-media-credit">${escapeHtml(photoCredit(a))}</figcaption>
       </figure>`;
     }
     const lang = getLang();
@@ -111,7 +120,7 @@ export class MuseumView {
         <figure class="card-media then-now-item">
           <span class="then-now-label">${escapeHtml(t('museum.then'))}${thenYear ? ` · ${escapeHtml(thenYear)}` : ''}</span>
           <img class="card-image" src="${escapeHtml(a.image_url)}" alt="${escapeHtml(a.name)}">
-          <figcaption class="card-media-credit">${escapeHtml(t('card.image_credit'))}</figcaption>
+          <figcaption class="card-media-credit">${escapeHtml(photoCredit(a))}</figcaption>
         </figure>
         <figure class="card-media then-now-item">
           <span class="then-now-label then-now-label-now">${escapeHtml(t('museum.now'))}${nowYear ? ` · ${escapeHtml(nowYear)}` : ''}</span>
@@ -120,11 +129,28 @@ export class MuseumView {
           </a>
           <figcaption class="card-media-credit">
             <span class="then-now-caption">${escapeHtml(caption)}</span>
-            <span>NASA · ${escapeHtml(now.instrument || '')}${now.date ? `, ${escapeHtml(now.date)}` : ''}</span>
+            <span>${escapeHtml(now.credit || 'NASA')} · ${escapeHtml(now.instrument || '')}${now.date ? `, ${escapeHtml(now.date)}` : ''}</span>
           </figcaption>
         </figure>
       </div>
     </section>`;
+  }
+
+  // NASA 3D model that can be turned (drawn by onModel). Without WebGL the block says that the
+  // device cannot show it, instead of disappearing.
+  #model(a) {
+    if (!a.model?.url) return '';
+    const stage = this.onModel
+      ? `<div class="museum-model-stage is-loading" data-model-stage role="img"
+           aria-label="${escapeHtml(t('museum.model_label', { name: a.name }))}"></div>`
+      : `<div class="museum-model-stage museum-model-off"><p>${escapeHtml(t('museum.model_unsupported'))}</p></div>`;
+    return `<figure class="card-media museum-model">
+      ${stage}
+      <figcaption class="card-media-credit">
+        <a href="${escapeHtml(a.model.page_url || 'https://science.nasa.gov/3d-resources/')}" target="_blank" rel="noopener">${escapeHtml(t('museum.model_credit', { credit: a.model.credit || 'NASA' }))}</a>
+        <span>${escapeHtml(t('museum.model_hint'))}</span>
+      </figcaption>
+    </figure>`;
   }
 
   #story(a) {

@@ -212,14 +212,16 @@
           "en": "The Eagle descent stage and the experiments left at Tranquility Base, seen from lunar orbit.",
           "ru": "Посадочная ступень Eagle и оставленные приборы на Базе Спокойствия, снимок с лунной орбиты.",
           "kk": "Тыныштық базасындағы Eagle қону сатысы мен қалдырылған аспаптар, Ай орбитасынан түсірілген сурет."
-        }
+        },
+        "credit": "NASA/GSFC/Arizona State University"
       },
       "model": {
         "url": "models/apollo-lunar-module.glb",
         "credit": "NASA/Michael D. Carbajal",
         "page_url": "https://science.nasa.gov/3d-resources/apollo-lunar-module/",
         "keep_below": 0.45
-      }
+      },
+      "image_credit": "NASA/JSC"
     }
   },
   {
@@ -289,7 +291,8 @@
             "Әйгілі Жаратылыс тасын (Genesis Rock, 15415 үлгісі) табуға мүмкіндік берді."
           ]
         }
-      }
+      },
+      "image_credit": "NASA/JSC"
     }
   },
   {
@@ -375,7 +378,8 @@
             "1977 жылы қыркүйекте Жерден берілген бұйрықпен өшірілді."
           ]
         }
-      }
+      },
+      "image_credit": "NASA/JSC"
     }
   },
   {
@@ -455,7 +459,8 @@
             "Дауылдар мұхитындағы 200 метрлік кратер түбінде орналасқан."
           ]
         }
-      }
+      },
+      "image_credit": "NASA/JSC"
     }
   },
   {
@@ -510,7 +515,8 @@
             "Жерге 2.3 миллиард бит дерек пен 17 мың сурет жолдады."
           ]
         }
-      }
+      },
+      "image_credit": "NASA/JPL"
     }
   },
   {
@@ -537,7 +543,7 @@
         "Trapped in soft sulfate-rich sands at Troy in Gusev Crater."
       ],
       "fleet_members": [],
-      "image_url": "https://images-assets.nasa.gov/image/PIA05208/PIA05208~orig.jpg",
+      "image_url": "https://images-assets.nasa.gov/image/PIA16442/PIA16442~large.jpg",
       "model_3d": "models/mer_rover.glb",
       "priority": 1,
       "translations": {
@@ -570,7 +576,8 @@
         "url": "models/mer-opportunity.glb",
         "credit": "NASA/Ames Research Center",
         "page_url": "https://science.nasa.gov/3d-resources/mars-exploration-rover-opportunity-mer-b/"
-      }
+      },
+      "image_credit": "NASA/JPL-Caltech/Cornell Univ./Arizona State Univ."
     }
   },
   {
@@ -597,7 +604,7 @@
         "Returned over 217,000 images to Earth."
       ],
       "fleet_members": [],
-      "image_url": "https://images-assets.nasa.gov/image/PIA18081/PIA18081~orig.jpg",
+      "image_url": "https://images-assets.nasa.gov/image/PIA17759/PIA17759~large.jpg",
       "model_3d": "models/mer_rover.glb",
       "priority": 1,
       "translations": {
@@ -636,13 +643,15 @@
           "en": "After the dust storm cleared, Opportunity appears as a tiny blip in Perseverance Valley, seen from about 268 km.",
           "ru": "После пылевой бури Opportunity виден крошечной точкой в Долине Упорства с высоты около 268 км.",
           "kk": "Шаң дауылы басылғаннан кейін Opportunity шамамен 268 км биіктіктен Табандылық алқабында кішкентай нүкте болып көрінеді."
-        }
+        },
+        "credit": "NASA/JPL-Caltech/Univ. of Arizona"
       },
       "model": {
         "url": "models/mer-opportunity.glb",
         "credit": "NASA/Ames Research Center",
         "page_url": "https://science.nasa.gov/3d-resources/mars-exploration-rover-opportunity-mer-b/"
-      }
+      },
+      "image_credit": "NASA/JPL-Caltech/Cornell Univ./Arizona State Univ."
     }
   },
   {
@@ -716,13 +725,15 @@
           "en": "The Viking 1 lander in Chryse Planitia, found from orbit 30 years after landing.",
           "ru": "Посадочный аппарат Viking 1 на равнине Хриса, найденный с орбиты через 30 лет после посадки.",
           "kk": "Хриса жазығындағы Viking 1 қону аппараты, қонғаннан 30 жыл өткен соң орбитадан табылды."
-        }
+        },
+        "credit": "NASA/JPL-Caltech/University of Arizona"
       },
       "model": {
         "url": "models/viking-lander.glb",
         "credit": "NASA/Michael D. Carbajal",
         "page_url": "https://science.nasa.gov/3d-resources/viking-lander/"
-      }
+      },
+      "image_credit": "NASA/JPL"
     }
   },
   {
@@ -788,8 +799,10 @@
           "en": "Nearly a decade after landing, dust has hidden much of the lander and its hardware.",
           "ru": "Почти через десять лет после посадки пыль скрыла большую часть аппарата и его оборудования.",
           "kk": "Қонудан он жылға жуық уақыт өткен соң шаң аппарат пен оның жабдықтарының көп бөлігін жасырған."
-        }
-      }
+        },
+        "credit": "NASA/JPL-Caltech/Univ. of Arizona"
+      },
+      "image_credit": "NASA/JPL-Caltech/University of Arizona"
     }
   },
   {
@@ -855,13 +868,15 @@
           "en": "Covered in dust, the lander has taken on the same reddish-brown hue as the ground around it.",
           "ru": "Покрытый пылью, аппарат приобрёл тот же красно-бурый цвет, что и грунт вокруг.",
           "kk": "Шаңмен жабылған аппарат айналасындағы топырақтың қызыл-қоңыр түсіне енді."
-        }
+        },
+        "credit": "NASA/JPL-Caltech/University of Arizona"
       },
       "model": {
         "url": "models/insight-lander.glb",
         "credit": "NASA/Brian E. Kumanchik",
         "page_url": "https://science.nasa.gov/3d-resources/insight-cruise-lander/"
-      }
+      },
+      "image_credit": "NASA/JPL-Caltech"
     }
   },
   {
@@ -888,7 +903,7 @@
         "Blades spun at 2,400 RPM in an atmosphere 1 percent as dense as Earth."
       ],
       "fleet_members": [],
-      "image_url": "https://images-assets.nasa.gov/image/PIA24479/PIA24479~orig.jpg",
+      "image_url": "https://images-assets.nasa.gov/image/PIA24542/PIA24542~large.jpg",
       "model_3d": "models/ingenuity.glb",
       "priority": 1,
       "translations": {
@@ -927,13 +942,15 @@
           "en": "Ingenuity at its final airfield, Valinor Hills, after damaging its rotor blades on flight 72.",
           "ru": "Ingenuity на своём последнем аэродроме, холмах Валинор, после повреждения лопастей в 72-м полёте.",
           "kk": "72-ұшу кезінде қалақтары зақымданғаннан кейін Ingenuity соңғы аэродромы Валинор төбелерінде тұр."
-        }
+        },
+        "credit": "NASA/JPL-Caltech/ASU/MSSS"
       },
       "model": {
         "url": "models/ingenuity.glb",
         "credit": "NASA/Brian E. Kumanchik",
         "page_url": "https://science.nasa.gov/3d-resources/ingenuity-mars-helicopter/"
-      }
+      },
+      "image_credit": "NASA/JPL-Caltech/MSSS"
     }
   },
   {
@@ -988,6 +1005,12 @@
             "Церераны ластамау үшін тұрақты жоғары орбитада мәңгіге қалдырылды."
           ]
         }
+      },
+      "image_credit": "NASA/JPL-Caltech/UCLA/MPS/DLR/IDA",
+      "model": {
+        "url": "models/dawn.glb",
+        "credit": "NASA/Brian E. Kumanchik",
+        "page_url": "https://science.nasa.gov/3d-resources/dawn/"
       }
     }
   },
@@ -1043,6 +1066,12 @@
             "Эрос бетіне қонғаннан кейін 16 күн бойы ғылыми сигнал таратты."
           ]
         }
+      },
+      "image_credit": "NASA/JPL/JHUAPL",
+      "model": {
+        "url": "models/near-shoemaker.glb",
+        "credit": "NASA",
+        "page_url": "https://science.nasa.gov/3d-resources/near-shoemaker/"
       }
     }
   },
@@ -1105,6 +1134,12 @@
             "Пионер-10 соңғы сигналы 2003 жылы 12 миллиард шақырым қашықтықтан қабылданды."
           ]
         }
+      },
+      "image_credit": "NASA/Ames",
+      "model": {
+        "url": "models/pioneer-10.glb",
+        "credit": "NASA/JPL/Eyes on the Solar System",
+        "page_url": "https://science.nasa.gov/3d-resources/pioneer/"
       }
     }
   },
@@ -1160,7 +1195,898 @@
             "Жерден 150 миллион шақырым қашықтықтағы күн орбитасында мәңгіге қалды."
           ]
         }
+      },
+      "image_credit": "NASA/Ames/JPL-Caltech",
+      "model": {
+        "url": "models/kepler.glb",
+        "credit": "NASA/Brian E. Kumanchik, NASA/Christian A. Lopez",
+        "page_url": "https://science.nasa.gov/3d-resources/kepler-a/"
       }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 16,
+    "fields": {
+      "name": "Lunar Orbiter 1",
+      "code": "lunar-orbiter-1",
+      "artifact_type": "orbiter",
+      "body": 1,
+      "latitude": 6.7,
+      "longitude": 162.0,
+      "orbit_parameters": "Controlled far-side impact after revolution 577",
+      "launch_date": "1966-08-10",
+      "landing_date": "1966-10-29",
+      "end_of_mission_date": "1966-10-29",
+      "status": "Impacted the lunar far side at 6.70 N, 162.00 E by ground command",
+      "brief_description": "First American spacecraft to orbit the Moon, capturing the iconic first Earthrise photo and mapping Apollo landing sites.",
+      "first_person_story": "I was launched to be the eyes of Apollo before human boots ever dared touch the regolith. On August 18, 1966, I slipped into an elliptical orbit around the Moon, carrying an Eastman Kodak photographic laboratory inside a pressurized aluminum container.\n\nFive days later, on August 23, 1966, I turned my high-resolution camera away from the grey lunar craters and captured an unprecedented sight: the blue and white marble of Earth rising above the barren lunar horizon. It was the first photograph ever taken of our home world from deep space.\n\nAfter photographing more than five million square kilometers of terrain to verify safe touchdown zones for Apollo, my attitude control gas neared depletion. To prevent my silent hulk from becoming a dangerous uncontrolled projectile or radio interference hazard for future crewed flights, flight controllers commanded me on revolution 577 to fire my velocity control engine. On October 29, 1966, I plunged into the ancient highlands of the lunar far side, becoming humanity first deliberate monument resting on the hidden face of the Moon.",
+      "key_facts": [
+        "Captured the iconic first photograph of Earth from the vicinity of the Moon on August 23, 1966.",
+        "Photographed over 5 million square kilometers of lunar surface to certify Apollo landing sites.",
+        "Carried an onboard film development and scanning laboratory, transmitting pictures back via analog video signals.",
+        "Intentionally de-orbited on revolution 577 to eliminate radio hazards for future Apollo missions."
+      ],
+      "fleet_members": [
+        {
+          "mission": "Lunar Orbiter 2",
+          "landing_site": "Mare Tranquillitatis",
+          "coordinates": "4.0 N, 11.0 E",
+          "landing_date": "1967-10-11"
+        },
+        {
+          "mission": "Lunar Orbiter 3",
+          "landing_site": "Oceanus Procellarum",
+          "coordinates": "14.3 N, 91.7 W",
+          "landing_date": "1967-10-09"
+        },
+        {
+          "mission": "Lunar Orbiter 4",
+          "landing_site": "Near side impact",
+          "coordinates": "Near side de-orbit",
+          "landing_date": "1967-10-31"
+        },
+        {
+          "mission": "Lunar Orbiter 5",
+          "landing_site": "Far side impact",
+          "coordinates": "2.79 S, 83.0 W",
+          "landing_date": "1968-01-31"
+        }
+      ],
+      "image_url": "https://images-assets.nasa.gov/image/LRC-1966-B701_P-07825/LRC-1966-B701_P-07825~large.jpg",
+      "model_3d": "",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Лунар Орбитер-1",
+          "status": "Покоится на обратной стороне Луны после контролируемого сведения с орбиты",
+          "brief_description": "Первый американский аппарат на орбите Луны, сделавший исторический первый снимок восхода Земли и исследовавший посадочные площадки Apollo.",
+          "first_person_story": "Меня запустили, чтобы стать глазами программы Apollo до того, как нога человека впервые коснется лунного реголита. В августе 1966 года я вышел на окололунную орбиту, неся внутри герметичного корпуса полноценную фотолабораторию Eastman Kodak.\n\n23 августа 1966 года я развернул камеру от серых кратеров и запечатлел беспрецедентное зрелище: сияющий бело-голубой шар Земли, восходящий над безжизненным лунным горизонтом. Это была первая в истории фотография нашей планеты, сделанная из глубин космоса.\n\nСфотографировав более пяти миллионов квадратных километров поверхности для выбора безопасных зон посадки Apollo, я исчерпал запас сжатого газа системы ориентации. Чтобы мой аппарат не стал неуправляемой угрозой для будущих пилотируемых кораблей, на 577-м витке мне была дана команда включить двигатель на торможение. 29 октября 1966 года я врезался в древние горы обратной стороны Луны, оставшись вечным памятником на скрытом полушарии спутника.",
+          "key_facts": [
+            "Сделал первую в истории человечества фотографию восхода Земли над Луной 23 августа 1966 года.",
+            "Снял более 5 млн кв. км лунной поверхности для подтверждения безопасности высадок Apollo.",
+            "Имел на борту систему проявки фотопленки и передавал снимки на Землю по радиосигналу.",
+            "Был намеренно сведен с орбиты на 577-м витке во избежание радиопомех для будущих миссий."
+          ],
+          "fleet_members": [
+            {
+              "mission": "Lunar Orbiter 2",
+              "landing_site": "Море Спокойствия",
+              "coordinates": "4.0 N, 11.0 E",
+              "landing_date": "1967-10-11"
+            },
+            {
+              "mission": "Lunar Orbiter 3",
+              "landing_site": "Океан Бурь",
+              "coordinates": "14.3 N, 91.7 W",
+              "landing_date": "1967-10-09"
+            },
+            {
+              "mission": "Lunar Orbiter 4",
+              "landing_site": "Видимая сторона",
+              "coordinates": "Видимая сторона",
+              "landing_date": "1967-10-31"
+            },
+            {
+              "mission": "Lunar Orbiter 5",
+              "landing_site": "Обратная сторона",
+              "coordinates": "2.79 S, 83.0 W",
+              "landing_date": "1968-01-31"
+            }
+          ]
+        },
+        "kk": {
+          "name": "Lunar Orbiter 1",
+          "status": "Басқарылатын орбитадан шығарудан кейін Айдың арғы бетінде тыныштық тапқан",
+          "brief_description": "Ай орбитасына шыққан алғашқы америкалық аппарат, Жердің алғашқы суретін түсіріп, Apollo қону орындарын картаға түсірген.",
+          "first_person_story": "Мен адам баласы Ай бетіне аяқ басқанға дейін Apollo бағдарламасының қырағы көзі болу үшін ұшырылдым. 1966 жылдың тамызында мен Ай орбитасына шығып, герметикалық корпусымда Eastman Kodak фотолабораториясын алып келдім.\n\n1966 жылдың 23 тамызында мен камераны Ай бетінен бұрып, ғажап көріністі түсірдім: көгілдір Жер шарының сұрғылт Ай жиегінен шығып келе жатқан алғашқы тарихи бейнесін таспаладым.\n\nApollo қону алаңдарын дәлелдеу үшін бес миллион шаршы шақырымнан астам аумақты суретке түсіргеннен кейін, бағдарлау газым таусыла бастады. Болашақ ғарышкерлерге радиокедергі келтірмеу үшін 577-ші айналымда тежегіш қозғалтқышым іске қосылды. 1966 жылдың 29 қазанында мен Айдың арғы бетіндегі тауларға құлап, мәңгілік тыныштық таптым.",
+          "key_facts": [
+            "1966 жылғы 23 тамызда Ай маңынан Жердің көтерілуінің алғашқы тарихи суретін түсірді.",
+            "Apollo қону алаңдарын анықтау үшін 5 миллион шаршы шақырым аумақты фотоға түсірді.",
+            "Бортында пленканы өңдеу лабораториясын тасымалдап, аналогты сигнал арқылы Жерге жіберді.",
+            "Болашақ миссияларға қауіп төндірмес үшін 577-айналымда басқарыла отырып Айға құлатылды."
+          ],
+          "fleet_members": [
+            {
+              "mission": "Lunar Orbiter 2",
+              "landing_site": "Тыныштық теңізі",
+              "coordinates": "4.0 N, 11.0 E",
+              "landing_date": "1967-10-11"
+            },
+            {
+              "mission": "Lunar Orbiter 3",
+              "landing_site": "Дауылдар мұхиты",
+              "coordinates": "14.3 N, 91.7 W",
+              "landing_date": "1967-10-09"
+            },
+            {
+              "mission": "Lunar Orbiter 4",
+              "landing_site": "Бергі беті",
+              "coordinates": "Бергі беті",
+              "landing_date": "1967-10-31"
+            },
+            {
+              "mission": "Lunar Orbiter 5",
+              "landing_site": "Арғы беті",
+              "coordinates": "2.79 S, 83.0 W",
+              "landing_date": "1968-01-31"
+            }
+          ]
+        }
+      },
+      "image_credit": "NASA/Langley"
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 17,
+    "fields": {
+      "name": "LCROSS & Centaur Upper Stage",
+      "code": "lcross",
+      "artifact_type": "scientific_package",
+      "body": 1,
+      "latitude": -84.675,
+      "longitude": -48.725,
+      "orbit_parameters": "High-velocity impact crater at Cabeus floor",
+      "launch_date": "2009-06-18",
+      "landing_date": "2009-10-09",
+      "end_of_mission_date": "2009-10-09",
+      "status": "Permanent impact crater monument at the floor of Cabeus crater",
+      "brief_description": "Kinetic impactor mission that excavated water ice and volatiles from the permanently shadowed floor of Cabeus crater.",
+      "first_person_story": "My purpose was not a gentle touchdown, but a violent sacrifice to unlock the Moon greatest secret. For decades, scientists theorized that deep inside the permanently shadowed craters of the lunar poles, where sunlight had not reached for billions of years, vast reservoirs of water ice lay hidden.\n\nOn October 9, 2009, I guided the empty 2,300-kilogram Centaur upper stage into the pitch-black floor of Cabeus crater at 9,000 kilometers per hour. The kinetic impact excavated thousands of tons of frozen regolith, blasting a massive plume of dust and vapor into sunlight ten kilometers high.\n\nTrailing four minutes behind, my nine spectrometers, near-infrared cameras, and radiometers flew directly through the cloud. In those fleeting final seconds, my sensors detected the undeniable infrared signature of pure water ice and hydroxyl molecules. Moments later, I too impacted the freezing crater floor, resting forever alongside Centaur in the eternal darkness that safeguards humanity future rocket fuel.",
+      "key_facts": [
+        "Confirmed the presence of approximately 155 kg of water ice and vapor in the impact debris plume.",
+        "Impacted the floor of Cabeus crater at a velocity of approximately 2.5 km/sec (9,000 km/h).",
+        "Detected volatile compounds including methane, ammonia, hydrogen gas, and carbon monoxide alongside water.",
+        "Paved the scientific and resource foundation for the NASA Artemis program and future lunar base life support."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/ARC-2008-ACD07-0073-412/ARC-2008-ACD07-0073-412~large.jpg",
+      "model_3d": "",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Зонд LCROSS и ступень Centaur",
+          "status": "Ударный кратер-памятник на дне полярного кратера Кабео",
+          "brief_description": "Ударный зонд, открывший залежи водяного льда и летучих веществ в вечной тьме кратера Кабео на южном полюсе Луны.",
+          "first_person_story": "Моей задачей была не мягкая посадка, а точный кинетический удар ради разгадки главной тайны Луны. Десятилетиями ученые спорили, таится ли на дне вечно затененных полярных кратеров древний водяной лед.\n\n9 октября 2009 года я направил 2.3-тонную ступень Centaur на дно кратера Кабео на скорости девять тысяч километров в час. Удар взметнул из темноты столб ледяной пыли и пара на высоту десять километров прямо в солнечные лучи.\n\nСледуя следом в четырех минутах позади, мои спектрометры и тепловизоры пролетели сквозь образовавшееся облако. За секунды до столкновения детекторы передали на Землю неопровержимый сигнал водяного льда и гидроксила. Через мгновение я тоже вошел в ледяной грунт кратера, оставшись вечным памятником у истоков будущей лунной базы человечества.",
+          "key_facts": [
+            "Подтвердил наличие не менее 155 кг водяного льда и пара в выброшенном плюме.",
+            "Врезался в кратер Кабео на скорости 2.5 км/с (около 9000 км/ч).",
+            "Обнаружил следы метана, аммиака, углекислого газа и водорода вместе с водой.",
+            "Заложил научный фундамент для добычи ресурсов в рамках программы Artemis."
+          ]
+        },
+        "kk": {
+          "name": "LCROSS зонды және Centaur сатысы",
+          "status": "Айдың оңтүстік полюсіндегі Кабео кратерінің түбінде мәңгілікке қалған",
+          "brief_description": "Айдың оңтүстік полюсіндегі мәңгі қараңғы Кабео кратерінен су мұзы мен ұшқыш заттарды тапқан соққы зонды.",
+          "first_person_story": "Менің мақсатым жайлап қону емес, Айдың ең басты құпиясын ашу үшін соққы жасау болды. Ғалымдар ғасырлар бойы күн сәулесі түспейтін полярлық кратерлер түбінде су мұзы бар деп болжады.\n\n2009 жылдың 9 қазанында мен 2300 келілік бос Centaur сатысын сағатына тоғыз мың шақырым жылдамдықпен Кабео кратерінің түбіне бағыттадым. Кинетикалық соққы мұз басқан реголитті он шақырым биіктікке күн сәулесіне көтерді.\n\nТөрт минуттан кейін соңынан жеткен менің тоғыз спектрометрім тозаң бұлтын тікелей кесіп өтіп, таза су мұзы мен гидроксил бөлшектерін тіркеді. Артынша мен де осы суық кратерге мәңгі тыныштық таптым.",
+          "key_facts": [
+            "Соққы бұлтынан кемінде 155 кг су мұзы мен буының барын нақты дәлелдеді.",
+            "Кабео кратерінің түбіне секундына 2.5 шақырым (сағатына 9000 км) жылдамдықпен соғылды.",
+            "Сумен қатар метан, аммиак және сутегі сияқты маңызды ұшқыш заттарды тіркеді.",
+            "NASA-ның Artemis бағдарламасы мен болашақ Ай базасының ғылыми негізін қалады."
+          ]
+        }
+      },
+      "image_credit": "NASA/Ames, Dominic Hart"
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 18,
+    "fields": {
+      "name": "Mariner 9",
+      "code": "mariner-9",
+      "artifact_type": "orbiter",
+      "body": 2,
+      "latitude": null,
+      "longitude": null,
+      "orbit_parameters": "Decaying Mars orbit (periapsis 1,390 km, apoapsis 17,140 km, inclination 64.3 degrees)",
+      "launch_date": "1971-05-30",
+      "landing_date": null,
+      "end_of_mission_date": "1972-10-27",
+      "status": "Drifting in unpowered decaying Mars orbit (projected atmospheric entry 2030-2070)",
+      "brief_description": "The first spacecraft to orbit another planet, discovering the Olympus Mons volcano and the vast Valles Marineris canyon system.",
+      "first_person_story": "When I arrived at the Red Planet on November 14, 1971, I made history by firing my liquid rocket engine to become the first human spacecraft ever to enter orbit around another world. But Mars greeted me with a hostile veil: the largest global dust storm ever observed had enveloped the entire globe, turning the planet into a featureless orange sphere.\n\nWhile Soviet probes rushed their landings and perished in the howling gale, my ground controllers commanded me to wait. For two months, I orbited patiently above the raging tempest. As the dust slowly settled, dark mountain peaks began piercing through the haze: gigantic volcanic calderas unlike anything on Earth. I had discovered Olympus Mons, the tallest volcano in the Solar System.\n\nOver the course of 349 days, I transmitted 7,329 images mapping 85 percent of the planet surface. I revealed riverbeds, sand dunes, ice caps, and a titanic rift system spanning four thousand kilometers, later christened Valles Marineris in my honor. On October 27, 1972, my attitude control nitrogen ran dry. NASA commanded my transmitters off, leaving me to silently circle Mars as a ghost ship whose orbit will one day end in fiery descent.",
+      "key_facts": [
+        "First spacecraft in human history to successfully enter orbit around another celestial planet.",
+        "Outlasted a colossal planet-wide dust storm by patiently waiting in orbit for two months before initiating science mapping.",
+        "Discovered Olympus Mons (21.9 km tall) and the immense canyon network Valles Marineris, named in honor of the spacecraft.",
+        "Returned 7,329 photographs mapping 85% of Mars, transforming our view from a cratered moon-like world into a geologically dynamic planet."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/PIA02996/PIA02996~large.jpg",
+      "model_3d": "",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Маринер-9",
+          "status": "Дрейфует по затухающей орбите вокруг Марса (вход в атмосферу ожидается между 2030 и 2070 гг.)",
+          "brief_description": "Первый в истории искусственный спутник другой планеты, открывший гигантский вулкан Олимп и каньоны Долины Маринера.",
+          "first_person_story": "Когда 14 ноября 1971 года я подлетел к Марсу, включение тормозного двигателя вписало мое имя в историю: я стал первым рукотворным аппаратом, вышедшим на орбиту другой планеты. Но Марс встретил меня свирепой пылевой бурей планетарного масштаба, скрывшей всю поверхность.\n\nПока советские спускаемые аппараты гибли в буре при спешной посадке, инженеры дали мне команду терпеливо ждать на орбите. Два месяца спустя пыль начала оседать, и из мглы показались гигантские вершины: потухшие супервулканы, превосходящие любые горы Земли. Я открыл гору Олимп высотой более двадцати километров.\n\nЗа 349 дней я передал более семи тысяч снимков, зафиксировав русла высохших рек и исполинский разлом коры длиной 4000 км, названный в мою честь Долиной Маринера. 27 октября 1972 года запасы азота в маневровых двигателях иссякли. Радиопередатчик отключили, и с тех пор я бесшумным призраком кружу над планетой в ожидании сгорания в атмосфере.",
+          "key_facts": [
+            "Первый в истории космический аппарат, ставший искусственным спутником другой планеты.",
+            "Переждал глобальную пылевую бурю на орбите, сохранив работоспособность всех приборов.",
+            "Открыл высочайший вулкан Солнечной системы Олимп и каньоны Долины Маринера.",
+            "Сделал 7329 детальных фотоснимков, составив первую глобальную карту марсианского рельефа."
+          ]
+        },
+        "kk": {
+          "name": "Маринер-9",
+          "status": "Марс орбитасында үнсіз қалқып жүр (2030-2070 жылдар аралығында атмосфераға енеді деп болжануда)",
+          "brief_description": "Өзге ғаламшардың алғашқы жасанды серігі, Олимп жанартауын және алып Маринер аңғарларын ашқан тарихи аппарат.",
+          "first_person_story": "1971 жылдың 14 қарашасында Марсқа жеткенде, мен өзге әлемнің алғашқы жасанды серігі атанып тарихқа ендім. Алайда Марс мені ғаламшарлық алапат шаң дауылымен қарсы алды.\n\nЖерден берілген бұйрықпен мен екі ай бойы орбитада үнсіз күттім. Шаң басылғанда тұман арасынан күн жүйесіндегі ең биік шыңдар көріне бастады: мен жиырма бір шақырымдық алып Олимп жанартауын аштым.\n\n349 күн ішінде мен жеті мыңнан астам сурет жіберіп, ғаламшардың 85 пайызын картаға түсірдім және менің құрметіме Маринер аңғары аталған төрт мың шақырымдық жарықты таптым. 1972 жылы жанармайым бітіп, таратқыштарым өшірілді. Содан бері мен Марс төбесінде үнсіз серік болып қалқып келемін.",
+          "key_facts": [
+            "Адамзат тарихында өзге ғаламшардың орбитасына сәтті шыққан тұңғыш аппарат.",
+            "Бүкіл Марсты басқан жойқын шаң дауылын орбитада күтіп, ғылыми бақылауды сәтті бастады.",
+            "Олимп жанартауын (21.9 км) және өзінің атымен аталған Маринер аңғарлары каньонын ашты.",
+            "7329 фотосурет жіберіп, Марс туралы ғылыми түсінікті түбегейлі өзгертті."
+          ]
+        }
+      },
+      "image_credit": "NASA/JPL"
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 19,
+    "fields": {
+      "name": "Mars Global Surveyor",
+      "code": "mgs",
+      "artifact_type": "orbiter",
+      "body": 2,
+      "latitude": null,
+      "longitude": null,
+      "orbit_parameters": "Sun-synchronous circular Mars orbit (altitude 378 km, inclination 92.8 degrees)",
+      "launch_date": "1996-11-07",
+      "landing_date": null,
+      "end_of_mission_date": "2006-11-02",
+      "status": "Inactive in sun-synchronous frozen circular orbit around Mars",
+      "brief_description": "Historic 10-year mapping orbiter that revolutionized Martian geology, discovered active liquid water gullies, and mapped landing zones.",
+      "first_person_story": "I was sent to resurrect American exploration of Mars after years of silence. Arriving in September 1997, I pioneered the delicate art of aerobraking, dipping my solar panels repeatedly into the thin upper atmosphere over eighteen months to reshape my elongated ellipse into a perfect circular mapping orbit.\n\nFrom an altitude of 378 kilometers, my Mars Orbiter Camera peered downward with razor-sharp resolution. For ten remarkable years, I watched the changing seasons: dust devils dancing across sand dunes, polar caps shrinking and expanding, and dark boulders tumbling down crater walls. Most astonishingly, I captured evidence of youthful geological gullies carved by modern liquid water or brines.\n\nMy thermal emission spectrometer mapped the vast hematite deposits that guided Opportunity to its landing in Meridiani Planum. On November 2, 2006, after 4,880 orbits and 240,000 images, a routine battery command went awry, causing me to lose orientation. My transmitters fell silent, but my circular orbit remains stable for centuries, watching over the rovers I helped guide home.",
+      "key_facts": [
+        "Operated for ten continuous years (1996-2006), exceeding its design life more than fourfold.",
+        "Pioneered systematic planetary aerobraking using solar panels as airbrakes in the upper Martian atmosphere.",
+        "Discovered youthful geological gullies and slope flows suggesting modern water or brine activity.",
+        "Mapped hematite mineral deposits that dictated the landing site for the Opportunity rover."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/PIA17486/PIA17486~large.jpg",
+      "model_3d": "",
+      "priority": 1,
+      "translations": {
+        "ru": {
+          "name": "Марс Глобал Сервейер",
+          "status": "Находится на стабильной солнечно-синхронной орбите вечного покоя",
+          "brief_description": "Орбитальный картограф, проработавший десять лет, открывший современные водные овраги и указавший посадочные площадки для марсоходов.",
+          "first_person_story": "Я вернул NASA к масштабным исследованиям Марса. Прибыв в сентябре 1997 года, я отточил метод аэробрейкинга, многократно погружая солнечные батареи в верхние слои атмосферы, чтобы превратить вытянутую траекторию в идеальную круговую рабочую орбиту.\n\nВ течение десяти рекордных лет моя камера Mars Orbiter Camera вела съемку марсианской поверхности с невиданной четкостью. Я наблюдал смену времен года, песчаные смерчи и сезонное таяние полярных шапок. Моим главным открытием стали молодые овраги на склонах кратеров, свидетельствующие о периодических потоках соленой воды в наши дни.\n\nМой тепловой спектрометр нашел залежи гематита, ставшие целью для посадки Оппортьюнити. 2 ноября 2006 года после 240 000 переданных снимков сбой ориентации батарей привел к потере связи. Мои передатчики замолчали, но стабильная орбита позволит мне кружить над Марсом веками.",
+          "key_facts": [
+            "Работал на орбите 10 непрерывных лет (1996-2006), вчетверо превысив расчетный срок.",
+            "Впервые применил атмосферное торможение солнечными панелями для формирования орбиты.",
+            "Обнаружил свежие следы водных оврагов на склонах марсианских кратеров.",
+            "Определил залежи гематита на плато Меридиана, обеспечив посадку марсохода Opportunity."
+          ]
+        },
+        "kk": {
+          "name": "Марс Глобал Сервейер",
+          "status": "Марс айналасындағы тұрақты күн-синхронды орбитада тыныққан",
+          "brief_description": "Он жыл бойы Марсты зерттеп, су жыраларын ашқан және марсоходтардың қону орындарын нақтылаған әйгілі орбиталық станция.",
+          "first_person_story": "Мен 1997 жылдың күзінде Марсқа жетіп, күн батареяларының көмегімен сирек атмосферада тежелу әдісін сәтті жүзеге асырдым. Нәтижесінде созылыңқы траекторияны дөңгелек орбитаға айналдырдым.\n\nОн жыл бойы менің жоғары сапалы камерам Марстың әрбір бұрышын таспалады. Мен мезгілдердің ауысуын, шаң құйындарын және мұз қабаттарының еруін бақыладым. Ең ғажап жаңалығым кратер беткейлеріндегі жаңа су жыралары болды.\n\nМенің құралдарым тапқан гематит кендері Opportunity роверінің дәл қонуына жол ашты. 2006 жылдың қарашасында 240 мың суреттен кейін батерея ақауынан байланыс үзілді. Мен Марс аспанында ғасырлар бойы үнсіз қалқып жүремін.",
+          "key_facts": [
+            "10 жыл бойы үздіксіз қызмет етіп (1996-2006), кепілді мерзімінен төрт есе ұзақ жұмыс істеді.",
+            "Орбитаны түзеу үшін күн панельдерімен атмосфералық тежелу тәсілін алғаш қолданды.",
+            "Марс кратерлерінен жақында аққан су немесе тұзды ерітінді іздерін тапты.",
+            "Opportunity марсоходы қонған Меридиани жазығындағы минералды гематитті тапты."
+          ]
+        }
+      },
+      "image_credit": "NASA/JPL-Caltech",
+      "model": {
+        "url": "models/mars-global-surveyor.glb",
+        "credit": "NASA/JPL/Eyes on the Solar System",
+        "page_url": "https://science.nasa.gov/3d-resources/mars-global-surveyor/"
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 20,
+    "fields": {
+      "name": "SMART-1",
+      "code": "smart-1",
+      "artifact_type": "orbiter",
+      "body": 1,
+      "latitude": -34.26,
+      "longitude": -46.19,
+      "orbit_parameters": "Lacus Excellentiae impact crater",
+      "launch_date": "2003-09-27",
+      "landing_date": "2006-09-03",
+      "end_of_mission_date": "2006-09-03",
+      "status": "Impacted Lacus Excellentiae on September 3, 2006 at 2 km/s",
+      "brief_description": "Europe first lunar mission, pioneering solar-electric ion propulsion and surveying lunar elemental composition.",
+      "first_person_story": "I was Europe first emissary to the Moon, built to test an electric whisper in place of roaring chemical rockets. My Snecma PPS-1350 Hall-effect thruster ionized xenon gas, gently accelerating me across a spiral trajectory from Earth orbit toward lunar capture over fourteen patient months.\n\nOnce locked into polar orbit around the Moon, my miniaturized X-ray spectrometer D-CIXS and ultra-compact camera AMIE began inspecting the surface. I mapped key chemical elements including silicon, aluminum, and magnesium, and surveyed permanently shadowed polar craters in search of water ice.\n\nOn September 3, 2006, after completing all science objectives, mission controllers guided me into a grazing controlled descent across the basalt plains of Lacus Excellentiae. Striking the regolith at two kilometers per second, my kinetic impact created a bright flash observed by telescopes across the globe, concluding my journey as a permanent European monument on the Moon.",
+      "key_facts": [
+        "First European Space Agency (ESA) mission to reach and orbit the Moon.",
+        "Demonstrated deep-space solar-electric ion propulsion using xenon propellant.",
+        "Created global elemental maps of silicon, aluminum, and magnesium distribution.",
+        "Concluded with a planned grazing surface impact on September 3, 2006, observed by ground telescopes."
+      ],
+      "fleet_members": [],
+      "image_url": "",
+      "model_3d": "",
+      "priority": 2,
+      "translations": {
+        "ru": {
+          "name": "Зонд SMART-1",
+          "status": "Покоится в Озере Превосходства после запланированного столкновения",
+          "brief_description": "Первая лунная миссия Европейского космического агентства, испытавшая ионный двигатель и исследовавшая химический состав реголита.",
+          "first_person_story": "Я стал первым европейским посланником к Луне. Вместо ревущих ракетных двигателей меня нес электрический ионный двигатель, ускорявший ионы ксенона и терпеливо ведший меня по спиральной траектории четырнадцать месяцев.\n\nВыйдя на полярную окололунную орбиту, мои рентгеновские спектрометры составили карты распределения кремния, алюминия и магния. 3 сентября 2006 года после выполнения всей программы аппарат был направлен на поверхность Озера Превосходства. Вспышка от удара на скорости два километра в секунду была зафиксирована обсерваториями Земли.",
+          "key_facts": [
+            "Первая лунная миссия Европейского космического агентства (ESA).",
+            "Успешно доказала эффективность ионного двигателя для межпланетных полетов.",
+            "Составила минералогические карты Луны в рентгеновском диапазоне.",
+            "Завершила миссию контролируемым ударом о поверхность 3 сентября 2006 года."
+          ]
+        },
+        "kk": {
+          "name": "SMART-1 зонды",
+          "status": "Үздік көлінде жоспарлы соққыдан кейін мәңгі тыныштық тапқан",
+          "brief_description": "Еуропалық ғарыш агенттігінің алғашқы ай миссиясы, иондық қозғалтқышты сынап, реголит құрамын картаға түсірген.",
+          "first_person_story": "Мен Еуропаның Айға жіберген алғашқы аппараты болдым. Ксенон газын иондайтын электр қозғалтқышымен он төрт ай бойы спиральді траекториямен Ай орбитасына жеттім.\n\nПолярлық орбитада кремний, алюминий және магний элементтерін картаға түсірдім. 2006 жылдың 3 қыркүйегінде ғылыми бағдарлама аяқталып, аппарат Үздік көліне бағытталды. Сағатына жеті мың шақырым жылдамдықпен болған соққы Жердегі телескоптар арқылы тіркелді.",
+          "key_facts": [
+            "Еуропалық ғарыш агенттігінің (ESA) Айға жеткен алғашқы аппараты.",
+            "Ғарышта ксенонды иондық қозғалтқыштың тиімділігін толық дәлелдеді.",
+            "Ай бетіндегі минералдар мен химиялық элементтерді рентгендік сәулемен зерттеді.",
+            "2006 жылғы 3 қыркүйекте Ай бетіне бағытталған соққымен миссиясын аяқтады."
+          ]
+        }
+      },
+      "now_view": {}
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 21,
+    "fields": {
+      "name": "Kaguya (SELENE)",
+      "code": "kaguya",
+      "artifact_type": "orbiter",
+      "body": 1,
+      "latitude": -65.5,
+      "longitude": 80.4,
+      "orbit_parameters": "Controlled impact southeast of crater Gill",
+      "launch_date": "2007-09-14",
+      "landing_date": "2009-06-10",
+      "end_of_mission_date": "2009-06-10",
+      "status": "Controlled impact southeast of crater Gill on June 10, 2009",
+      "brief_description": "Japan flagship lunar explorer that captured the world first high-definition television views of the Moon and Earthrise.",
+      "first_person_story": "Named after the celestial Moon princess of Japanese folklore, I was the largest lunar expedition since Apollo. Equipped with fifteen scientific instruments and two HDTV cameras, I orbited the Moon for a year and eight months alongside two miniature sub-satellites, Okina and Ouna.\n\nMy high-definition cameras beamed breathtaking footage back to Earth: the full blue marble of Earth rising and setting over jagged lunar mountain ranges. Beneath that visual splendor, my laser altimeter produced the first precise global topographic elevation map of the Moon, while my radar sounder penetrated kilometers into the crust, discovering subsurface lava tubes that could one day shelter human astronauts.\n\nOn June 10, 2009, my orbital fuel exhausted, mission controllers commanded my final de-orbit maneuver. I impacted the southern highlands near crater Gill at 65.5 degrees south latitude, resting as Japan permanent scientific monument in the lunar soil.",
+      "key_facts": [
+        "Captured the world first high-definition television (HDTV) video of Earthrise from lunar orbit.",
+        "Constructed the most detailed global topographic map of the lunar surface of its era.",
+        "Discovered intact subsurface lava tube structures suitable for future pressurized lunar bases.",
+        "Deployed two sub-satellites (Okina and Ouna) to measure the Moon far-side gravity field for the first time."
+      ],
+      "fleet_members": [
+        {
+          "mission": "Okina (Rstar Sub-satellite)",
+          "landing_site": "Far side crater Mineur",
+          "coordinates": "28.2 N, 159.0 W",
+          "landing_date": "2009-02-12"
+        },
+        {
+          "mission": "Ouna (Vstar Sub-satellite)",
+          "landing_site": "Stable lunar orbit",
+          "coordinates": "High-altitude circular orbit",
+          "landing_date": "2009-06-30"
+        }
+      ],
+      "image_url": "",
+      "model_3d": "",
+      "priority": 2,
+      "translations": {
+        "ru": {
+          "name": "Зонд Кагуя (SELENE)",
+          "status": "Покоится к юго-востоку от кратера Гилл после завершения миссии",
+          "brief_description": "Японский флагманский лунный аппарат, снявший первые в истории HDTV-кадры восхода Земли и открывший лунные лавовые трубки.",
+          "first_person_story": "Названная в честь лунной принцессы из японского сказания, я стала крупнейшей экспедицией к Луне со времен программы Apollo. С борта станции велась первая трансляция видео высокой четкости HDTV: весь мир увидел, как сияющая Земля восходит над лунными хребтами.\n\nМои радары просветили лунную кору и обнаружили колоссальные подземные лавовые трубки, способные защитить будущие базы от радиации. 10 июня 2009 года после выработки запасов топлива аппарат был направлен на поверхность к юго-востоку от кратера Гилл.",
+          "key_facts": [
+            "Снял первое в истории видео высокой четкости (HDTV) восхода Земли над Луной.",
+            "Составил детальную цифровую модель высот всей поверхности спутника.",
+            "Открыл входы в подземные лавовые трубки, идеальные для строительства лунных баз.",
+            "Использовал вспомогательные микроспутники Окина и Оуна для гравиметрической съемки."
+          ]
+        },
+        "kk": {
+          "name": "Кагуя (SELENE) зонды",
+          "status": "Гилл кратерінің оңтүстік-шығысында миссия аяқталған соң тыныштық тапқан",
+          "brief_description": "Жапонияның бас Ай аппараты, Жер көтерілуінің алғашқы HDTV бейнесін түсіріп, жерасты лава түтіктерін тапқан.",
+          "first_person_story": "Жапон ертегісіндегі Ай ханшайымының есімімен аталған мен Apollo бағдарламасынан кейінгі ең ірі экспедиция болдым. Бортымдағы HDTV камералары бүкіл әлемге Жер шарының Ай үстінен қалай көтерілетінін жоғары сапада көрсетті.\n\nРадарларым Ай қыртысынан адамдарды радиациядан қорғай алатын алып жерасты лава түтіктерін тапты. 2009 жылдың 10 маусымында аппарат Гилл кратерінің маңындағы Ай топырағына мәңгілікке қондырылды.",
+          "key_facts": [
+            "Ай орбитасынан Жер көтерілуінің әлемдегі алғашқы жоғары сапалы (HDTV) бейнесін түсірді.",
+            "Ай бетінің ең дәл жаһандық топографиялық картасын жасап шықты.",
+            "Болашақ ғарыш станцияларына пана болатын жерасты лава түтіктерін тапты.",
+            "Айдың арғы бетінің гравитациясын зерттеу үшін Окина және Оуна серіктерін қолданды."
+          ]
+        }
+      },
+      "now_view": {}
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 22,
+    "fields": {
+      "name": "SLIM Lander & LEV-1/2",
+      "code": "slim",
+      "artifact_type": "lander",
+      "body": 1,
+      "latitude": -13.316,
+      "longitude": 25.244,
+      "orbit_parameters": "Shioli crater slope touchdown",
+      "launch_date": "2023-09-06",
+      "landing_date": "2024-01-19",
+      "end_of_mission_date": "2024-04-28",
+      "status": "Resting on the slope of Shioli crater; survived three lunar nights before permanent silence",
+      "brief_description": "Japan precision Moon Sniper lander that achieved a historic 55-meter accuracy touchdown and deployed the SORA-Q mini rover.",
+      "first_person_story": "I was designed to change the doctrine of planetary landing from where we can land to where we want to land. On January 19, 2024, I descended toward the 15-degree rocky slope of Shioli crater near the Sea of Nectar.\n\nUsing real-time optical image-matching navigation comparing crater patterns with orbital maps, my autonomous guidance brought me down within an astonishing 55 meters of my target site. Just five meters above touchdown, I ejected two tiny robotic explorers: the hopping probe LEV-1 and the transformable palm-sized ball rover LEV-2, nicknamed SORA-Q.\n\nAlthough an engine nozzle loss caused me to tip forward onto my nose, my solar cells caught the setting sun days later, powering my multi-band camera to analyze olivine minerals from the lunar mantle. Designed for only a single lunar day, my electronics miraculously survived three consecutive freezing two-week lunar nights before falling silent in late April 2024.",
+      "key_facts": [
+        "Achieved pinpoint lunar landing within 55 meters of target, revolutionizing planetary guidance accuracy.",
+        "Deployed LEV-2 (SORA-Q), a transformable 250-gram ball robot that photographed the landed main craft.",
+        "Made Japan the fifth country in human history to achieve a soft touchdown on the Moon.",
+        "Miraculously survived three freezing two-week lunar nights (-130 C) despite having no onboard heaters."
+      ],
+      "fleet_members": [
+        {
+          "mission": "LEV-1 Hopping Robot",
+          "landing_site": "Shioli crater floor",
+          "coordinates": "13.316 S, 25.244 E",
+          "landing_date": "2024-01-19"
+        },
+        {
+          "mission": "LEV-2 SORA-Q Transformable Rover",
+          "landing_site": "Shioli crater slope",
+          "coordinates": "13.316 S, 25.244 E",
+          "landing_date": "2024-01-19"
+        }
+      ],
+      "image_url": "",
+      "model_3d": "",
+      "priority": 2,
+      "translations": {
+        "ru": {
+          "name": "Посадочный аппарат SLIM и луноходы LEV",
+          "status": "Покоится на склоне кратера Сиоли после трех перенесенных лунных ночей",
+          "brief_description": "Японский высокоточный посадочный аппарат Лунный снайпер, совершивший посадку с точностью до 55 метров и выпустивший микроровер SORA-Q.",
+          "first_person_story": "Меня создали, чтобы человечество садилось не туда, куда легко сесть, а туда, куда нужно науке. 19 января 2024 года я совершил посадку на склон кратера Сиоли с рекордным отклонением всего 55 метров от расчетной точки.\n\nЗа секунды до касания я катапультировал шарообразный трансформируемый микроровер SORA-Q, который сфотографировал меня на поверхности. Аппарат был рассчитан всего на один день, но вопреки отсутствию обогревателей пережил три 14-суточные лунные ночи при температуре минус 130 градусов.",
+          "key_facts": [
+            "Совершил посадку с рекордной точностью 55 метров, подтвердив концепцию точечной навигации.",
+            "Выпустил 250-граммового робота SORA-Q, сделавшего снимок аппарата на лунном грунте.",
+            "Сделал Японию пятой страной мира, совершившей мягкую посадку на Луну.",
+            "Пережил три экстремальные лунные ночи без радиоизотопных нагревателей."
+          ]
+        },
+        "kk": {
+          "name": "SLIM қону аппараты және LEV роверлері",
+          "status": "Сиоли кратерінің беткейінде үш ай түнінен кейін тыныштық тапқан",
+          "brief_description": "Ай бетіне 55 метрлік асқан дәлдікпен қонған және SORA-Q шар тәріздес роботын шығарған Жапонияның Ай снайпері аппараты.",
+          "first_person_story": "Мен 2024 жылдың 19 қаңтарында кратерлерді тану жүйесінің көмегімен Сиоли кратерінің беткейіне белгіленген нүктеден небәрі 55 метр қашықтыққа қондым.\n\nҚонуға санаулы секунд қалғанда 250 грамдық SORA-Q трансформер-роботын босаттым, ол менің Ай бетіндегі суретімді Жерге жолдады. Аппарат тек бір ай күніне есептелсе де, жылытқышсыз үш мәрте қақаған ай түнін аман өткерді.",
+          "key_facts": [
+            "55 метрлік дәлдікпен қонып, ғарыштық қону тарихында жаңа дәлдік рекордын орнатты.",
+            "Өзін Ай бетінде суретке түсірген 250 грамдық SORA-Q роботын сәтті бөлді.",
+            "Жапонияны Айға жұмсақ қонған әлемдегі бесінші мемлекетке айналдырды.",
+            "Жылытқышсыз үш рет 14 күндік Ай түнінің суығына төтеп берді."
+          ]
+        }
+      },
+      "now_view": {}
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 23,
+    "fields": {
+      "name": "Luna 9",
+      "code": "luna-9",
+      "artifact_type": "lander",
+      "body": 1,
+      "latitude": 7.08,
+      "longitude": -64.37,
+      "orbit_parameters": "Oceanus Procellarum touchdown site",
+      "launch_date": "1966-01-31",
+      "landing_date": "1966-02-03",
+      "end_of_mission_date": "1966-02-06",
+      "status": "Resting on the basalt plain of Oceanus Procellarum since February 1966",
+      "brief_description": "The first spacecraft in human history to survive a soft touchdown on another celestial body, returning the first surface panoramas.",
+      "first_person_story": "Before I descended toward the Ocean of Storms on February 3, 1966, world astronomers feared that the lunar surface was an ocean of bottomless, quicksand-like dust that would swallow any arriving spacecraft whole.\n\nAt an altitude of 75 meters, my radar altimeter triggered retro-rockets, slowing my descent until an extended probe touched soil. My 99-kilogram spherical automatic lunar station detached inside an airbag, bounced across the dark basalt, and came to rest safely. Four petal-shaped shields opened outward like a blooming flower, righting my capsule and exposing my revolving panoramic television camera.\n\nFor three days, I transmitted the first clear photographs ever taken from the surface of another world. My pictures showed solid stones, miniature craters, and firm regolith, proving that the Moon possessed solid ground and clearing the path for human boots.",
+      "key_facts": [
+        "First spacecraft in human history to achieve a soft, survivable landing on another celestial world.",
+        "Proved that the lunar surface was solid rock and regolith rather than a treacherous layer of loose dust.",
+        "Returned the first television panoramas taken directly from the surface of an alien world.",
+        "Four spring-loaded petal shields stabilized the station on the surface and doubled as radio antenna grounds."
+      ],
+      "fleet_members": [
+        {
+          "mission": "Luna 13",
+          "landing_site": "Oceanus Procellarum",
+          "coordinates": "18.87 N, 62.05 W",
+          "landing_date": "1966-12-24"
+        }
+      ],
+      "image_url": "",
+      "model_3d": "",
+      "priority": 2,
+      "translations": {
+        "ru": {
+          "name": "Автоматическая станция Луна-9",
+          "status": "Покоится в Океане Бурь с февраля 1966 года",
+          "brief_description": "Первый в истории человечества аппарат, совершивший мягкую посадку на другое небесное тело и передавший первые панорамы лунной поверхности.",
+          "first_person_story": "До того как 3 февраля 1966 года я опустился в Океан Бурь, многие астрономы опасались, что Луна покрыта слоем зыбкой пыли толщиной в метры, в которой утонет любой корабль.\n\nАмортизационный баллон принял удар о грунт, станция отскочила и замерла на поверхности. Четыре лепестка раскрылись, раскрыв телевизионную камеру. Я передал первые в истории панорамы лунной поверхности, доказав всему миру: грунт твердый, и человек сможет ступить на Луну.",
+          "key_facts": [
+            "Первая в истории человечества успешная мягкая посадка на другое космическое тело.",
+            "Опровергла гипотезу о многометровом слое пыли, доказав твердость лунной поверхности.",
+            "Передала первые в мире круговые панорамы с поверхности иного небесного тела.",
+            "Четыре лепестка раскрытия служили стабилизаторами и антеннами радиопередатчика."
+          ]
+        },
+        "kk": {
+          "name": "Луна-9 автоматты станциясы",
+          "status": "1966 жылдың ақпанынан бері Дауылдар мұхитында сақталған",
+          "brief_description": "Адамзат тарихында өзге аспан денесіне алғаш рет жұмсақ қонған және Ай бетінен тұңғыш панорамалық суреттерді жіберген аппарат.",
+          "first_person_story": "1966 жылдың 3 ақпанында Дауылдар мұхитына қонғанға дейін ғалымдар Ай беті борпылдақ шаңнан тұрады деп қауіптенген еді.\n\nТөрт қауырсын қақпағым гүлдей ашылып, станциямды тік ұстады. Мен өзге әлемнің бетінен алғашқы телепанорамаларды Жерге жіберіп, топырақтың қатты екенін дәлелдедім.",
+          "key_facts": [
+            "Адамзат тарихында өзге аспан денесіне сәтті жұмсақ қонған тұңғыш аппарат.",
+            "Ай бетінің қатты тасты реголиттен тұратынын дәлелдеп, адамның қонуына жол ашты.",
+            "Өзге әлемнің бетінен тікелей түсірілген тұңғыш фотопанорамаларды таратты.",
+            "Төрт серіппелі қақпағы станцияны теңгеріп, байланыс антеннасы қызметін атқарды."
+          ]
+        }
+      },
+      "now_view": {}
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 24,
+    "fields": {
+      "name": "Lunokhod 1 (Luna 17)",
+      "code": "lunokhod-1",
+      "artifact_type": "rover",
+      "body": 1,
+      "latitude": 38.333,
+      "longitude": -35.0,
+      "orbit_parameters": "Mare Imbrium rover traverse site",
+      "launch_date": "1970-11-10",
+      "landing_date": "1970-11-17",
+      "end_of_mission_date": "1971-10-04",
+      "status": "Parked permanently in Mare Imbrium; French laser retroreflector remains in scientific use",
+      "brief_description": "The first robotic wheeled rover in human history, traversing 10.5 km across the lunar surface over ten months.",
+      "first_person_story": "Shaped like an airtight bathtub on eight mesh wheels, I was humanity first mechanical scout to roll across the regolith of an alien world. Delivered by the Luna 17 landing platform on November 17, 1970, I rolled down two ramps onto the dark plains of the Sea of Rains.\n\nControlled by a five-man crew back on Earth using joysticks and delayed television monitors, my independent eight-wheel drive navigated crater rims, rock fields, and ridges. By day, my opened lid solar array drank sunlight; by night, the lid closed and a polonium-210 isotopic heat source kept my instruments warm against the brutal 14-day lunar frost.\n\nOver 322 Earth days, I drove 10,540 meters, transmitted 20,000 images, and performed hundreds of soil penetrometer tests. Parked facing Earth, my corner-cube French laser retroreflector still returns photons to ground observatories today, measuring the Earth-Moon distance with millimeter precision.",
+      "key_facts": [
+        "First robotic wheeled vehicle to explore another celestial body in human history.",
+        "Traversed 10.54 km across Mare Imbrium over ten and a half months of operations.",
+        "Powered by solar arrays with a polonium-210 isotopic heater to survive the freezing lunar night.",
+        "Carries a French corner-cube laser reflector that is still actively targeted by Earth laser stations today."
+      ],
+      "fleet_members": [
+        {
+          "mission": "Lunokhod 2 (Luna 21)",
+          "landing_site": "Le Monnier crater",
+          "coordinates": "25.85 N, 30.45 E",
+          "landing_date": "1973-01-15"
+        }
+      ],
+      "image_url": "https://images-assets.nasa.gov/image/PIA12967/PIA12967~orig.jpg",
+      "model_3d": "",
+      "priority": 2,
+      "translations": {
+        "ru": {
+          "name": "Луноход-1 (Луна-17)",
+          "status": "Навечно припаркован в Море Дождей; уголковый отражатель до сих пор используется учеными",
+          "brief_description": "Первый в мире колесный планетоход, преодолевший 10.5 км по лунной поверхности за десять месяцев работы.",
+          "first_person_story": "Я стал первым колесным вездеходом, проехавшим по другому миру. Спущенный с трапов посадочной ступени Луна-17 в ноябре 1970 года, я ступил восемью колесами на равнины Моря Дождей.\n\nЭкипаж с Земли управлял мной с помощью джойстиков. Днем крышка с солнечной батареей питала электромоторы, а ночью закрывалась, сохраняя тепло полониевого обогревателя. За 322 дня я проехал 10.5 километров. Мой французский лазерный отражатель и сегодня отражает лучи земных обсерваторий, измеряя расстояние до Луны с точностью до миллиметров.",
+          "key_facts": [
+            "Первый в истории человечества самоходный аппарат на поверхности другого небесного тела.",
+            "Преодолел 10.54 км по Морю Дождей, проведя сотни замеров плотности грунта.",
+            "Использовал полониевый радиоизотопный источник тепла для выживания в лунную ночь.",
+            "Несет уголковый лазерный отражатель, с которого до сих пор принимают отраженные импульсы на Земле."
+          ]
+        },
+        "kk": {
+          "name": "Луноход-1 (Луна-17)",
+          "status": "Жаңбырлар теңізінде мәңгілікке қойылған; лазерлік шағылдырғышы әлі күнге қолданыста",
+          "brief_description": "Адамзат тарихындағы тұңғыш дөңгелекті планетоход, Ай бетінде 10 ай ішінде 10.5 шақырым жол жүрген.",
+          "first_person_story": "Мен өзге әлемнің бетінде дөңгелегін айналдырған тұңғыш өздігінен жүретін көлік болдым. 1970 жылдың қарашасында Луна-17 платформасынан Жаңбырлар теңізіне түстім.\n\nЖерден джойстикпен басқарылған сегіз дөңгелегім он ай бойы 10.5 шақырымды бағындырды. Менің үстімдегі лазерлік шағылдырғыш күні бүгінге дейін Жерден жіберілген лазер сәулесін кері қайтарып тұр.",
+          "key_facts": [
+            "Өзге ғаламшар бетін зерттеген адамзат тарихындағы тұңғыш өздігінен жүретін көлік.",
+            "Жаңбырлар теңізінде 10.54 км жол жүріп, мыңдаған панорамалық сурет жіберді.",
+            "14 күндік қақаған ай түнінен аман қалу үшін полонийлі жылытқышты пайдаланды.",
+            "Орнатылған француздық лазерлік шағылдырғыш бүгінге дейін Жер мен Ай арақашықтығын өлшеуге қызмет етеді."
+          ]
+        }
+      },
+      "now_view": {},
+      "image_credit": "NASA/GSFC/Arizona State University"
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 25,
+    "fields": {
+      "name": "Beagle 2",
+      "code": "beagle-2",
+      "artifact_type": "lander",
+      "body": 2,
+      "latitude": 11.529,
+      "longitude": 90.426,
+      "orbit_parameters": "Isidis Planitia landing coordinates",
+      "launch_date": "2003-06-02",
+      "landing_date": "2003-12-25",
+      "end_of_mission_date": "2003-12-25",
+      "status": "Resting intact in Isidis Planitia; discovered by NASA MRO in 2014 with two unexpanded solar petals",
+      "brief_description": "Europe pioneering Mars astrobiology lander that successfully touched down on Christmas Day 2003 but remained silent.",
+      "first_person_story": "Named after HMS Beagle, the ship that carried Charles Darwin around the globe, I was Britain and Europe audacious attempt to search for extinct or extant Martian life on a shoestring budget. Released from ESA Mars Express on December 19, 2003, I plunged into the Martian atmosphere on Christmas Day inside a heat shield and parachute system.\n\nFor eleven years, Earth believed I had burned in the sky or smashed upon the rocks. But I had performed a near-flawless descent: my parachute deployed, my airbags inflated, and I touched down gently in the vast sedimentary basin of Isidis Planitia.\n\nMy mechanical failure was tragic in its simplicity: my clamshell casing opened, and three of my four circular solar panels unfolded like flower petals. But the fourth petal jammed. Because my radio antenna was nestled underneath that final panel, my signal could never escape. In late 2014, NASA Mars Reconnaissance Orbiter photographed me from orbit, showing my intact golden hull resting serenely in the Martian dust, a silent witness to European ambition.",
+      "key_facts": [
+        "Britain and Europe first attempt to land an astrobiology package on Mars.",
+        "Successfully survived atmospheric entry, descent, and touchdown on Christmas Day 2003.",
+        "Fate remained an unsolved mystery for 11 years until NASA HiRISE orbital cameras spotted it intact in 2014.",
+        "Landed safely, but two of its four solar panels failed to fully unfurl, trapping the radio antenna inside."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/PIA19107/PIA19107~orig.jpg",
+      "model_3d": "",
+      "priority": 2,
+      "translations": {
+        "ru": {
+          "name": "Посадочный аппарат Beagle 2",
+          "status": "Покоится в целости на равнине Исиды; обнаружен орбитальным аппаратом MRO в 2014 году",
+          "brief_description": "Европейский посадочный зонд, успешно севший на Марс в Рождество 2003 года, но замолчавший из-за нераскрывшейся солнечной батареи.",
+          "first_person_story": "Названный в честь корабля Бигль, на котором Чарльз Дарвин обогнул мир, я был дерзкой британской попыткой найти следы марсианской жизни. 25 декабря 2003 года я вошел в атмосферу Марса.\n\nОдиннадцать лет считалось, что зонд разбился. Но в 2014 году камера NASA HiRISE нашла меня: я совершил мягкую посадку в Равнине Исиды! Мой корпус раскрылся, три лепестка батарей раскрылись, но четвертый заклинило. Антенна передачи осталась под ним, и мой голос так и не долетел до Земли.",
+          "key_facts": [
+            "Первая британская и европейская астробиологическая станция на поверхности Марса.",
+            "Успешно совершила мягкую посадку на парашютах и надувных амортизаторах 25 декабря 2003 года.",
+            "Оставалась пропавшей 11 лет, пока снимок MRO не доказал ее идеальную сохранность.",
+            "Причиной молчания стало неполное раскрытие солнечных лепестков, блокировавшее антенну."
+          ]
+        },
+        "kk": {
+          "name": "Beagle 2 қону аппараты",
+          "status": "Исиди жазығында бүлінбей сақталған; 2014 жылы MRO орбиталық аппаратымен табылды",
+          "brief_description": "2003 жылдың Рождествосында Марсқа сәтті қонған, бірақ күн батареясы толық ашылмай үнсіз қалған еуропалық зонд.",
+          "first_person_story": "Мен 2003 жылдың 25 желтоқсанында Марс атмосферасына еніп, Исиди жазығына парашют және қауіпсіздік жастықтарымен жұмсақ қондым.\n\nОн бір жыл бойы мені қирап қалды деп ойлады. Алайда 2014 жылы NASA-ның MRO жерсерігі мені тапты: аппаратым бүлінбеген, тек күн панелінің соңғы жапырағы ашылмай қалып, байланыс антеннасын басып қалған екен.",
+          "key_facts": [
+            "Еуропа мен Ұлыбританияның Марсқа астробиологиялық станция қондырудағы алғашқы қадамы.",
+            "2003 жылы атмосфераға ену мен жұмсақ қонуды сәтті орындады.",
+            "11 жыл бойы із-түзсіз жоғалды саналып, 2014 жылы орбиталық сурет арқылы аман табылды.",
+            "Күн батареясының бір жақтауы толық ашылмай, байланыс антеннасын жауып қалғандықтан үнсіз қалды."
+          ]
+        }
+      },
+      "now_view": {},
+      "image_credit": "NASA/JPL-Caltech/Univ. of Arizona/University of Leicester"
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 26,
+    "fields": {
+      "name": "Mars 3 Lander",
+      "code": "mars-3",
+      "artifact_type": "lander",
+      "body": 2,
+      "latitude": -45.0,
+      "longitude": -158.0,
+      "orbit_parameters": "Ptolemaeus crater floor landing site",
+      "launch_date": "1971-05-28",
+      "landing_date": "1971-12-02",
+      "end_of_mission_date": "1971-12-02",
+      "status": "Resting on the floor of Ptolemaeus crater in southern Mars since December 1971",
+      "brief_description": "The first human spacecraft to achieve a soft touchdown on Mars, transmitting for 20 seconds during a fierce planet-wide dust storm.",
+      "first_person_story": "On December 2, 1971, I dared what no machine had ever accomplished: touching the surface of the Red Planet and surviving. Released from my orbiter, I plunged through the Martian atmosphere at six kilometers per second inside a conical aerodynamic shield.\n\nMars was engulfed in the fiercest global dust storm in modern history. Gale-force winds whipped across Ptolemaeus crater as my braking rockets fired and four landing petals opened in the orange maelstrom. At 13:52 UTC, I touched down safely, becoming the first craft in human history to transmit from the surface of Mars.\n\nMy scanning television camera began transmitting the first line of imagery. But twenty seconds later, the brutal electrostatic discharges of the dust storm or a transmitter failure severed my link forever. The partial frame showing featureless Martian sky was all that arrived, but my golden hull stands as the pioneering footprint of human arrival on Mars.",
+      "key_facts": [
+        "First spacecraft in human history to achieve a soft, survivable landing on the planet Mars.",
+        "Landed amid a titanic global dust storm with hurricane-force winds.",
+        "Carried the experimental Prop-M walking ski robot, the first rover sent to Mars.",
+        "Transmitted telemetry and partial image scan data from the Martian surface for 20 seconds before going silent."
+      ],
+      "fleet_members": [
+        {
+          "mission": "Mars 2 Lander",
+          "landing_site": "Impacted Mars surface",
+          "coordinates": "45.0 S, 313.0 E",
+          "landing_date": "1971-11-27"
+        },
+        {
+          "mission": "Mars 6 Lander",
+          "landing_site": "Marginal touchdown",
+          "coordinates": "23.9 S, 19.4 W",
+          "landing_date": "1974-03-12"
+        }
+      ],
+      "image_url": "https://images-assets.nasa.gov/image/PIA16920/PIA16920~medium.jpg",
+      "model_3d": "",
+      "priority": 2,
+      "translations": {
+        "ru": {
+          "name": "Спускаемый аппарат Марс-3",
+          "status": "Покоится на дне кратера Птолемей с декабря 1971 года",
+          "brief_description": "Первый в истории человечества аппарат, совершивший мягкую посадку на Марс и передавший сигнал с поверхности в разгар пылевой бури.",
+          "first_person_story": "2 декабря 1971 года я совершил то, что до меня не удавалось никому: сел на поверхность Марса и выжил. Планету терзала яростная пылевая буря, когда раскрылись мои парашюты над кратером Птолемей.\n\nЯ стал первым аппаратом в истории, передавшим сигнал с поверхности Марса. Через двадцать секунд радиосвязь оборвалась из-за колоссального статического электричества бури, но мой корпус навсегда остался первой ласточкой человечества на Красной планете.",
+          "key_facts": [
+            "Первая в истории человечества успешная мягкая посадка на поверхность Марса.",
+            "Совершил посадку в условиях сильнейшей глобальной пылевой бури.",
+            "Нес шагающий микроровер ПрОП-М - первый в мире марсоход на лыжном шасси.",
+            "Передавал сигнал с поверхности Марса в течение 20 секунд до потери связи."
+          ]
+        },
+        "kk": {
+          "name": "Марс-3 қону аппараты",
+          "status": "1971 жылдың желтоқсанынан бері Птолемей кратерінің түбінде сақталған",
+          "brief_description": "Адамзат тарихында Марсқа алғаш рет жұмсақ қонған және шаң дауылы кезінде бетінен алғашқы сигнал жіберген тарихи аппарат.",
+          "first_person_story": "1971 жылдың 2 желтоқсанында мен Қызыл ғаламшардың бетіне алғаш рет аман қондым. Марсты алапат шаң дауылы бүркеп тұрғанда, тежегіш қозғалтқышым іске қосылып, Птолемей кратеріне тұмсық тіредім.\n\nМарс бетінен алғаш болып радиосигнал жібердім. Жиырма секундтан кейін шаң дауылының электрлік разрядтары байланысты үзді, бірақ менің корпусым адамзаттың Марстағы тұңғыш ізі болып мәңгілікке қалды.",
+          "key_facts": [
+            "Марс бетіне тарихта тұңғыш рет сәтті жұмсақ қонған ғарыш аппараты.",
+            "Бүкіл ғаламшарды басқан ең жойқын шаң дауылы кезінде қонуды орындады.",
+            "Бортында ПрОП-М шаңғылы микророверін тасымалдады.",
+            "Марс бетінен 20 секунд бойы сигнал таратып, тарихқа енді."
+          ]
+        }
+      },
+      "now_view": {},
+      "image_credit": "NASA/JPL-Caltech/Univ. of Arizona"
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 27,
+    "fields": {
+      "name": "Philae Lander & Rosetta",
+      "code": "philae-rosetta",
+      "artifact_type": "lander",
+      "body": 5,
+      "latitude": null,
+      "longitude": null,
+      "orbit_parameters": "Resting on the nucleus of Comet 67P/Churyumov-Gerasimenko in heliocentric orbit",
+      "launch_date": "2004-03-02",
+      "landing_date": "2014-11-12",
+      "end_of_mission_date": "2016-09-30",
+      "status": "Permanently resting at Abydos and Deir el-Medina on Comet 67P in deep space",
+      "brief_description": "Europe landmark mission that achieved the first orbit of a comet and the first soft landing on a cometary nucleus.",
+      "first_person_story": "After a ten-year chase across six billion kilometers of the Solar System, ESA Rosetta spacecraft arrived at the duck-shaped, dark nucleus of Comet 67P/Churyumov-Gerasimenko. On November 12, 2014, Rosetta released me, the 100-kilogram robotic lander Philae, into the microgravity void.\n\nFalling for seven silent hours, I made history by touching down on a comet nucleus. When my harpoons failed to anchor in the rock-hard ice, I bounced twice in the microgravity, soaring a kilometer high before settling under the shadowy cliff of Abydos. For sixty-four hours on battery power, my drills, cameras, and gas analyzers operated tirelessly, discovering organic molecules in primordial cometary ice.\n\nTwo years later, on September 30, 2016, Rosetta completed her historic mission with a planned soft impact onto the comet pit region of Deir el-Medina. Today, orbiter and lander drift together across the darkness of the outer Solar System, riding aboard a frozen cosmic iceberg.",
+      "key_facts": [
+        "First mission in human history to escort, orbit, and softly touch down upon the nucleus of a comet.",
+        "Philae discovered complex organic carbon compounds, supporting theories that comets seeded prebiotic ingredients on early Earth.",
+        "Operated on battery power for 64 hours after bouncing into a shaded crevice in microgravity.",
+        "Both Rosetta and Philae remain permanently embedded on Comet 67P on its 6.5-year orbit around the Sun."
+      ],
+      "fleet_members": [],
+      "image_url": "https://images-assets.nasa.gov/image/PIA19096/PIA19096~orig.jpg",
+      "model_3d": "",
+      "priority": 2,
+      "translations": {
+        "ru": {
+          "name": "Посадочный модуль Фила и аппарат Розетта",
+          "status": "Покоятся на ядре кометы 67P/Чурюмова-Герасименко на гелиоцентрической орбите",
+          "brief_description": "Флагманская миссия Европы, впервые вышедшая на орбиту кометы и высадившая исследовательский модуль на ее ледяное ядро.",
+          "first_person_story": "После десятилетней погони длиной в шесть миллиардов километров зонд Розетта догнал комету 67P/Чурюмова-Герасименко. 12 ноября 2014 года стокилограммовый посадочный модуль Фила отделился и направился к ядру.\n\nВ условиях микрогравитации гарпуны не сработали, и я совершил два гигантских отскока, застыв в тени ледяного утеса Абидос. За 64 часа работы приборы обнаружили в древнем кометном веществе сложные органические молекулы. В 2016 году Розетта завершила миссию мягким касанием кометы, и мы навечно остались спутниками ледяного странника.",
+          "key_facts": [
+            "Первая в истории посадка на ядро кометы и первое длительное сопровождение кометы на орбите.",
+            "Обнаружил сложные органические молекулы, проливающие свет на происхождение жизни на Земле.",
+            "Проработал 64 часа на аккумуляторах после двух километровых отскоков в микрогравитации.",
+            "Розетта и Фила навечно закреплены на комете 67P, совершающей оборот вокруг Солнца за 6.5 лет."
+          ]
+        },
+        "kk": {
+          "name": "Фила модулі және Розетта аппараты",
+          "status": "67P/Чурюмов-Герасименко кометасының ядросында мәңгілікке қалған",
+          "brief_description": "Еуропаның комета орбитасына шығып, оның мұзды ядросына алғаш рет қонған тарихи ғарыштық миссиясы.",
+          "first_person_story": "Он жылдық ұзақ сапардан кейін Розетта 67P/Чурюмов-Герасименко кометасына жетті. 2014 жылдың 12 қарашасында Фила модулі кометаның бетіне алғаш рет қонды.\n\nМикрогравитацияда екі рет биікке ыршып түсіп, Абидос құзының көлеңкесінде тоқтадым. 64 сағат ішінде көне комета мұзынан күрделі органикалық қосылыстарды таптым. 2016 жылы Розетта да комета бетіне қонып, екеуміз Күн жүйесінің тереңінде үнсіз саяхаттап келеміз.",
+          "key_facts": [
+            "Адамзат тарихында кометаның ядросына сәтті қонған тұңғыш ғарыштық миссия.",
+            "Комета мұзынан өмірдің пайда болуына қажетті күрделі органикалық қосылыстарды анықтады.",
+            "Микрогравитацияда бір шақырымдық секірулерден кейін батереямен 64 сағат үздіксіз жұмыс істеді.",
+            "Розетта мен Фила кометамен бірге 6.5 жылдық күн орбитасында мәңгі сапарда жүр."
+          ]
+        }
+      },
+      "now_view": {},
+      "image_credit": "ESA/Rosetta/Philae/CNES/FD",
+      "model": {
+        "url": "models/rosetta.glb",
+        "credit": "NASA (Rosetta, the orbiter that carried Philae)",
+        "page_url": "https://science.nasa.gov/3d-resources/rosetta/"
+      }
+    }
+  },
+  {
+    "model": "catalog.artifact",
+    "pk": 28,
+    "fields": {
+      "name": "MASCOT Lander & Hayabusa2",
+      "code": "mascot-ryugu",
+      "artifact_type": "lander",
+      "body": 5,
+      "latitude": null,
+      "longitude": null,
+      "orbit_parameters": "Resting on the boulder-covered surface of asteroid 162173 Ryugu",
+      "launch_date": "2014-12-03",
+      "landing_date": "2018-10-03",
+      "end_of_mission_date": "2018-10-04",
+      "status": "Resting permanently on the southern hemisphere of asteroid Ryugu",
+      "brief_description": "Mobile asteroid scout developed by DLR and CNES on JAXA Hayabusa2, operating on asteroid Ryugu for 17 hours.",
+      "first_person_story": "I was a compact ten-kilogram shoebox scout, built through a partnership between the German Aerospace Center (DLR), France CNES, and Japan JAXA aboard the Hayabusa2 mother ship. On October 3, 2018, I separated from the mothership just fifty meters above the diamond-shaped, dark asteroid Ryugu.\n\nFalling in microgravity at the speed of a gentle walk, I bounced several times across jagged boulders before coming to rest. Inside my chassis, an internal eccentric swing arm activated, allowing me to hop and flip upright autonomously on the surface.\n\nOver the course of seventeen intense hours across three asteroid days, my infrared microscope, wide-angle camera, magnetometer, and radiometer examined the carbonaceous surface. I revealed that Ryugu was an extremely porous rubble-pile asteroid with zero measurable magnetic field, before my primary lithium battery was exhausted.",
+      "key_facts": [
+        "International collaboration between JAXA, DLR (Germany), and CNES (France) on the Hayabusa2 mission.",
+        "Weighed just 10 kg and used an internal eccentric swing-arm mechanism to hop and right itself on the surface.",
+        "Confirmed that asteroid Ryugu is a highly porous, pristine rubble pile with no global magnetic field.",
+        "Operated for 17 hours across three asteroid day-night cycles before permanent battery depletion."
+      ],
+      "fleet_members": [
+        {
+          "mission": "MINERVA-II1A (HIBOU)",
+          "landing_site": "Ryugu northern hemisphere",
+          "coordinates": "Asteroid hopping scout",
+          "landing_date": "2018-09-21"
+        },
+        {
+          "mission": "MINERVA-II1B (OWL)",
+          "landing_site": "Ryugu northern hemisphere",
+          "coordinates": "Asteroid hopping scout",
+          "landing_date": "2018-09-21"
+        }
+      ],
+      "image_url": "",
+      "model_3d": "",
+      "priority": 2,
+      "translations": {
+        "ru": {
+          "name": "Астероидный зонд MASCOT",
+          "status": "Навечно покоится на поверхности астероида Рюгу в глубоком космосе",
+          "brief_description": "Мобильный посадочный модуль агентств DLR и CNES на японском зонде Хаябуса-2, исследовавший астероид Рюгу.",
+          "first_person_story": "Я был компактным десятикилограммовым модулем размером с обувную коробку, созданным агентствами DLR и CNES на борту японского аппарата Хаябуса-2. 3 октября 2018 года я отделился в пятидесяти метрах над углеродистым астероидом Рюгу.\n\nВнутренний маховик позволил мне совершать кувырки и прыжки по каменистой поверхности. За 17 часов работы приборы передали детальные данные о пористости и температуре древнейшего первичного вещества Солнечной системы, после чего батарея иссякла.",
+          "key_facts": [
+            "Создан в тесном партнерстве JAXA с космическими агентствами Германии (DLR) и Франции (CNES).",
+            "Использовал внутренний маховик для контролируемых прыжков и переворотов на поверхности.",
+            "Доказал, что астероид Рюгу представляет собой чрезвычайно пористую груду обломков без магнитного поля.",
+            "Проработал 17 часов на одном заряде литиевой батареи, пережив три астероидных дня."
+          ]
+        },
+        "kk": {
+          "name": "MASCOT астероидтық зонды",
+          "status": "Терең ғарыштағы Рюгу астероидының бетінде мәңгілікке қалған",
+          "brief_description": "Жапонияның Хаябуса-2 кемесіндегі DLR және CNES агенттіктерінің Рюгу астероидын зерттеген шағын модулі.",
+          "first_person_story": "Мен салмағы он келілік шағын модуль ретінде DLR, CNES және JAXA ынтымақтастығымен жасалдым. 2018 жылдың 3 қазанында Хаябуса-2 аппаратынан бөлініп, көне Рюгу астероидына қондым.\n\nІшкі механизмім арқылы тастар арасында секіріп жүріп, 17 сағат бойы астероидтың құрылымын, кеуектілігін зерттедім. Батареям таусылған соң, осы көне астероид бетінде тыныштық таптым.",
+          "key_facts": [
+            "JAXA, Германияның DLR және Францияның CNES агенттіктерінің бірлескен халықаралық жобасы.",
+            "Ішкі маятникті механизм көмегімен микрогравитацияда секіріп жүру қабілетіне ие болды.",
+            "Рюгу астероидының магниттік өрісі жоқ, өте кеуекті тас үйіндісі екенін ғылыми дәлелдеді.",
+            "Батереясы таусылғанша 17 сағат бойы үш астероидтық тәулік бойы дерек жинады."
+          ]
+        }
+      },
+      "now_view": {}
     }
   },
   {
@@ -1311,6 +2237,136 @@
       "title": "NASA Science Mission: Kepler Space Telescope",
       "url": "https://science.nasa.gov/mission/kepler/",
       "details": "Discovery of 2,662 confirmed exoplanets, Earth-trailing heliocentric orbit, and decommissioning commands."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 16,
+    "fields": {
+      "artifact": 16,
+      "title": "NASA NSSDCA Lunar Orbiter 1 (1966-073A)",
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1966-073A",
+      "details": "Master catalog record for Lunar Orbiter 1, photographic reconnaissance payload, and controlled far side impact coordinates."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 17,
+    "fields": {
+      "artifact": 17,
+      "title": "NASA NSSDCA LCROSS (2009-031B)",
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2009-031B",
+      "details": "Official NSSDCA archive for LCROSS, Cabeus crater impact coordinates, and volatile spectrometer detections."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 18,
+    "fields": {
+      "artifact": 18,
+      "title": "NASA NSSDCA Mariner 9 (1971-051A)",
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-051A",
+      "details": "Master catalog record for Mariner 9, first Mars orbital insertion, telemetry records, and orbit decay parameters."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 19,
+    "fields": {
+      "artifact": 19,
+      "title": "NASA NSSDCA Mars Global Surveyor (1996-062A)",
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1996-062A",
+      "details": "Official NSSDCA archive for Mars Global Surveyor, aerobraking parameters, Mars Orbiter Camera dataset, and orbit lifespan."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 20,
+    "fields": {
+      "artifact": 20,
+      "title": "ESA Planetary Science Archive: SMART-1",
+      "url": "https://www.cosmos.esa.int/web/psa/smart-1",
+      "details": "Official ESA science archive for SMART-1, ion propulsion telemetry, and Lacus Excellentiae impact coordinates."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 21,
+    "fields": {
+      "artifact": 21,
+      "title": "JAXA DARTS: Kaguya (SELENE)",
+      "url": "https://www.darts.isas.jaxa.jp/planet/project/selene/",
+      "details": "JAXA data archive for Kaguya orbiter, Okina/Ouna sub-satellites, and crater Gill impact telemetry."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 22,
+    "fields": {
+      "artifact": 22,
+      "title": "JAXA SLIM Mission & DARTS Archive",
+      "url": "https://www.isas.jaxa.jp/en/missions/spacecraft/current/slim.html",
+      "details": "Official JAXA record for SLIM precision landing in Shioli crater and LEV-1/LEV-2 deployment logs."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 23,
+    "fields": {
+      "artifact": 23,
+      "title": "NASA NSSDCA: Soviet Missions to the Moon (Luna 9)",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunarussr.html",
+      "details": "NSSDCA overview of Soviet lunar missions, including the Luna 9 soft landing in Oceanus Procellarum in February 1966."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 24,
+    "fields": {
+      "artifact": 24,
+      "title": "NASA NSSDCA: Soviet Missions to the Moon (Luna 17, Lunokhod 1)",
+      "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunarussr.html",
+      "details": "NSSDCA overview of Soviet lunar missions, including Luna 17 and the Lunokhod 1 rover in Mare Imbrium."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 25,
+    "fields": {
+      "artifact": 25,
+      "title": "NASA Photojournal PIA19107: Beagle 2 Lander on Mars, With Panels Deployed",
+      "url": "https://science.nasa.gov/photojournal/beagle-2-lander-on-mars-with-panels-deployed/",
+      "details": "HiRISE images showing Beagle 2 on the surface of Isidis Planitia with its panels partly deployed (2015)."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 26,
+    "fields": {
+      "artifact": 26,
+      "title": "NASA Photojournal PIA16920: Could This Be the Mars Soviet 3 Lander?",
+      "url": "https://science.nasa.gov/photojournal/could-this-be-the-mars-soviet-3-lander/",
+      "details": "HiRISE images of a possible Mars 3 lander, parachute and heat shield in Ptolemaeus crater (2013)."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 27,
+    "fields": {
+      "artifact": 27,
+      "title": "ESA Planetary Science Archive: Rosetta & Philae",
+      "url": "https://www.cosmos.esa.int/web/psa/rosetta",
+      "details": "ESA master archive for Rosetta orbiter and Philae lander on Comet 67P/Churyumov-Gerasimenko."
+    }
+  },
+  {
+    "model": "catalog.source",
+    "pk": 28,
+    "fields": {
+      "artifact": 28,
+      "title": "JAXA DARTS: Hayabusa2 & MASCOT",
+      "url": "https://www.darts.isas.jaxa.jp/planet/project/hayabusa2/",
+      "details": "Official JAXA science data archive for Hayabusa2 and MASCOT lander deployment on asteroid Ryugu."
     }
   }
 ]
