@@ -1035,6 +1035,7 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
 .about-team-name { color: var(--text); font-weight: 600; }
 .about .museum-inner { padding-bottom: 112px; }   /* room for the chat button */
 .about-team-role { color: var(--muted); }
+.about-team-desc { flex-basis: 100%; margin: 2px 0 0; color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
 
 @media (max-width: 600px) {
   .then-now-grid { grid-template-columns: 1fr; }

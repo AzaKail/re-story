@@ -395,3 +395,14 @@ No NASA models exist for the Lunar Roving Vehicle, Surveyor, Sojourner, Phoenix 
   - The message is a canvas texture on a finely divided plane bent onto the sphere, so it lies on the Moon's surface (`lift` is a tiny gap of 0.3% of the radius that keeps it from flickering) and turns with the Moon. `Scene.toggleMoonMessage()` in `static/js/scene.js` shows it, stops the auto spin and turns the camera towards it.
   - Hiding always works with the same keys, even during a camera flight; held-key auto-repeat is ignored, and Shift is remembered for a moment because Windows briefly releases it on numpad keys.
   - The key handler is in `static/js/main.js` (`heldKeys`); it is ignored while typing in a text field.
+
+### 2026-11-15: About Window, Meaning of the Name and Team Roles
+
+#### Summary of Changes
+- New section "Why ReStory" in the About window (`about.name_title`, `about.name`) and in `README.md`: the machines stayed where their missions ended, and the name joins re-story (telling the story anew, in the machine's own voice), restore (bringing it back from oblivion) and history. The challenge section (`about.case`) now holds only the challenge itself.
+- Team roles are described in more detail: each member has a role title (`about.role.*`) and a short description of the work (`about.role.*_desc`, shown as `.about-team-desc` under the name). The same descriptions are in the README Team section.
+  - Azamat Maksutov, team lead, 3D scene and interface: Three.js scene on NASA maps, camera flights, NASA 3D models, museum pages with then and now views, the About window, three languages, phone layout, integration of the team's work.
+  - Dmitry Minin, AIstronaut guide: local language model through Ollama with retrieval from the museum knowledge base (pgvector in PostgreSQL), database setup and admin pages for knowledge documents.
+  - Aijan Amaliya, catalog and museum texts: the 15-object catalog and museum card, facts from NSSDCA and NASA mission pages, stories in three languages, the knowledge base texts for the guide, catalog tests, the planet overview.
+  - Zaur Kavirov, automatic tour: the tour (15 s per object, 5 s at double speed) with its summary plaque, the first version of the plaque and the AIstronaut input redesign.
+- Interface strings: 97 keys per language, identical in English, Russian and Kazakh.

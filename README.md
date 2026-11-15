@@ -10,6 +10,10 @@ NASA Space Apps Challenge 2026 · Challenge: *Abandoned but not Forgotten: Story
 
 Dozens of NASA landers, rovers and science stations are still sitting where their missions ended. ReStory brings them back into the story. Visitors fly to the real landing sites, open each machine's museum page and hear it speak in the first person: why it was built, what it went through and why it fell silent. A "Then and now" view shows the same site today, photographed from orbit, so the heritage is not just remembered but still visible.
 
+## Why ReStory
+
+Every machine here finished its mission and stayed exactly where it stopped: in the lunar dust or under Martian dust storms. Nobody will come back for them, but their stories can be told again. The name joins three ideas: re-story, telling the story anew, in the machine's own voice; restore, bringing it back from oblivion; and history, the decades of exploration these machines carry. Hence our motto: abandoned, but not forgotten.
+
 ## Features
 
 - **3D Moon and Mars** with NASA surface maps (up to 8k), the Earth, the Sun and the other planets in the background.
@@ -100,10 +104,10 @@ Technical change log: [docs/documentation.md](docs/documentation.md).
 
 ## Team
 
-- **Azamat Maksutov:** 3D scene, interface, transitions, languages
-- **Dmitry Minin:** AIstronaut chat guide
-- **Aijan Amaliya:** equipment catalog and museum texts
-- **Zaur Kavirov:** automatic tour
+- **Azamat Maksutov, Team lead, 3D scene and interface.** Built the 3D world in Three.js: the Moon and Mars on NASA maps, smooth camera flights to every object, NASA 3D models that appear on the surface, the museum pages with then and now views and this window. Made the site work in three languages and on phones, and brought the whole team's work together.
+- **Dmitry Minin, AIstronaut guide.** Built the AIstronaut chat guide: a local language model (Ollama) that first finds the right passages in the museum knowledge base (vector search in PostgreSQL) and answers only from them. Set up the database and the admin pages for loading knowledge documents.
+- **Aijan Amaliya, Catalog and museum texts.** Designed the catalog of 15 objects and the museum card, gathered facts from NSSDCA and NASA mission pages and wrote every story in English, Russian and Kazakh. Turned the texts into the knowledge base the guide answers from, wrote the catalog tests and the planet overview shown when nothing is selected.
+- **Zaur Kavirov, Automatic tour.** Made the automatic tour: one button sends the camera from object to object on its own, every 15 seconds or every 5 at double speed, while a plaque gives a short summary of each one. Also designed the first version of that plaque and redesigned the AIstronaut input field.
 
 ## Use of SI tools
 
