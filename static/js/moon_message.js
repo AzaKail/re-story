@@ -3,8 +3,8 @@ import { latLonToVector3 } from './geo.js';
 
 
 export const MOON_MESSAGE = {
-  lines: ['Sanya Is', 'Happy'],   // the two lines
-  latitude: 20,          // 
+  lines: ['Zaur hates', 'awesome, wonderful sous teriyaki'],   // the two lines
+  latitude: 18,          // 
   longitude: 0,          // 
   width: 1.1,            // 
   lift: 0.003,
