@@ -7,14 +7,9 @@
   <meta name="description" content="An interactive 3D museum of NASA equipment left behind on the Moon and Mars.">
   <meta name="theme-color" content="#000000">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}?v={{ asset_version }}">
   <script type="importmap">
-    {
-      "imports": {
-        "three": "{% static 'vendor/three/three.module.min.js' %}",
-        "three/addons/": "{% get_static_prefix %}vendor/three/addons/"
-      }
-    }
+{{ importmap_json|safe }}
   </script>
   <link rel="modulepreload" href="{% static 'vendor/three/three.module.min.js' %}">
 </head>
@@ -51,9 +46,16 @@
           <span data-i18n="panel.title">Objects</span>
           <span class="panel-count mono" data-panel-count>0</span>
         </h2>
-        <button type="button" class="icon-btn panel-toggle" data-panel-toggle aria-expanded="true" aria-controls="panel-list" aria-label="Collapse the list">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+        <div class="panel-actions">
+          <button type="button" class="tour-btn" data-tour-toggle data-tour-state="off" aria-pressed="false" title="Automatic tour" aria-label="Automatic tour">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg>
+            <span class="tour-btn-label" data-i18n="panel.tour_short">Tour</span>
+            <span class="tour-speed-badge mono" data-tour-speed hidden>1x</span>
+          </button>
+          <button type="button" class="icon-btn panel-toggle" data-panel-toggle aria-expanded="true" aria-controls="panel-list" aria-label="Collapse the list">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
       </div>
       <ul id="panel-list" class="panel-list" data-panel-list></ul>
     </aside>
@@ -68,6 +70,48 @@
       <button type="button" class="btn btn-accent" data-focus-more data-i18n="focus.more">Learn more</button>
       <button type="button" class="icon-btn" data-focus-close data-i18n-aria-label="focus.close" aria-label="Close the tour">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <svg id="tour-svg" class="tour-svg" aria-hidden="true">
+      <defs>
+        <filter id="tour-glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2.5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      <circle id="tour-reticle" class="tour-reticle" r="14" cx="0" cy="0" />
+      <circle id="tour-dot" class="tour-dot" r="4" cx="0" cy="0" />
+      <polyline id="tour-line" class="tour-line" points="0,0 0,0" filter="url(#tour-glow)" />
+    </svg>
+
+    <div id="tour-card" class="tour-card" hidden>
+      <div class="tour-card-inner">
+        <div class="tour-card-header">
+          <span class="tour-card-sys mono">REC // <span data-i18n="tour.sys">Mission data</span></span>
+          <span class="tour-card-coords mono" data-tour-coords></span>
+        </div>
+        <div class="tour-card-media" data-tour-media>
+          <img class="tour-card-img" data-tour-img src="" alt="" loading="lazy" draggable="false">
+        </div>
+        <div class="tour-card-body">
+          <span class="tour-card-type mono" data-tour-type></span>
+          <h3 class="tour-card-title" data-tour-title></h3>
+          <p class="tour-card-desc" data-tour-desc></p>
+          <p class="tour-card-model mono" data-tour-model hidden></p>
+          <div class="tour-card-footer">
+            <button type="button" class="btn btn-accent tour-card-btn" data-tour-more>
+              <span data-i18n="focus.more">Learn more</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="icon-btn tour-card-close" data-tour-close aria-label="Close" data-i18n-aria-label="focus.close">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
     </div>
 
@@ -128,6 +172,11 @@
       </section>
 
       <section class="card-section">
+        <h3 class="card-section-title" data-i18n="about.name_title">Why ReStory</h3>
+        <p data-i18n="about.name"></p>
+      </section>
+
+      <section class="card-section">
         <h3 class="card-section-title" data-i18n="about.how_title">How to explore</h3>
         <ol class="about-steps">
           <li data-i18n="about.how1"></li>
@@ -156,6 +205,12 @@
             <a href="https://images.nasa.gov/" target="_blank" rel="noopener">NASA Image and Video Library</a>:
             Apollo, Surveyor, Viking, Mars Pathfinder, Mars Exploration Rovers, Phoenix, InSight, Mars 2020, Dawn, NEAR, Pioneer, Kepler, Cassini, Voyager 2, MESSENGER, Mariner 10
           </dd>
+          <dt data-i18n="about.data.models">3D models</dt>
+          <dd>
+            <a href="https://science.nasa.gov/3d-resources/" target="_blank" rel="noopener">NASA 3D Resources</a>:
+            Apollo Lunar Module, Viking Lander (NASA/Michael D. Carbajal), Mars Exploration Rover (NASA/Ames Research Center),
+            InSight, Ingenuity (NASA/Brian E. Kumanchik)
+          </dd>
           <dt data-i18n="about.data.now">Then and now views</dt>
           <dd>Lunar Reconnaissance Orbiter, Mars Reconnaissance Orbiter (HiRISE), Perseverance</dd>
         </dl>
@@ -165,15 +220,13 @@
       <section class="card-section">
         <h3 class="card-section-title" data-i18n="about.team_title">Team</h3>
         <ul class="about-team">
-          <li><span class="about-team-name">Азамат Максутов</span><span class="about-team-role" data-i18n="about.role.scene"></span></li>
-          <li><span class="about-team-name">Дмитрий Минин</span><span class="about-team-role" data-i18n="about.role.chat"></span></li>
-          <li><span class="about-team-name">Амалия Айджан</span><span class="about-team-role" data-i18n="about.role.catalog"></span></li>
-          <!-- Role to be filled in later: add a text or an about.role.* key in static/js/i18n.js -->
-          <li><span class="about-team-name">Заур Кавиров</span><span class="about-team-role"></span></li>
+          <li><span class="about-team-name" data-i18n="team.azamat">Azamat Maksutov</span><span class="about-team-role" data-i18n="about.role.scene"></span><p class="about-team-desc" data-i18n="about.role.scene_desc"></p></li>
+          <li><span class="about-team-name" data-i18n="team.dmitry">Dmitry Minin</span><span class="about-team-role" data-i18n="about.role.chat"></span><p class="about-team-desc" data-i18n="about.role.chat_desc"></p></li>
+          <li><span class="about-team-name" data-i18n="team.amaliya">Aijan Amaliya</span><span class="about-team-role" data-i18n="about.role.catalog"></span><p class="about-team-desc" data-i18n="about.role.catalog_desc"></p></li>
+          <li><span class="about-team-name" data-i18n="team.zaur">Zaur Kavirov</span><span class="about-team-role" data-i18n="about.role.tour"></span><p class="about-team-desc" data-i18n="about.role.tour_desc"></p></li>
         </ul>
       </section>
     </div>
-    <footer class="site-footer"></footer>
   </main>
 
   <div id="fade" class="fade" aria-hidden="true"></div>
@@ -203,7 +256,7 @@
       document.getElementById('loader').classList.add('done');
     }
   </script>
-  <script type="module" src="{% static 'js/main.js' %}"></script>
+  <script type="module" src="{% static 'js/main.js' %}?v={{ asset_version }}"></script>
   {% include 'ai_assistant/widget.html' %}
 </body>
 </html>

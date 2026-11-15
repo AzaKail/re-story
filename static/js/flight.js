@@ -1,11 +1,14 @@
 import * as THREE from 'three';
 
 const IDENTITY = new THREE.Quaternion();
+const DEFAULT_UP = new THREE.Vector3(0, 1, 0);
 const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 // One animated camera move from the current view to `to` ({ position, target }).
 // Around the same body the camera follows an arc (quaternion slerp), so it never cuts
 // through the sphere. Between bodies it follows a straight line with a gentle lift.
+// The camera's up direction is blended too (to.up, default +Y): next to a 3D model the camera
+// uses the surface normal as up, so orbiting the model feels natural.
 // `done` resolves when the move is finished.
 export class CameraFlight {
   constructor({ camera, controls, to, durationMs }) {
@@ -17,6 +20,8 @@ export class CameraFlight {
     this.fromTarget = controls.target.clone();
     this.toPos = to.position.clone();
     this.toTarget = to.target.clone();
+    this.fromUp = camera.up.clone();
+    this.toUp = (to.up || DEFAULT_UP).clone();
     this.orbit = this.fromTarget.distanceTo(this.toTarget) < 1e-6 ? this.#orbitPath() : null;
     this.lift = this.orbit ? 0 : this.fromPos.distanceTo(this.toPos) * 0.15;
     this.done = new Promise((resolve) => { this.resolve = resolve; });
@@ -28,6 +33,7 @@ export class CameraFlight {
     const k = easeInOutCubic(t);
     if (this.orbit) this.#stepOrbit(k);
     else this.#stepLine(k);
+    this.camera.up.lerpVectors(this.fromUp, this.toUp, k).normalize();
     this.camera.lookAt(this.controls.target);
     if (t < 1) return false;
     this.resolve();

@@ -49,6 +49,8 @@ class Artifact(models.Model):
     translations = models.JSONField(default=dict, blank=True)
     # Present-day view of the site (orbital or rover photo): image_url, page_url, date, instrument, caption{en,ru,kk}
     now_view = models.JSONField(default=dict, blank=True)
+    # NASA 3D model shown when the camera is at the object: url, credit, page_url, optional keep_below (0..1)
+    model = models.JSONField(default=dict, blank=True)
     image_url = models.URLField(max_length=500, blank=True)
     model_3d = models.CharField(max_length=255, blank=True)
     priority = models.IntegerField(default=1)

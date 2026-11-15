@@ -25,6 +25,7 @@ ARTIFACT_DEFAULTS = {
     "fleet_members": [],
     "translations": {},
     "now_view": {},
+    "model": {},
     "image_url": "",
     "model_3d": "",
     "priority": 1,

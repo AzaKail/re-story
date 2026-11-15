@@ -10,12 +10,18 @@ NASA Space Apps Challenge 2026 · Challenge: *Abandoned but not Forgotten: Story
 
 Dozens of NASA landers, rovers and science stations are still sitting where their missions ended. ReStory brings them back into the story. Visitors fly to the real landing sites, open each machine's museum page and hear it speak in the first person: why it was built, what it went through and why it fell silent. A "Then and now" view shows the same site today, photographed from orbit, so the heritage is not just remembered but still visible.
 
+## Why ReStory
+
+Every machine here finished its mission and stayed exactly where it stopped: in the lunar dust or under Martian dust storms. Nobody will come back for them, but their stories can be told again. The name joins three ideas: re-story, telling the story anew, in the machine's own voice; restore, bringing it back from oblivion; and history, the decades of exploration these machines carry. Hence our motto: abandoned, but not forgotten.
+
 ## Features
 
 - **3D Moon and Mars** with NASA surface maps (up to 8k), the Earth, the Sun and the other planets in the background.
+- **NASA 3D models on the surface:** fly to Apollo 11, Viking 1, Spirit, Opportunity, InSight or Ingenuity and the marker turns into the official NASA 3D model that you can orbit and zoom. Models are loaded one at a time, only when needed. Apollo 11 shows only the descent stage, as on the Moon today.
 - **Real landing sites:** 11 objects at their catalogued coordinates, 4 on the Moon (Apollo 11 Eagle, Apollo 12 ALSEP, Apollo 15 Lunar Roving Vehicle, Surveyor 3) and 7 on Mars (Sojourner and Pathfinder, Spirit, Opportunity, Viking 1, Phoenix, InSight, Ingenuity).
 - **Museum pages:** a first-person story, key facts, mission dates and location, sister missions, a NASA photo and links to the NASA sources for every object.
 - **Then and now:** a mission-era photo next to a present-day image of the site from the Lunar Reconnaissance Orbiter, HiRISE on Mars Reconnaissance Orbiter, or the Perseverance rover.
+- **Object cards and automatic tour:** clicking an orange marker or a list item flies to the object and opens a card with its photo, type, coordinates and a short description; the tour visits every object on its own.
 - **AIstronaut guide:** a chat guide that answers questions about the missions using only the museum's NASA-sourced texts.
 - **Three languages:** English, Russian and Kazakh, switchable at any moment.
 - **Works everywhere:** desktop, phone and kiosk screens; image quality adapts to the device; respects reduced-motion settings.
@@ -30,6 +36,7 @@ NASA data is the core of the project:
 
 - **Surface maps:** Moon from the [NASA Scientific Visualization Studio CGI Moon Kit](https://svs.gsfc.nasa.gov/4720) (Lunar Reconnaissance Orbiter), Mars from [NASA Solar System Treks](https://trek.nasa.gov/mars/) (Viking color mosaic), Earth from NASA GIBS (Blue Marble).
 - **Equipment facts, dates and coordinates:** [NASA Space Science Data Coordinated Archive (NSSDCA)](https://nssdc.gsfc.nasa.gov/) and NASA Science mission pages.
+- **3D models:** [NASA 3D Resources](https://science.nasa.gov/3d-resources/) (Apollo Lunar Module, Viking Lander, Mars Exploration Rover, InSight, Ingenuity), authors credited in the app.
 - **Photographs and "Then and now" views:** [NASA Image and Video Library](https://images.nasa.gov/) (Apollo, Viking, Mars Exploration Rovers, Phoenix, InSight, Mars 2020, LRO, HiRISE and more).
 
 Every image and fact with its source and usage terms: [docs/SOURCES.md](docs/SOURCES.md).
@@ -79,7 +86,7 @@ You need Python 3.12+, PostgreSQL and, for the chat guide, [Ollama](https://olla
 | Layer | Technology |
 |---|---|
 | Server | Python, Django 5.2, PostgreSQL |
-| 3D | Three.js r170 (bundled, works offline) |
+| 3D | Three.js r170 with GLTFLoader and Draco decoder (bundled, works offline) |
 | Interface | Django templates, plain CSS and JavaScript modules, no build step |
 | Chat guide | Ollama: Gemma (answers) and nomic-embed-text (search), retrieval over the museum texts |
 
@@ -97,10 +104,10 @@ Technical change log: [docs/documentation.md](docs/documentation.md).
 
 ## Team
 
-- **Azamat Maksutov:** 3D scene, interface, transitions, languages
-- **Dmitry Minin:** AIstronaut chat guide
-- **Amaliya Aidzhan:** equipment catalog and museum texts
-- **Zaur Kavirov**
+- **Azamat Maksutov, Team lead, 3D scene and interface.** Built the 3D world in Three.js: the Moon and Mars on NASA maps, smooth camera flights to every object, NASA 3D models that appear on the surface, the museum pages with then and now views and this window. Made the site work in three languages and on phones, and brought the whole team's work together.
+- **Dmitry Minin, AIstronaut guide.** Built the AIstronaut chat guide: a local language model (Ollama) that first finds the right passages in the museum knowledge base (vector search in PostgreSQL) and answers only from them. Set up the database and the admin pages for loading knowledge documents.
+- **Aijan Amaliya, Catalog and museum texts.** Designed the catalog of 15 objects and the museum card, gathered facts from NSSDCA and NASA mission pages and wrote every story in English, Russian and Kazakh. Turned the texts into the knowledge base the guide answers from, wrote the catalog tests and the planet overview shown when nothing is selected.
+- **Zaur Kavirov, Automatic tour.** Made the automatic tour: one button sends the camera from object to object on its own, every 15 seconds or every 5 at double speed, while a plaque gives a short summary of each one. Also designed the first version of that plaque and redesigned the AIstronaut input field.
 
 ## Use of SI tools
 

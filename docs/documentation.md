@@ -317,3 +317,92 @@ python manage.py load_knowledge          # chat knowledge base
 
 #### Tests
 34 tests pass (`NowViewTests` added).
+
+### 2026-11-15: Merge of `doordom` (tour card, automatic tour), Marker Click, Showcase Keys
+
+#### Summary of Changes
+- Merged `doordom` (Zaur Kavirov): after the camera reaches an object, a draggable card appears next to its marker with a callout line, the NASA photo, type, coordinates, a short description and "Learn more"; an automatic tour (off, 1x every 15 s, 2x every 5 s) is toggled from the objects panel; the selected marker turns cyan when it moves behind the body.
+- **Marker click:** clicking or tapping an orange marker selects that object. Picking uses screen distance (22 px for mouse, 34 px for touch) and only markers on the visible side of the current body; drags are treated as rotation. The cursor becomes a pointer over a marker.
+- **Showcase keys for GIFs:** keys `1` and `2` fly to the Moon or Mars, hide the whole interface and start a slow camera orbit (`OrbitControls.autoRotate`). The same key again, `0` or `Esc` stops it; dragging also stops the orbit. Keys are ignored while typing in the chat.
+- Tour mode switching moved into `setTourMode()`; after returning from the museum the tour resumes only if it is on.
+- i18n: `applyTranslations()` now also handles `data-i18n-title`; new keys `panel.tour`, `tour.sys`, `about.role.tour` in en, ru and kk (81 keys each).
+- Tour card header leaves room for the close button; long coordinates are truncated.
+
+#### Files
+- `static/js/scene.js`: `#initPicking()`, `#markerAt()`, `startShowcase()`, `stopShowcase()`, `onMarkerClick` callback.
+- `static/js/main.js`: `setTourMode()`, `startCinematic()`, `stopCinematic()`, key handling.
+- `static/css/main.css`: `.is-cinematic` hides the interface.
+
+### 2026-11-15: Fresh Static Files in Development, Tour Button Label
+
+#### Summary of Changes
+- **Stale browser cache fixed.** `whitenoise.runserver_nostatic` was added to `INSTALLED_APPS`, so `runserver` serves static files through WhiteNoise. With `DEBUG` on, WhiteNoise sends `Cache-Control: max-age=0`, and browsers re-check JS and CSS on every load. Before, browsers could keep old modules after a `git pull` (for example the old focus bar instead of the tour card).
+- The tour button now has a visible label ("Tour", "Экскурсия"); `panel.tour_short` key in en, ru, kk.
+- Zaur Kavirov's role: "Automatic tour, object cards and chat design" (`about.role.tour`, README).
+- About page: the empty footer and the line under the last team member were removed.
+
+### 2026-11-15: Versioned Assets, Plaque Above the Marker, Tour Button States
+
+#### Summary of Changes
+- **Versioned asset URLs.** New context processor `catalog/context_processors.py` (`assets`) adds `asset_version`, a fingerprint of our JS and CSS files, and `importmap_json`. The stylesheet, the entry script and the chat widget files are linked with `?v=<version>`, and the import map points every module in `static/js/` to its versioned URL, so relative imports between modules are versioned too. A browser can no longer run an old copy of a module after an update.
+- **Plaque above the marker.** The object card (tour card) is now a compact plaque: header with coordinates, a small photo on the left, type, name, a two-line description and "Learn more". It is placed centred right above the marker with a short callout line, or below it when there is no room above. It can still be dragged.
+- **Tour button.** Off: outlined; 1x: orange outline with a pulse; 2x: filled orange. A speed badge shows 1x or 2x, and the tooltip and `aria-label` explain the current mode and what the next click does (`tour.mode.off`, `tour.mode.1x`, `tour.mode.2x` in en, ru, kk; the old `panel.tour` key was removed).
+- **Objects list.** The selected object has an orange bar on the left and an orange name; the keyboard focus ring is drawn inside the item; the selected item scrolls into view (useful during the tour on Mars with 7 objects).
+- Zaur Kavirov's role: "Automatic tour".
+
+### 2026-11-15: NASA 3D Models on the Surface
+
+#### Summary of Changes
+- When the camera reaches an object that has an official NASA 3D model, its orange marker is replaced by the model standing on the surface. The camera looks at it at an angle, uses the surface normal as "up" and orbits the model, so visitors can turn around it and zoom (0.12 to 1.0 body radii). Objects without a model keep the orange marker.
+- Only one model is loaded at a time (`static/js/surface_model.js`, `SurfaceModel`); it is freed (geometry, materials, textures) when the camera leaves. Models are loaded on demand from `static/models/`, never at start-up.
+- Models are enlarged and marked so on the plaque ("3D model: <author>, enlarged"), with the author from the NASA model page.
+- Apollo 11: only the descent stage stayed on the Moon, so the parts of the Lunar Module model above 45% of its height (the ascent stage) are hidden (`keep_below` in the data).
+- Camera moves: to a model the camera first arcs around the body to the object, then descends; between two models it first rises, so it never flies through the ground. Flights blend the camera "up" vector (`flight.js`). Coming back from the museum works the same way.
+- The plaque points at the top of the model and never goes over the top bar; on phones the objects list collapses after a selection.
+
+#### Data
+- New field `Artifact.model` (`url`, `credit`, `page_url`, optional `keep_below`), migration `0006_artifact_model` (adds the field and reloads `data/artifacts.json`), returned by both catalog API endpoints.
+- Models (NASA 3D Resources, https://science.nasa.gov/3d-resources/, mirrored at https://github.com/nasa/NASA-3D-Resources):
+
+| Object | File | Author on the NASA page |
+|---|---|---|
+| Apollo 11 Eagle | `apollo-lunar-module.glb` | NASA/Michael D. Carbajal |
+| Viking 1 | `viking-lander.glb` | NASA/Michael D. Carbajal |
+| Opportunity, Spirit (twin rovers, same design) | `mer-opportunity.glb` | NASA/Ames Research Center |
+| InSight | `insight-lander.glb` (panels deployed) | NASA/Brian E. Kumanchik |
+| Ingenuity | `ingenuity.glb` | NASA/Brian E. Kumanchik |
+
+No NASA models exist for the Lunar Roving Vehicle, Surveyor, Sojourner, Phoenix or ALSEP.
+
+#### Libraries
+- Three.js `GLTFLoader`, `DRACOLoader`, `BufferGeometryUtils` (MIT) in `static/vendor/three/addons/`.
+- Draco decoder (Apache-2.0) in `static/vendor/three/draco/`, needed because most NASA models use Draco mesh compression. Everything is local; no CDN.
+
+### 2026-11-15: Mobile Layout of the Object Plaque
+
+#### Summary of Changes
+- The objects list (`.panel`, z-index 4) is drawn above the object plaque: an open list always has priority.
+- Phones (width 600 px or less): the plaque is pinned to the bottom of the screen above the chat button, with a smaller photo and text; the camera aims slightly below the 3D model so the model sits in the upper half of the screen and stays visible. The plaque also never goes over the collapsed "Objects" button.
+- Desktop behaviour is unchanged: the plaque stands above the model.
+
+### 2026-11-15: Team Names by Language, 3D Model Badge, Hidden Moon Message
+
+#### Summary of Changes
+- Team names in the About window are now translated (`data-i18n="team.*"` in `templates/index.html`, keys `team.azamat`, `team.dmitry`, `team.amaliya`, `team.zaur` in `static/js/i18n.js`). English: Azamat Maksutov, Dmitry Minin, Aijan Amaliya, Zaur Kavirov; Russian and Kazakh use Cyrillic.
+- Objects that have a NASA 3D model show a small yellow "M" next to their name in the objects list (`modelBadge()` in `static/js/panel.js`, `.model-badge` in `static/css/main.css`, tooltip key `panel.has_model`). `describeArtifact` in `static/js/main.js` now returns `hasModel`.
+- Hidden two-line neon message on the Moon: hold Shift and S, then press 9 (top row or numpad). The same combination hides it.
+  - Text, position, size and colour are set in the `MOON_MESSAGE` object at the top of `static/js/moon_message.js` (`lines`, `latitude`, `longitude`, `width`, `lift`, `color`).
+  - The message is a canvas texture on a finely divided plane bent onto the sphere, so it lies on the Moon's surface (`lift` is a tiny gap of 0.3% of the radius that keeps it from flickering) and turns with the Moon. `Scene.toggleMoonMessage()` in `static/js/scene.js` shows it, stops the auto spin and turns the camera towards it.
+  - Hiding always works with the same keys, even during a camera flight; held-key auto-repeat is ignored, and Shift is remembered for a moment because Windows briefly releases it on numpad keys.
+  - The key handler is in `static/js/main.js` (`heldKeys`); it is ignored while typing in a text field.
+
+### 2026-11-15: About Window, Meaning of the Name and Team Roles
+
+#### Summary of Changes
+- New section "Why ReStory" in the About window (`about.name_title`, `about.name`) and in `README.md`: the machines stayed where their missions ended, and the name joins re-story (telling the story anew, in the machine's own voice), restore (bringing it back from oblivion) and history. The challenge section (`about.case`) now holds only the challenge itself.
+- Team roles are described in more detail: each member has a role title (`about.role.*`) and a short description of the work (`about.role.*_desc`, shown as `.about-team-desc` under the name). The same descriptions are in the README Team section.
+  - Azamat Maksutov, team lead, 3D scene and interface: Three.js scene on NASA maps, camera flights, NASA 3D models, museum pages with then and now views, the About window, three languages, phone layout, integration of the team's work.
+  - Dmitry Minin, AIstronaut guide: local language model through Ollama with retrieval from the museum knowledge base (pgvector in PostgreSQL), database setup and admin pages for knowledge documents.
+  - Aijan Amaliya, catalog and museum texts: the 15-object catalog and museum card, facts from NSSDCA and NASA mission pages, stories in three languages, the knowledge base texts for the guide, catalog tests, the planet overview.
+  - Zaur Kavirov, automatic tour: the tour (15 s per object, 5 s at double speed) with its summary plaque, the first version of the plaque and the AIstronaut input redesign.
+- Interface strings: 97 keys per language, identical in English, Russian and Kazakh.

@@ -54,6 +54,7 @@ def api_artifacts(request):
             "translations": a.translations,
             "image_url": a.image_url,
             "model_3d": a.model_3d,
+            "model": a.model,
             "priority": a.priority,
         })
     return JsonResponse({"artifacts": data})
@@ -96,6 +97,7 @@ def api_artifact_detail(request, code):
         "image_url": artifact.image_url,
         "now_view": artifact.now_view,
         "model_3d": artifact.model_3d,
+        "model": artifact.model,
         "priority": artifact.priority,
         "sources": sources,
     }

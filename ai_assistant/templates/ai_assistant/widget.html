@@ -1,6 +1,6 @@
 {% load static i18n %}
 <!-- AIstronaut Chat Widget Markup -->
-<link rel="stylesheet" href="{% static 'ai_assistant/css/widget.css' %}">
+<link rel="stylesheet" href="{% static 'ai_assistant/css/widget.css' %}?v={{ asset_version }}">
 
 <aside id="aistronaut-widget" aria-label="{% trans 'AIstronaut Assistant' %}">
   <!-- Collapsed Floating Button -->
@@ -44,6 +44,7 @@
 
     <div class="aistronaut-messages" role="log" aria-live="polite"></div>
 
+    <!-- OLD_CHAT_INPUT_START (Saved for manual rollback)
     <footer class="aistronaut-footer">
       <form class="aistronaut-form">
         {% csrf_token %}
@@ -61,7 +62,26 @@
         </button>
       </form>
     </footer>
+    OLD_CHAT_INPUT_END -->
+
+    <footer class="aistronaut-footer">
+      <form class="aistronaut-form">
+        {% csrf_token %}
+        <textarea
+          class="aistronaut-input"
+          rows="1"
+          placeholder="{% trans 'Ask about Moon and Mars...' %}"
+          aria-label="{% trans 'Message to AIstronaut' %}"
+          required
+        ></textarea>
+        <button type="submit" class="aistronaut-btn-send" title="{% trans 'Send message' %}" aria-label="{% trans 'Send message' %}">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
+      </form>
+    </footer>
   </div>
 </aside>
 
-<script src="{% static 'ai_assistant/js/widget.js' %}"></script>
+<script src="{% static 'ai_assistant/js/widget.js' %}?v={{ asset_version }}"></script>

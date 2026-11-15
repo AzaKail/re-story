@@ -230,6 +230,86 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
   gap: 8px;
   padding: 4px 4px 4px 16px;
 }
+.panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.tour-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 32px;
+  min-width: 32px;
+  padding: 0 12px 0 8px;
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.tour-btn-label { white-space: nowrap; }
+.tour-btn svg {
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.tour-btn:hover {
+  background: var(--hover);
+  color: var(--text);
+  border-color: var(--accent-line);
+}
+.tour-btn[data-tour-state="1x"],
+.tour-btn[data-tour-state="2x"] {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(252, 163, 17, 0.35);
+  animation: tourPulse 2.4s infinite ease-in-out;
+}
+.tour-btn[data-tour-state="2x"] {
+  background: var(--accent);
+  color: var(--accent-ink);
+  animation: tourPulseFast 1.2s infinite ease-in-out;
+  box-shadow: 0 0 14px rgba(252, 163, 17, 0.6);
+}
+.tour-btn[data-tour-state="2x"] svg,
+.tour-btn[data-tour-state="2x"] .tour-speed-badge { color: var(--accent-ink); }
+.tour-btn[data-tour-state="1x"] .tour-speed-badge,
+.tour-btn[data-tour-state="2x"] .tour-speed-badge {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(20, 33, 61, 0.25);
+}
+@keyframes tourPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(252, 163, 17, 0.25); }
+  50% { box-shadow: 0 0 18px rgba(252, 163, 17, 0.65); }
+}
+@keyframes tourPulseFast {
+  0%, 100% { box-shadow: 0 0 10px rgba(252, 163, 17, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(252, 163, 17, 0.85); }
+}
+.tour-btn[data-tour-state="1x"] svg,
+.tour-btn[data-tour-state="2x"] svg {
+  transform: scale(1.1);
+}
+.tour-speed-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  padding-right: 2px;
+}
+.tour-speed-badge[hidden] {
+  display: none;
+}
+.panel.collapsed .tour-btn {
+  display: none;
+}
 .panel-title {
   display: flex;
   align-items: center;
@@ -279,10 +359,13 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
   transition: background-color 0.2s;
 }
 .panel-item:hover { background: var(--hover); }
+/* Selected object: an orange bar on the left and a soft highlight, nothing sticks out of the panel. */
 .panel-item[aria-current="true"] {
   background: var(--accent-soft);
-  box-shadow: inset 0 0 0 1px var(--accent-line);
+  box-shadow: inset 3px 0 0 var(--accent);
 }
+.panel-item[aria-current="true"] .panel-item-name { color: var(--accent); }
+.panel-item:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .panel-item-name { font-size: 0.95rem; }
 .panel-item-meta {
   display: flex;
@@ -338,6 +421,282 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 0.95rem;
+}
+
+/* ---------- Tour Callout HUD (Sci-Fi Presentation Mode) ---------- */
+.tour-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.tour-svg.active {
+  opacity: 1;
+}
+.tour-reticle {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+  animation: tourReticleSpin 8s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.tour-dot {
+  fill: var(--accent);
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+.tour-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: tourLineDraw 0.45s ease-out forwards;
+}
+@keyframes tourReticleSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes tourLineDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+.tour-card {
+  position: absolute;
+  z-index: 3;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  background: rgba(8, 16, 32, 0.72);
+  border: 1px solid rgba(252, 163, 17, 0.45);
+  border-radius: 4px;
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 0 16px rgba(252, 163, 17, 0.15), inset 0 0 20px rgba(252, 163, 17, 0.05);
+  clip-path: polygon(0 10px, 10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+  overflow: hidden;
+  touch-action: none;
+  cursor: grab;
+  transition: opacity 0.25s ease;
+}
+.tour-card.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.tour-svg.is-backside .tour-reticle,
+.tour-svg.is-backside .tour-line {
+  stroke: #00e5ff;
+}
+.tour-svg.is-backside .tour-dot {
+  fill: #00e5ff;
+  filter: drop-shadow(0 0 6px #00e5ff);
+}
+.tour-card.is-backside {
+  border-color: rgba(0, 229, 255, 0.45);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 229, 255, 0.2), inset 0 0 20px rgba(0, 229, 255, 0.05);
+}
+.tour-card.is-backside .tour-card-header,
+.tour-card.is-backside .tour-card-type,
+.tour-card.is-backside .tour-card-footer {
+  color: #00e5ff;
+}
+.tour-card.is-backside .tour-card-header {
+  background: rgba(0, 229, 255, 0.08);
+  border-bottom-color: rgba(0, 229, 255, 0.2);
+}
+.tour-card.is-backside .tour-card-footer {
+  border-top-color: rgba(0, 229, 255, 0.2);
+}
+.tour-card.animate-in {
+  animation: tourCardEmerge 0.45s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+}
+@keyframes tourCardEmerge {
+  0% {
+    opacity: 0;
+    transform: scale(0.08);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.tour-card[hidden] {
+  display: none;
+}
+/* Compact plaque: header on top, a small photo on the left, the text on the right. */
+.tour-card-inner {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  grid-template-areas: "header header" "media body";
+  text-align: left;
+}
+.tour-card-header { grid-area: header; }
+.tour-card-body { grid-area: body; }
+.tour-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 44px 6px 12px;   /* room for the close button */
+  background: rgba(252, 163, 17, 0.08);
+  border-bottom: 1px solid rgba(252, 163, 17, 0.2);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+.tour-card-sys {
+  font-weight: 600;
+}
+.tour-card-coords {
+  opacity: 0.85;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tour-card-media {
+  grid-area: media;
+  align-self: start;
+  width: 76px;
+  height: 76px;
+  margin: 12px 0 12px 12px;
+  border: 1px solid rgba(252, 163, 17, 0.3);
+  border-radius: 4px;
+  background: #000;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+}
+.tour-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(8, 16, 32, 0.85) 100%);
+  pointer-events: none;
+}
+.tour-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.tour-card:hover .tour-card-img {
+  transform: scale(1.04);
+}
+.tour-card-body {
+  padding: 10px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.tour-card-type {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.tour-card-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+.tour-card-desc {
+  margin: 2px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--text-soft);
+  opacity: 0.85;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.tour-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 6px;
+}
+.tour-card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: none;
+  box-shadow: 0 4px 12px rgba(252, 163, 17, 0.35);
+  transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.tour-card-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(252, 163, 17, 0.55);
+}
+.tour-card-btn:active {
+  transform: translateY(0);
+}
+.tour-card-btn svg {
+  transition: transform 0.15s ease;
+}
+.tour-card-btn:hover svg {
+  transform: translateX(3px);
+}
+.tour-card.is-backside .tour-card-btn {
+  background: #00e5ff;
+  color: #05141e;
+  box-shadow: 0 4px 12px rgba(0, 229, 255, 0.35);
+}
+.tour-card.is-backside .tour-card-btn:hover {
+  background: #33ebff;
+  box-shadow: 0 6px 16px rgba(0, 229, 255, 0.55);
+}
+.tour-card-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(252, 163, 17, 0.3);
+}
+.tour-card-close:hover {
+  background: rgba(252, 163, 17, 0.25);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+@media (max-width: 600px) {
+  .tour-card {
+    width: calc(100vw - 32px);
+    max-width: none;
+  }
 }
 
 /* ---------- Museum (own layer with its own scroll; opened by "Learn more") ---------- */
@@ -672,10 +1031,61 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
 .about-data a { color: var(--accent); text-decoration-color: var(--accent-line); }
 .about-team { margin: 0; padding: 0; list-style: none; }
 .about-team li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding: 10px 0; border-bottom: 1px solid var(--panel-border); }
+.about-team li:last-child { border-bottom: 0; }
 .about-team-name { color: var(--text); font-weight: 600; }
+.about .museum-inner { padding-bottom: 112px; }   /* room for the chat button */
 .about-team-role { color: var(--muted); }
+.about-team-desc { flex-basis: 100%; margin: 2px 0 0; color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
 
 @media (max-width: 600px) {
   .then-now-grid { grid-template-columns: 1fr; }
   .then-now-item .card-image { height: 230px; }
+}
+
+/* ---------- Hidden showcase for GIFs (keys 1 and 2) ----------
+   Only the space scene stays on screen while the camera circles the body. */
+.is-cinematic .topbar,
+.is-cinematic .panel,
+.is-cinematic .caption,
+.is-cinematic .focusbar,
+.is-cinematic .tour-card,
+.is-cinematic .tour-svg,
+.is-cinematic .toast,
+.is-cinematic #aistronaut-widget { display: none !important; }
+.tour-card-media[hidden] { display: none; }
+.tour-card-inner:has(.tour-card-media[hidden]) { grid-template-columns: minmax(0, 1fr); grid-template-areas: "header" "body"; }
+.tour-card-model { margin: 2px 0 0; color: var(--muted); font-size: 0.68rem; letter-spacing: 0.02em; }
+.tour-card-model[hidden] { display: none; }
+
+/* ---------- Objects list above the plaque ----------
+   The list is the main navigation, so it stays on top of the object plaque and its callout line. */
+.panel { z-index: 4; }
+
+/* ---------- Phones: a smaller plaque ---------- */
+@media (max-width: 600px) {
+  .tour-card-inner { grid-template-columns: 68px minmax(0, 1fr); }
+  .tour-card-media { width: 56px; height: 56px; margin: 10px 0 10px 10px; }
+  .tour-card-body { padding: 8px 12px 10px; }
+  .tour-card-title { font-size: 0.92rem; }
+  .tour-card-desc { font-size: 0.78rem; -webkit-line-clamp: 2; }
+  .tour-card-model { font-size: 0.62rem; }
+  .tour-card-btn { padding: 6px 12px; font-size: 0.72rem; }
+  .tour-card-header { font-size: 0.62rem; }
+}
+
+/* Yellow "M" next to objects that have a NASA 3D model */
+.model-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 4px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: 2px;
 }
