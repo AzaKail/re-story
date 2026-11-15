@@ -1,12 +1,10 @@
-// Catalog of every object as a plain page, no 3D. It opens instead of the 3D scene when the
-// browser cannot show WebGL, and with ?view=catalog in the address (for testing and design work).
-// Objects are grouped by where they stayed (Moon, Mars, then the rest); a click opens the museum page.
+// Catalog of every object with 2D rotating planet and world switcher.
+// Clicking an item directs immediately to its "Learn more" museum page.
 
 import { t, getLang } from './i18n.js';
 import { localizeArtifact } from './artifacts.js';
 import { artifactTypeLabel, artifactPlace } from './museum.js';
-
-const BODY_ORDER = ['moon', 'mars', 'ceres', 'eros', 'solar_system'];
+import { CatalogPlanet } from './catalog_planet.js';
 
 function el(tag, className, text) {
   const node = document.createElement(tag);
@@ -16,37 +14,85 @@ function el(tag, className, text) {
 }
 
 export class CatalogView {
-  constructor(root, { onOpen }) {
+  constructor(root, { onOpen, onBodyChange, staticUrl = '/static/' } = {}) {
     this.root = root;
-    this.list = root.querySelector('[data-catalog-list]');
+    this.onOpen = onOpen;
+    this.onBodyChange = onBodyChange;
     this.artifacts = [];
+    this.activeBody = 'moon';
+
+    this.list = root.querySelector('[data-catalog-list]');
+    this.planetName = root.querySelector('[data-catalog-planet-name]');
+    this.planetCount = root.querySelector('[data-catalog-planet-count]');
+    this.canvas = root.querySelector('#catalog-planet-canvas');
+    this.bodyButtons = [...root.querySelectorAll('[data-catalog-body]')];
+
+    if (this.canvas) {
+      try {
+        this.planet = new CatalogPlanet(this.canvas, { staticUrl });
+      } catch (err) {
+        console.error('CatalogPlanet init error:', err);
+      }
+    }
+
     this.list.addEventListener('click', (e) => {
       const item = e.target.closest('[data-open-artifact]');
-      if (item) onOpen(item.dataset.openArtifact);
+      if (item && this.onOpen) this.onOpen(item.dataset.openArtifact);
     });
+
+    for (const btn of this.bodyButtons) {
+      btn.addEventListener('click', () => {
+        this.setBody(btn.dataset.catalogBody);
+        if (this.onBodyChange) this.onBodyChange(btn.dataset.catalogBody);
+      });
+    }
+  }
+
+  setBody(body) {
+    const key = (body || 'moon').toLowerCase();
+    this.activeBody = key;
+    for (const b of this.bodyButtons) {
+      b.setAttribute('aria-pressed', String(b.dataset.catalogBody === key));
+    }
+    if (this.planet) {
+      this.planet.setBody(key);
+    }
+    this.render();
+  }
+
+  startPlanet() {
+    this.planet?.start();
+  }
+
+  stopPlanet() {
+    this.planet?.stop();
   }
 
   render(artifacts) {
-    this.artifacts = artifacts;
-    const bodies = [...new Set([...BODY_ORDER, ...artifacts.map((a) => a.body)])];
-    const groups = bodies
-      .map((body) => [body, artifacts.filter((a) => a.body === body)])
-      .filter(([, items]) => items.length)
-      .map(([body, items]) => this.#group(body, items));
-    this.list.replaceChildren(...groups);
+    if (artifacts) this.artifacts = artifacts;
+    const items = this.artifacts.filter((a) => a.body === this.activeBody);
+
+    if (this.planetName) {
+      this.planetName.textContent = t(`body.${this.activeBody}`);
+    }
+    if (this.planetCount) {
+      this.planetCount.textContent = `${items.length} ${t('panel.title').toLowerCase()}`;
+    }
+
+    const grid = el('ul', 'catalog-grid');
+    for (const artifact of items) {
+      grid.append(this.#item(artifact));
+    }
+
+    this.list.replaceChildren(grid);
   }
 
   refreshLanguage() {
-    this.render(this.artifacts);
-  }
-
-  #group(body, items) {
-    const section = el('section', 'card-section catalog-group');
-    const title = el('h3', 'card-section-title', `${t(`body.${body}`)} · ${items.length}`);
-    const grid = el('ul', 'catalog-grid');
-    for (const artifact of items) grid.append(this.#item(artifact));
-    section.append(title, grid);
-    return section;
+    for (const b of this.bodyButtons) {
+      const key = b.dataset.catalogBody;
+      b.textContent = t(`body.${key}`);
+    }
+    this.render();
   }
 
   #item(artifact) {

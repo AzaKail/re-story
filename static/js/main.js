@@ -77,6 +77,11 @@ function setView(view) {
   dom.experience.inert = view !== '3d';
   document.body.dataset.view = view;
   scene?.setRunning(view === '3d');
+  if (view === 'catalog') {
+    catalogView?.startPlanet();
+  } else {
+    catalogView?.stopPlanet();
+  }
 }
 
 const currentView = () => document.body.dataset.view;
@@ -161,6 +166,8 @@ function selectBody(key, { instant = false } = {}) {
   state.body = key;
   const flight = scene.focus(key, { instant });
   for (const b of dom.bodyButtons) b.setAttribute('aria-pressed', String(b.dataset.body === key));
+  for (const b of document.querySelectorAll('[data-museum-body]')) b.setAttribute('aria-pressed', String(b.dataset.museumBody === key));
+  for (const b of document.querySelectorAll('[data-catalog-body]')) b.setAttribute('aria-pressed', String(b.dataset.catalogBody === key));
   dom.bodyName.textContent = t(`body.${key}`);
   panel.show(artifactsOn(key));
   if (location.hash !== `#${key}`) history.replaceState(null, '', `#${key}`);
@@ -239,7 +246,42 @@ function closeArtifact({ moveCamera = true } = {}) {
 
 async function showInMuseum(code) {
   const detail = await loadArtifactDetail(code);
+  state.body = detail.body;
+  for (const b of document.querySelectorAll('[data-museum-body]')) {
+    b.setAttribute('aria-pressed', String(b.dataset.museumBody === detail.body));
+  }
+  for (const b of dom.bodyButtons) {
+    b.setAttribute('aria-pressed', String(b.dataset.body === detail.body));
+  }
+  for (const b of document.querySelectorAll('[data-catalog-body]')) {
+    b.setAttribute('aria-pressed', String(b.dataset.catalogBody === detail.body));
+  }
   museumView.render(detail, allArtifactsOn(detail.body).filter((a) => a.code !== code));
+}
+
+async function selectMuseumBody(key) {
+  if (state.busy || state.body === key) return;
+  state.body = key;
+  for (const b of document.querySelectorAll('[data-museum-body]')) {
+    b.setAttribute('aria-pressed', String(b.dataset.museumBody === key));
+  }
+  for (const b of dom.bodyButtons) {
+    b.setAttribute('aria-pressed', String(b.dataset.body === key));
+  }
+  for (const b of document.querySelectorAll('[data-catalog-body]')) {
+    b.setAttribute('aria-pressed', String(b.dataset.catalogBody === key));
+  }
+  if (dom.bodyName) dom.bodyName.textContent = t(`body.${key}`);
+  if (currentView() === 'museum') {
+    const list = allArtifactsOn(key);
+    if (list.length) {
+      await switchMuseumArtifact(list[0].code);
+    }
+  } else if (currentView() === 'catalog') {
+    catalogView?.setBody(key);
+  } else if (currentView() === '3d') {
+    selectBody(key);
+  }
 }
 
 // "Learn more": dive into the artifact, fade to black, open its museum page.
@@ -247,15 +289,22 @@ const openMuseum = withBusy(async (code) => {
   clearTimeout(tourTimer);
   const detail = loadArtifactDetail(code);   // usually already prefetched
   try {
-    await Promise.all([scene.diveIntoArtifact(), fadeTo(1, { duration: FADE.out, delay: FADE.outDelay }), detail]);
+    if (currentView() === '3d') {
+      await Promise.all([scene.diveIntoArtifact(), fadeTo(1, { duration: FADE.out, delay: FADE.outDelay }), detail]);
+    } else {
+      await fadeTo(1, { duration: FADE.in });
+      await detail;
+    }
     await showInMuseum(code);
   } catch (err) {
-    // Could not load the page: come back up instead of leaving the visitor in the dark.
-    await scene.surfaceFromDive();
+    if (currentView() === '3d') {
+      await scene.surfaceFromDive();
+    }
     await fadeTo(0, { duration: FADE.in });
     throw err;
   }
   setView('museum');
+  dom.museum.scrollTop = 0;
   dom.museum.querySelector('[data-museum-title]').focus({ preventScroll: true });
   await fadeTo(0, { duration: FADE.in });
 });
@@ -323,6 +372,21 @@ const backToCatalog = withBusy(async () => {
   await fadeTo(0, { duration: FADE.in });
 });
 
+const openCatalog = withBusy(async () => {
+  await fadeTo(1, { duration: FADE.in });
+  setView('catalog');
+  catalogView?.setBody(state.body || 'moon');
+  catalogView?.render(state.artifacts);
+  dom.catalog.scrollTop = 0;
+  await fadeTo(0, { duration: FADE.in });
+});
+
+const backTo3DFromCatalog = withBusy(async () => {
+  await fadeTo(1, { duration: FADE.in });
+  setView('3d');
+  await fadeTo(0, { duration: FADE.in });
+});
+
 // The "back" buttons of the museum and About pages lead to the catalog instead of the 3D scene.
 function pointBackButtonsToCatalog() {
   for (const label of document.querySelectorAll('[data-action="to-3d"] [data-i18n], [data-action="close-about"] [data-i18n]')) {
@@ -339,11 +403,22 @@ async function startCatalogOnly({ noWebgl }) {
   dom.catalog.querySelector('[data-catalog-note]').hidden = !noWebgl;
   pointBackButtonsToCatalog();
   museumView = new MuseumView(dom.museum, { onSelectArtifact: switchMuseumArtifact, onAsk: askAboutArtifact });
-  catalogView = new CatalogView(dom.catalog, { onOpen: openFromCatalog });
+  catalogView = new CatalogView(dom.catalog, {
+    onOpen: openFromCatalog,
+    onBodyChange: (body) => {
+      state.body = body;
+      for (const b of document.querySelectorAll('[data-museum-body]')) b.setAttribute('aria-pressed', String(b.dataset.museumBody === body));
+    },
+    staticUrl: document.body.dataset.static,
+  });
 
-  dom.museum.querySelector('[data-action="to-3d"]').addEventListener('click', backToCatalog);
+  dom.museum.querySelectorAll('[data-action="to-3d"]').forEach((b) => b.addEventListener('click', backToCatalog));
+  dom.museum.querySelectorAll('[data-action="to-catalog"]').forEach((b) => b.addEventListener('click', backToCatalog));
   dom.catalog.querySelector('[data-action="catalog-about"]').addEventListener('click', openAbout);
   dom.about.querySelector('[data-action="close-about"]').addEventListener('click', closeAbout);
+  for (const b of document.querySelectorAll('[data-museum-body]')) {
+    b.addEventListener('click', () => selectMuseumBody(b.dataset.museumBody));
+  }
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
     if (currentView() === 'museum') backToCatalog();
@@ -447,15 +522,33 @@ async function start() {
 
   renderTourButton();
   museumView = new MuseumView(dom.museum, { onSelectArtifact: switchMuseumArtifact, onAsk: askAboutArtifact });
+  catalogView = new CatalogView(dom.catalog, {
+    onOpen: (code) => openMuseum(code),
+    onBodyChange: (body) => {
+      state.body = body;
+      for (const b of dom.bodyButtons) b.setAttribute('aria-pressed', String(b.dataset.body === body));
+      for (const b of document.querySelectorAll('[data-museum-body]')) b.setAttribute('aria-pressed', String(b.dataset.museumBody === body));
+      dom.bodyName.textContent = t(`body.${body}`);
+    },
+    staticUrl: document.body.dataset.static,
+  });
 
   await loadCatalog();
   scene.addArtifacts(state.artifacts);
+  catalogView.render(state.artifacts);
 
   const fromHash = location.hash.slice(1);
   selectBody(FOCUS_ORDER.includes(fromHash) ? fromHash : FOCUS_ORDER[0], { instant: true });
 
   for (const b of dom.bodyButtons) b.addEventListener('click', () => selectBody(b.dataset.body));
-  dom.museum.querySelector('[data-action="to-3d"]').addEventListener('click', backTo3D);
+  for (const b of document.querySelectorAll('[data-museum-body]')) {
+    b.addEventListener('click', () => selectMuseumBody(b.dataset.museumBody));
+  }
+  document.querySelector('[data-action="open-catalog"]')?.addEventListener('click', openCatalog);
+  dom.catalog.querySelector('[data-action="catalog-to-3d"]')?.addEventListener('click', backTo3DFromCatalog);
+  dom.catalog.querySelector('[data-action="catalog-about"]')?.addEventListener('click', openAbout);
+  dom.museum.querySelectorAll('[data-action="to-3d"]').forEach((b) => b.addEventListener('click', backTo3D));
+  dom.museum.querySelectorAll('[data-action="to-catalog"]').forEach((b) => b.addEventListener('click', openCatalog));
   document.querySelector('[data-action="about"]').addEventListener('click', openAbout);
   dom.about.querySelector('[data-action="close-about"]').addEventListener('click', closeAbout);
   const CINEMATIC_KEYS = { 1: 'moon', 2: 'mars' };
@@ -487,6 +580,8 @@ async function start() {
     if (state.cinematic) stopCinematic();
     else if (e.key !== 'Escape') return;
     else if (currentView() === 'about') closeAbout();
+    else if (currentView() === 'catalog') backTo3DFromCatalog();
+    else if (currentView() === 'museum') (state.no3d ? backToCatalog() : backTo3D());
     else if (currentView() === '3d') closeArtifact();
   });
 

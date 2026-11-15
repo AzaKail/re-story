@@ -28,6 +28,10 @@
         <span class="brand-sub" data-i18n="brand.sub">Abandoned but not forgotten</span>
       </button>
       <div class="controls">
+        <button type="button" class="btn btn-ghost topbar-catalog-btn" data-action="open-catalog">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span data-i18n="catalog.back">Catalog</span>
+        </button>
         <nav class="switch" role="group" data-i18n-aria-label="nav.world" aria-label="Choose a world">
           <button type="button" data-body="moon" aria-pressed="true" data-i18n="body.moon">Moon</button>
           <button type="button" data-body="mars" aria-pressed="false" data-i18n="body.mars">Mars</button>
@@ -119,45 +123,107 @@
 
   <!-- ===== Museum: artifact page opened by "Learn more" (separate layer, no 3D) ===== -->
   <!-- Catalog of every object without 3D: opens when the browser has no WebGL, or with ?view=catalog -->
+  <!-- ===== Catalog: 2D rotating planet + artifact list (opens "Learn more" on click) ===== -->
   <main id="catalog" class="museum catalog" hidden aria-labelledby="catalog-title">
-    <div class="museum-inner catalog-inner">
-      <div class="museum-bar">
-        <button type="button" class="btn btn-ghost" data-action="catalog-about">
-          <span data-i18n="nav.about">About ReStory</span>
-        </button>
-        <nav class="switch switch-sm" role="group" data-i18n-aria-label="nav.lang" aria-label="Language">
-          <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
-          <button type="button" data-lang="ru" aria-pressed="false" lang="ru">RU</button>
-          <button type="button" data-lang="kk" aria-pressed="false" lang="kk">KZ</button>
-        </nav>
-      </div>
+    <div class="catalog-page-layout">
+      <!-- 2D Rotating Planet on the Left -->
+      <aside class="catalog-planet-sidebar" aria-hidden="true">
+        <div class="catalog-planet-disc">
+          <canvas id="catalog-planet-canvas" class="catalog-planet-canvas" width="560" height="560"></canvas>
+          <div class="catalog-planet-glow"></div>
+        </div>
+      </aside>
 
-      <p class="museum-kicker" data-i18n="catalog.kicker">Catalog</p>
-      <h2 id="catalog-title" class="museum-title" tabindex="-1"><span class="brand-re">Re</span>Story</h2>
-      <p class="catalog-note" data-catalog-note data-i18n="fallback.nowebgl" hidden></p>
-      <p class="about-lead" data-i18n="catalog.lead"></p>
-      <div data-catalog-list></div>
+      <!-- Main Catalog Area -->
+      <div class="museum-inner catalog-inner">
+        <div class="museum-bar">
+          <div class="museum-bar-left">
+            <button type="button" class="btn btn-ghost" data-action="catalog-to-3d">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span data-i18n="museum.back3d">3D version</span>
+            </button>
+            <button type="button" class="btn btn-ghost" data-action="catalog-about">
+              <span data-i18n="nav.about">About ReStory</span>
+            </button>
+          </div>
+
+          <div class="museum-bar-right">
+            <!-- World switcher on the right: Moon / Mars -->
+            <nav class="switch" role="group" aria-label="Choose a world">
+              <button type="button" data-catalog-body="moon" aria-pressed="true" data-i18n="body.moon">Moon</button>
+              <button type="button" data-catalog-body="mars" aria-pressed="false" data-i18n="body.mars">Mars</button>
+            </nav>
+            <nav class="switch switch-sm" role="group" data-i18n-aria-label="nav.lang" aria-label="Language">
+              <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+              <button type="button" data-lang="ru" aria-pressed="false" lang="ru">RU</button>
+              <button type="button" data-lang="kk" aria-pressed="false" lang="kk">KZ</button>
+            </nav>
+          </div>
+        </div>
+
+        <div class="catalog-header-meta">
+          <p class="museum-kicker" data-i18n="catalog.kicker">Catalog of all objects</p>
+          <h2 id="catalog-title" class="museum-title" tabindex="-1">
+            <span data-catalog-planet-name>Moon</span>
+            <span class="catalog-count-pill mono" data-catalog-planet-count></span>
+          </h2>
+        </div>
+
+        <p class="catalog-note" data-catalog-note data-i18n="fallback.nowebgl" hidden></p>
+        <p class="about-lead" data-i18n="catalog.lead"></p>
+        <div data-catalog-list></div>
+      </div>
     </div>
   </main>
 
   <main id="museum" class="museum" hidden>
     <div class="museum-inner">
       <div class="museum-bar">
-        <button type="button" class="btn btn-ghost" data-action="to-3d">
-          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span data-i18n="museum.back3d">3D version</span>
-        </button>
-        <nav class="switch switch-sm" role="group" data-i18n-aria-label="nav.lang" aria-label="Language">
-          <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
-          <button type="button" data-lang="ru" aria-pressed="false" lang="ru">RU</button>
-          <button type="button" data-lang="kk" aria-pressed="false" lang="kk">KZ</button>
-        </nav>
+        <div class="museum-bar-left">
+          <button type="button" class="btn btn-ghost" data-action="to-3d">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span data-i18n="museum.back3d">3D version</span>
+          </button>
+          <button type="button" class="btn btn-ghost" data-action="to-catalog">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <span data-i18n="catalog.back">Catalog</span>
+          </button>
+        </div>
+        <div class="museum-bar-right">
+          <nav class="switch museum-top-planet-switch" role="group" aria-label="Choose a world">
+            <button type="button" data-museum-body="moon" aria-pressed="true" data-i18n="body.moon">Moon</button>
+            <button type="button" data-museum-body="mars" aria-pressed="false" data-i18n="body.mars">Mars</button>
+          </nav>
+          <nav class="switch switch-sm" role="group" data-i18n-aria-label="nav.lang" aria-label="Language">
+            <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+            <button type="button" data-lang="ru" aria-pressed="false" lang="ru">RU</button>
+            <button type="button" data-lang="kk" aria-pressed="false" lang="kk">KZ</button>
+          </nav>
+        </div>
       </div>
 
       <p class="museum-kicker" data-museum-kicker></p>
       <h2 class="museum-title" data-museum-title tabindex="-1"></h2>
       <div class="museum-content" data-museum-content></div>
     </div>
+
+    <!-- Mobile floating bottom bar for fast planet toggle & catalog navigation -->
+    <aside class="mobile-planet-bar" aria-label="Quick planet switcher">
+      <nav class="switch mobile-planet-switch" role="group" aria-label="Choose a world">
+        <button type="button" data-museum-body="moon" aria-pressed="true">
+          <span class="planet-btn-icon" aria-hidden="true">🌙</span>
+          <span data-i18n="body.moon">Moon</span>
+        </button>
+        <button type="button" data-museum-body="mars" aria-pressed="false">
+          <span class="planet-btn-icon" aria-hidden="true">🔴</span>
+          <span data-i18n="body.mars">Mars</span>
+        </button>
+      </nav>
+      <button type="button" class="btn btn-ghost mobile-catalog-btn" data-action="to-catalog">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span data-i18n="catalog.back">Catalog</span>
+      </button>
+    </aside>
 
     <footer class="site-footer">
       <p class="footer-title" data-i18n="credits.title">Surface maps</p>

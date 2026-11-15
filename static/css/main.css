@@ -1090,8 +1090,115 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
   vertical-align: 2px;
 }
 
-/* ---------- Catalog of every object (page without 3D) ---------- */
-.catalog-inner { max-width: 1040px; }
+/* ---------- Catalog with 2D rotating planet ---------- */
+.catalog-page-layout {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.catalog-planet-sidebar {
+  position: fixed;
+  top: 50%;
+  left: -140px;
+  transform: translateY(-50%);
+  width: 560px;
+  height: 560px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.catalog-planet-disc {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.9), inset -40px 0 60px rgba(0, 0, 0, 0.7);
+}
+
+.catalog-planet-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.catalog-planet-glow {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: inset 0 0 40px rgba(252, 163, 17, 0.15), 0 0 60px rgba(252, 163, 17, 0.08);
+}
+
+.catalog-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin-left: 360px;
+  padding-right: var(--gutter);
+}
+
+.catalog-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.museum-bar-left,
+.museum-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.catalog-header-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 18px 0 12px;
+}
+
+.catalog-header-meta .museum-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 4px 0 0;
+}
+
+.catalog-count-pill {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-line);
+}
+
+.topbar-catalog-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  background: var(--panel);
+  cursor: pointer;
+  transition: background var(--trans-fast), border-color var(--trans-fast), color var(--trans-fast);
+}
+
+.topbar-catalog-btn:hover {
+  background: var(--hover);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .museum-inner .catalog-note {
   padding: 10px 14px;
   border: 1px solid var(--accent-line);
@@ -1102,9 +1209,9 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
 .catalog-group { margin-top: 28px; }
 .catalog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 12px;
-  margin: 0;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  margin: 16px 0 0;
   padding: 0;
   list-style: none;
 }
@@ -1122,16 +1229,147 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
   font: inherit;
   text-align: left;
   cursor: pointer;
-  transition: border-color var(--trans-fast), background var(--trans-fast);
+  transition: border-color var(--trans-fast), background var(--trans-fast), transform var(--trans-fast), box-shadow var(--trans-fast);
 }
-.catalog-item:hover { border-color: var(--accent-line); background: var(--hover); }
+.catalog-item:hover {
+  border-color: var(--accent-line);
+  background: var(--hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
 .catalog-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .catalog-item-image { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; background: #000; }
 .catalog-item-image.is-empty { background: radial-gradient(circle at 30% 35%, rgba(229, 229, 229, 0.16), rgba(20, 33, 61, 0.9) 60%); }
-.catalog-item-text { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px 12px; }
-.catalog-item-name { color: var(--text); font-weight: 600; line-height: 1.3; }
-.catalog-item-meta { color: var(--muted); font-family: var(--mono); font-size: 0.75rem; }
-.museum-inner .catalog-item-brief { margin: 4px 0 0; color: var(--text-soft); font-size: 0.88rem; line-height: 1.5; }
+.catalog-item-text { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px 14px; }
+.catalog-item-name { color: var(--text); font-weight: 600; line-height: 1.3; font-size: 0.95rem; }
+.catalog-item-meta { color: var(--accent); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.museum-inner .catalog-item-brief { margin: 4px 0 0; color: var(--text-soft); font-size: 0.85rem; line-height: 1.45; }
+
+/* Mobile bottom bar for planet switching & fast navigation in museum */
+.mobile-planet-bar {
+  display: none;
+}
+
+.planet-btn-icon {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+@media (max-width: 1024px) {
+  .catalog-planet-sidebar {
+    width: 380px;
+    height: 380px;
+    left: -120px;
+  }
+  .catalog-inner {
+    margin-left: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .catalog-planet-sidebar {
+    position: static;
+    transform: none;
+    width: 240px;
+    height: 240px;
+    margin: 10px auto;
+  }
+  .catalog-inner {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .museum-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .museum-bar-left,
+  .museum-bar-right {
+    justify-content: space-between;
+  }
+
+  /* Hide redundant top planet switcher in mobile museum header */
+  .museum-top-planet-switch {
+    display: none;
+  }
+
+  /* Show sticky bottom bar on mobile */
+  .mobile-planet-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 10px 16px calc(max(10px, env(safe-area-inset-bottom)));
+    background: rgba(10, 15, 29, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.6);
+  }
+
+  .mobile-planet-switch {
+    display: flex;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 3px;
+  }
+
+  .mobile-planet-switch button {
+    min-width: 68px;
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .mobile-planet-switch button[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
+
+  .mobile-catalog-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 38px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+
+  .mobile-catalog-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Leave comfortable room at the bottom of museum view for sticky bar */
+  .museum-inner {
+    padding-bottom: 96px;
+  }
+}
+
 @media (max-width: 600px) {
   .catalog-grid { grid-template-columns: 1fr; }
 }
