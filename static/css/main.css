@@ -1146,4 +1146,24 @@ body:not([data-view="3d"]) .experience { visibility: hidden; }
 .museum-model .card-media-credit a { color: inherit; }
 @media (max-width: 600px) {
   .museum-model-stage { height: 260px; }
+/* ---------- Scrollbars in the site style (objects list, museum, About, catalog) ---------- */
+/* Chrome, Edge, Safari: a thin orange pill on a transparent track, brighter on hover. */
+.panel-list::-webkit-scrollbar,
+.museum::-webkit-scrollbar { width: 8px; }
+.panel-list::-webkit-scrollbar-track,
+.museum::-webkit-scrollbar-track { background: transparent; margin: 6px 0; }
+.panel-list::-webkit-scrollbar-thumb,
+.museum::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: var(--accent-line) padding-box;
+}
+.panel-list::-webkit-scrollbar-thumb:hover,
+.museum::-webkit-scrollbar-thumb:hover { background: var(--accent) padding-box; }
+.panel-list::-webkit-scrollbar-button,
+.museum::-webkit-scrollbar-button { display: none; height: 0; }
+/* Firefox (no ::-webkit-scrollbar): the standard properties. */
+@supports not selector(::-webkit-scrollbar) {
+  .panel-list, .museum { scrollbar-width: thin; scrollbar-color: var(--accent-line) transparent; }
+  .panel-list:hover, .museum:hover { scrollbar-color: var(--accent) transparent; }
 }

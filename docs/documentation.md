@@ -498,3 +498,10 @@ Work happens in the `more_catalog` branch (Aijan Amaliya's catalog expansion, me
 #### Summary of Changes
 - Branch `dev-chat` (Dmitriy Minin, "update mobile chat") merged into `more_catalog`: the chat window follows the phone's on-screen keyboard (`visualViewport` handling in `ai_assistant/static/ai_assistant/js/widget.js`, viewport `interactive-widget=resizes-content` in `templates/index.html` and `templates/base.html`) and new mobile styles in `widget.css`. While merging, the page title stays "ReStory" (the branch still had the old name), the chat files keep the versioned URLs (`asset_version`), and the input keeps its 24 px minimum height from the earlier input redesign.
 - Team descriptions in the About window and README rewritten in a shorter, more formal style that names each person's contribution without listing every detail. The English spelling of the name is now "Dmitriy Minin" (`team.dmitry`); Russian and Kazakh keep "Дмитрий Минин".
+
+### 2026-11-15: Scrollbars in the Site Style
+
+#### Summary of Changes
+- The objects list (`.panel-list`) and the full-page layers that scroll (`.museum`: museum pages, About, catalog) have a styled scrollbar: an 8 px orange pill (`--accent-line`, full `--accent` on hover) on a transparent track, without arrow buttons. Rules are in the "Scrollbars in the site style" block at the end of `static/css/main.css`.
+- Chrome, Edge and Safari use the `::-webkit-scrollbar` rules; Firefox, which does not support them, gets `scrollbar-width: thin` and `scrollbar-color` through `@supports not selector(::-webkit-scrollbar)`. The standard properties are not set for Chrome on purpose: once they are set, Chrome ignores the `::-webkit-scrollbar` styles.
+- The chat widget keeps its own scrollbar styles (`ai_assistant/static/ai_assistant/css/widget.css`).
