@@ -4,6 +4,7 @@ import { BODIES, SUN, BACKDROP_PLANETS } from './bodies.js';
 import { latLonToVector3 } from './geo.js';
 import { CameraFlight } from './flight.js';
 import { SurfaceModel } from './surface_model.js';
+import { createMoonMessage, disposeMoonMessage } from './moon_message.js';
 
 const AUTO_SPIN = 0.04;            // rad/s, slow museum rotation
 const RESUME_AFTER_MS = 20000;     // auto-rotation returns this long after the visitor lets go
@@ -71,6 +72,7 @@ export class MuseumScene {
     this.surfaceModel = new SurfaceModel(staticUrl);
     this.inModelView = false;
     this.diveCode = null;
+    this.moonMessage = null;
 
     this.#initRenderer();
     this.#initWorld();
@@ -235,6 +237,28 @@ export class MuseumScene {
 
   stopShowcase() {
     this.controls.autoRotate = false;
+  }
+
+  // Hidden two-line neon message on the Moon (text and place: static/js/moon_message.js).
+  // Shows it and turns the camera towards it, or hides it. Returns true when it is shown.
+  async toggleMoonMessage() {
+    const moon = this.bodies.moon;
+    if (this.moonMessage) {
+      disposeMoonMessage(this.moonMessage);
+      this.moonMessage = null;
+      this.autoSpin = !this.reducedMotion;
+      return false;
+    }
+    if (this.current !== 'moon') await this.focus('moon');
+    this.moonMessage = createMoonMessage(moon.cfg.radius);
+    moon.mesh.add(this.moonMessage);
+    this.autoSpin = false;
+    clearTimeout(this.resumeTimer);
+    moon.mesh.updateMatrixWorld(true);
+    const dir = this.moonMessage.userData.normal.clone().transformDirection(moon.mesh.matrixWorld);
+    const target = moon.group.position.clone();
+    await this.#fly({ target, position: target.clone().addScaledVector(dir, this.#viewDistance(moon.cfg.radius)) });
+    return true;
   }
 
   // ---------- Setup ----------

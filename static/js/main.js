@@ -63,6 +63,7 @@ const describeArtifact = (artifact) => ({
   name: localizeArtifact(artifact, getLang()).name,
   type: artifactTypeLabel(artifact.artifact_type),
   place: artifactPlace(artifact),
+  hasModel: Boolean(artifact.model?.url),
 });
 
 // Shows one view: '3d', 'museum' or 'about'. Only the visible one is interactive,
@@ -396,9 +397,23 @@ async function start() {
   document.querySelector('[data-action="about"]').addEventListener('click', openAbout);
   dom.about.querySelector('[data-action="close-about"]').addEventListener('click', closeAbout);
   const CINEMATIC_KEYS = { 1: 'moon', 2: 'mars' };
+  const heldKeys = new Set();   // for the hidden Shift + S + 9 combination
+  document.addEventListener('keyup', (e) => heldKeys.delete(e.code));
+  window.addEventListener('blur', () => heldKeys.clear());
   document.addEventListener('keydown', (e) => {
     const typing = e.target.closest?.('input, textarea, [contenteditable="true"]');
     if (typing || e.ctrlKey || e.metaKey || e.altKey) return;
+    heldKeys.add(e.code);
+    // Hidden: hold Shift and S, press 9 -> neon message on the Moon (static/js/moon_message.js).
+    if (e.shiftKey && heldKeys.has('KeyS') && (e.code === 'Digit9' || e.code === 'Numpad9')) {
+      e.preventDefault();
+      if (currentView() !== '3d' || state.busy) return;
+      stopCinematic();
+      closeArtifact({ moveCamera: false });
+      if (state.body !== 'moon') selectBody('moon');
+      scene.toggleMoonMessage();
+      return;
+    }
     if (CINEMATIC_KEYS[e.key]) return startCinematic(CINEMATIC_KEYS[e.key]);
     if (e.key !== 'Escape' && e.key !== '0') return;
     if (state.cinematic) stopCinematic();

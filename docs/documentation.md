@@ -384,3 +384,13 @@ No NASA models exist for the Lunar Roving Vehicle, Surveyor, Sojourner, Phoenix 
 - The objects list (`.panel`, z-index 4) is drawn above the object plaque: an open list always has priority.
 - Phones (width 600 px or less): the plaque is pinned to the bottom of the screen above the chat button, with a smaller photo and text; the camera aims slightly below the 3D model so the model sits in the upper half of the screen and stays visible. The plaque also never goes over the collapsed "Objects" button.
 - Desktop behaviour is unchanged: the plaque stands above the model.
+
+### 2026-11-15: Team Names by Language, 3D Model Badge, Hidden Moon Message
+
+#### Summary of Changes
+- Team names in the About window are now translated (`data-i18n="team.*"` in `templates/index.html`, keys `team.azamat`, `team.dmitry`, `team.amaliya`, `team.zaur` in `static/js/i18n.js`). English: Azamat Maksutov, Dmitry Minin, Aijan Amaliya, Zaur Kavirov; Russian and Kazakh use Cyrillic.
+- Objects that have a NASA 3D model show a small yellow "M" next to their name in the objects list (`modelBadge()` in `static/js/panel.js`, `.model-badge` in `static/css/main.css`, tooltip key `panel.has_model`). `describeArtifact` in `static/js/main.js` now returns `hasModel`.
+- Hidden two-line neon message on the Moon: hold Shift and S, then press 9 (top row or numpad). The same combination hides it.
+  - Text, position, size and colour are set in the `MOON_MESSAGE` object at the top of `static/js/moon_message.js` (`lines`, `latitude`, `longitude`, `width`, `hover`, `color`).
+  - The message is a canvas texture on a plane attached to the Moon, floating above the surface; `Scene.toggleMoonMessage()` in `static/js/scene.js` shows it, stops the auto spin and turns the camera towards it.
+  - The key handler is in `static/js/main.js` (`heldKeys`); it is ignored while typing in a text field.

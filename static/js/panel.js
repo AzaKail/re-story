@@ -1,7 +1,17 @@
 import { t } from './i18n.js';
 
 // Left panel: the list of artifacts on the current body. Can be collapsed.
-// describe(artifact) -> { name, type, place } supplies localized text, so the panel stays data-agnostic.
+// describe(artifact) -> { name, type, place, hasModel } supplies localized text, so the panel stays data-agnostic.
+// Small yellow "M": this object has a NASA 3D model that appears when the camera arrives.
+function modelBadge() {
+  const badge = document.createElement('span');
+  badge.className = 'model-badge';
+  badge.textContent = 'M';
+  badge.title = t('panel.has_model');
+  badge.setAttribute('aria-label', t('panel.has_model'));
+  return badge;
+}
+
 export class ArtifactPanel {
   constructor(root, { onSelect, describe }) {
     this.root = root;
@@ -55,7 +65,7 @@ export class ArtifactPanel {
   }
 
   #renderItem(artifact) {
-    const { name, type, place } = this.describe(artifact);
+    const { name, type, place, hasModel } = this.describe(artifact);
     const li = document.createElement('li');
     const button = document.createElement('button');
     button.type = 'button';
@@ -66,6 +76,7 @@ export class ArtifactPanel {
     const nameEl = document.createElement('span');
     nameEl.className = 'panel-item-name';
     nameEl.textContent = name;
+    if (hasModel) nameEl.append(' ', modelBadge());
 
     const meta = document.createElement('span');
     meta.className = 'panel-item-meta';

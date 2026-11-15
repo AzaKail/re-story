@@ -92,6 +92,11 @@ const STRINGS = {
     'tour.mode.2x': 'Automatic tour: one object every 5 s. Click to stop.',
     'tour.model': '3D model: {credit}, enlarged',
     'about.data.models': '3D models',
+    'team.azamat': 'Azamat Maksutov',
+    'team.dmitry': 'Dmitry Minin',
+    'team.amaliya': 'Aijan Amaliya',
+    'team.zaur': 'Zaur Kavirov',
+    'panel.has_model': 'Has a NASA 3D model',
   },
   ru: {
     'brand.sub': 'Оставлены, но не забыты',
@@ -180,6 +185,11 @@ const STRINGS = {
     'tour.mode.2x': 'Автоэкскурсия: объект каждые 5 с. Нажмите, чтобы выключить.',
     'tour.model': '3D-модель: {credit}, увеличена',
     'about.data.models': '3D-модели',
+    'team.azamat': 'Азамат Максутов',
+    'team.dmitry': 'Дмитрий Минин',
+    'team.amaliya': 'Амалия Айджан',
+    'team.zaur': 'Заур Кавиров',
+    'panel.has_model': 'Есть 3D-модель NASA',
   },
   kk: {
     'brand.sub': 'Тасталған, бірақ ұмытылмаған',
@@ -268,6 +278,11 @@ const STRINGS = {
     'tour.mode.2x': 'Автоэкскурсия: әр 5 секунд сайын бір нысан. Өшіру үшін басыңыз.',
     'tour.model': '3D модель: {credit}, үлкейтілген',
     'about.data.models': '3D модельдер',
+    'team.azamat': 'Азамат Максутов',
+    'team.dmitry': 'Дмитрий Минин',
+    'team.amaliya': 'Амалия Айджан',
+    'team.zaur': 'Заур Кавиров',
+    'panel.has_model': 'NASA 3D моделі бар',
   },
 };
 
