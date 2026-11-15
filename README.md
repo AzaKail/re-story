@@ -18,9 +18,10 @@ Every machine here finished its mission and stayed exactly where it stopped: in 
 
 - **3D Moon and Mars** with NASA surface maps (up to 8k), the Earth, the Sun and the other planets in the background.
 - **NASA 3D models on the surface:** fly to Apollo 11, Viking 1, Spirit, Opportunity, InSight or Ingenuity and the marker turns into the official NASA 3D model that you can orbit and zoom. Models are loaded one at a time, only when needed. Apollo 11 shows only the descent stage, as on the Moon today.
-- **Real landing sites:** 11 objects at their catalogued coordinates, 4 on the Moon (Apollo 11 Eagle, Apollo 12 ALSEP, Apollo 15 Lunar Roving Vehicle, Surveyor 3) and 7 on Mars (Sojourner and Pathfinder, Spirit, Opportunity, Viking 1, Phoenix, InSight, Ingenuity).
+- **Real landing and impact sites:** 28 objects in the catalog; 20 of them stand at their catalogued coordinates: 11 on the Moon (Apollo 11 Eagle, Apollo 12 ALSEP, Apollo 15 Lunar Roving Vehicle, Surveyor 3, Lunar Orbiter 1, LCROSS, SMART-1, Kaguya, SLIM, Luna 9, Lunokhod 1) and 9 on Mars (Sojourner and Pathfinder, Spirit, Opportunity, Viking 1, Phoenix, InSight, Ingenuity, Beagle 2, Mars 3). Orbiters and deep-space probes (Mariner 9, Mars Global Surveyor, Dawn, NEAR Shoemaker, Pioneer 10 and 11, Kepler, Philae, MASCOT) are in the catalog and the museum.
 - **Museum pages:** a first-person story, key facts, mission dates and location, sister missions, a NASA photo and links to the NASA sources for every object.
 - **Then and now:** a mission-era photo next to a present-day image of the site from the Lunar Reconnaissance Orbiter, HiRISE on Mars Reconnaissance Orbiter, or the Perseverance rover.
+- **Catalog without 3D:** browsers without WebGL open a catalog of every object grouped by place, with photos and short descriptions; each item opens its museum page. The same page opens with `?view=catalog`.
 - **Object cards and automatic tour:** clicking an orange marker or a list item flies to the object and opens a card with its photo, type, coordinates and a short description; the tour visits every object on its own.
 - **AIstronaut guide:** a chat guide that answers questions about the missions using only the museum's NASA-sourced texts.
 - **Three languages:** English, Russian and Kazakh, switchable at any moment.
@@ -104,10 +105,10 @@ Technical change log: [docs/documentation.md](docs/documentation.md).
 
 ## Team
 
-- **Azamat Maksutov, Team lead, 3D scene and interface.** Built the 3D world in Three.js: the Moon and Mars on NASA maps, smooth camera flights to every object, NASA 3D models that appear on the surface, the museum pages with then and now views and this window. Made the site work in three languages and on phones, and brought the whole team's work together.
+- **Azamat Maksutov, Team lead, 3D scene and interface.** Built the 3D world in Three.js: the Moon and Mars on NASA maps, smooth camera flights to every object, NASA 3D models that appear on the surface, the museum pages with then and now views, this window and the catalog page for browsers without 3D. Made the site work in three languages and on phones, and brought the whole team's work together.
 - **Dmitry Minin, AIstronaut guide.** Built the AIstronaut chat guide: a local language model (Ollama) that first finds the right passages in the museum knowledge base (vector search in PostgreSQL) and answers only from them. Set up the database and the admin pages for loading knowledge documents.
-- **Aijan Amaliya, Catalog and museum texts.** Designed the catalog of 15 objects and the museum card, gathered facts from NSSDCA and NASA mission pages and wrote every story in English, Russian and Kazakh. Turned the texts into the knowledge base the guide answers from, wrote the catalog tests and the planet overview shown when nothing is selected.
-- **Zaur Kavirov, Automatic tour.** Made the automatic tour: one button sends the camera from object to object on its own, every 15 seconds or every 5 at double speed, while a plaque gives a short summary of each one. Also designed the first version of that plaque and redesigned the AIstronaut input field.
+- **Aijan Amaliya, Catalog and museum texts.** Designed the catalog and the museum card, then expanded it from 15 to 28 objects, adding Soviet, European and Japanese machines left on the Moon, on Mars, on a comet and on an asteroid. Gathered facts from NSSDCA and mission pages and wrote every story in English, Russian and Kazakh. Turned the texts into the knowledge base the guide answers from, wrote the catalog tests and the planet overview shown when nothing is selected.
+- **Zaur Kavirov, Automatic tour and catalog design.** Made the automatic tour: one button sends the camera from object to object on its own, every 15 seconds or every 5 at double speed, while a plaque gives a short summary of each one. Designed the first version of that plaque, redesigned the AIstronaut input field and gave the catalog its new look.
 
 ## Use of SI tools
 

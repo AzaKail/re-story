@@ -1,10 +1,11 @@
 import { MuseumScene, webglAvailable } from './scene.js';
 import { FOCUS_ORDER } from './bodies.js';
-import { loadArtifacts, loadArtifactDetail, localizeArtifact } from './artifacts.js';
+import { loadArtifacts, loadArtifactDetail, localizeArtifact, hasSurfacePosition } from './artifacts.js';
 import { ArtifactPanel } from './panel.js';
 import { FocusBar } from './focusbar.js';
 import { TourCard } from './tour_card.js';
 import { MuseumView, artifactTypeLabel, artifactPlace } from './museum.js';
+import { CatalogView } from './catalog_view.js';
 import { t, getLang, setLang, applyTranslations } from './i18n.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -24,17 +25,20 @@ const dom = {
   toast: document.getElementById('toast'),
   museum: document.getElementById('museum'),
   about: document.getElementById('about'),
+  catalog: document.getElementById('catalog'),
   bodyButtons: [...document.querySelectorAll('[data-body]')],
   langButtons: [...document.querySelectorAll('[data-lang]')],
 };
 
-const state = { body: null, artifact: null, artifacts: [], busy: false, tourMode: 'off', cinematic: null };
+// no3d: the browser cannot show the 3D scene, so the site is the catalog page plus museum pages.
+const state = { body: null, artifact: null, artifacts: [], busy: false, tourMode: 'off', cinematic: null, no3d: false };
 let scene = null;
 let panel = null;
 let focusBar = null;
 let tourCard = null;
 let tourTimer = null;
 let museumView = null;
+let catalogView = null;
 
 // ---------- Helpers ----------
 
@@ -45,11 +49,6 @@ function showToast(message) {
   showToast.timer = setTimeout(() => { dom.toast.hidden = true; }, 6000);
 }
 
-function showFallback() {
-  document.getElementById('fallback').hidden = false;
-  dom.loader.classList.add('done');
-}
-
 // Animates the black curtain; resolves when the animation ends.
 function fadeTo(opacity, { duration, delay = 0 }) {
   const from = getComputedStyle(dom.fade).opacity;
@@ -57,7 +56,10 @@ function fadeTo(opacity, { duration, delay = 0 }) {
 }
 
 const findArtifact = (code) => state.artifacts.find((a) => a.code === code);
-const artifactsOn = (body) => state.artifacts.filter((a) => a.body === body);
+// In 3D only objects with a place on the surface get a marker; orbiters and deep-space probes
+// are in the catalog and on the museum pages.
+const artifactsOn = (body) => state.artifacts.filter((a) => a.body === body && hasSurfacePosition(a));
+const allArtifactsOn = (body) => state.artifacts.filter((a) => a.body === body);
 const artifactName = (code) => localizeArtifact(findArtifact(code), getLang())?.name || code;
 const describeArtifact = (artifact) => ({
   name: localizeArtifact(artifact, getLang()).name,
@@ -66,14 +68,15 @@ const describeArtifact = (artifact) => ({
   hasModel: Boolean(artifact.model?.url),
 });
 
-// Shows one view: '3d', 'museum' or 'about'. Only the visible one is interactive,
+// Shows one view: '3d', 'catalog', 'museum' or 'about'. Only the visible one is interactive,
 // and the 3D scene renders only while it is on screen.
 function setView(view) {
   dom.museum.hidden = view !== 'museum';
   dom.about.hidden = view !== 'about';
+  dom.catalog.hidden = view !== 'catalog';
   dom.experience.inert = view !== '3d';
   document.body.dataset.view = view;
-  scene.setRunning(view === '3d');
+  scene?.setRunning(view === '3d');
 }
 
 const currentView = () => document.body.dataset.view;
@@ -236,7 +239,7 @@ function closeArtifact({ moveCamera = true } = {}) {
 
 async function showInMuseum(code) {
   const detail = await loadArtifactDetail(code);
-  museumView.render(detail, artifactsOn(detail.body).filter((a) => a.code !== code));
+  museumView.render(detail, allArtifactsOn(detail.body).filter((a) => a.code !== code));
 }
 
 // "Learn more": dive into the artifact, fade to black, open its museum page.
@@ -259,7 +262,7 @@ const openMuseum = withBusy(async (code) => {
 
 // Another artifact picked inside the museum: switch the page; the camera will rise next to it later.
 async function switchMuseumArtifact(code) {
-  if (scene.setFocusedArtifact(code)) markSelected(code);
+  if (scene?.setFocusedArtifact(code)) markSelected(code);
   try {
     await showInMuseum(code);
   } catch (err) {
@@ -293,9 +296,65 @@ const openAbout = withBusy(async () => {
 
 const closeAbout = withBusy(async () => {
   await fadeTo(1, { duration: FADE.in });
-  setView('3d');
+  setView(state.no3d ? 'catalog' : '3d');
   await fadeTo(0, { duration: FADE.in });
 });
+
+// ---------- Catalog without 3D ----------
+
+// A catalog item: fade out, open its museum page.
+const openFromCatalog = withBusy(async (code) => {
+  await fadeTo(1, { duration: FADE.in });
+  try {
+    await showInMuseum(code);
+  } catch (err) {
+    await fadeTo(0, { duration: FADE.in });
+    throw err;
+  }
+  setView('museum');
+  dom.museum.scrollTop = 0;
+  dom.museum.querySelector('[data-museum-title]').focus({ preventScroll: true });
+  await fadeTo(0, { duration: FADE.in });
+});
+
+const backToCatalog = withBusy(async () => {
+  await fadeTo(1, { duration: FADE.in });
+  setView('catalog');
+  await fadeTo(0, { duration: FADE.in });
+});
+
+// The "back" buttons of the museum and About pages lead to the catalog instead of the 3D scene.
+function pointBackButtonsToCatalog() {
+  for (const label of document.querySelectorAll('[data-action="to-3d"] [data-i18n], [data-action="close-about"] [data-i18n]')) {
+    label.dataset.i18n = 'catalog.back';
+    label.textContent = t('catalog.back');
+  }
+}
+
+// The whole site without 3D: catalog page -> museum pages, plus About and the chat.
+async function startCatalogOnly({ noWebgl }) {
+  state.no3d = true;
+  document.body.classList.add('is-no3d');
+  dom.experience.hidden = true;
+  dom.catalog.querySelector('[data-catalog-note]').hidden = !noWebgl;
+  pointBackButtonsToCatalog();
+  museumView = new MuseumView(dom.museum, { onSelectArtifact: switchMuseumArtifact, onAsk: askAboutArtifact });
+  catalogView = new CatalogView(dom.catalog, { onOpen: openFromCatalog });
+
+  dom.museum.querySelector('[data-action="to-3d"]').addEventListener('click', backToCatalog);
+  dom.catalog.querySelector('[data-action="catalog-about"]').addEventListener('click', openAbout);
+  dom.about.querySelector('[data-action="close-about"]').addEventListener('click', closeAbout);
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (currentView() === 'museum') backToCatalog();
+    else if (currentView() === 'about') closeAbout();
+  });
+
+  setView('catalog');
+  dom.loader.classList.add('done');
+  await loadCatalog();
+  catalogView.render(state.artifacts);
+}
 
 // "Ask this artifact": open the chat and prefill a question about it (the visitor sends it).
 function askAboutArtifact(detail) {
@@ -326,6 +385,7 @@ function initLanguage() {
     tourCard?.refreshLanguage();
     renderTourButton();
     museumView?.refreshLanguage();
+    catalogView?.refreshLanguage();
   });
 }
 
@@ -340,7 +400,9 @@ async function loadCatalog() {
 
 async function start() {
   initLanguage();
-  if (!webglAvailable()) return showFallback();
+  // No WebGL (or ?view=catalog in the address): go straight to the catalog of every object.
+  const catalogRequested = new URLSearchParams(location.search).get('view') === 'catalog';
+  if (catalogRequested || !webglAvailable()) return startCatalogOnly({ noWebgl: !catalogRequested });
 
   try {
     scene = new MuseumScene(dom.scene, {
@@ -350,7 +412,7 @@ async function start() {
     });
   } catch (err) {
     console.error(err);
-    return showFallback();
+    return startCatalogOnly({ noWebgl: true });
   }
 
   panel = new ArtifactPanel(document.getElementById('panel'), { onSelect: selectArtifact, describe: describeArtifact });
@@ -440,5 +502,7 @@ async function start() {
 
 start().catch((err) => {
   console.error(err);
-  showFallback();   // never leave the visitor on an endless loader
+  // Never leave the visitor on an endless loader: fall back to the catalog page.
+  dom.loader.classList.add('done');
+  if (!state.no3d) startCatalogOnly({ noWebgl: false }).catch(console.error);
 });

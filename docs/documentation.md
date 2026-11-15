@@ -406,3 +406,40 @@ No NASA models exist for the Lunar Roving Vehicle, Surveyor, Sojourner, Phoenix 
   - Aijan Amaliya, catalog and museum texts: the 15-object catalog and museum card, facts from NSSDCA and NASA mission pages, stories in three languages, the knowledge base texts for the guide, catalog tests, the planet overview.
   - Zaur Kavirov, automatic tour: the tour (15 s per object, 5 s at double speed) with its summary plaque, the first version of the plaque and the AIstronaut input redesign.
 - Interface strings: 97 keys per language, identical in English, Russian and Kazakh.
+
+### 2026-11-15: Larger Catalog (more_catalog) and Catalog Page Without 3D
+
+Work happens in the `more_catalog` branch (Aijan Amaliya's catalog expansion, merged with `main`). Zaur Kavirov is redesigning the catalog view on top of it.
+
+#### Larger catalog
+- The catalog grew from 15 to 28 objects (Aijan Amaliya). New: Lunar Orbiter 1, LCROSS, Mariner 9, Mars Global Surveyor, SMART-1 (ESA), Kaguya and SLIM (JAXA), Luna 9, Lunokhod 1 and Mars 3 (USSR), Beagle 2 (UK/ESA), Philae (ESA) and MASCOT (DLR/CNES on JAXA Hayabusa2). Facts and coordinates come from NSSDCA and the agencies' mission pages; texts in English, Russian and Kazakh; the chat knowledge base files in `data/knowledge/` were extended too.
+- Merging `main` restored the NASA 3D model field (`model`) for the six objects that have one; the catalog tests check 28 objects plus the 3D model tests.
+- Photos were checked against the NASA Image and Video Library. Several pointed to unrelated images or did not load, and were replaced with matching NASA images:
+
+| Object | Photo now |
+|---|---|
+| Lunar Orbiter 1 | LRC-1966-B701_P-07825, Earth from the Moon taken by Lunar Orbiter 1 (1966) |
+| LCROSS | ARC-2008-ACD07-0073-412, LCROSS in the Ames clean room |
+| Mars Global Surveyor | PIA17486, artist concept |
+| Lunokhod 1 | PIA12967, Soviet lunar rovers seen by LRO |
+| Mars 3 | PIA16920, possible Mars 3 lander seen by HiRISE |
+| Beagle 2 | PIA19107, Beagle 2 on Mars seen by HiRISE |
+| Philae | PIA19096, Philae on the comet surface |
+
+  Luna 9, Kaguya, SMART-1, SLIM and MASCOT have no matching photo in the NASA library, so they show none (the page hides the photo block) instead of a wrong or broken one. The then-and-now views of Lunar Orbiter 1, LCROSS, Mariner 9 and Mars Global Surveyor showed unrelated images and were removed; six objects keep a then-and-now view.
+- Migration `0007_load_more_catalog` reloads `data/artifacts.json`, so `python manage.py migrate` brings existing databases up to 28 objects.
+
+#### 3D scene
+- Only objects with surface coordinates get a marker and appear in the 3D list and the tour (`artifactsOn` in `static/js/main.js`, using `hasSurfacePosition`): 11 on the Moon and 9 on Mars. Orbiters without a place (Mariner 9, Mars Global Surveyor) and deep-space probes are in the catalog page and on the museum pages (`allArtifactsOn` for the "other objects" list).
+
+#### Catalog page without 3D
+- If the browser cannot show WebGL (or creating the 3D scene fails, or start-up fails), the site opens the catalog of every object instead of the 3D scene. The same page opens with `?view=catalog` in the address, for testing and design work.
+- Markup: `<main id="catalog">` in `templates/index.html`; logic: `static/js/catalog_view.js` (`CatalogView`: groups by body in the order Moon, Mars, Ceres, Eros, deep space; each item shows the photo, name, type, place and short description; a photo that fails to load is replaced by a plain placeholder); styles: "Catalog of every object" block at the end of `static/css/main.css`.
+- In this mode (`state.no3d`, class `is-no3d` on `<body>`) a catalog item opens the museum page; the museum and About "back" buttons say "Catalog" and lead back to it; Esc does the same. The chat and the language switch work as usual.
+- The old "text version will appear here soon" placeholder (`#fallback`, key `fallback.soon`) is removed; `fallback.nowebgl` now explains that the catalog is shown instead. New keys: `catalog.kicker`, `catalog.lead`, `catalog.back` (99 keys per language, identical in English, Russian and Kazakh).
+
+#### Team roles
+- Aijan Amaliya: the description now mentions the expansion from 15 to 28 objects.
+- Zaur Kavirov: role "Automatic tour and catalog design".
+- Azamat Maksutov: the description mentions the catalog page for browsers without 3D.
+- README: Features list updated (28 objects, 20 placed on the surface, catalog without 3D) and the Team section.

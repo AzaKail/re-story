@@ -118,6 +118,28 @@
   </section>
 
   <!-- ===== Museum: artifact page opened by "Learn more" (separate layer, no 3D) ===== -->
+  <!-- Catalog of every object without 3D: opens when the browser has no WebGL, or with ?view=catalog -->
+  <main id="catalog" class="museum catalog" hidden aria-labelledby="catalog-title">
+    <div class="museum-inner catalog-inner">
+      <div class="museum-bar">
+        <button type="button" class="btn btn-ghost" data-action="catalog-about">
+          <span data-i18n="nav.about">About ReStory</span>
+        </button>
+        <nav class="switch switch-sm" role="group" data-i18n-aria-label="nav.lang" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+          <button type="button" data-lang="ru" aria-pressed="false" lang="ru">RU</button>
+          <button type="button" data-lang="kk" aria-pressed="false" lang="kk">KZ</button>
+        </nav>
+      </div>
+
+      <p class="museum-kicker" data-i18n="catalog.kicker">Catalog</p>
+      <h2 id="catalog-title" class="museum-title" tabindex="-1"><span class="brand-re">Re</span>Story</h2>
+      <p class="catalog-note" data-catalog-note data-i18n="fallback.nowebgl" hidden></p>
+      <p class="about-lead" data-i18n="catalog.lead"></p>
+      <div data-catalog-list></div>
+    </div>
+  </main>
+
   <main id="museum" class="museum" hidden>
     <div class="museum-inner">
       <div class="museum-bar">
@@ -234,12 +256,6 @@
   <div id="toast" class="toast" role="status" hidden></div>
 
   <div id="loader" class="loader" aria-hidden="true"><span>ReStory</span></div>
-
-  <div id="fallback" class="fallback" hidden>
-    <h1>ReStory</h1>
-    <p data-i18n="fallback.nowebgl">Your browser cannot show the 3D view (WebGL is unavailable).</p>
-    <p data-i18n="fallback.soon">A text version of the museum will appear here soon.</p>
-  </div>
 
   <noscript>
     <div class="fallback">
