@@ -1,24 +1,23 @@
 import * as THREE from 'three';
 import { latLonToVector3 } from './geo.js';
 
-// ===================== EDIT HERE =====================
-// Hidden two-line neon message on the Moon.
-// Show / hide it: hold Shift and S, then press 9 (top row or numpad).
+
 export const MOON_MESSAGE = {
-  lines: ['HELLO FROM RESTORY', 'NASA SPACE APPS 2026'],   // the two lines
-  latitude: 20,          // where on the Moon, degrees (north is positive)
-  longitude: 0,          // degrees (east is positive)
-  width: 0.9,            // width of the message, in Moon radii
-  hover: 0.12,           // height above the surface, in Moon radii (it floats like a hologram)
-  color: '#1e90ff',      // neon blue glow
+  lines: ['Sanya Is', 'Happy'],   // the two lines
+  latitude: 20,          // 
+  longitude: 0,          // 
+  width: 1.1,            // 
+  lift: 0.003,
+  color: '#3fc8ff',      
 };
 // =====================================================
+
 
 const CANVAS_W = 2048;
 const CANVAS_H = 640;
 const Z_AXIS_FLAT = new THREE.Vector3(0, 1, 0);
 
-// Draws the two lines with a neon glow on a transparent canvas.
+
 function drawMessage({ lines, color }) {
   const canvas = document.createElement('canvas');
   canvas.width = CANVAS_W;
@@ -42,7 +41,7 @@ function drawMessage({ lines, color }) {
       ctx.fillText(text, CANVAS_W / 2, y);
     }
     ctx.shadowBlur = 4;
-    ctx.fillStyle = '#8fe3ff';
+    ctx.fillStyle = '#e8fbff';           
     ctx.fillText(text, CANVAS_W / 2, y);
   });
   return canvas;
@@ -52,21 +51,33 @@ function drawMessage({ lines, color }) {
 export function createMoonMessage(radius, config = MOON_MESSAGE) {
   const texture = new THREE.CanvasTexture(drawMessage(config));
   texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = 8;
   const width = radius * config.width;
-  const mesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(width, width * (CANVAS_H / CANVAS_W)),
-    new THREE.MeshBasicMaterial({
-      map: texture, transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending,
-    }),
-  );
+  // A finely divided plane bent onto the sphere, so the text lies on the Moon's surface.
+  const geometry = new THREE.PlaneGeometry(width, width * (CANVAS_H / CANVAS_W), 96, 32);
   const normal = latLonToVector3(config.latitude, config.longitude, 1).normalize();
   const north = Z_AXIS_FLAT.clone().addScaledVector(normal, -normal.dot(Z_AXIS_FLAT));
   if (north.lengthSq() < 1e-6) north.set(1, 0, 0);
   north.normalize();
   const east = north.clone().cross(normal);
-  mesh.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(east, north, normal));
-  mesh.position.copy(normal).multiplyScalar(radius * (1 + config.hover));
-  mesh.userData.normal = normal;   // local direction, used to turn the camera towards the message
+  const pos = geometry.attributes.position;
+  const point = new THREE.Vector3();
+  const surface = radius * (1 + (config.lift ?? 0.003));
+  for (let i = 0; i < pos.count; i += 1) {
+    point.copy(normal).multiplyScalar(radius)
+      .addScaledVector(east, pos.getX(i))
+      .addScaledVector(north, pos.getY(i))
+      .setLength(surface);
+    pos.setXYZ(i, point.x, point.y, point.z);
+  }
+  pos.needsUpdate = true;
+  geometry.computeBoundingSphere();
+  const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
+    map: texture, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2,
+  }));
+  mesh.renderOrder = 2;
+  mesh.userData.normal = normal;
   return mesh;
 }
 

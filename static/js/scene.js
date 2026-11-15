@@ -249,13 +249,15 @@ export class MuseumScene {
       this.autoSpin = !this.reducedMotion;
       return false;
     }
+    const message = createMoonMessage(moon.cfg.radius);
+    this.moonMessage = message;   // set first, so a second press while flying hides it
+    moon.mesh.add(message);
     if (this.current !== 'moon') await this.focus('moon');
-    this.moonMessage = createMoonMessage(moon.cfg.radius);
-    moon.mesh.add(this.moonMessage);
+    if (this.moonMessage !== message) return false;
     this.autoSpin = false;
     clearTimeout(this.resumeTimer);
     moon.mesh.updateMatrixWorld(true);
-    const dir = this.moonMessage.userData.normal.clone().transformDirection(moon.mesh.matrixWorld);
+    const dir = message.userData.normal.clone().transformDirection(moon.mesh.matrixWorld);
     const target = moon.group.position.clone();
     await this.#fly({ target, position: target.clone().addScaledVector(dir, this.#viewDistance(moon.cfg.radius)) });
     return true;
