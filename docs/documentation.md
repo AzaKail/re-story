@@ -473,3 +473,22 @@ Work happens in the `more_catalog` branch (Aijan Amaliya's catalog expansion, me
 - About window: the data section lists all 11 models with authors, says that each photo shows its author, and links to `docs/SOURCES.md` (keys `about.data.photo_authors`, `about.sources_link`; 104 keys per language).
 - README: NASA data section updated (11 models with authors, photo authors, other agencies' pages).
 - Tests: every photo has an author, the API returns it, every model has an author and a NASA 3D Resources page.
+
+### 2026-11-15: Mobile Keyboard Viewport Adaptation and Chat Input Optimization
+
+#### Summary of Changes
+- Fixed mobile keyboard pushing chat header and messages out of view when focusing the chat input on mobile devices.
+- Synchronized chat card height and top position with `window.visualViewport` on mobile (`<= 600px`), ensuring the header remains anchored at the top and the input remains directly above the virtual keyboard.
+- Added `interactive-widget=resizes-content` to the viewport meta tag in `templates/base.html` and `templates/index.html` to support native keyboard viewport resizing on Chromium-based mobile browsers.
+- Added a full page scroll lock (`body.aistronaut-open`) while the chat widget is active on mobile, preserving the user scroll position upon closing the chat.
+- Prevented automatic input focus on mobile devices after AI streaming finishes, preventing the on-screen keyboard from unexpectedly reopening over generated responses.
+- Removed unwanted vertical scrollbars in `.aistronaut-input` using `overflow-y: hidden !important`, `scrollbar-width: none !important`, and `-webkit-scrollbar` suppression rules.
+- Set 16px font size on mobile for `.aistronaut-input` to prevent iOS Safari auto-zooming and viewport shifting on focus. Set placeholder font size to 12px for compact hint rendering.
+- Added cache-busting query parameter `?v=4` to widget static assets in `ai_assistant/templates/ai_assistant/widget.html`.
+
+#### Files
+- `templates/base.html`: Added `interactive-widget=resizes-content` to viewport meta tag.
+- `templates/index.html`: Added `interactive-widget=resizes-content` to viewport meta tag.
+- `ai_assistant/templates/ai_assistant/widget.html`: Added cache-busting version query `?v=4` to CSS and JS includes; added inline scrollbar suppression styles on textarea.
+- `ai_assistant/static/ai_assistant/css/widget.css`: Top-anchored dynamic viewport variables for `<= 600px`, body scroll lock, 16px mobile input font with 12px placeholder, and scrollbar suppression rules.
+- `ai_assistant/static/ai_assistant/js/widget.js`: Visual Viewport tracking, mobile input focus and blur handlers, scroll lock toggling, and clean input overflow management.
