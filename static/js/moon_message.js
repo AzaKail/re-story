@@ -4,13 +4,12 @@ import { latLonToVector3 } from './geo.js';
 
 export const MOON_MESSAGE = {
   lines: ['Думан:', 'У меня лучшаяя 3d печать', 'в г. Уральск'],
-  latitude: 18,          // 
-  longitude: 0,          // 
-  width: 1.1,            // 
+  latitude: 18,
+  longitude: 0,
+  width: 1.1,
   lift: 0.003,
-  color: '#61c9f1',      
+  color: '#61c9f1',
 };
-// =====================================================
 
 
 const CANVAS_W = 2048;

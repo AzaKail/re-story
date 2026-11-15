@@ -563,3 +563,9 @@ Work happens in the `more_catalog` branch (Aijan Amaliya's catalog expansion, me
 - `static/css/main.css`: Added `overflow-x: hidden` to `.museum`, `min-width: 0` to grid tracks and items, `clamp(1.5rem, 5vw, 3rem)` and word breaking to `.museum-title`, and responsive mobile styles under `@media (max-width: 768px)`.
 - `static/js/main.js`: Updated mobile media query check to `max-width: 768px`.
 - `static/js/museum_sides.js`: Updated phone threshold to `768px` in `getAdaptiveGlobeSize()`.
+
+### 2026-11-15: Repository cleanup before submission
+
+- `README.md` is back to the full description of the 28-object catalog. The merge of `more_catalog` had brought back the older text (11 objects, earlier team roles, the name order "Aijan Amaliya") and dropped the "Catalog without 3D" feature. The header image `docs/screenshots/apollo_lunar_eagle.png` from main is kept. The "Museum pages" feature now mentions the turnable NASA 3D model and the side globes.
+- Removed internal working notes that only the team used during the hackathon: `docs/JOURNAL.md` (stage-by-stage journal in Russian), `docs/PROJECT_STATUS.md` (status snapshot of 14.11) and the twelve screenshots referenced only by the journal (`docs/screenshots/stage-*.png`, unused `readme-moon.jpg`). They stay in the git history. The technical log is this file; sources are in `docs/SOURCES.md`.
+- `static/js/moon_message.js`: removed empty end-of-line comments and a separator line in the settings block. The message text is unchanged.
