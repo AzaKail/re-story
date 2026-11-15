@@ -4,7 +4,7 @@
 
 NASA Space Apps Challenge 2026 · Challenge: *Abandoned but not Forgotten: Storytelling about NASA's Discarded Equipment on the Moon and Mars*
 
-![ReStory: the Apollo 11 Eagle descent stage at its real landing site on the Moon](docs/screenshots/readme-moon.jpg)
+![ReStory: Apollo Lunar Module Descent Stage (Eagle)](docs/screenshots/apollo_lunar_eagle.png)
 
 ## What it is
 
