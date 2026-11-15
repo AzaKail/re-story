@@ -569,3 +569,9 @@ Work happens in the `more_catalog` branch (Aijan Amaliya's catalog expansion, me
 - `README.md` is back to the full description of the 28-object catalog. The merge of `more_catalog` had brought back the older text (11 objects, earlier team roles, the name order "Aijan Amaliya") and dropped the "Catalog without 3D" feature. The header image `docs/screenshots/apollo_lunar_eagle.png` from main is kept. The "Museum pages" feature now mentions the turnable NASA 3D model and the side globes.
 - Removed internal working notes that only the team used during the hackathon: `docs/JOURNAL.md` (stage-by-stage journal in Russian), `docs/PROJECT_STATUS.md` (status snapshot of 14.11) and the twelve screenshots referenced only by the journal (`docs/screenshots/stage-*.png`, unused `readme-moon.jpg`). They stay in the git history. The technical log is this file; sources are in `docs/SOURCES.md`.
 - `static/js/moon_message.js`: removed empty end-of-line comments and a separator line in the settings block. The message text is unchanged.
+
+### 2026-11-15: Hidden Moon message moved to its own branch
+
+- The hidden neon message on the Moon (Shift + S + 9) is no longer part of main. It lives in the `moon-message` branch, exactly as it was (`static/js/moon_message.js`, `toggleMoonMessage()` in `static/js/scene.js`, the key handler in `static/js/main.js`).
+- In main: `static/js/moon_message.js` is removed; `scene.js` no longer imports it and has no `moonMessage` field or `toggleMoonMessage()`; the `keydown` handler in `main.js` keeps only the cinematic keys (1, 2, 0) and Escape, and the `heldKeys` / `shiftPressedAt` tracking is gone. `docs/SOURCES.md` no longer lists the message.
+- The entries above about the Moon message describe the code in the `moon-message` branch.

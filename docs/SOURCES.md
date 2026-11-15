@@ -18,7 +18,7 @@ Usage terms for NASA material: https://www.nasa.gov/nasa-brand-center/images-and
 | Uranus in the background, cropped to the planet edge, 512 px, black made transparent | [PIA18182](https://images.nasa.gov/details/PIA18182) | NASA/JPL-Caltech (Voyager 2) | `static/textures/planets/uranus.png` |
 | Neptune in the background, cropped to the planet edge, 512 px, black made transparent | [PIA01492](https://images.nasa.gov/details/PIA01492) | NASA/JPL (Voyager 2) | `static/textures/planets/neptune.png` |
 
-Generated in code, not taken from any source: the star field (5000 random points), the Sun's glow (canvas gradient), the orange object markers and the hidden Moon message.
+Generated in code, not taken from any source: the star field (5000 random points), the Sun's glow (canvas gradient) and the orange object markers.
 
 ## Objects: facts, photos and 3D models
 

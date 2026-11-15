@@ -502,29 +502,9 @@ async function start() {
   document.querySelector('[data-action="about"]').addEventListener('click', openAbout);
   dom.about.querySelector('[data-action="close-about"]').addEventListener('click', closeAbout);
   const CINEMATIC_KEYS = { 1: 'moon', 2: 'mars' };
-  const heldKeys = new Set();   // for the hidden Shift + S + 9 combination
-  let shiftPressedAt = 0;       // Windows releases Shift for a moment on numpad keys, so remember it
-  document.addEventListener('keyup', (e) => heldKeys.delete(e.code));
-  window.addEventListener('blur', () => heldKeys.clear());
   document.addEventListener('keydown', (e) => {
     const typing = e.target.closest?.('input, textarea, [contenteditable="true"]');
     if (typing || e.ctrlKey || e.metaKey || e.altKey) return;
-    heldKeys.add(e.code);
-    if (e.key === 'Shift') shiftPressedAt = performance.now();
-    const shiftHeld = e.shiftKey || performance.now() - shiftPressedAt < 3000;
-    // Hidden: hold Shift and S, press 9 -> neon message on the Moon, same keys hide it
-    // (text and place: static/js/moon_message.js).
-    if (shiftHeld && heldKeys.has('KeyS') && (e.code === 'Digit9' || e.code === 'Numpad9')) {
-      e.preventDefault();
-      if (e.repeat || currentView() !== '3d') return;
-      if (scene.moonMessage) { scene.toggleMoonMessage(); return; }
-      if (state.busy) return;
-      stopCinematic();
-      closeArtifact({ moveCamera: false });
-      if (state.body !== 'moon') selectBody('moon');
-      scene.toggleMoonMessage();
-      return;
-    }
     if (CINEMATIC_KEYS[e.key]) return startCinematic(CINEMATIC_KEYS[e.key]);
     if (e.key !== 'Escape' && e.key !== '0') return;
     if (state.cinematic) stopCinematic();
