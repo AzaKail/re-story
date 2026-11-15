@@ -8,16 +8,16 @@ class CatalogFilledByMigrationsTests(TestCase):
 
     def test_catalog_present_after_migrate(self):
         self.assertEqual(Body.objects.count(), 5)
-        self.assertEqual(Artifact.objects.count(), 15)
-        self.assertEqual(Artifact.objects.filter(body__code="moon").count(), 4)
-        self.assertEqual(Artifact.objects.filter(body__code="mars").count(), 7)
+        self.assertEqual(Artifact.objects.count(), 28)
+        self.assertEqual(Artifact.objects.filter(body__code="moon").count(), 11)
+        self.assertEqual(Artifact.objects.filter(body__code="mars").count(), 11)
         self.assertTrue(Source.objects.exists())
 
     def test_seed_catalog_is_idempotent(self):
         call_command("seed_catalog")
         call_command("seed_catalog")
-        self.assertEqual(Artifact.objects.count(), 15)
-        self.assertEqual(Source.objects.count(), 15)
+        self.assertEqual(Artifact.objects.count(), 28)
+        self.assertEqual(Source.objects.count(), 28)
 
 
 class CatalogModelsAndApiTests(TestCase):
@@ -137,14 +137,14 @@ class MasterDatasetIntegrityTests(TestCase):
 
     def test_total_artifact_counts(self):
         artifacts = Artifact.objects.all()
-        self.assertEqual(artifacts.count(), 15)
+        self.assertEqual(artifacts.count(), 28)
 
     def test_distribution_by_body(self):
         moon_artifacts = Artifact.objects.filter(body__code="moon")
-        self.assertEqual(moon_artifacts.count(), 4)
+        self.assertEqual(moon_artifacts.count(), 11)
 
         mars_artifacts = Artifact.objects.filter(body__code="mars")
-        self.assertEqual(mars_artifacts.count(), 7)
+        self.assertEqual(mars_artifacts.count(), 11)
 
         ceres_artifacts = Artifact.objects.filter(body__code="ceres")
         self.assertEqual(ceres_artifacts.count(), 1)
@@ -155,9 +155,9 @@ class MasterDatasetIntegrityTests(TestCase):
         self.assertEqual(eros_artifacts.first().code, "near-shoemaker")
 
         deep_space = Artifact.objects.filter(body__code="solar_system")
-        self.assertEqual(deep_space.count(), 2)
+        self.assertEqual(deep_space.count(), 4)
         deep_codes = set(a.code for a in deep_space)
-        self.assertEqual(deep_codes, {"pioneer-10", "kepler"})
+        self.assertEqual(deep_codes, {"pioneer-10", "kepler", "philae-rosetta", "mascot-ryugu"})
 
     def test_flagship_fleet_members(self):
         eagle = Artifact.objects.get(code="apollo-11-lm")
@@ -191,10 +191,11 @@ class MasterDatasetIntegrityTests(TestCase):
     def test_all_artifacts_have_verified_nasa_sources(self):
         for artifact in Artifact.objects.all():
             sources = artifact.sources.all()
-            self.assertGreaterEqual(sources.count(), 1, f"{artifact.code} has no attached NASA sources")
+            self.assertGreaterEqual(sources.count(), 1, f"{artifact.code} has no attached space agency sources")
             for source in sources:
                 self.assertTrue(source.url.startswith("https://"), f"Invalid source URL for {artifact.code}: {source.url}")
-                self.assertIn("nasa.gov", source.url, f"Source for {artifact.code} is not from nasa.gov: {source.url}")
+                valid_domain = any(domain in source.url for domain in ("nasa.gov", "esa.int", "jaxa.jp"))
+                self.assertTrue(valid_domain, f"Source for {artifact.code} is not from an official space agency: {source.url}")
 
     def test_api_real_data_multilingual_endpoints(self):
         # Test Apollo 11
@@ -236,4 +237,4 @@ class NowViewTests(TestCase):
         self.assertEqual(data["now_view"], {})
 
     def test_six_artifacts_have_now_views(self):
-        self.assertEqual(Artifact.objects.exclude(now_view={}).count(), 6)
+        self.assertEqual(Artifact.objects.exclude(now_view={}).count(), 10)
